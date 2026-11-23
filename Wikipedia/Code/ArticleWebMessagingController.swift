@@ -151,17 +151,55 @@ class ArticleWebMessagingController: NSObject {
         updateSetupParameters()
     }
 
+    enum ScrollToAnchorPreparationError: Error, Equatable {
+        /// The page has no element with the anchor as id. A retry can not find it.
+        case anchorNotFound
+        /// The page is still parsing. A retry can find the anchor.
+        case pageIsLoading
+    }
+
+    /// The function body of `prepareForScroll(to:highlight:completion:)`, with `anchor` and
+    /// `highlight` as arguments. The Page Content Service does nothing when the page has no
+    /// element with the anchor as id, so the script checks for the element first. It looks the id
+    /// up as it is and encoded like `HTMLUtilities.encodeUnsafeId` of the Page Content Service.
+    static let prepareForScrollToAnchorScript = """
+        const encodeUnsafeId = (id) => id.replace(/['\\\\%\\n\\r\\u2028\\u2029]/g, (character) => character === "'" ? '%27' : encodeURIComponent(character))
+        const element = document.getElementById(anchor) || document.getElementById(encodeUnsafeId(anchor))
+        if (!element) { return document.readyState === 'loading' ? 'loading' : 'notFound' }
+        pcs.c1.Page.prepareForScrollToAnchor(anchor, { highlight: highlight })
+        return 'found'
+        """
+
+    /// Asks the Page Content Service to send the `scroll_to_anchor` message for the anchor. Fails
+    /// with `ScrollToAnchorPreparationError.anchorNotFound` when the page has no such element.
     func prepareForScroll(to anchor: String, highlight: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let webView = webView else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
-        webView.evaluateJavaScript("pcs.c1.Page.prepareForScrollToAnchor(`\(anchor.sanitizedForJavaScriptTemplateLiterals)`, {highlight: \(highlight ? "true" : "false")})") { (result, error) in
-            if let error = error {
+        let arguments: [String: Any] = ["anchor": anchor, "highlight": highlight]
+        webView.callAsyncJavaScript(Self.prepareForScrollToAnchorScript, arguments: arguments, in: nil, in: .page) { result in
+            let preparationResult = Self.scrollToAnchorPreparationResult(of: result)
+            if case .failure(let error) = preparationResult {
                 DDLogWarn("Error attempting to scroll to anchor: \(anchor) \(error)")
-                completion(.failure(error))
-            } else {
-                completion(.success(()))
+            }
+            completion(preparationResult)
+        }
+    }
+
+    /// Maps the value that `prepareForScrollToAnchorScript` returns to the result of the preparation.
+    static func scrollToAnchorPreparationResult(of result: Result<Any, Error>) -> Result<Void, Error> {
+        switch result {
+        case .failure(let error):
+            return .failure(error)
+        case .success(let value):
+            switch value as? String {
+            case "found":
+                return .success(())
+            case "notFound":
+                return .failure(ScrollToAnchorPreparationError.anchorNotFound)
+            default:
+                return .failure(ScrollToAnchorPreparationError.pageIsLoading)
             }
         }
     }

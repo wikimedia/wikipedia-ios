@@ -1327,6 +1327,7 @@
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-field-placeholder-text" = "Search field placeholder text";
+"search-interleaved-results-lead-section" = "Names the lead section of an article, the text before its first heading, on a search result that shows the start of the article. Shown with an arrow icon, where a result from a later section shows that section's title.";
 "search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "search-recent-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "search-recent-clear-delete-all" = "Button text for confirming delete all action {{Identical|Delete all}}";
@@ -1367,7 +1368,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "Accessibility label of the thumbs down button in the feedback on the search. Answers the question whether the reader found what they were looking for.";
 "semantic-search-feedback-thumbs-up-accessibility" = "Accessibility label of the thumbs up button in the feedback on the search. Answers the question whether the reader found what they were looking for.";
 "semantic-search-feedback-title" = "Title of the card that asks for feedback on the search, shown in an article opened from a passage found by the search.";
-"semantic-search-passage-not-found" = "Message shown after opening an article from a passage found by the search, when the passage is not in the article anymore.";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
 "serbian-variants-alert-title" = "Title of alert used to inform users about Serbian variant support.";
 "settings-account" = "Title for button and page letting user view their account page.";

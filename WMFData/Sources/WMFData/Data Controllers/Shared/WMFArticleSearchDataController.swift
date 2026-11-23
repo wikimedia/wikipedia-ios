@@ -77,7 +77,8 @@ public actor WMFArticleSearchDataController {
     ///   - limit: The maximum number of results.
     ///   - fullText: `true` runs a full text search. `false` runs a title prefix search.
     ///   - thumbnailWidth: The width of the thumbnail images in the result.
-    public func searchPages(term: String, project: WMFProject, namespace: Int = 0, limit: Int, fullText: Bool, thumbnailWidth: Int = ImageUtils.listThumbnailWidth()) async throws -> WMFArticleSearchResponse {
+    ///   - includesExtracts: Asks for the plain text of each page's lead section. The extracts make the request slower, so only a caller that shows them passes true. Otherwise each result has a nil `extract`.
+    public func searchPages(term: String, project: WMFProject, namespace: Int = 0, limit: Int, fullText: Bool, thumbnailWidth: Int = ImageUtils.listThumbnailWidth(), includesExtracts: Bool = false) async throws -> WMFArticleSearchResponse {
         switch project {
         case .wikipedia, .commons:
             break
@@ -108,6 +109,14 @@ public actor WMFArticleSearchDataController {
             "errorformat": "html",
             "errorsuselocal": "1"
         ]
+
+        if includesExtracts {
+            parameters["prop"] = properties + "|extracts"
+            parameters["exintro"] = "1"
+            parameters["explaintext"] = ""
+            parameters["exlimit"] = String(min(limit, Self.maxExtractLimit))
+            parameters["exchars"] = String(Self.pageSearchExtractCharacters)
+        }
 
         if fullText {
             parameters["generator"] = "search"
@@ -232,6 +241,13 @@ public actor WMFArticleSearchDataController {
 
     /// The name of the CirrusSearch header that carries the id of the request.
     static let searchIDHeader = "x-search-id"
+
+    /// The most characters of the lead section a page search result carries. The card shows 8 lines, about as
+    /// much as this holds in Latin text. A longer lead makes the response much bigger.
+    private static let pageSearchExtractCharacters = 450
+
+    /// The most pages the API gives an extract for in one request.
+    private static let maxExtractLimit = 20
 
     private func performQuery(project: WMFProject, parameters: [String: Any]) async throws -> WMFServiceResponse<WMFArticleSearchAPIResponse> {
         guard let service = basicService else {

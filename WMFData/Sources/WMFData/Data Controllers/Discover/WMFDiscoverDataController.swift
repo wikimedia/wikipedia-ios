@@ -47,22 +47,38 @@ public final class WMFDiscoverDataController: Sendable {
         return developerSettingsDataController.loadFeatureConfig()?.ios.discoverExperimentEnabled ?? false
     }
 
-    /// True when the Saved tab shows the onboarding announcement card and its badge: the feature
-    /// is on, the reader is in group B, the card has not gone away yet and the reader has not
-    /// turned Discover on by another route.
+    /// True when the reader can see any part of Discover: the feature is on and the reader is in
+    /// group B. The control group sees no card, no list, no badge and no Settings row. The
+    /// experiment compares them with no list. A reader without a group sees nothing yet.
+    public var isAvailableToReader: Bool {
+        isEnabled && experimentAssignment == .groupB
+    }
+
+    /// True when a reader in the control group has Discover turned on. Before the group gate, the
+    /// Settings row let them turn it on. The app turns Discover off for them when it becomes active,
+    /// so the Saved events do not report a list the reader cannot see. A reader without a group
+    /// keeps their settings until the bucket is known.
+    public var hasListTurnedOnInControlGroup: Bool {
+        isEnabled && experimentAssignment == .control && isListTurnedOn
+    }
+
+    /// True when the Saved tab shows the onboarding announcement card and its badge: Discover is
+    /// available to the reader, the card has not gone away yet and the reader has not turned
+    /// Discover on by another route.
     public var shouldShowAnnouncement: Bool {
-        guard isEnabled, experimentAssignment == .groupB, !isListTurnedOn else {
+        guard isAvailableToReader, !isListTurnedOn else {
             return false
         }
 
         return !hasDismissedAnnouncement
     }
 
-    /// True when the Saved tab badge announces a Discover list the reader has not opened yet: the
-    /// feature is on, the reader turned Discover on and a list was generated since their last visit.
-    /// A synchronous view of `WMFDiscoverReadingListDataController.hasUnseenList` for the badge.
+    /// True when the Saved tab badge announces a Discover list the reader has not opened yet:
+    /// Discover is available to the reader, the reader turned Discover on and a list was generated
+    /// since their last visit. A synchronous view of
+    /// `WMFDiscoverReadingListDataController.hasUnseenList` for the badge.
     public var shouldShowUnseenListBadge: Bool {
-        guard isEnabled, isListTurnedOn else {
+        guard isAvailableToReader, isListTurnedOn else {
             return false
         }
 

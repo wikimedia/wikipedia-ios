@@ -28,7 +28,8 @@ extension WMFSemanticSearchDataController {
 
     // MARK: - Results
 
-    public func fetchResults(query: String, project: WMFProject) async throws -> WMFSemanticSearchResults {
+    /// - Parameter includesDescriptions: Asks for the short description of each article, for the rows that show it. Otherwise each result has a nil `description`.
+    public func fetchResults(query: String, project: WMFProject, limit: Int = WMFSemanticSearchDataController.resultsLimit, includesDescriptions: Bool = false) async throws -> WMFSemanticSearchResults {
         guard let basicService else {
             throw WMFDataControllerError.basicServiceUnavailable
         }
@@ -37,7 +38,7 @@ extension WMFSemanticSearchDataController {
             throw WMFDataControllerError.failureCreatingRequestURL
         }
 
-        let parameters: [String: Any] = [
+        var parameters: [String: Any] = [
             "action": "query",
             "format": "json",
             "formatversion": "2",
@@ -45,7 +46,7 @@ extension WMFSemanticSearchDataController {
             "gsrsearch": query,
             "gsrwhat": "text",
             "gsrnamespace": "0",
-            "gsrlimit": String(Self.resultsLimit),
+            "gsrlimit": String(limit),
             "gsrprop": "snippet|sectiontitle|redirecttitle",
             "cirrusSemanticSearch": "hl",
             "prop": "pageimages",
@@ -53,6 +54,10 @@ extension WMFSemanticSearchDataController {
             "errorformat": "html",
             "errorsuselocal": "1"
         ]
+
+        if includesDescriptions {
+            parameters["prop"] = "pageimages|description"
+        }
 
         let request = WMFBasicServiceRequest(
             url: url,
@@ -78,7 +83,8 @@ extension WMFSemanticSearchDataController {
                 snippetHTML: page.snippet ?? "",
                 sectionTitle: page.sectiontitle,
                 redirectTitle: page.redirecttitle,
-                thumbnailURL: page.thumbnail?.source.flatMap { URL(string: $0) }
+                thumbnailURL: page.thumbnail?.source.flatMap { URL(string: $0) },
+                description: page.description
             )
         }
 
@@ -124,17 +130,24 @@ extension WMFSemanticSearchDataController {
     }
 
     // MARK: - Service
-
     private func performDecodableGET<T: Decodable & Sendable>(request: WMFBasicServiceRequest, service: WMFService) async throws -> WMFServiceResponse<T> {
-        let value: WMFServiceResponse<T> = try await withCheckedThrowingContinuation { continuation in
-            service.performDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
-                switch result {
-                case .success(let value):
-                    continuation.resume(returning: value)
-                case .failure(let error):
-                    continuation.resume(throwing: Self.searchError(from: error))
+        
+        let cancellation = WMFRequestCancellation()
+        
+        let value: WMFServiceResponse<T> = try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { continuation in
+                let task = service.performCancellableDecodableGETWithResponse(request: request) { (result: Result<WMFServiceResponse<T>, Error>) in
+                    switch result {
+                    case .success(let value):
+                        continuation.resume(returning: value)
+                    case .failure(let error):
+                        continuation.resume(throwing: Self.searchError(from: error))
+                    }
                 }
+                cancellation.setTask(task)
             }
+        } onCancel: {
+            cancellation.cancel()
         }
 
         try Task.checkCancellation()
@@ -175,6 +188,7 @@ extension WMFSemanticSearchDataController {
             let snippet: String?
             let sectiontitle: String?
             let redirecttitle: String?
+            let description: String?
             let thumbnail: Thumbnail?
 
             struct Thumbnail: Decodable, Sendable {

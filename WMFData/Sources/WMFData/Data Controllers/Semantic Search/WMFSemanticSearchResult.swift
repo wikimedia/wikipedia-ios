@@ -9,14 +9,17 @@ public struct WMFSemanticSearchResult: Sendable, Equatable {
     public let sectionTitle: String?
     public let redirectTitle: String?
     public let thumbnailURL: URL?
+    /// The short description of the article. Nil unless the request asked for descriptions and the article has one.
+    public let description: String?
 
-    public init(pageID: Int, title: String, snippetHTML: String, sectionTitle: String?, redirectTitle: String?, thumbnailURL: URL?) {
+    public init(pageID: Int, title: String, snippetHTML: String, sectionTitle: String?, redirectTitle: String?, thumbnailURL: URL?, description: String? = nil) {
         self.pageID = pageID
         self.title = title
         self.snippetHTML = snippetHTML
         self.sectionTitle = sectionTitle
         self.redirectTitle = redirectTitle
         self.thumbnailURL = thumbnailURL
+        self.description = description
     }
 }
 

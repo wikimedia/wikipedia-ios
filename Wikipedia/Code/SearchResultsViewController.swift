@@ -32,6 +32,11 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// for navigating to the given URL.
     var articleTappedAction: ((URL, NeedsNewTab) -> Void)?
 
+    /// Called when the reader opens a semantic row of the interleaved list, with a tap or from the
+    /// long-press menu. The caller opens the article at the passage. If it is nil, the row opens
+    /// through `articleTappedAction`, at the top of the article.
+    var semanticResultTappedAction: (@MainActor @Sendable (WMFSemanticSearchResult, WMFProject, NeedsNewTab) -> Void)?
+
     /// Called with the query and the project of the search when the reader taps the semantic
     /// search entry point.
     /// Follows the search into the sheet of passages and the article. The search screen owns it.
@@ -111,6 +116,10 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// bar without asking for that edit, so an empty bar that doesn't match it is a tap on clear.
     var expectedSearchBarText: String?
     var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+    /// The semantic results of the interleaved list as the API returned them, by article URL. A row shows
+    /// the passage as plain text. This keeps the passage with its markup and its section, so that opening
+    /// the article from a semantic row can highlight it, as the semantic search sheet does.
+    var semanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
 
     var siteURL: URL? {
         get {
@@ -362,6 +371,12 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         if let languageCode = siteURL.wmf_languageCode {
             enrollInSemanticSearchExperimentIfNeeded(languageCode: languageCode)
             enrollInSemanticSearchInterleavedExperimentIfNeeded(languageCode: languageCode)
+            if takesPartInSemanticSearchExperiment,
+               WMFSemanticSearchInterleavedDataController.shared.shouldInterleave(languageCode: languageCode),
+               let project = SearchResultsMapper.project(for: siteURL) {
+                await performInterleavedSearch(for: searchTerm, siteURL: siteURL, project: project)
+                return
+            }
         }
         do {
             let outcome = try await resultsLoader.fetchResults(for: searchTerm, siteURL: siteURL)
@@ -380,8 +395,30 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
         }
     }
 
+    /// The treatment arm of the semantic search interleaved experiment: the lexical and the semantic
+    /// requests, merged into one list.
+    private func performInterleavedSearch(for searchTerm: String, siteURL: URL, project: WMFProject) async {
+        resultsViewModel.showLoading()
+        do {
+            let forcedScenario = siteURL.wmf_languageCode.flatMap { WMFSemanticSearchInterleavedDataController.shared.forcedRetrievalScenario(languageCode: $0) }
+            let outcome = try await interleavedLoader.fetchResults(for: searchTerm, siteURL: siteURL, project: project, forcedScenario: forcedScenario)
+            guard !Task.isCancelled else { return }
+            NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+            displayedSearchResults = nil
+            displayInterleavedSearchResults(outcome, searchTerm: searchTerm, siteURL: siteURL)
+        } catch is CancellationError {
+            return
+        } catch let SearchResultsLoader.Failure.fetch(error, _) {
+            guard !Task.isCancelled, !(error as NSError).wmf_isCancelledError() else { return }
+            displaySearchError(error)
+        } catch {
+            assertionFailure("Unexpected search error: \(error)")
+        }
+    }
+
     private lazy var fetcher = WMFSearchFetcher()
     private lazy var resultsLoader = SearchResultsLoader(fetcher: fetcher)
+    private lazy var interleavedLoader = SemanticSearchInterleavedLoader(lexicalLoader: resultsLoader)
 
     func resetSearchResults() {
         searchTask?.cancel()

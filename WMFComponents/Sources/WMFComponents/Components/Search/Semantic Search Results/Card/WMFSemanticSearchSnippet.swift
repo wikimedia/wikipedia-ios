@@ -69,8 +69,8 @@ public enum WMFSemanticSearchSnippet {
         return texts
     }
 
-    /// The passage as plain text, for VoiceOver.
-    static func plainText(html: String) -> String {
+    /// The passage as plain text, for VoiceOver and for rows that show it without markup.
+    public static func plainText(html: String) -> String {
         let text = (try? HtmlUtils.stringFromHTML(html)) ?? html
         return collapsedWhitespace(text)
     }

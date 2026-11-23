@@ -191,6 +191,9 @@ struct WMFDeveloperSettingsView: View {
                 captionedRow(caption: "Local flag for semantic search interleaved (phase 2, experiment 2) until a remote config key powers it. Has no effect while Enable Semantic Search (Dive) is on. Target languages: fr, ar, ja.") {
                     Toggle("Enable Semantic Search Interleaved", isOn: $viewModel.enableSemanticSearchInterleaved)
                 }
+                captionedRow(caption: "Labels each row of the interleaved list with the request that gave it (lexical prefix, lexical full text or semantic) and the state the list ended in.") {
+                    Toggle("Show Source Badge", isOn: $viewModel.showSemanticSearchInterleavedSourceBadge)
+                }
                 captionedRow(caption: "Overrides the persisted bucket at read time. Switching it back to Off restores the persisted bucket.") {
                     Picker("Force Experiment Group", selection: $viewModel.forceSemanticSearchInterleavedExperimentAssignment) {
                         Text("Off").tag(WMFSemanticSearchInterleavedDataController.ExperimentAssignment?.none)
@@ -206,7 +209,7 @@ struct WMFDeveloperSettingsView: View {
                     }
                     .tint(Color(theme.secondaryText))
                 }
-                captionedRow(caption: "Forces what the lexical and semantic requests do for treatment readers, to reach every fallback state. Needs the treatment arm and a target language. The search screen reads it once it exists.") {
+                captionedRow(caption: "Forces what the lexical and semantic requests do for treatment readers, to reach every fallback state. Needs the treatment arm and a target language.") {
                     Picker("Force Retrieval State", selection: $viewModel.forceSemanticSearchInterleavedRetrievalScenario) {
                         Text("Off").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.none)
                         Text("Semantic times out").tag(WMFSemanticSearchInterleavedDataController.ForcedRetrievalScenario?.some(.semanticTimesOut))
