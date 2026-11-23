@@ -239,6 +239,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
 
     private var theme: WMFTheme {
         return appEnvironment.theme
@@ -296,7 +297,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                         Image("main-page-bg", bundle: .module)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
+                            .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass, verticalSizeClass: verticalSizeClass)))
                             .clipped()
                             .overlay(
                                 Color.black.opacity(0.6)
@@ -310,7 +311,7 @@ fileprivate struct WMFArticleTabsViewContent: View {
                             .frame(width: geo.size.width, height: 95, alignment: .center)
                     }
                 }
-                .frame(height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
+                .frame(height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass, verticalSizeClass: verticalSizeClass)))
                 .padding(.bottom, 0)
 
                 if viewModel.shouldShowCloseButton {
@@ -369,14 +370,14 @@ fileprivate struct WMFArticleTabsViewContent: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
+                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass, verticalSizeClass: verticalSizeClass)))
                                     .clipped()
                             } placeholder: {
                                 Color(uiColor: theme.paperBackground)
-                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
+                                    .frame(width: geo.size.width, height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass, verticalSizeClass: verticalSizeClass)))
                             }
                         }
-                        .frame(height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass)))
+                        .frame(height: CGFloat(viewModel.calculateImageHeight(horizontalSizeClass: horizontalSizeClass, verticalSizeClass: verticalSizeClass)))
                     } else {
                         VStack(alignment: .leading, spacing: 2) {
                             tabTitle(title: tab.title)

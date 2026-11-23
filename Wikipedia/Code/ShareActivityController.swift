@@ -89,10 +89,8 @@ extension ShareableArticlesProvider where Self: UIViewController & MEPEventsProv
         }
         
         let shareActivityController = ShareActivityController(article: article, customActivities: customActivities)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            shareActivityController.popoverPresentationController?.sourceView = sourceView ?? view
-            shareActivityController.popoverPresentationController?.sourceRect = sourceRect ?? sourceView?.bounds ?? view.bounds
-        }
+        shareActivityController.popoverPresentationController?.sourceView = sourceView ?? view
+        shareActivityController.popoverPresentationController?.sourceRect = sourceRect ?? sourceView?.bounds ?? view.bounds
         present(shareActivityController, animated: true, completion: nil)
         return true
     }
