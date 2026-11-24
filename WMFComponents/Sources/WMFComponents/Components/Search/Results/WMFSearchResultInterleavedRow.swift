@@ -63,17 +63,15 @@ struct WMFSearchResultInterleavedRow: View {
                 WMFSemanticSearchFeedbackThumbButton(
                     rating: .positive,
                     isSelected: rowViewModel.rating == .positive,
-                    isEnabled: rowViewModel.rating == nil,
                     accessibilityLabel: rowViewModel.localizedStrings.thumbsUpAccessibilityLabel,
-                    accessibilityIdentifier: AccessibilityIdentifiers.Search.interleavedResultFeedbackThumbsUpButton,
+                    accessibilityIdentifier: AccessibilityIdentifiers.Search.interleavedResultFeedbackThumbsUpButton(result.title),
                     action: { rowViewModel.rate(.positive) }
                 )
                 WMFSemanticSearchFeedbackThumbButton(
                     rating: .negative,
                     isSelected: rowViewModel.rating == .negative,
-                    isEnabled: rowViewModel.rating == nil,
                     accessibilityLabel: rowViewModel.localizedStrings.thumbsDownAccessibilityLabel,
-                    accessibilityIdentifier: AccessibilityIdentifiers.Search.interleavedResultFeedbackThumbsDownButton,
+                    accessibilityIdentifier: AccessibilityIdentifiers.Search.interleavedResultFeedbackThumbsDownButton(result.title),
                     action: { rowViewModel.rate(.negative) }
                 )
             }

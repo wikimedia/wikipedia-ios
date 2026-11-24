@@ -10,8 +10,6 @@ struct WMFSemanticSearchFeedbackThumbButton: View {
 
     let rating: WMFSemanticSearchFeedbackViewModel.Rating
     let isSelected: Bool
-    /// A card takes one vote. After it, the button stops reacting to taps but keeps its look.
-    var isEnabled: Bool = true
     let accessibilityLabel: String
     let accessibilityIdentifier: String
     let action: () -> Void
@@ -43,14 +41,13 @@ struct WMFSemanticSearchFeedbackThumbButton: View {
             }
         }
         .buttonStyle(WMFSemanticSearchFeedbackThumbButtonStyle())
-        .disabled(!isEnabled)
         .accessibilityLabel(accessibilityLabel)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityIdentifier(accessibilityIdentifier)
     }
 }
 
-/// Draws the label as it is. The system plain style dims a disabled button, and a voted thumb must stay fully visible.
+/// Draws the label as it is, with no dimming or press effect. A card takes one vote, and the view model ignores a second tap.
 private struct WMFSemanticSearchFeedbackThumbButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
