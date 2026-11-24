@@ -449,7 +449,7 @@ public final class WMFWatchlistDataController: @unchecked Sendable {
     
     // MARK: POST Undo Revision
     
-    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, completion: @escaping @Sendable (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
+    public func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false, completion: @escaping @Sendable (Result<WMFUndoOrRollbackResult, Error>) -> Void) {
 
         guard let service else {
             completion(.failure(WMFDataControllerError.mediaWikiServiceUnavailable))
@@ -462,7 +462,7 @@ public final class WMFWatchlistDataController: @unchecked Sendable {
                 
                 let finalSummary = summaryPrefix + " " + summary
                 
-                let parameters = [
+                var parameters = [
                     "action": "edit",
                     "title": title,
                     "summary": finalSummary,
@@ -474,6 +474,10 @@ public final class WMFWatchlistDataController: @unchecked Sendable {
                     "errorsuselocal": "1"
                 ]
 
+                if let hCaptchaToken {
+                    parameters.merge(WMFHCaptchaRequirement.requestParameters(token: hCaptchaToken, forceShowCaptcha: forceShowCaptcha)) { _, new in new }
+                }
+
                 guard let url = URL.mediaWikiAPIURL(project: project) else {
                     completion(.failure(WMFDataControllerError.failureCreatingRequestURL))
                     return
@@ -483,6 +487,12 @@ public final class WMFWatchlistDataController: @unchecked Sendable {
                 service.perform(request: request) { result in
                     switch result {
                     case .success(let response):
+                        if let edit = response?["edit"] as? [String: Any],
+                           let requirement = WMFHCaptchaRequirement(editResult: edit) {
+                            completion(.failure(WMFDataControllerError.hCaptchaRequired(requirement)))
+                            return
+                        }
+
                         guard let edit = (response?["edit"] as? [String: Any]),
                               let result = edit["result"] as? String,
                               result == "Success",

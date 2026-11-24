@@ -115,6 +115,15 @@ fileprivate extension WMFData.WMFServiceRequest {
 
         return method == .POST && action == "edit" && !title.isEmpty && !summary.isEmpty && !undo.isEmpty
     }
+
+    // The page "hCaptcha" asks for a captcha until the request sends a token.
+    var isWatchlistPostUndoWithoutHCaptchaToken: Bool {
+        guard isWatchlistPostUndo,
+              let title = parameters?["title"] as? String else {
+            return false
+        }
+        return title == "hCaptcha" && parameters?["captchaword"] == nil
+    }
 }
 
 // @unchecked Sendable: test-only; the demo-app toggle is set before requests begin.
@@ -279,6 +288,13 @@ public final class WMFMockWatchlistMediaWikiService: WMFService, @unchecked Send
             return jsonData
         } else if request.isWatchlistGetUndoSummaryPrefix {
             guard let url = Bundle.module.url(forResource: "watchlist-get-undo-summary-prefix", withExtension: "json"),
+                  let jsonData = try? Data(contentsOf: url) else {
+                return nil
+            }
+
+            return jsonData
+        } else if request.isWatchlistPostUndoWithoutHCaptchaToken {
+            guard let url = Bundle.module.url(forResource: "watchlist-post-undo-article-hcaptcha", withExtension: "json"),
                   let jsonData = try? Data(contentsOf: url) else {
                 return nil
             }
