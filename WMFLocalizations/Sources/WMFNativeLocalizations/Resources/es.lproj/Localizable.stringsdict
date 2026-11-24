@@ -804,5 +804,21 @@
 			<string>%1$d filtros</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-intro-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Спасибо, что в 2026 году вы провели %1$#@v1@ с вашим надёжным приложением Википедии.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d день</string>
+			<key>other</key>
+			<string>%1$d дней</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
