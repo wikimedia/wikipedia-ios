@@ -1327,6 +1327,9 @@
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";
+"search-interleaved-results-feedback-question" = "Is this result relevant?";
+"search-interleaved-results-feedback-thumbs-down-accessibility" = "No";
+"search-interleaved-results-feedback-thumbs-up-accessibility" = "Yes";
 "search-interleaved-results-lead-section" = "Lead";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";

@@ -1,8 +1,7 @@
 import SwiftUI
 
-/// The swipe actions, the long-press menu with its article preview, and the frame tracking that every
-/// search result row shares.
-private struct WMFSearchResultActions: ViewModifier {
+/// The swipe actions that every search result row shares.
+private struct WMFSearchResultSwipeActions: ViewModifier {
 
     @ObservedObject var appEnvironment = WMFAppEnvironment.current
     @ObservedObject var viewModel: WMFSearchResultsViewModel
@@ -34,6 +33,18 @@ private struct WMFSearchResultActions: ViewModifier {
                     .labelStyle(.iconOnly)
                 }
             }
+    }
+}
+
+/// The long-press menu with its article preview, and the frame tracking that every search result row shares.
+/// The frame is the one that the Share popover points at.
+private struct WMFSearchResultContextMenu: ViewModifier {
+
+    @ObservedObject var viewModel: WMFSearchResultsViewModel
+    let result: WMFSearchResultsViewModel.SearchResult
+
+    func body(content: Content) -> some View {
+        content
             .contextMenu {
                 Button {
                     viewModel.open(result)
@@ -112,6 +123,17 @@ private struct WMFSearchResultPreview: View {
 extension View {
     /// Adds the swipe actions and the long-press menu of a search result row.
     func searchResultActions(viewModel: WMFSearchResultsViewModel, result: WMFSearchResultsViewModel.SearchResult) -> some View {
-        modifier(WMFSearchResultActions(viewModel: viewModel, result: result))
+        searchResultContextMenu(viewModel: viewModel, result: result)
+            .searchResultSwipeActions(viewModel: viewModel, result: result)
+    }
+
+    /// Adds only the swipe actions. A row that has parts outside the long-press menu uses this one.
+    func searchResultSwipeActions(viewModel: WMFSearchResultsViewModel, result: WMFSearchResultsViewModel.SearchResult) -> some View {
+        modifier(WMFSearchResultSwipeActions(viewModel: viewModel, result: result))
+    }
+
+    /// Adds only the long-press menu and the frame of the result.
+    func searchResultContextMenu(viewModel: WMFSearchResultsViewModel, result: WMFSearchResultsViewModel.SearchResult) -> some View {
+        modifier(WMFSearchResultContextMenu(viewModel: viewModel, result: result))
     }
 }

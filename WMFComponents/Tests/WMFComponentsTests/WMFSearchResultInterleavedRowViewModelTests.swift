@@ -21,7 +21,10 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
         contributorsFormat: "%1$d contributors",
         referencesFormat: "%1$d references",
         lastUpdatedFormat: "Last updated %1$@",
-        leadSectionTitle: "Lead")
+        leadSectionTitle: "Lead",
+        feedbackQuestion: "Is this result relevant?",
+        thumbsUpAccessibilityLabel: "Yes",
+        thumbsDownAccessibilityLabel: "No")
 
     private let frenchProject = WMFProject.wikipedia(WMFLanguage(languageCode: "fr", languageVariantCode: nil))
     private let lastUpdated = Date(timeIntervalSince1970: 1_790_329_445)
@@ -42,7 +45,8 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
         result: SearchResult? = nil,
         showsLastUpdated: Bool = false,
         attribution: WMFSemanticSearchAttribution? = nil,
-        requested: RequestedTitles = RequestedTitles()
+        requested: RequestedTitles = RequestedTitles(),
+        ratingAction: @escaping RowViewModel.RatingAction = { _, _ in true }
     ) -> RowViewModel {
         RowViewModel(
             result: result ?? makeResult(),
@@ -53,6 +57,7 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
                 guard let attribution else { throw URLError(.notConnectedToInternet) }
                 return attribution
             },
+            ratingAction: ratingAction,
             localizedStrings: strings)
     }
 
@@ -149,5 +154,59 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
         let viewModel = makeViewModel(result: makeResult(title: "Chat"))
 
         XCTAssertEqual(String(viewModel.accessibilityText.characters), "Chat, Lead, Read in article")
+    }
+
+    // MARK: - Feedback
+
+    @MainActor
+    private final class RatingRecorder {
+        var ratings: [WMFSemanticSearchFeedbackViewModel.Rating] = []
+    }
+
+    func testRatingIsEmptyUntilTheReaderRates() {
+        let viewModel = makeViewModel()
+
+        XCTAssertNil(viewModel.rating)
+    }
+
+    func testRatingKeepsTheAnswerAndPassesItOn() {
+        let recorder = RatingRecorder()
+        let viewModel = makeViewModel(ratingAction: { _, rating in
+            recorder.ratings.append(rating)
+            return true
+        })
+
+        viewModel.rate(.positive)
+
+        XCTAssertEqual(viewModel.rating, .positive)
+        XCTAssertEqual(recorder.ratings, [.positive])
+    }
+
+    func testRatedCardDoesNotChangeItsAnswer() {
+        let recorder = RatingRecorder()
+        let viewModel = makeViewModel(ratingAction: { _, rating in
+            recorder.ratings.append(rating)
+            return true
+        })
+
+        viewModel.rate(.negative)
+        viewModel.rate(.positive)
+        viewModel.rate(.negative)
+
+        XCTAssertEqual(viewModel.rating, .negative)
+        XCTAssertEqual(recorder.ratings, [.negative], "A card sends one answer")
+    }
+
+    func testCardStaysOpenWhenTheAnswerIsNotSent() {
+        let recorder = RatingRecorder()
+        let viewModel = makeViewModel(ratingAction: { _, rating in
+            recorder.ratings.append(rating)
+            return false
+        })
+
+        viewModel.rate(.positive)
+
+        XCTAssertNil(viewModel.rating, "A card that cannot send its answer must not show it")
+        XCTAssertEqual(recorder.ratings, [.positive])
     }
 }
