@@ -256,7 +256,9 @@ NSString *const WikiTextSectionUploaderErrorUserInfoCaptchaKey = @"captcha";
         NSString *captchaType = [captcha isKindOfClass:[NSDictionary class]] ? captcha[@"type"] : nil;
         if ([captchaType isKindOfClass:[NSString class]] && [captchaType.lowercaseString isEqualToString:@"hcaptcha"]) {
             NSMutableDictionary *errorDict = [@{} mutableCopy];
-            errorDict[NSLocalizedDescriptionKey] = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-needed", nil, nil, @"Need CAPTCHA verification.", @"Alert text shown when section wikitext upload captcha is required");
+            // captchaWord holds the hCaptcha token when the request sent one.
+            errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ? WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-error", nil, nil, @"CAPTCHA verification error.", @"Alert text shown when section wikitext upload captcha fails")
+                                                                                                       : WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-needed", nil, nil, @"Need CAPTCHA verification.", @"Alert text shown when section wikitext upload captcha is required");
             errorDict[WikiTextSectionUploaderErrorUserInfoCaptchaKey] = captcha;
             error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WikiTextSectionUploaderErrorTypeNeedsHCaptcha userInfo:errorDict];
         } else if (captcha) {
