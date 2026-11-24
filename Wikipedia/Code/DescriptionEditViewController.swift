@@ -36,6 +36,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         return articleDescriptionController.loggingPageURL ?? articleDescriptionController.article.url
     }
     private var toastView: UIView?
+    private var hCaptchaPrivacyNoticeHTML: String?
 
     var tempAccountsMediaWikiURL: String {
         var languageCodeSuffix = ""
@@ -127,6 +128,58 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             guard let self else { return }
             updateFonts()
         }
+
+        fetchHCaptchaPrivacyNotice()
+    }
+
+    private func fetchHCaptchaPrivacyNotice() {
+        guard let articleURL = articleDescriptionController.article.url else {
+            return
+        }
+        Task { [weak self] in
+            guard let html = await HCaptchaEditChallengePresenter.privacyNoticeHTML(for: articleURL) else {
+                return
+            }
+            guard let self else { return }
+            self.hCaptchaPrivacyNoticeHTML = html
+            self.licenseLabel.attributedText = self.licenseLabelAttributedString
+        }
+    }
+
+    private var hCaptchaPrivacyNoticeAttributedString: NSAttributedString? {
+        guard let hCaptchaPrivacyNoticeHTML,
+              let font = licenseLabel.font else {
+            return nil
+        }
+        let styles = HtmlUtils.Styles(font: font, boldFont: font, italicsFont: font, boldItalicsFont: font, color: theme.colors.secondaryText, linkColor: theme.colors.link, lineSpacing: 1)
+        return NSAttributedString.attributedStringFromHtml(hCaptchaPrivacyNoticeHTML, styles: styles)
+    }
+
+    // The license label is one tap target, so the notice links go in the license sheet.
+    private var hCaptchaPrivacyNoticeLinks: [(title: String, url: URL)] {
+        guard let notice = hCaptchaPrivacyNoticeAttributedString else {
+            return []
+        }
+        let siteURL = articleDescriptionController.article.url?.wmf_site
+        var links: [(title: String, url: URL)] = []
+        notice.enumerateAttribute(.link, in: NSRange(location: 0, length: notice.length)) { value, range, _ in
+            let href: String?
+            switch value {
+            case let url as URL:
+                href = url.absoluteString
+            case let string as String:
+                href = string
+            default:
+                href = nil
+            }
+            guard let href,
+                  let url = URL(string: href, relativeTo: siteURL)?.absoluteURL else {
+                return
+            }
+            let title = notice.attributedSubstring(from: range).string.trimmingCharacters(in: .whitespacesAndNewlines)
+            links.append((title: title.isEmpty ? url.absoluteString : title, url: url))
+        }
+        return links
     }
 
     private func checkWikiStatus() async -> Bool {
@@ -275,7 +328,14 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         let linkAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.link
         ]
-        return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [Licenses.localizedSaveTermsTitle, Licenses.localizedCCZEROTitle], substitutionAttributes: [linkAttributes, linkAttributes])
+        let attributedString = NSMutableAttributedString(attributedString: formatString.attributedString(attributes: baseAttributes, substitutionStrings: [Licenses.localizedSaveTermsTitle, Licenses.localizedCCZEROTitle], substitutionAttributes: [linkAttributes, linkAttributes]))
+
+        if let hCaptchaPrivacyNoticeAttributedString {
+            attributedString.append(NSAttributedString(string: "\n"))
+            attributedString.append(hCaptchaPrivacyNoticeAttributedString)
+        }
+
+        return attributedString
     }
 
     private var loginLabelAttributedString: NSAttributedString {
@@ -313,6 +373,11 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         sheet.addAction(UIAlertAction(title: Licenses.localizedCCZEROTitle, style: .default, handler: { _ in
             self.navigate(to: Licenses.CCZEROURL)
         }))
+        for link in hCaptchaPrivacyNoticeLinks {
+            sheet.addAction(UIAlertAction(title: link.title, style: .default, handler: { _ in
+                self.navigate(to: link.url)
+            }))
+        }
         sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
         present(sheet, animated: true, completion: nil)
     }
