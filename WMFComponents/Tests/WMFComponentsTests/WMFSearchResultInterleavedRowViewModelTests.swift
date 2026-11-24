@@ -46,7 +46,7 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
         showsLastUpdated: Bool = false,
         attribution: WMFSemanticSearchAttribution? = nil,
         requested: RequestedTitles = RequestedTitles(),
-        ratingAction: @escaping RowViewModel.RatingAction = { _, _ in }
+        ratingAction: @escaping RowViewModel.RatingAction = { _, _ in true }
     ) -> RowViewModel {
         RowViewModel(
             result: result ?? makeResult(),
@@ -171,7 +171,10 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
 
     func testRatingKeepsTheAnswerAndPassesItOn() {
         let recorder = RatingRecorder()
-        let viewModel = makeViewModel(ratingAction: { _, rating in recorder.ratings.append(rating) })
+        let viewModel = makeViewModel(ratingAction: { _, rating in
+            recorder.ratings.append(rating)
+            return true
+        })
 
         viewModel.rate(.positive)
 
@@ -181,7 +184,10 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
 
     func testRatedCardDoesNotChangeItsAnswer() {
         let recorder = RatingRecorder()
-        let viewModel = makeViewModel(ratingAction: { _, rating in recorder.ratings.append(rating) })
+        let viewModel = makeViewModel(ratingAction: { _, rating in
+            recorder.ratings.append(rating)
+            return true
+        })
 
         viewModel.rate(.negative)
         viewModel.rate(.positive)
@@ -189,5 +195,18 @@ final class WMFSearchResultInterleavedRowViewModelTests: XCTestCase {
 
         XCTAssertEqual(viewModel.rating, .negative)
         XCTAssertEqual(recorder.ratings, [.negative], "A card sends one answer")
+    }
+
+    func testCardStaysOpenWhenTheAnswerIsNotSent() {
+        let recorder = RatingRecorder()
+        let viewModel = makeViewModel(ratingAction: { _, rating in
+            recorder.ratings.append(rating)
+            return false
+        })
+
+        viewModel.rate(.positive)
+
+        XCTAssertNil(viewModel.rating, "A card that cannot send its answer must not show it")
+        XCTAssertEqual(recorder.ratings, [.positive])
     }
 }

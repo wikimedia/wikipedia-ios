@@ -110,7 +110,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?, ActionSource) -> Void
     public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
     /// The reader rated a result of the interleaved list. The index is the position of the result in the list.
-    public typealias RatingAction = @MainActor @Sendable (SearchResult, Int, WMFSemanticSearchFeedbackViewModel.Rating) -> Void
+    /// Returns true when the answer is sent. When it returns false, the card does not take the answer.
+    public typealias RatingAction = @MainActor @Sendable (SearchResult, Int, WMFSemanticSearchFeedbackViewModel.Rating) -> Bool
     public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
     public typealias AttributionProvider = @Sendable (WMFProject, String) async throws -> WMFSemanticSearchAttribution
 
@@ -168,7 +169,7 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         openOnMapAction: @escaping ResultAction,
         saveOrUnsaveAction: @escaping SaveAction,
         shareAction: @escaping ShareAction,
-        ratingAction: @escaping RatingAction = { _, _, _ in },
+        ratingAction: @escaping RatingAction = { _, _, _ in true },
         summaryProvider: SummaryProvider? = nil,
         attributionProvider: AttributionProvider? = nil
     ) {
@@ -356,16 +357,16 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             showsLastUpdatedInPlaceOfReferences: WMFSemanticSearchInterleavedDataController.shared.showsLastUpdatedInPlaceOfReferences(languageCode: languageCode),
             attributionProvider: attributionProvider,
             ratingAction: { [weak self] result, rating in
-                self?.rate(result, rating)
+                self?.rate(result, rating) ?? false
             })
     }
 
-    /// Thanks the reader and passes the answer on.
-    private func rate(_ result: SearchResult, _ rating: WMFSemanticSearchFeedbackViewModel.Rating) {
-        guard let index = index(of: result) else { return }
+    /// Passes the answer on and thanks the reader. Returns false, with no thanks, when the answer is not sent.
+    private func rate(_ result: SearchResult, _ rating: WMFSemanticSearchFeedbackViewModel.Rating) -> Bool {
+        guard let index = index(of: result), ratingAction(result, index, rating) else { return false }
 
         WMFToastPresenter.shared.show(WMFToastConfig(title: WMFSemanticSearchFeedbackViewModel.thanksToastTitle(languageCode: languageCode)))
-        ratingAction(result, index, rating)
+        return true
     }
 
     func loadImage(url: URL?) async -> UIImage? {

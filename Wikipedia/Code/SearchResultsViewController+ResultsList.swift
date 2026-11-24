@@ -82,8 +82,9 @@ extension SearchResultsViewController {
             },
             ratingAction: { [weak self] _, index, rating in
                 guard let self, let searchTerm = self.displayedSearchTerm, let siteURL = self.displayedSiteURL,
-                      let project = SearchResultsMapper.project(for: siteURL), let searchIDs = self.displayedInterleavedSearchIDs else { return }
+                      let project = SearchResultsMapper.project(for: siteURL), let searchIDs = self.displayedInterleavedSearchIDs else { return false }
                 self.instrumentation.logInterleavedResultFeedback(project: project, searchTerm: searchTerm, position: index + 1, rating: rating, searchIDs: searchIDs)
+                return true
             })
     }
 

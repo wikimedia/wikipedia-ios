@@ -41,7 +41,8 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         case loaded(WMFSemanticSearchAttribution?)
     }
 
-    typealias RatingAction = @MainActor @Sendable (SearchResult, WMFSemanticSearchFeedbackViewModel.Rating) -> Void
+    /// Returns true when the answer is sent. When it returns false, the card stays open for another try.
+    typealias RatingAction = @MainActor @Sendable (SearchResult, WMFSemanticSearchFeedbackViewModel.Rating) -> Bool
 
     let result: SearchResult
     let localizedStrings: LocalizedStrings
@@ -61,7 +62,7 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         project: WMFProject?,
         showsLastUpdatedInPlaceOfReferences: Bool,
         attributionProvider: @escaping WMFSearchResultsViewModel.AttributionProvider,
-        ratingAction: @escaping RatingAction = { _, _ in },
+        ratingAction: @escaping RatingAction = { _, _ in true },
         localizedStrings: LocalizedStrings? = nil
     ) {
         self.result = result
@@ -90,10 +91,9 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
 
     /// Takes the first answer of the reader and passes it on. Later answers are ignored, so a card sends one answer.
     func rate(_ newRating: WMFSemanticSearchFeedbackViewModel.Rating) {
-        guard rating == nil else { return }
+        guard rating == nil, ratingAction(result, newRating) else { return }
 
         rating = newRating
-        ratingAction(result, newRating)
     }
 
     // MARK: - Presentation
