@@ -1201,6 +1201,14 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         alertController.addAction(undo)
 
         present(alertController, animated: true)
+
+        // An alert cannot show links, so the hCaptcha notice is plain text.
+        Task { [weak alertController, siteURL] in
+            guard let html = await HCaptchaEditChallengePresenter.privacyNoticeHTML(for: siteURL) else {
+                return
+            }
+            alertController?.message = message + "\n\n" + html.wmf_stringByRemovingHTML()
+        }
     }
 
     @objc private func undoSummaryTextfieldDidChange() {
@@ -1224,11 +1232,18 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
     }
 
     private func performUndo() {
+        guard let summary = undoAlertSummaryTextField?.text else {
+            return
+        }
+        performUndo(summary: summary)
+    }
+
+    // The retry after the hCaptcha challenge keeps the summary, because the alert and its text field are gone.
+    private func performUndo(summary: String, hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false) {
         guard let wmfProject = wmfProject,
               let title = articleTitle,
               let revisionID = toModelRevisionID,
-              let username = toModel?.user,
-              let summary = undoAlertSummaryTextField?.text else {
+              let username = toModel?.user else {
             return
         }
 
@@ -1236,9 +1251,22 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
-        WMFWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wmfProject) { [weak self] result in
+        WMFWatchlistDataController().undo(title: title, revisionID: UInt(revisionID), summary: summary, username: username, project: wmfProject, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha) { [weak self] result in
             DispatchQueue.main.async {
-                self?.completeRollbackOrUndo(result: result, isRollback: false)
+                guard let self else { return }
+
+                if case .failure(WMFDataControllerError.hCaptchaRequired(let requirement)) = result,
+                   HCaptchaEditChallengePresenter.shouldPresent(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, requirement: requirement) {
+                    if let pageURL = self.fetchPageURL() {
+                        EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
+                    }
+                    HCaptchaEditChallengePresenter.present(on: self, theme: self.theme, requirement: requirement, onSuccess: { [weak self] token in
+                        self?.performUndo(summary: summary, hCaptchaToken: token, forceShowCaptcha: requirement.forceShowCaptcha)
+                    })
+                    return
+                }
+
+                self.completeRollbackOrUndo(result: result, isRollback: false)
             }
         }
     }
@@ -1352,6 +1380,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }
 
             switch dataControllerError {
+            case .hCaptchaRequired:
+                // Keep the domain and code for the funnel, but show a readable message.
+                let nsError = error as NSError
+                fallback(NSError(domain: nsError.domain, code: nsError.code, userInfo: [NSLocalizedDescriptionKey: CommonStrings.captchaVerificationError]))
+                return
             case .serviceError(let error):
 
                 guard let mediaWikiError = error as? MediaWikiFetcher.MediaWikiFetcherError else {

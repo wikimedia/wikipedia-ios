@@ -1,0 +1,11 @@
+{
+  "edit": {
+    "captcha": {
+      "type": "hcaptcha",
+      "mime": "application/javascript",
+      "key": "5d0c670e-a5f4-4258-ad16-1f42792c9c62",
+      "error": "missing-token"
+    },
+    "result": "Failure"
+  }
+}

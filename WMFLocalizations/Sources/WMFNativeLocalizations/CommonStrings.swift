@@ -257,6 +257,8 @@ public class CommonStrings: NSObject {
 
     @objc public static let unknownError = WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
 
+    public static let captchaVerificationError = WMFLocalizedString("wikitext-upload-captcha-error", value: "CAPTCHA verification error.", comment: "Alert text shown when section wikitext upload captcha fails")
+
     public static func deleteReadingListsAlertTitle(readingListsCount: Int) -> String {
         String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists. %1$d is replaced with number of lists to be deleted. %1$d will be replaced with the number of lists being deleted"), readingListsCount)
     }
