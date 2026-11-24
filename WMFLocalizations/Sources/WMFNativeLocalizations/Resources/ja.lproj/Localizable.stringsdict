@@ -301,7 +301,7 @@
 	<key>donation-reminder-card-body</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>以前、%1$@について、%2$#@v2@を読んだ後に寄付を検討するよう、お知らせするようご依頼いただきました。もしウィキペディアがあなたに%3$@分の知識をもたらしたなら、ぜひ寄付を行う読者の2%の仲間入りをし、本日、寄付のお手続きを完了させてください。</string>
+		<string>以前、%1$@について、%2$#@v2@を読んだ後に寄付を検討するよう、お知らせするようご依頼いただきました。もしウィキペディアがあなたに%3$@分の知識をもたらしたなら、ぜひ寄付を行う読者の2%%の仲間入りをし、本日、寄付のお手続きを完了させてください。</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1096,7 +1096,7 @@
 	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>これであなたは{{PLURAL:%2$d|世界のウィキペディア読者の上位%1$@に入ります。平均的な人は%2$#@v2@ を読みます。</string>
+		<string>これであなたは世界のウィキペディア読者の上位%1$@に入ります。平均的な人は年間%2$#@v2@を読みます。</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -1104,7 +1104,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>%2$d article</string>
+			<string>%2$d本の記事</string>
 		</dict>
 	</dict>
 </dict>
