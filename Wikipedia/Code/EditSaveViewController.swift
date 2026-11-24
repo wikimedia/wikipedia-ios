@@ -103,6 +103,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     private var abuseFilterCode = ""
     private var summaryText = ""
     private var wikiHasTempAccounts: Bool?
+    private var hCaptchaPrivacyNoticeHTML: String?
 
     @IBOutlet weak var showWebPreviewContainerView: UIView!
     private var showWebPreviewButtonHostingController: UIHostingController<WMFSmallButton>?
@@ -132,7 +133,13 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             "</a>"
         )
 
-        let attributedString = NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles)
+        let attributedString = NSMutableAttributedString(attributedString: NSAttributedString.attributedStringFromHtml(substitutedString, styles: styles))
+
+        if let hCaptchaPrivacyNoticeHTML {
+            attributedString.append(NSAttributedString(string: "\n"))
+            attributedString.append(NSAttributedString.attributedStringFromHtml(hCaptchaPrivacyNoticeHTML, styles: styles))
+        }
+
         return attributedString
     }
 
@@ -236,6 +243,22 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         Task {
             wikiHasTempAccounts = await checkWikiStatus()
+        }
+
+        fetchHCaptchaPrivacyNotice()
+    }
+
+    private func fetchHCaptchaPrivacyNotice() {
+        guard let pageURL else {
+            return
+        }
+        Task { [weak self] in
+            guard let html = await HCaptchaEditChallengePresenter.privacyNoticeHTML(for: pageURL) else {
+                return
+            }
+            guard let self else { return }
+            self.hCaptchaPrivacyNoticeHTML = html
+            self.updateTextViews()
         }
     }
 
@@ -455,7 +478,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         }
     }
 
-    private func save() {
+    private func save(hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false) {
         guard let dataStore else { return }
         if !dataStore.authenticationManager.authStateIsPermanent {
             if dataStore.authenticationManager.authStateIsTemporary {
@@ -502,12 +525,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         let editTagStrings = editTags?.map { $0.rawValue }
 
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution, editTags: editTagStrings, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: section, summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.classicInfo?.captchaID, captchaWord: captchaViewController?.solution, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha, editTags: editTagStrings, completion: { (result, error) in
 
             DispatchQueue.main.async {
 
                 if let error = error {
-                    self.handleEditFailure(with: error)
+                    self.handleEditFailure(with: error, sentHCaptchaToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha)
                     return
                 }
                 if let result = result {
@@ -571,13 +594,28 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         completion(newRevID)
     }
 
-    private func handleEditFailure(with error: Error) {
+    private func handleEditFailure(with error: Error, sentHCaptchaToken: String? = nil, sentForceShowCaptcha: Bool = false) {
         let nsError = error as NSError
         let errorType = WikiTextSectionUploaderErrorType.init(rawValue: nsError.code) ?? .unknown
 
         var problemSource: EditInteractionFunnel.ProblemSource?
 
         switch errorType {
+        case .needsHCaptcha:
+            WMFToastManager.sharedInstance.dismissCurrentToast() // Hide "Publishing..."
+            problemSource = .needsCaptcha
+
+            guard let captcha = nsError.userInfo[WikiTextSectionUploaderErrorUserInfoCaptchaKey] as? [String: Any],
+                  let requirement = WMFHCaptchaRequirement(captcha: captcha),
+                  HCaptchaEditChallengePresenter.shouldPresent(sentToken: sentHCaptchaToken, sentForceShowCaptcha: sentForceShowCaptcha, requirement: requirement) else {
+                WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+                break
+            }
+
+            wmf_hideKeyboard()
+            HCaptchaEditChallengePresenter.present(on: self, theme: theme, requirement: requirement, onSuccess: { [weak self] token in
+                self?.save(hCaptchaToken: token, forceShowCaptcha: requirement.forceShowCaptcha)
+            }, onCancel: {})
         case .needsCaptcha:
             guard let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "") else {
                 return
