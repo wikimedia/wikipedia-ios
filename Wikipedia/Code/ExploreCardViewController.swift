@@ -11,6 +11,7 @@ protocol ExploreCardViewControllerDelegate: NestedCollectionViewContextMenuDeleg
     var saveButtonsController: SaveButtonsController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
+    func exploreCardViewControllerDidTapWikiRun(_ exploreCardViewController: ExploreCardViewController)
     func exploreCardViewControllerDidTapReviewResults(_ exploreCardViewController: ExploreCardViewController)
     func exploreCardViewControllerDidTapArchive(_ exploreCardViewController: ExploreCardViewController)
 }
@@ -425,6 +426,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         cell.tappedPlayTheArchive = { [weak self] in
             guard let self else { return }
             self.delegate?.exploreCardViewControllerDidTapArchive(self)
+        }
+        cell.tappedPlayWikiRun = { [weak self] in
+            guard let self else { return }
+            self.delegate?.exploreCardViewControllerDidTapWikiRun(self)
         }
 
         let optionA = preview?.optionA

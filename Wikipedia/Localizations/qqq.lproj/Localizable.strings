@@ -1705,6 +1705,10 @@
 "wikimedia-articletopics-topic-tv-and-film" = "Article topic label";
 "wikimedia-articletopics-topic-video-games" = "Article topic label";
 "wikimedia-articletopics-topic-women" = "Article topic label";
+"wikirun-error-close-button" = "Button that closes the WikiRun game from its error state.";
+"wikirun-error-message" = "Message shown when the WikiRun game cannot load.";
+"wikirun-error-title" = "Title shown when the WikiRun game cannot load.";
+"wikirun-feed-card-title" = "Title for the WikiRun button in the Games card.";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-link-external-preview-description" = "Description for external link preview popup. $1$@ is the external url.";
 "wikitext-preview-link-external-preview-title" = "Title for external link preview popup";

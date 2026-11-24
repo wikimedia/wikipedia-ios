@@ -9,6 +9,7 @@ public enum WMFNSNotification {
     public static let sharedCacheStoreSetup = Notification.Name(WMFNotificationName.sharedCacheStoreSetup.rawValue)
     public static let whichCameFirstSessionDidUpdate = Notification.Name(WMFNotificationName.whichCameFirstSessionDidUpdate.rawValue)
     public static let enableHomePhase2DidChange = Notification.Name(WMFNotificationName.enableHomePhase2DidChange.rawValue)
+    public static let wikiRunPrototypeDidChange = Notification.Name(WMFNotificationName.wikiRunPrototypeDidChange.rawValue)
     public static let communityModuleVisibilityDidChange = Notification.Name(WMFNotificationName.communityModuleVisibilityDidChange.rawValue)
     public static let forYouModuleVisibilityDidChange = Notification.Name(WMFNotificationName.forYouModuleVisibilityDidChange.rawValue)
     public static let forYouInterestsDidChange = Notification.Name(WMFNotificationName.forYouInterestsDidChange.rawValue)
@@ -36,6 +37,7 @@ private enum WMFNotificationName: String {
     case sharedCacheStoreSetup = "WMFDataSharedCacheStoreSetup"
     case whichCameFirstSessionDidUpdate = "WMFDataWhichCameFirstSessionDidUpdate"
     case enableHomePhase2DidChange = "WMFDataEnableHomePhase2DidChange"
+    case wikiRunPrototypeDidChange = "WMFDataWikiRunPrototypeDidChange"
     case communityModuleVisibilityDidChange = "WMFDataCommunityModuleVisibilityDidChange"
     case forYouModuleVisibilityDidChange = "WMFDataForYouModuleVisibilityDidChange"
     case forYouInterestsDidChange = "WMFDataForYouInterestsDidChange"

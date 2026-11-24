@@ -213,6 +213,24 @@ struct WMFDeveloperSettingsView: View {
             }
             .listRowBackground(rowBackground)
 
+            Section {
+                captionedRow(caption: "Shows the WikiRun prototype entry point in the Games card.") {
+                    Toggle("Enable WikiRun", isOn: $viewModel.enableWikiRunPrototype)
+                }
+                captionedRow(caption: "Points the WikiRun game at another server, for example http://localhost:5173 while developing the web game. Leave empty to use production.") {
+                    TextField("Production", text: $viewModel.wikiRunBaseURL)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .keyboardType(.URL)
+                        .font(Font(WMFFont.for(.callout)))
+                        .foregroundStyle(Color(theme.text))
+                }
+                .disabled(!viewModel.enableWikiRunPrototype)
+            } header: {
+                sectionHeader("Games")
+            }
+            .listRowBackground(rowBackground)
+
             if let widgetDiagnostics = viewModel.widgetDiagnostics {
                 Section {
                     ForEach(Array(widgetDiagnostics.cacheSummaryLines.enumerated()), id: \.offset) { _, line in
