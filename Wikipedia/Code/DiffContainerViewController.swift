@@ -1201,6 +1201,14 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         alertController.addAction(undo)
 
         present(alertController, animated: true)
+
+        // An alert cannot show links, so the hCaptcha notice is plain text.
+        Task { [weak alertController, siteURL] in
+            guard let html = await HCaptchaEditChallengePresenter.privacyNoticeHTML(for: siteURL) else {
+                return
+            }
+            alertController?.message = message + "\n\n" + html.wmf_stringByRemovingHTML()
+        }
     }
 
     @objc private func undoSummaryTextfieldDidChange() {
