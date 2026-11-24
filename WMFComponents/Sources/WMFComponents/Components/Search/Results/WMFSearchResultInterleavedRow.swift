@@ -27,7 +27,10 @@ struct WMFSearchResultInterleavedRow: View {
     }
 
     /// The tap on the card opens the article. The feedback row sits below the button, not inside it,
-    /// so a tap on a thumb never opens the article. VoiceOver reads the card and then each thumb.
+    /// so a tap on a thumb never opens the article. The swipe actions are on the whole row, so the card and
+    /// the feedback row slide together. The long-press menu is on the card, but the `List` attaches it to
+    /// the whole row, so a long press on the feedback row also opens it. VoiceOver reads the card and then
+    /// each thumb.
     var body: some View {
         VStack(spacing: 0) {
             Button {
@@ -36,11 +39,22 @@ struct WMFSearchResultInterleavedRow: View {
                 card
             }
             .buttonStyle(.plain)
+            .searchResultContextMenu(viewModel: viewModel, result: result)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(Text(rowViewModel.accessibilityText))
             .accessibilityAddTraits(.isButton)
             .accessibilityIdentifier(AccessibilityIdentifiers.Search.result(result.title))
             .accessibilityFocused($focusedElementID, equals: result.id)
+            .accessibilityAction(named: Text(viewModel.localizedStrings.shareActionTitle)) {
+                viewModel.share(result, source: .swipe)
+            }
+            .accessibilityActions {
+                if result.isSavable {
+                    Button(result.isSaved ? viewModel.localizedStrings.unsaveActionTitle : viewModel.localizedStrings.saveActionTitle) {
+                        viewModel.saveOrUnsave(result, source: .swipe)
+                    }
+                }
+            }
 
             feedbackRow
         }
@@ -50,7 +64,7 @@ struct WMFSearchResultInterleavedRow: View {
         .listRowBackground(Color(theme.paperBackground))
         .listRowSeparator(.hidden)
         .accessibilityElement(children: .contain)
-        .searchResultActions(viewModel: viewModel, result: result)
+        .searchResultSwipeActions(viewModel: viewModel, result: result)
     }
 
     private var feedbackRow: some View {
