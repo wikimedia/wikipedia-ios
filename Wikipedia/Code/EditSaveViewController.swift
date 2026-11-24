@@ -618,7 +618,9 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             }, onCancel: {})
         case .needsCaptcha:
             guard let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "") else {
-                return
+                WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+                problemSource = .needsCaptcha
+                break
             }
 
             let captchaId = nsError.userInfo["captchaId"] as? String ?? ""
