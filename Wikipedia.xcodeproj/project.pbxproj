@@ -656,8 +656,11 @@
 		6798332B22C3F2950073CE6F /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */; };
 		679B89ED2E7DFC8B009902BE /* HCaptcha in Frameworks */ = {isa = PBXBuildFile; productRef = 679B89EC2E7DFC8B009902BE /* HCaptcha */; };
 		679B89EF2E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */; };
+		9C3A1E0B2FD0000000000002 /* HCaptchaEditChallengePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A1E0B2FD0000000000001 /* HCaptchaEditChallengePresenter.swift */; };
 		679B89F02E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */; };
+		9C3A1E0B2FD0000000000003 /* HCaptchaEditChallengePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A1E0B2FD0000000000001 /* HCaptchaEditChallengePresenter.swift */; };
 		679B89F12E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */; };
+		9C3A1E0B2FD0000000000004 /* HCaptchaEditChallengePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A1E0B2FD0000000000001 /* HCaptchaEditChallengePresenter.swift */; };
 		679BC84D2C3329D600704A9A /* PageHistoryCountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */; };
 		679BC84E2C3329D600704A9A /* PageHistoryCountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */; };
 		679BC84F2C3329D600704A9A /* PageHistoryCountsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */; };
@@ -977,6 +980,7 @@
 		80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */; };
 		7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */; };
 		7A4414420000000000000A11 /* SavedCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4414420000000000000A10 /* SavedCoordinatorTests.swift */; };
+		9C3A1E0B2FD0000000000006 /* HCaptchaEditChallengePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A1E0B2FD0000000000005 /* HCaptchaEditChallengePresenterTests.swift */; };
 		7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */; };
 		7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A441442000000000000004C /* InMemoryKeyValueStore.swift */; };
 		7A44B1C70000000000000002 /* YearInReviewSavedArticlesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A44B1C70000000000000001 /* YearInReviewSavedArticlesTests.swift */; };
@@ -3200,6 +3204,7 @@
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFHCaptchaViewController.swift; sourceTree = "<group>"; };
+		9C3A1E0B2FD0000000000001 /* HCaptchaEditChallengePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCaptchaEditChallengePresenter.swift; sourceTree = "<group>"; };
 		679BC84C2C3329D500704A9A /* PageHistoryCountsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryCountsView.xib; sourceTree = "<group>"; };
 		679DEEFF2F621D8E00B21570 /* TestKitchenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKitchenAdapter.swift; sourceTree = "<group>"; };
 		679E6FA52C44537B00B6E9F1 /* WMFBarButtonItemPopoverMessageViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFBarButtonItemPopoverMessageViewController+Extensions.swift"; sourceTree = "<group>"; };
@@ -3368,6 +3373,7 @@
 		04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFComponentNavigationControllerTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSetupCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A4414420000000000000A10 /* SavedCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCoordinatorTests.swift; sourceTree = "<group>"; };
+		9C3A1E0B2FD0000000000005 /* HCaptchaEditChallengePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCaptchaEditChallengePresenterTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInterestsCoordinatorTests.swift; sourceTree = "<group>"; };
 		7A441442000000000000004C /* InMemoryKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueStore.swift; sourceTree = "<group>"; };
 		7A44B1C70000000000000001 /* YearInReviewSavedArticlesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewSavedArticlesTests.swift; sourceTree = "<group>"; };
@@ -4781,6 +4787,7 @@
 			isa = PBXGroup;
 			children = (
 				679B89EE2E7DFF79009902BE /* WMFHCaptchaViewController.swift */,
+				9C3A1E0B2FD0000000000001 /* HCaptchaEditChallengePresenter.swift */,
 				B0E803FD1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard */,
 				B0C6BE491E42D19D0033BD6E /* WMFCaptchaViewController.swift */,
 				B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */,
@@ -7105,6 +7112,7 @@
 				04AD319F61E342C5BEB73C38 /* WMFComponentNavigationControllerTests.swift */,
 				7A4414420000000000000044 /* DiscoverSetupCoordinatorTests.swift */,
 				7A4414420000000000000A10 /* SavedCoordinatorTests.swift */,
+				9C3A1E0B2FD0000000000005 /* HCaptchaEditChallengePresenterTests.swift */,
 				7A441442000000000000004A /* DiscoverInterestsCoordinatorTests.swift */,
 				7A4401940000000000000018 /* DiscoverInstrumentationTests.swift */,
 				7A440194000000000000001A /* SavedInstrumentationTests.swift */,
@@ -9234,6 +9242,7 @@
 				80699798C1DA40579D452AAC /* WMFComponentNavigationControllerTests.swift in Sources */,
 				7A4414420000000000000045 /* DiscoverSetupCoordinatorTests.swift in Sources */,
 				7A4414420000000000000A11 /* SavedCoordinatorTests.swift in Sources */,
+				9C3A1E0B2FD0000000000006 /* HCaptchaEditChallengePresenterTests.swift in Sources */,
 				7A441442000000000000004B /* DiscoverInterestsCoordinatorTests.swift in Sources */,
 				7A441442000000000000004D /* InMemoryKeyValueStore.swift in Sources */,
 				7A4414420000000000000A0F /* RemoteNotificationRegistrationFailureTests.swift in Sources */,
@@ -9696,6 +9705,7 @@
 				83C06882292EC85700DF1403 /* TalkPageFormattingToolbarView.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				679B89F12E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */,
+				9C3A1E0B2FD0000000000004 /* HCaptchaEditChallengePresenter.swift in Sources */,
 				007CCF0C26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */,
@@ -10228,6 +10238,7 @@
 				37D535972FE47D920023824C /* WMFWhichCameFirstArchiveViewController.swift in Sources */,
 				00474A2C28DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift in Sources */,
 				679B89EF2E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */,
+				9C3A1E0B2FD0000000000002 /* HCaptchaEditChallengePresenter.swift in Sources */,
 				D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */,
 				8341A349299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */,
 				7AC19E332301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
@@ -10774,6 +10785,7 @@
 				6785FCCC2A6840880078FAF2 /* WatchlistFunnel.swift in Sources */,
 				00474A2B28DD1AE2002E3C09 /* TalkPageCoffeeRollViewController.swift in Sources */,
 				679B89F02E7DFF7E009902BE /* WMFHCaptchaViewController.swift in Sources */,
+				9C3A1E0B2FD0000000000003 /* HCaptchaEditChallengePresenter.swift in Sources */,
 				83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				7AC19E342301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				8341A348299D7D5900016535 /* UserHistorySnapshotCache.swift in Sources */,
