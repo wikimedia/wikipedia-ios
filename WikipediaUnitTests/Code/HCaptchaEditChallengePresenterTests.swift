@@ -1,6 +1,7 @@
 import XCTest
 @testable import WMF
 import WMFData
+import WMFNativeLocalizations
 @testable import Wikipedia
 
 @MainActor
@@ -68,6 +69,11 @@ final class HCaptchaDescriptionEditTests: XCTestCase {
             WikiTextSectionUploaderErrorUserInfoCaptchaKey: ["type": "hcaptcha", "key": "key", "error": "forceshowcaptcha"]
         ])
         XCTAssertEqual(DescriptionEditViewController.hCaptchaRequirement(from: error), WMFHCaptchaRequirement(siteKey: "key", forceShowCaptcha: true))
+    }
+
+    func testWikidataHCaptchaErrorShowsCaptchaMessage() {
+        let error = WikidataFetcher.WikidataPublishingError.needsHCaptcha(WMFHCaptchaRequirement(siteKey: nil, forceShowCaptcha: false))
+        XCTAssertEqual(error.errorDescription, CommonStrings.captchaVerificationError)
     }
 
     @MainActor

@@ -105,6 +105,8 @@ public enum ArticleDescriptionSource: String {
                 return blockedError.messageHtml
             case .apiOther(let error):
                 return error.html
+            case .needsHCaptcha:
+                return CommonStrings.captchaVerificationError
             default:
                 return CommonStrings.unknownError
             }

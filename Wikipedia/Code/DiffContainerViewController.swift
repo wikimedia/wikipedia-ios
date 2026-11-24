@@ -1380,6 +1380,11 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             }
 
             switch dataControllerError {
+            case .hCaptchaRequired:
+                // Keep the domain and code for the funnel, but show a readable message.
+                let nsError = error as NSError
+                fallback(NSError(domain: nsError.domain, code: nsError.code, userInfo: [NSLocalizedDescriptionKey: CommonStrings.captchaVerificationError]))
+                return
             case .serviceError(let error):
 
                 guard let mediaWikiError = error as? MediaWikiFetcher.MediaWikiFetcherError else {

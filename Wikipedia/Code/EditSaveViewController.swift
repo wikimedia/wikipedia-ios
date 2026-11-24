@@ -497,16 +497,18 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         let isMinor = minorEditToggle.isOn
         let isWatched = addToWatchlistToggle.isOn
 
-        if let source,
-           let pageURL,
-        let project = WikimediaProject(siteURL: pageURL) {
-            let summaryAdded = !summaryText.isEmpty
+        // The retry after the hCaptcha challenge is not a new tap on Publish.
+        if hCaptchaToken == nil {
+            if let source,
+               let pageURL,
+               let project = WikimediaProject(siteURL: pageURL) {
+                let summaryAdded = !summaryText.isEmpty
 
-            editorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, isWatched: isWatched, project: project)
+                editorLoggingDelegate?.logEditSaveViewControllerDidTapPublish(source: source, summaryAdded: summaryAdded, isMinor: isMinor, isWatched: isWatched, project: project)
+            }
 
+            imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatched)
         }
-
-        imageRecLoggingDelegate?.logEditSaveViewControllerDidTapPublish(minorEditEnabled: isMinor, watchlistEnabled: isWatched)
 
         EditAttemptFunnel.shared.logSaveAttempt(pageURL: editURL)
 
