@@ -80,6 +80,12 @@ extension SearchResultsViewController {
                 }
                 self?.share(result, frame: frame)
             },
+            ratingAction: { [weak self] _, index, rating in
+                guard let self, let searchTerm = self.displayedSearchTerm, let siteURL = self.displayedSiteURL,
+                      let project = SearchResultsMapper.project(for: siteURL), let searchIDs = self.displayedInterleavedSearchIDs else { return false }
+                self.instrumentation.logInterleavedResultFeedback(project: project, searchTerm: searchTerm, position: index + 1, rating: rating, searchIDs: searchIDs)
+                return true
+            },
             interleavedInfoAction: { [weak self] in
                 guard let self, let languageCode = self.displayedSiteURL?.wmf_languageCode else { return }
                 self.interleavedResultsInfoTappedAction?(languageCode)
@@ -163,6 +169,7 @@ extension SearchResultsViewController {
         self.searchResultsByArticleURL = searchResultsByArticleURL
         self.semanticResultsByArticleURL = semanticResultsByArticleURL
 
+        displayedInterleavedSearchIDs = outcome.searchIDs
         resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project, rowStyle: .interleaved)
         resultsViewModel.hideSemanticSearchEntryPoint()
 

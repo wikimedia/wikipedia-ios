@@ -81,6 +81,7 @@ public struct WMFSemanticSearchInfoView: View {
                         thumbnail: viewModel.exampleThumbnail,
                         showsThumbnail: viewModel.exampleThumbnail != nil,
                         horizontalPadding: WMFSpacing.large,
+                        bottomPadding: WMFSpacing.large,
                         isRightToLeft: viewModel.isRightToLeft)
                 } else {
                     WMFSemanticSearchResultCardView(viewModel: viewModel.exampleResult)

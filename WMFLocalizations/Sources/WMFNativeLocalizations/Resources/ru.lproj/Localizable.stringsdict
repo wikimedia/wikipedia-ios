@@ -959,5 +959,161 @@
 			<string>байт</string>
 		</dict>
 	</dict>
+	<key>year-in-review-2026-biggest-reading-day-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>В общей сложности вы провели в Википедии %1$#@v1@. Вот это продуктивность!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d минуты</string>
+			<key>one</key>
+			<string>%1$d минуту</string>
+			<key>other</key>
+			<string>%1$d минут</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-collective-hours-read-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>В общей сложности читатели со всего мира, такие как вы, потратили на чтение Википедии на всех языках около %1$#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d года</string>
+			<key>other</key>
+			<string>%1$d лет</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-days-visited-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Пик вашей активности пришёлся на %1$@: в этом месяце вы читали Википедию %2$#@v2@.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%2$d дня</string>
+			<key>one</key>
+			<string>%2$d день</string>
+			<key>other</key>
+			<string>%2$d дней</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-intro-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Спасибо, что в 2026 году вы провели %1$#@v1@ с вашим надёжным приложением Википедии.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d дня</string>
+			<key>one</key>
+			<string>%1$d день</string>
+			<key>other</key>
+			<string>%1$d дней</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-minutes-read-comparison-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Это больше, чем %1$#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d целых дня</string>
+			<key>one</key>
+			<string>%1$d целый день</string>
+			<key>other</key>
+			<string>%1$d целых дней</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-time-article-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>За 2026 год вы потратили на чтение этой статьи в общей сложности %1$#@v1@!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d минуты</string>
+			<key>one</key>
+			<string>%1$d минуту</string>
+			<key>other</key>
+			<string>%1$d минут</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-rabbit-hole-reveal-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Вы перешли по %1$#@v1@ — впечатляющий результат!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ссылке</string>
+			<key>other</key>
+			<string>%1$d ссылкам</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-top-topic-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>От %1$@ до %2$@ с этой темой %3$#@v3@.</string>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>была связана %3$d из прочитанных вами статей</string>
+			<key>other</key>
+			<string>были связаны %3$d из прочитанных вами статей</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Это значит, что вы входите в число %1$@ самых активных читателей Википедии в мире. В среднем человек читает %2$#@v2@ в год.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%2$d статьи</string>
+			<key>one</key>
+			<string>%2$d статью</string>
+			<key>other</key>
+			<string>%2$d статей</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

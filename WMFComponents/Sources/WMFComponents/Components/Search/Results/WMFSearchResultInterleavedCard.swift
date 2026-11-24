@@ -10,6 +10,7 @@ struct WMFSearchResultInterleavedCard: View {
     let thumbnail: UIImage?
     let showsThumbnail: Bool
     let horizontalPadding: CGFloat
+    let bottomPadding: CGFloat
     let isRightToLeft: Bool
 
     @Environment(\.displayScale) private var displayScale
@@ -46,7 +47,8 @@ struct WMFSearchResultInterleavedCard: View {
             }
         }
         .padding(.horizontal, horizontalPadding)
-        .padding(.vertical, WMFSpacing.large)
+        .padding(.top, WMFSpacing.large)
+        .padding(.bottom, bottomPadding)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(theme.midBackground))
         .contentShape(Rectangle())

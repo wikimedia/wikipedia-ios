@@ -106,12 +106,20 @@
 "activity-tab-unsatisfied" = "Незадовољан";
 "activity-tab-very-satisfied" = "Веома задовољан";
 "activity-tab-very-unsatisfied" = "Веома незадовољан";
+"activity-tab-week-graph-label" = "Недеља";
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "advanced-settings-title" = "Напредна подешавања";
 "alert-temporary-account" = "Користите привремени налог. Привремени налог ће истећи за 90 дана.";
 "alert-temporary-account-learn-more" = "Сазнајте више.";
 "alt-text-feedback-survey-toast-title" = "Повратне информације послате";
 "announcements-dismiss" = "Одбаци";
+"app-onboarding-feed-preference-community-option" = "Садржај заједнице";
+"app-onboarding-feed-preference-personalized-option" = "Персонализован садржај";
+"app-onboarding-feed-preference-title" = "Шта би желели прво да видите?";
+"app-onboarding-languages-notice" = "Детектовали смо следеће језике на Вашем уређају:";
+"app-onboarding-languages-title" = "Читајте на више од 300 језика";
+"app-onboarding-personalization-body-1" = "Одредите теме које Вас занимају и ми ћемо Вам персонализовати фид.";
+"app-onboarding-personalization-title" = "Трагом сопствене знатижеље";
 "app-store-keywords" = "Википедија, референце, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-release-notes" = "Потпуно прилагодљив и читљивији фид „Истражи“. Побољшања локализације, перформанси и исправке грешака.";
 "app-store-short-description" = "Преузмите апликацију Википедија да бисте истражили места у близини и синхронизовали чланке за читање офлајн.";
@@ -146,6 +154,7 @@
 "article-view-controller-editing-temp-account-created-title" = "Привремени налог направљен";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Додирните да бисте се вратили";
+"beta-badge-label" = "Бета";
 "button-go-back" = "Назад";
 "button-next" = "Следеће";
 "button-ok" = "У реду";
@@ -158,6 +167,7 @@
 "button-skip" = "Прескочи";
 "cancel" = "Откажи";
 "cc-zero" = "Creative Commons CC0";
+"choose-editor-visual-title" = "Визуелно уређивање";
 "clear-title-accessibility-label" = "Чисто";
 "clearing-cache-complete" = "Чишћење кеша завршено.";
 "clearing-cache-error" = "Грешка при чишћењеу кеша.";
@@ -261,13 +271,15 @@
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 линија неуређена|$1 линија неуређено}}";
 "diff-user-button-accessibility-text" = "Тапните два пута да отворите мени";
 "dim-images" = "Затамни слике";
+"discover-announcement-new-tag" = "Ново";
+"discover-announcement-no-thanks" = "Не, хвала";
+"discover-settings-source-alert-never-mind" = "Нема везе";
 "donate-accessibility-amount-button-hint" = "Тапните двапут да изаберете износ донације.";
 "donate-accessibility-donate-hint-format" = "Тапните двапут да донирате $1 Задужбини Викимедије.";
 "donate-accessibility-email-opt-in-hint" = "Тапните двапут да бисте дозволили Задужбини Викимедије да Вам шаље мејлове.";
 "donate-accessibility-monthly-recurring-hint" = "Тапните двапут да сваки месец донирате овај износ.";
 "donate-accessibility-textfield-hint" = "Други износ донације.";
 "donate-accessibility-transaction-fee-hint" = "Тапните двапут да додате и провизију за трансакцију износу донације.";
-// Fuzzy
 "donate-already-donated" = "Хвала, драги донаторе! Ваша великодушност помаже да Википедија и њени сестрински сајтови напредују.";
 "donate-apple-fine-print" = "Епл није задужен за прикупљање новца у ове сврхе.";
 "donate-email-opt-in-text" = "Да, нека ми Задужбина Викимедија периодично шаље имејлове.";
@@ -289,6 +301,9 @@
 "donate-transaction-fee-opt-in-text" = "Платићу и провизију ($1), да би добили цео износ моје донације.";
 "donate-wikimedia-fine-print-1" = "Ми не продајемо нити размењујемо Ваше податке ни са ким. Донирањем, Ви делите своје податке са Задужбином Викимедија, непрофитном организацијом која покреће Википедију и друге Викимедијине пројекте, и с њеним добављачима у складу са [donor policy]($1). Задужбина Викимедија и њени добављачи се налазе у САД-у и другим земљама чији закони о приватности не морају бити исти Вашим. За више информација молимо прочитајте [donor policy]($1).";
 "donate-wikimedia-fine-print-2" = "За редовне донаторе, Задужбина Викимедија ће аутоматски сваког месеца узимати фиксни износ на дан првог донирања, све док не откажете претплату. Донације извршене 29, 30 или 31 у месецу ће бити поновљене задњег дана у месецу, за краће месеце. За питања контактирајте donate@wikimedia.org.";
+"donation-reminder-card-not-now" = "Не сада";
+"donation-reminder-wrap-up-survey-option-keep" = "Задржи";
+"donation-reminder-wrap-up-survey-option-remove" = "Уклони";
 "edit-link-display-text-title" = "Прикажи текст";
 "edit-link-link-target-title" = "Циљ везе";
 "edit-link-remove-link-title" = "Уклони везу";
@@ -384,6 +399,7 @@
 "end-session" = "Заврши сесију";
 "error-generic-recovery-suggestion" = "Покушајте поново касније";
 "error-unknown" = "Дошло је до непознате грешке";
+"evergreen-account-creation-slide-position" = "$1 од $2";
 "explore-another-random" = "Други случајни чланак";
 "explore-because-you-read" = "На основу прочитаног";
 "explore-because-you-read-footer" = "Други сродни чланци";
@@ -502,6 +518,7 @@
 "find-replace-header" = "Пронађи и замени";
 "find-replace-header-close-accessibility" = "Затвори дијалог „пронађи и замени”";
 "find-textfield-accessibility" = "Пронађи";
+"for-you-error-retry" = "Покушај поново";
 "forgot-password-button-title" = "Ресетуј";
 "forgot-password-email-sent" = "Имејл са упутством за ресетовање лозинке је послат";
 "forgot-password-instructions" = "Попуните једно од поља испод да бисте примили упутство за ресетовање лозинке путем имејла";
@@ -513,6 +530,8 @@
 "home-button-saved-accessibility-label" = "Википедија, назад на сачуване";
 "home-community-tab-title" = "Заједница";
 "home-feed-for-you-settings-title" = "Модули";
+"home-feed-interests-deselect-all" = "Поништи избор";
+"home-feed-interests-header-title" = "Шта Вас занима?";
 "home-feed-interests-settings-title" = "Ваша интересовања";
 "home-feed-modules-featured-article-title" = "Сјајан чланак";
 "home-feed-modules-in-the-news-title" = "У вестима";
@@ -521,10 +540,13 @@
 "home-feed-modules-top-read-title" = "Најчитаније";
 "home-feed-settings-community-section-title" = "Заједница";
 "home-feed-settings-for-you-section-title" = "За вас";
+"home-feed-settings-modules-title" = "Модули";
 "home-feed-whats-driving-languages-title" = "Језици";
 "home-feed-whats-driving-reading-history-title" = "Историја читања";
 "home-feed-whats-driving-your-interests-title" = "Ваша интересовања";
+"home-for-you-previous-module-accessibility-action" = "Претходни модул";
 "home-for-you-tab-title" = "За вас";
+"home-menu-hide-module" = "Сакриј модул";
 "home-more-like-footer" = "Још чланака попут $1";
 "home-nearby-footer" = "Још места у близини";
 "home-nearby-location-footer" = "Још у близини $1";
@@ -871,6 +893,7 @@
 "project-name-wikiversity" = "Викиверзитет";
 "project-name-wikivoyage" = "Википутовање";
 "project-name-wiktionary" = "Викиречник";
+"reading-challenge-random-article-button" = "Случајни чланак";
 "reading-challenge-random-button" = "Случајно";
 "reading-list-add-generic-hint-title" = "Додати овај чланак на листу за читање?";
 "reading-list-add-hint-title" = "Додати „$1” на листу за читање?";
@@ -981,6 +1004,9 @@
 "search-result-redirected-from" = "Преусмерено са: $1";
 "search-title" = "Претрага";
 "search-widget-wikipedia-title" = "Википедија";
+"semantic-search-feedback-submit" = "Проследи";
+"semantic-search-feedback-thumbs-down-accessibility" = "Не";
+"semantic-search-feedback-thumbs-up-accessibility" = "Да";
 "serbian-variants-alert-body" = "Апликација Википедија одсад подржава следеће варијанте српског језика као главне или споредне језике олакшавајући читање, претраживање и уређивање у жељеним варијантама:\n\nсрпски ћирилица (sr-ec)\nsrpski latinica (sr-el)";
 "serbian-variants-alert-title" = "Ажурирања подршке за варијанте српског језика";
 "settings-account" = "Налог";
@@ -990,6 +1016,9 @@
 "settings-clear-cache-are-you-sure-title" = "Обрисати кеширане податке?";
 "settings-clear-cache-ok" = "Обриши кеш";
 "settings-donate" = "Донација";
+"settings-editing-preferences-source-short" = "Изворно";
+"settings-editing-preferences-title" = "Начин уређивања";
+"settings-editing-preferences-visual-short" = "Визуелно";
 "settings-help-and-feedback" = "Помоћ и повратне информације";
 "settings-language-bar" = "Приказуј језике при претрази";
 "settings-languages-feed-customization" = "Можете да управљате језицима за приказ у фиду „Истражи“ променом подешавања.";
@@ -1019,6 +1048,7 @@
 "settings-temp-account-end-session-title" = "Излаз из сесије";
 "settings-temp-accounts-talk-page-footer" = "Привремени налог ће истећи за 90 дана";
 "settings-title" = "Подешавања";
+"settings-year-in-review-turn-off-alert-cancel" = "Не, хвала";
 "share-a-fact-made-with" = "Направљено помоћу апликације Википедија";
 "share-article-name-on-wikipedia" = "„$1” на Википедији:";
 "share-building" = "Прављење картице за дељење чињенице…";
@@ -1288,6 +1318,10 @@
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Објављивањем измена прихватате $1услове коришћења$2 и неопозиво објављивање свог доприноса под лиценцама $3CC BY-SA 4.0$4 и $5GFDL$6. Слажете се да су линк или URL довољни за признавање ауторства под лиценцом Creative Commons.";
 "wikitext-upload-save-terms-name" = "услове коришћења";
+"year-in-review-2026-announcement-explore" = "Истражи";
+"year-in-review-2026-collective-articles-title" = "Чланци на Википедији:";
+"year-in-review-2026-thank-you-title" = "Хвала вам!";
 "year-in-review-highlights-share-logo-caption" = "Логотип Википедије";
+"year-in-review-intro-login-title" = "Пријавите се за персонализацију";
 "yesterday-title" = "Јуче";
 "zero-edits-to-articles" = "0 измена чланака скорије";
