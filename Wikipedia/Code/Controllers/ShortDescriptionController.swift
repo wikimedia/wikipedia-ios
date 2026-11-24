@@ -164,6 +164,8 @@ private extension ShortDescriptionController {
             isMinorEdit: true,
             baseRevID: baseRevisionID as NSNumber,
             editTags: [editTag],
+            hCaptchaToken: nil,
+            forceShowCaptcha: false,
             completion: { [weak self] (result, error) in
 
                 guard let self = self else {
@@ -205,6 +207,8 @@ private extension ShortDescriptionController {
                 baseRevID: baseRevisionID as NSNumber,
                 captchaId: nil,
                 captchaWord: nil,
+                hCaptchaToken: nil,
+                forceShowCaptcha: false,
                 editTags: [editTag],
                 completion: { [weak self] (result, error) in
                 
