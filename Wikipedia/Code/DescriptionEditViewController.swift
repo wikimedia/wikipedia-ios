@@ -339,7 +339,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
         publishDescriptionButton.isEnabled = highlight
     }
 
-    private func save() {
+    private func save(hCaptchaToken: String? = nil, forceShowCaptcha: Bool = false) {
         enableProgressiveButton(false)
         wmf_hideKeyboard()
 
@@ -357,7 +357,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
             EditAttemptFunnel.shared.logSaveAttempt(pageURL: pageURL)
         }
 
-        articleDescriptionController.publishDescription(descriptionToSave, editType: editType) { [weak self] (result) in
+        articleDescriptionController.publishDescription(descriptionToSave, editType: editType, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha) { [weak self] (result) in
 
             DispatchQueue.main.async {
                 guard let self else {
@@ -442,6 +442,18 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     if let pageURL = self.loggingPageURL {
                         EditAttemptFunnel.shared.logSaveFailure(pageURL: pageURL)
                     }
+
+                    if let requirement = Self.hCaptchaRequirement(from: error) {
+                        guard HCaptchaEditChallengePresenter.shouldPresent(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, requirement: requirement) else {
+                            WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+                            return
+                        }
+                        HCaptchaEditChallengePresenter.present(on: self, theme: self.theme, requirement: requirement, onSuccess: { [weak self] token in
+                            self?.save(hCaptchaToken: token, forceShowCaptcha: requirement.forceShowCaptcha)
+                        }, onCancel: {})
+                        return
+                    }
+
                     if let wikidataError = error as? WikidataFetcher.WikidataPublishingError {
                         switch wikidataError {
                         case .apiBlocked(let blockedError):
@@ -479,6 +491,19 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                 }
             }
         }
+    }
+
+    // English descriptions save through WikiTextSectionUploader. Other languages save through WikidataFetcher.
+    static func hCaptchaRequirement(from error: Error) -> WMFHCaptchaRequirement? {
+        if case WikidataFetcher.WikidataPublishingError.needsHCaptcha(let requirement) = error {
+            return requirement
+        }
+        let nsError = error as NSError
+        guard nsError.code == WikiTextSectionUploaderErrorType.needsHCaptcha.rawValue,
+              let captcha = nsError.userInfo[WikiTextSectionUploaderErrorUserInfoCaptchaKey] as? [String: Any] else {
+            return nil
+        }
+        return WMFHCaptchaRequirement(captcha: captcha)
     }
 
     private func presentBlockedPanel(error: MediaWikiAPIDisplayError) {

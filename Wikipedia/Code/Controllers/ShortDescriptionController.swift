@@ -55,7 +55,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     /// - Parameters:
     ///   - description: The new description to insert into the wikitext
     ///   - completion: Completion called when updated section upload call is successful.
-    func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func publishDescription(_ description: String, editType: ArticleDescriptionEditType, hCaptchaToken: String?, forceShowCaptcha: Bool, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         wikitextFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             DispatchQueue.main.async {
@@ -71,7 +71,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
                     let wikitext = response.wikitext
                     let revisionID = response.revisionID
 
-                    self.uploadNewDescriptionToWikitext(wikitext, baseRevisionID: revisionID, newDescription: description, editType: editType, completion: completion)
+                    self.uploadNewDescriptionToWikitext(wikitext, baseRevisionID: revisionID, newDescription: description, editType: editType, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha, completion: completion)
 
                 case .failure(let error):
                     completion(.failure(error))
@@ -134,23 +134,23 @@ class ShortDescriptionController: ArticleDescriptionControlling {
 
 private extension ShortDescriptionController {
     
-    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, editType: ArticleDescriptionEditType, hCaptchaToken: String?, forceShowCaptcha: Bool, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             guard try wikitext.containsShortDescription() else {
                 
-                prependNewDescriptionToWikitextAndUpload(wikitext, baseRevisionID: baseRevisionID, newDescription: newDescription, editType: editType, completion: completion)
+                prependNewDescriptionToWikitextAndUpload(wikitext, baseRevisionID: baseRevisionID, newDescription: newDescription, editType: editType, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha, completion: completion)
                 return
             }
                 
-            replaceDescriptionInWikitextAndUpload(wikitext, newDescription: newDescription, baseRevisionID: baseRevisionID, editType: editType, completion: completion)
+            replaceDescriptionInWikitextAndUpload(wikitext, newDescription: newDescription, baseRevisionID: baseRevisionID, editType: editType, hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha, completion: completion)
             
         } catch let error {
             completion(.failure(error))
         }
     }
     
-    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, editType: ArticleDescriptionEditType, hCaptchaToken: String?, forceShowCaptcha: Bool, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
@@ -164,8 +164,8 @@ private extension ShortDescriptionController {
             isMinorEdit: true,
             baseRevID: baseRevisionID as NSNumber,
             editTags: [editTag],
-            hCaptchaToken: nil,
-            forceShowCaptcha: false,
+            hCaptchaToken: hCaptchaToken,
+            forceShowCaptcha: forceShowCaptcha,
             completion: { [weak self] (result, error) in
 
                 guard let self = self else {
@@ -189,7 +189,7 @@ private extension ShortDescriptionController {
         )
     }
     
-    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, editType: ArticleDescriptionEditType, hCaptchaToken: String?, forceShowCaptcha: Bool, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             
@@ -207,8 +207,8 @@ private extension ShortDescriptionController {
                 baseRevID: baseRevisionID as NSNumber,
                 captchaId: nil,
                 captchaWord: nil,
-                hCaptchaToken: nil,
-                forceShowCaptcha: false,
+                hCaptchaToken: hCaptchaToken,
+                forceShowCaptcha: forceShowCaptcha,
                 editTags: [editTag],
                 completion: { [weak self] (result, error) in
                 

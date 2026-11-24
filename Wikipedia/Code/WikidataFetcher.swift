@@ -96,6 +96,7 @@ public enum ArticleDescriptionSource: String {
         case apiAbuseFilterWarn(error: MediaWikiAPIDisplayError)
         case apiAbuseFilterOther(error: MediaWikiAPIDisplayError)
         case apiOther(error: MediaWikiAPIError)
+        case needsHCaptcha(WMFHCaptchaRequirement)
         case unknown
         
         public var errorDescription: String? {
@@ -118,9 +119,48 @@ public enum ArticleDescriptionSource: String {
         let entity: Entity?
         let errors: [MediaWikiAPIError]?
         let success: Int?
-        
+        let hCaptchaRequirement: WMFHCaptchaRequirement?
+
         var succeeded: Bool {
             return success == 1
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case entity
+            case errors
+            case success
+        }
+
+        // Wikibase sends the captcha in errors[].data.captcha, which MediaWikiAPIError does not keep.
+        private struct CaptchaAPIError: Decodable {
+            struct ErrorData: Decodable {
+                struct Captcha: Decodable {
+                    let type: String?
+                    let key: String?
+                    let error: String?
+                }
+                let captcha: Captcha?
+            }
+            let data: ErrorData?
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            entity = try container.decodeIfPresent(Entity.self, forKey: .entity)
+            errors = try container.decodeIfPresent([MediaWikiAPIError].self, forKey: .errors)
+            success = try container.decodeIfPresent(Int.self, forKey: .success)
+
+            let captchaErrors = (try? container.decodeIfPresent([CaptchaAPIError].self, forKey: .errors)) ?? []
+            hCaptchaRequirement = captchaErrors.lazy
+                .compactMap { $0.data?.captcha }
+                .compactMap { captcha -> WMFHCaptchaRequirement? in
+                    var dictionary: [String: Any] = [:]
+                    dictionary["type"] = captcha.type
+                    dictionary["key"] = captcha.key
+                    dictionary["error"] = captcha.error
+                    return WMFHCaptchaRequirement(captcha: dictionary)
+                }
+                .first
         }
     }
     
@@ -148,6 +188,8 @@ public enum ArticleDescriptionSource: String {
         forWikidataID wikidataID: String,
         languageCode: String,
         editTags: [WMFEditTag]?,
+        hCaptchaToken: String? = nil,
+        forceShowCaptcha: Bool = false,
         completion: @escaping (Result<UInt64?, Error>) -> Void
     ) {
         guard source != .local else {
@@ -180,11 +222,14 @@ public enum ArticleDescriptionSource: String {
                 case .failure(let error):
                     completion(.failure(error))
                 case .success(let token):
-                    let bodyParameters = ["language": normalizedLanguage,
+                    var bodyParameters = ["language": normalizedLanguage,
                                           "uselang": normalizedLanguage,
                                           "id": wikidataID,
                                           "value": newWikidataDescription,
                                           "token": token.value]
+                    if let hCaptchaToken {
+                        bodyParameters.merge(WMFHCaptchaRequirement.requestParameters(token: hCaptchaToken, forceShowCaptcha: forceShowCaptcha)) { _, new in new }
+                    }
                     self.session.jsonDecodableTask(with: wikidataURL, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form) { (result: WikidataAPIPublishResult?, response, networkError) in
                         
                         self.processResponse(result: result, response: response, isAuthorized: token.isAuthorized, networkError: networkError, siteURL: wikidataURL?.wmf_site, completion: completion)
@@ -210,6 +255,11 @@ public enum ArticleDescriptionSource: String {
 
         guard let result = result else {
             completion(.failure(WikidataPublishingError.apiResultNotParsedCorrectly))
+            return
+        }
+
+        if let hCaptchaRequirement = result.hCaptchaRequirement {
+            completion(.failure(WikidataPublishingError.needsHCaptcha(hCaptchaRequirement)))
             return
         }
 
