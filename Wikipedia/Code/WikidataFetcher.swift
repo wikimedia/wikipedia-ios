@@ -239,6 +239,10 @@ public enum ArticleDescriptionSource: String {
                     default:
                         completion(.failure(WikidataPublishingError.apiAbuseFilterOther(error: displayError)))
                     }
+                } else if let firstError = errors.first {
+                    completion(.failure(WikidataPublishingError.apiOther(error: firstError)))
+                } else {
+                    completion(.failure(WikidataPublishingError.unknown))
                 }
             }
             
