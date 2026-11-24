@@ -515,7 +515,7 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                         }
                         HCaptchaEditChallengePresenter.present(on: self, theme: self.theme, requirement: requirement, onSuccess: { [weak self] token in
                             self?.save(hCaptchaToken: token, forceShowCaptcha: requirement.forceShowCaptcha)
-                        }, onCancel: {})
+                        })
                         return
                     }
 

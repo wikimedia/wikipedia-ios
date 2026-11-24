@@ -24,8 +24,8 @@ enum HCaptchaEditChallengePresenter {
         return (editApiKey?.isEmpty ?? true) ? nil : editApiKey
     }
 
-    /// `onCancel` runs after the user closes the challenge, and after an error toast for other failures.
-    static func present(on presenter: UIViewController, theme: Theme, requirement: WMFHCaptchaRequirement, onSuccess: @escaping (String) -> Void, onCancel: @escaping () -> Void) {
+    /// `onCancel` runs after the user closes the challenge, and after the error toast for other challenge errors.
+    static func present(on presenter: UIViewController, theme: Theme, requirement: WMFHCaptchaRequirement, onSuccess: @escaping (String) -> Void, onCancel: @escaping () -> Void = {}) {
         let hCaptchaViewController = WMFHCaptchaViewController()
         hCaptchaViewController.theme = theme
         hCaptchaViewController.siteKey = siteKey(for: requirement)

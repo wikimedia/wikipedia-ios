@@ -617,7 +617,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             wmf_hideKeyboard()
             HCaptchaEditChallengePresenter.present(on: self, theme: theme, requirement: requirement, onSuccess: { [weak self] token in
                 self?.save(hCaptchaToken: token, forceShowCaptcha: requirement.forceShowCaptcha)
-            }, onCancel: {})
+            })
         case .needsCaptcha:
             guard let captchaUrl = URL(string: nsError.userInfo["captchaUrl"] as? String ?? "") else {
                 WMFToastManager.sharedInstance.showErrorAlert(nsError, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)

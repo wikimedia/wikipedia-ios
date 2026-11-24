@@ -1262,7 +1262,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                     }
                     HCaptchaEditChallengePresenter.present(on: self, theme: self.theme, requirement: requirement, onSuccess: { [weak self] token in
                         self?.performUndo(summary: summary, hCaptchaToken: token, forceShowCaptcha: requirement.forceShowCaptcha)
-                    }, onCancel: {})
+                    })
                     return
                 }
 
