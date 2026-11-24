@@ -226,7 +226,7 @@
 "donate-success-title" = "Hvala vam!";
 "donate-title" = "Iznos donacije";
 // Fuzzy
-"donate-transaction-fee-opt-in-text" = "Velikodušno ću dodati $1 da pokrijem proviziju za transakciju tako da možete dobiti 100% od moje donacije.";
+"donate-transaction-fee-opt-in-text" = "Velikodušno ću dodati $1 da pokrijem proviziju za transakciju tako da možete dobiti 100%% od moje donacije.";
 "edit-link-display-text-title" = "Prikaži tekst";
 "edit-link-link-target-title" = "Cilj veze";
 "edit-link-remove-link-title" = "Ukloni vezu";
