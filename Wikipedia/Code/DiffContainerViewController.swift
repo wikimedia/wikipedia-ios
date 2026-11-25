@@ -652,7 +652,8 @@ private extension DiffContainerViewController {
             return
         }
 
-        WMFArticleDataController().fetchArticleInfo(title: articleTitle, project: wmfProject, request: request) { result in
+        WMFArticleDataController().fetchArticleInfo(title: articleTitle, project: wmfProject, request: request) { [weak self] result in
+            guard let self else { return }
             DispatchQueue.main.async { [weak self] in
 
                 guard let self else {

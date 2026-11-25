@@ -274,12 +274,12 @@ public extension WidgetController {
     // MARK: - Diagnostics
 
     /// The last fetch outcome, for the developer settings screen. Nil until a widget has fetched.
-    public var lastFetchDiagnostics: WidgetFetchDiagnostics? {
+    var lastFetchDiagnostics: WidgetFetchDiagnostics? {
         return widgetCache.lastFetchDiagnostics
     }
 
     /// Human-readable summary of the widget cache state, for the developer settings screen.
-    public func cacheDiagnosticsSummaryLines() -> [String] {
+    func cacheDiagnosticsSummaryLines() -> [String] {
         let widgetCache = widgetCache
         var lines: [String] = []
         lines.append("Language: \(widgetCache.settings.languageCode)" + (widgetCache.settings.languageVariantCode.map { " (\($0))" } ?? ""))
@@ -305,7 +305,7 @@ public extension WidgetController {
     }
 
     /// Wipes the cached featured content. The next widget refresh fetches from the network.
-    public func clearFeaturedContentCache() {
+    func clearFeaturedContentCache() {
         var updatedCache = widgetCache
         updatedCache.featuredContent = nil
         sharedCache.saveCache(updatedCache)

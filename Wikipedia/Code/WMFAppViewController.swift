@@ -869,7 +869,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             self.setupTips()
-            WMFToastPresenter.shared.startObservingKeyboard()
+            MainActor.assumeIsolated {
+                WMFToastPresenter.shared.startObservingKeyboard()
+            }
             self.setupWMFDataEnvironment()
             self.setupWMFDataCoreDataStore()
 
@@ -1071,7 +1073,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func finishResumingApp() {
         let resumeAndAnnouncementsCompleteGroup = WMFTaskGroup()
         resumeAndAnnouncementsCompleteGroup.enter()
-        dataStore.authenticationManager.attemptLogin {
+        dataStore.authenticationManager.attemptLogin { [self] in
             self.checkRemoteAppConfigIfNecessary()
             if self.reachabilityNotifier == nil {
                 self.reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] isReachable, _ in

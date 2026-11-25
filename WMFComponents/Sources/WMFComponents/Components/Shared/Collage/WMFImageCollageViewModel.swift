@@ -18,7 +18,7 @@ final class WMFImageCollageViewModel: ObservableObject {
         var tileCount: Int { columnCount * rowCount }
 
         /// Three columns by two rows, the header of the Discover list screen.
-        static let header = Layout(columnCount: 3, rowCount: 2, tileHeight: 134, placeholderTones: [.neutral, .neutralSubtle])
+        nonisolated static let header = Layout(columnCount: 3, rowCount: 2, tileHeight: 134, placeholderTones: [.neutral, .neutralSubtle])
         /// Two columns by two rows, the thumbnail on the Discover entry card in the Saved tab. The
         /// card is painted `midBackground`, so its tiles use the two other backgrounds.
         static let entryCard = Layout(columnCount: 2, rowCount: 2, tileHeight: 64, placeholderTones: [.neutral, .paper])

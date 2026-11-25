@@ -151,10 +151,12 @@ extension ArticleViewController {
 
         state = .loading
 
-        Task {
+        let articleLanguageCode = self.articleLanguageCode
+        Task { [weak self] in
             let dataController = WMFTempAccountDataController.shared
             let languageHasTempAccountsEnabled = await dataController.asyncCheckWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
 
+            guard let self else { return }
             state = .loaded
 
             if !authManager.authStateIsPermanent && languageHasTempAccountsEnabled {
@@ -205,10 +207,12 @@ extension ArticleViewController {
 
         state = .loading
 
-        Task {
+        let articleLanguageCode = self.articleLanguageCode
+        Task { [weak self] in
             let dataController = WMFTempAccountDataController.shared
             let languageHasTempAccountsEnabled = await dataController.asyncCheckWikiTempAccountAvailability(language: articleLanguageCode, isCheckingPrimaryWiki: false)
 
+            guard let self else { return }
             state = .loaded
 
             if languageHasTempAccountsEnabled, !authManager.authStateIsPermanent {
