@@ -83,6 +83,7 @@ struct WMFSearchResultInterleavedCard: View {
     private var sectionRow: some View {
         HStack(spacing: WMFSpacing.xSmall) {
             Image(uiImage: WMFSFSymbolIcon.for(symbol: .arrowTurnDownRight, font: .caption1) ?? UIImage())
+                .flipsForRightToLeftLayoutDirection(true)
                 .foregroundStyle(Color(theme.text))
                 .accessibilityHidden(true)
             Text(rowViewModel.displayedSectionTitle)
