@@ -22,6 +22,16 @@ final class WMFHomeViewModelTests: XCTestCase {
         return (vm, controller)
     }
 
+    /// A data controller that reads the given feed. On this day fails at once, as if offline, so a
+    /// Community load never waits for the live API.
+    private func makeDataController(feed: any WMFFeedDataControlling) -> WMFHomeDataController {
+        WMFHomeDataController(
+            feedDataController: feed,
+            userDefaultsStore: WMFMockKeyValueStore(),
+            onThisDayDataController: WMFOnThisDayDataController(basicService: WMFMockServiceNoInternetConnection())
+        )
+    }
+
     private func makeForYouCardViewModel() -> WMFForYouArticleCardViewModel {
         let article = WMFForYouArticle(title: "Octopus", project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
         let header = WMFForYouHeaderLabel(format: "Test %1$@", highlight: "")
@@ -246,6 +256,382 @@ final class WMFHomeViewModelTests: XCTestCase {
         vm.selectedLanguage = spanish
 
         XCTAssertTrue(vm.communityPages.isEmpty)
+    }
+
+    /// Waits on the main actor until `condition` holds. Gives up after about two seconds, so a
+    /// broken test fails instead of hanging the suite.
+    private func waitUntil(_ condition: () -> Bool) async -> Bool {
+        for _ in 0..<200 {
+            if condition() { return true }
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        return condition()
+    }
+
+    private let emptyFeed = WMFFeedAPIResponse(todaysFeaturedArticle: nil, mostRead: nil, image: nil, news: nil)
+
+    /// The English load is still in flight when the reader picks Spanish, and it finishes after the
+    /// Spanish feed is on screen. It belongs to the old language, so it must not replace that feed.
+    func testACommunityLoadFinishingAfterALanguageChangeIsDropped() async {
+        let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let spanish = WMFLanguage(languageCode: "es", languageVariantCode: nil)
+        let englishProjectID = WMFProject.wikipedia(english).id
+        // A day with content, so that the feed does not go back to earlier days by itself.
+        let withContent = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: withContent ?? emptyFeed) { project, _ in
+            project.id == englishProjectID
+        }
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
+        vm.selectedTab = .community
+
+        vm.selectedLanguage = english
+        let englishIsHeld = await feed.waitUntilHeld()
+        XCTAssertTrue(englishIsHeld)
+
+        vm.selectedLanguage = spanish
+        let spanishLoaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(spanishLoaded)
+
+        await feed.releaseHeld()
+        // Give the English task the time to finish and, without its cancellation checks, write.
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(vm.communityPages.map(\.project.id), [WMFProject.wikipedia(spanish).id])
+        XCTAssertFalse(vm.isLoadingCommunity)
+        XCTAssertNil(vm.communityFeedError)
+    }
+
+    // MARK: - Community empty feed and errors
+
+    func testCommunityFeedIsEmptyWhenEveryModuleIsOff() async {
+        let feed = WMFMockGatedFeedDataController(response: emptyFeed, holdCount: 0) { _, _ in false }
+        let controller = makeDataController(feed: feed)
+        controller.setCommunityFeaturedArticleIsOn(false)
+        controller.setCommunityTopReadIsOn(false)
+        controller.setCommunityInTheNewsIsOn(false)
+        controller.setCommunityOnThisDayIsOn(false)
+        controller.setCommunityPictureOfTheDayIsOn(false)
+        let vm = WMFHomeViewModel(dataController: controller)
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(loaded)
+
+        XCTAssertTrue(vm.isCommunityFeedEmpty)
+    }
+
+    /// Hiding every card of today from the menu must not trap the reader in the empty state: its
+    /// button opens settings, which cannot unhide cards, and the feed's "See past" would be gone.
+    func testHidingEveryCardKeepsTheFeed() async {
+        let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(loaded)
+
+        for page in vm.communityPages {
+            for module in WMFCommunityModule.allCases {
+                if let key = page.hideKey(for: module) { vm.hideCard(key: key) }
+            }
+        }
+
+        XCTAssertFalse(vm.isCommunityFeedEmpty)
+    }
+
+    // MARK: - Community days without content
+
+    /// Makes a view model whose feed has content only on the days `daysWithContent` (0 is today,
+    /// 1 yesterday). On this day is off, so its own endpoint is never asked.
+    private func makeCommunityViewModel(daysWithContent: Set<Int>) -> (WMFHomeViewModel, WMFDatedFeedDataController) {
+        let withContent = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFDatedFeedDataController(withContent: withContent ?? emptyFeed, empty: emptyFeed, daysWithContent: daysWithContent)
+        let controller = makeDataController(feed: feed)
+        controller.setCommunityOnThisDayIsOn(false)
+        let vm = WMFHomeViewModel(dataController: controller)
+        vm.selectedTab = .community
+        return (vm, feed)
+    }
+
+    /// A small wiki often has nothing yet for today. The feed goes back to yesterday by itself.
+    func testAnEmptyTodayLoadsTheDayBefore() async {
+        let (vm, _) = makeCommunityViewModel(daysWithContent: [1])
+        vm.selectedLanguage = WMFLanguage(languageCode: "sco", languageVariantCode: nil)
+
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loaded)
+        XCTAssertFalse(vm.hasCommunityContent(vm.communityPages[0]))
+        XCTAssertTrue(vm.hasCommunityContent(vm.communityPages[1]))
+    }
+
+    /// "See past" skips days with nothing to show, so a tap always adds a day the reader can see.
+    func testSeePastSkipsDaysWithNothingToShow() async {
+        let (vm, feed) = makeCommunityViewModel(daysWithContent: [0, 3])
+        vm.selectedLanguage = WMFLanguage(languageCode: "yo", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+
+        vm.loadCommunityPreviousPage()
+        let skipped = await waitUntil { !vm.isLoadingCommunityPreviousPage && vm.communityPages.count == 4 }
+        XCTAssertTrue(skipped)
+        XCTAssertTrue(vm.hasCommunityContent(vm.communityPages[3]))
+        let calls = await feed.callCount
+        XCTAssertEqual(calls, 4)
+    }
+
+    // MARK: - Community refresh and "See past"
+
+    private func makeGatedCommunityViewModel() async -> (WMFHomeViewModel, WMFDayGatedFeedDataController) {
+        let withContent = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))
+        let feed = WMFDayGatedFeedDataController(response: withContent ?? emptyFeed)
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+        return (vm, feed)
+    }
+
+    private func daysAgo(_ vm: WMFHomeViewModel) -> [Int] {
+        vm.communityPages.map { WMFDayGatedFeedDataController.daysAgo($0.feedDate) }
+    }
+
+    /// The reader taps "See past" while a pull to refresh runs, and the refresh finishes first. The
+    /// day belongs to the feed the refresh replaced, so it is dropped, and the next tap loads
+    /// yesterday.
+    func testSeePastStartedDuringARefreshIsDroppedWhenTheRefreshFinishesFirst() async {
+        let (vm, feed) = await makeGatedCommunityViewModel()
+
+        await feed.hold(day: 0)
+        let refresh = Task { await vm.refreshCommunityFeed() }
+        let refreshIsHeld = await feed.waitUntilHeld(day: 0)
+        XCTAssertTrue(refreshIsHeld)
+
+        await feed.hold(day: 1)
+        vm.loadCommunityPreviousPage()
+        let seePastIsHeld = await feed.waitUntilHeld(day: 1)
+        XCTAssertTrue(seePastIsHeld)
+
+        await feed.release(day: 0)
+        await refresh.value
+        await feed.release(day: 1)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(daysAgo(vm), [0])
+        XCTAssertFalse(vm.isLoadingCommunityPreviousPage)
+
+        vm.loadCommunityPreviousPage()
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loaded)
+        XCTAssertEqual(daysAgo(vm), [0, 1])
+    }
+
+    /// The reader taps "See past", then pulls to refresh, and the refresh fails. The feed on screen
+    /// stays, so the day it asked for still arrives, and the next tap continues from it.
+    func testSeePastFinishesWhenTheRefreshFails() async {
+        let (vm, feed) = await makeGatedCommunityViewModel()
+
+        await feed.hold(day: 1)
+        vm.loadCommunityPreviousPage()
+        let seePastIsHeld = await feed.waitUntilHeld(day: 1)
+        XCTAssertTrue(seePastIsHeld)
+
+        await feed.fail(day: 0)
+        await vm.refreshCommunityFeed()
+        await feed.release(day: 1)
+
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loaded)
+        XCTAssertEqual(daysAgo(vm), [0, 1])
+        XCTAssertNil(vm.communityFeedError)
+
+        vm.loadCommunityPreviousPage()
+        let loadedMore = await waitUntil { vm.communityPages.count == 3 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loadedMore)
+        XCTAssertEqual(daysAgo(vm), [0, 1, 2])
+    }
+
+    /// A wiki without feed content must not start an endless run of requests.
+    func testSkippingEmptyDaysStopsAtTheLimit() async {
+        let (vm, feed) = makeCommunityViewModel(daysWithContent: [0])
+        vm.selectedLanguage = WMFLanguage(languageCode: "ast", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+
+        vm.loadCommunityPreviousPage()
+        let stopped = await waitUntil { !vm.isLoadingCommunityPreviousPage && vm.communityPages.count > 1 }
+        XCTAssertTrue(stopped)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(vm.communityPages.count, 1 + 1 + WMFHomeViewModel.maxEmptyCommunityDaysSkipped)
+        let calls = await feed.callCount
+        XCTAssertEqual(calls, 1 + 1 + WMFHomeViewModel.maxEmptyCommunityDaysSkipped)
+    }
+
+    /// With every module off the empty state shows. It must not set off a search for content.
+    func testAnEmptyTodayWithEveryModuleOffLoadsNothingMore() async {
+        let (vm, feed) = makeCommunityViewModel(daysWithContent: [1])
+        let controller = vm.dataController
+        controller.setCommunityFeaturedArticleIsOn(false)
+        controller.setCommunityTopReadIsOn(false)
+        controller.setCommunityInTheNewsIsOn(false)
+        controller.setCommunityPictureOfTheDayIsOn(false)
+        vm.selectedLanguage = WMFLanguage(languageCode: "simple", languageVariantCode: nil)
+        let loaded = await waitUntil { vm.communityPages.count == 1 }
+        XCTAssertTrue(loaded)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(vm.communityPages.count, 1)
+        let calls = await feed.callCount
+        XCTAssertEqual(calls, 1)
+    }
+
+    func testTappingACommunityArticleReachesTheCoordinatorWithItsModuleAndAction() {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "ar", languageVariantCode: nil))
+        var opened: (String, String, WMFCommunityModule, WMFCommunityArticleAction)?
+        vm.didTapCommunityArticle = { title, project, module, action in opened = (title, project.id, module, action) }
+
+        vm.performCommunityArticleAction(.openInBackgroundTab, title: "Black_hole", project: project, module: .topRead)
+
+        XCTAssertEqual(opened?.0, "Black_hole")
+        XCTAssertEqual(opened?.1, project.id)
+        XCTAssertEqual(opened?.2, .topRead)
+        XCTAssertEqual(opened?.3, .openInBackgroundTab)
+    }
+
+    /// The Save button turns into "Saved for later" at once, before the saved list reports back.
+    func testSavingACommunityArticleMarksItSaved() {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        vm.didTapCommunityArticle = { _, _, _, _ in }
+
+        vm.performCommunityArticleAction(.save, title: "Black_hole", project: project, module: .featuredArticle)
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
+
+        vm.performCommunityArticleAction(.unsave, title: "Black_hole", project: project, module: .featuredArticle)
+        XCTAssertFalse(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
+    }
+
+    func testSavedStatesComeFromTheCoordinatorForLoadedArticles() async {
+        let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" }, "mostread": { "articles": [ { "title": "Octopus" } ] } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
+        vm.isCommunityArticleSaved = { title, _ in title == "Octopus" }
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty }
+        XCTAssertTrue(loaded)
+
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Octopus", project: project))
+        XCTAssertFalse(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
+    }
+
+    func testMoreTopReadReachesTheCoordinatorWithEveryTitle() throws {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        let feedResponse = try JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "mostread": { "articles": [ { "title": "A" }, { "title": "B" }, { "title": "C" }, { "title": "D" }, { "title": "E" }, { "title": "F" } ] } }"#.utf8))
+        let page = WMFHomeCommunityViewModel(response: WMFCommunityResponse(date: Date(), feedResponse: feedResponse, onThisDay: nil), project: project)
+        var opened: [String]?
+        vm.didTapCommunityTopReadList = { titles, _, _ in opened = titles }
+
+        vm.openCommunityTopReadList(for: page)
+
+        XCTAssertEqual(opened, ["A", "B", "C", "D", "E", "F"])
+    }
+
+    func testTappingAnOnThisDayEventReachesTheCoordinatorWithThatEvent() throws {
+        let (vm, _) = makeViewModel()
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+        let feedResponse = try JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "onthisday": [ { "text": "Nuremberg trials begin", "year": 1945, "pages": [] } ] }"#.utf8))
+        let page = WMFHomeCommunityViewModel(response: WMFCommunityResponse(date: Date(), feedResponse: feedResponse, onThisDay: nil), project: project)
+        var opened: (year: Int, text: String)?
+        var didOpen = false
+        vm.didTapCommunityOnThisDay = { _, _, event in
+            didOpen = true
+            opened = event
+        }
+
+        vm.openCommunityOnThisDay(for: page, event: page.onThisDayItems?.first)
+        XCTAssertEqual(opened?.year, 1945)
+        XCTAssertEqual(opened?.text, "Nuremberg trials begin")
+
+        vm.openCommunityOnThisDay(for: page, event: nil)
+        XCTAssertTrue(didOpen)
+        XCTAssertNil(opened, "More on this day opens the list at its top")
+    }
+
+    func testTappingANewsStoryReachesTheCoordinatorWithTheWholeStory() throws {
+        let (vm, _) = makeViewModel()
+        let story = try JSONDecoder().decode(WMFFeedNewsItem.self, from: Data(#"{ "story": "A story", "links": [ { "title": "A" }, { "title": "B" } ] }"#.utf8))
+        var opened: WMFFeedNewsItem?
+        vm.didTapCommunityNewsStory = { story, _ in opened = story }
+
+        vm.openCommunityNewsStory(story, project: .wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil)))
+
+        XCTAssertEqual(opened?.links?.compactMap(\.title), ["A", "B"])
+    }
+
+    func testTappingThePictureOfTheDayReachesTheCoordinatorWithItsDate() {
+        let (vm, _) = makeViewModel()
+        let date = Date(timeIntervalSince1970: 1_700_000_000)
+        var opened: Date?
+        vm.didTapCommunityPictureOfTheDay = { opened = $0 }
+
+        vm.openCommunityPictureOfTheDay(date: date)
+
+        XCTAssertEqual(opened, date)
+    }
+
+    func testCommunityFeedIsNotEmptyBeforeItLoads() {
+        let (vm, _) = makeViewModel()
+        XCTAssertFalse(vm.isCommunityFeedEmpty, "Loading and error states have their own views")
+    }
+
+    func testOfflineErrorsGetTheOfflineCopy() {
+        let (vm, _) = makeViewModel()
+        let offline = URLError(.notConnectedToInternet)
+        XCTAssertEqual(vm.communityErrorTitle(for: offline), vm.forYouErrorTitle)
+        XCTAssertEqual(vm.communityErrorSubtitle(for: offline), vm.forYouErrorSubtitle)
+    }
+
+    func testAWrappedOfflineErrorGetsTheOfflineCopy() {
+        let (vm, _) = makeViewModel()
+        let wrapped = NSError(domain: "WMFService", code: 1, userInfo: [NSUnderlyingErrorKey: URLError(.networkConnectionLost) as NSError])
+        XCTAssertEqual(vm.communityErrorTitle(for: wrapped), vm.forYouErrorTitle)
+    }
+
+    func testOtherErrorsDoNotTellAnOnlineReaderToConnect() {
+        let (vm, _) = makeViewModel()
+        let serverError = URLError(.badServerResponse)
+        XCTAssertEqual(vm.communityErrorTitle(for: serverError), vm.communityLoadErrorTitle)
+        XCTAssertNotEqual(vm.communityErrorTitle(for: serverError), vm.forYouErrorTitle)
+        XCTAssertEqual(vm.communityErrorTitle(for: DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: ""))), vm.communityLoadErrorTitle)
+    }
+
+    func testChangingLanguageStopsTheForYouLoadInFlight() {
+        let (vm, _) = makeViewModel()
+        vm.selectedTab = .forYou
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        vm.loadForYouFeedIfNeeded()
+        XCTAssertTrue(vm.isLoadingForYou)
+
+        vm.selectedLanguage = WMFLanguage(languageCode: "es", languageVariantCode: nil)
+
+        XCTAssertTrue(vm.isLoadingForYou)
+        XCTAssertNil(vm.forYouViewModel)
+    }
+
+    func testPreviousPageNeedsAFirstPage() {
+        let (vm, _) = makeViewModel()
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+
+        vm.loadCommunityPreviousPage()
+
+        XCTAssertFalse(vm.isLoadingCommunityPreviousPage)
+        XCTAssertNil(vm.communityPreviousPageError)
     }
 
     func testSettingSameLanguageDoesNotClearForYouFeed() {
@@ -478,4 +864,71 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertEqual(capturedElementId, "customize_feed")
     }
 
+}
+
+/// A feed that has content only on some days, counted back from today.
+actor WMFDatedFeedDataController: WMFFeedDataControlling {
+    private let withContent: WMFFeedAPIResponse
+    private let empty: WMFFeedAPIResponse
+    private let daysWithContent: Set<Int>
+    private(set) var callCount = 0
+
+    init(withContent: WMFFeedAPIResponse, empty: WMFFeedAPIResponse, daysWithContent: Set<Int>) {
+        self.withContent = withContent
+        self.empty = empty
+        self.daysWithContent = daysWithContent
+    }
+
+    func fetchFeed(project: WMFProject, date: Date) async throws -> WMFFeedAPIResponse {
+        callCount += 1
+        let calendar = Calendar(identifier: .gregorian)
+        let daysAgo = calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
+        return daysWithContent.contains(daysAgo) ? withContent : empty
+    }
+}
+
+/// A feed with content on every day, whose requests a test can hold or fail one day at a time
+/// (0 is today, 1 yesterday). Thus a test sets the order in which a refresh and "See past" finish.
+actor WMFDayGatedFeedDataController: WMFFeedDataControlling {
+    private let response: WMFFeedAPIResponse
+    private var heldDays: Set<Int> = []
+    private var failingDays: Set<Int> = []
+    private var held: [Int: [CheckedContinuation<Void, Never>]] = [:]
+
+    init(response: WMFFeedAPIResponse) {
+        self.response = response
+    }
+
+    func hold(day: Int) { heldDays.insert(day) }
+    func fail(day: Int) { failingDays.insert(day) }
+
+    func release(day: Int) {
+        heldDays.remove(day)
+        held.removeValue(forKey: day)?.forEach { $0.resume() }
+    }
+
+    /// Gives up after about two seconds, so a broken test fails instead of hanging the suite.
+    func waitUntilHeld(day: Int) async -> Bool {
+        for _ in 0..<200 {
+            if !(held[day] ?? []).isEmpty { return true }
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        return !(held[day] ?? []).isEmpty
+    }
+
+    func fetchFeed(project: WMFProject, date: Date) async throws -> WMFFeedAPIResponse {
+        let day = Self.daysAgo(date)
+        if heldDays.contains(day) {
+            await withCheckedContinuation { held[day, default: []].append($0) }
+        }
+        if failingDays.contains(day) {
+            throw URLError(.badServerResponse)
+        }
+        return response
+    }
+
+    static func daysAgo(_ date: Date) -> Int {
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
+    }
 }

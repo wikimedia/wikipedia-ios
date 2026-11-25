@@ -199,7 +199,24 @@ public struct WMFHomeView: View {
     /// full-bleed reading experience, but the empty state respects every edge: it ends with the
     /// customize button, and under an ignored edge the button can never scroll clear of the bar.
     private var communityIgnoredSafeAreaEdges: Edge.Set {
-        viewModel.isEmbeddedCommunityFeedEmpty ? [] : [.top, .bottom]
+        if viewModel.makeEmbeddedCommunityViewController != nil {
+            return viewModel.isEmbeddedCommunityFeedEmpty ? [] : [.top, .bottom]
+        }
+        // The native feed keeps the bottom safe area: its scroll view still draws under the tab bar,
+        // and the inset lets "See past community content" scroll clear of it. The error and empty
+        // states end with a button, so they keep every edge.
+        let showsFeed = !viewModel.communityPages.isEmpty && !viewModel.isCommunityFeedEmpty
+        return showsFeed ? [.top] : []
+    }
+
+    /// On iOS 26 the native feed ignores the top safe area, which also drops the header inset that
+    /// `communitySection` adds around it. The feed reserves that space itself instead. Older iOS
+    /// stacks the feed below a spacer, so it needs none.
+    private var communityFeedTopContentInset: CGFloat {
+        if #available(iOS 26.0, *) {
+            return floatingHeaderInset
+        }
+        return 0
     }
 
     @ViewBuilder
@@ -246,13 +263,13 @@ public struct WMFHomeView: View {
                         } label: {
                             if language.languageCode == viewModel.selectedLanguage?.languageCode {
                                 Label {
-                                    Text(language.localizedName)
+                                    Text(language.nativeName)
                                 } icon: {
                                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .checkmark) ?? UIImage())
                                 }
                                 .minimumScaleFactor(0.25)
                             } else {
-                                Text(language.localizedName)
+                                Text(language.nativeName)
                                     .minimumScaleFactor(0.25)
                             }
                         }
@@ -262,11 +279,7 @@ public struct WMFHomeView: View {
                     Button {
                         viewModel.didTapEditLanguages?()
                     } label: {
-                        Label {
-                            Text(viewModel.editLanguagesTitle)
-                        } icon: {
-                            Image(uiImage: WMFSFSymbolIcon.for(symbol: .globe) ?? UIImage())
-                        }
+                        Text(viewModel.manageLanguagesTitle)
                     }
                     .tint(.primary)
                 } label: {
@@ -350,29 +363,72 @@ public struct WMFHomeView: View {
             } else {
                 WMFHomeEmbeddedCommunityView(makeViewController: makeEmbeddedViewController)
             }
+        } else if viewModel.isCommunityFeedEmpty {
+            WMFHomeEmptyStateView(
+                subtitle: viewModel.communityEmptyFeedSubtitle,
+                theme: theme,
+                languageCode: viewModel.feedLanguageCode,
+                action: { viewModel.didTapCustomizeHomeFeed?() }
+            )
         } else if !viewModel.communityPages.isEmpty {
             WMFCommunityFeedView(
                 pages: viewModel.communityPages,
                 moduleVisibility: viewModel.communityModuleVisibility,
                 hiddenCardKeys: viewModel.hiddenCardKeys,
                 isLoadingPreviousPage: viewModel.isLoadingCommunityPreviousPage,
+                previousPageFailed: viewModel.communityPreviousPageError != nil,
+                previousPageErrorTitle: viewModel.communityErrorTitle(for: viewModel.communityPreviousPageError),
+                retryTitle: viewModel.forYouErrorRetryTitle,
                 onHideModule: { viewModel.hideModule($0) },
                 onHideCard: { viewModel.hideCard(key: $0) },
+                onCustomize: viewModel.didTapCustomizeCommunityFeed.map { customize in { customize() } },
                 onRefresh: { await viewModel.refreshCommunityFeed() },
                 onTapSeePastContent: { viewModel.loadCommunityPreviousPage() },
-                scrollToTopRequestID: viewModel.communityScrollToTopRequestID
+                onArticleAction: { viewModel.performCommunityArticleAction($0, title: $1, project: $2, module: $3) },
+                isArticleSaved: { viewModel.isCommunityArticleSaved(title: $0, project: $1) },
+                onTapNewsStory: { viewModel.openCommunityNewsStory($0, project: $1) },
+                onTapPictureOfTheDay: { viewModel.openCommunityPictureOfTheDay(date: $0) },
+                onTapMoreTopRead: { viewModel.openCommunityTopReadList(for: $0) },
+                onTapOnThisDay: { viewModel.openCommunityOnThisDay(for: $0, event: $1) },
+                scrollToTopRequestID: viewModel.communityScrollToTopRequestID,
+                topContentInset: communityFeedTopContentInset
             )
         } else if viewModel.isLoadingCommunity {
-            Spacer()
             ProgressView()
-            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if viewModel.communityFeedError != nil {
+            communityErrorView
         } else {
-            Spacer()
             Text(viewModel.communityTabTitle)
                 .font(Font(WMFFont.for(.headline)))
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
-            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+    }
+
+    /// Shown when the first page cannot load. Offline readers get the For You offline copy, so both
+    /// segments say the same thing; any other failure gets a general message.
+    private var communityErrorView: some View {
+        WMFEmptyView(
+            viewModel: WMFEmptyViewModel(
+                localizedStrings: WMFEmptyViewModel.LocalizedStrings(
+                    title: viewModel.communityErrorTitle(for: viewModel.communityFeedError),
+                    subtitle: viewModel.communityErrorSubtitle(for: viewModel.communityFeedError),
+                    titleFilter: nil,
+                    buttonTitle: viewModel.forYouErrorRetryTitle,
+                    attributedFilterString: nil
+                ),
+                image: nil,
+                imageColor: nil,
+                numberOfFilters: nil
+            ),
+            type: .noItems,
+            isScrollable: false,
+            theme: theme,
+            mainAction: { viewModel.loadCommunityFeedIfNeeded() },
+            usesCompactButton: true
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     /// Replaces the embedded feed when all the Community cards are hidden.

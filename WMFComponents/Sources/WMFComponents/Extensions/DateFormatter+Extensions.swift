@@ -61,6 +61,15 @@ public extension DateFormatter {
         return dateFormatter
     }()
 
+    /// Short month, day and year: e.g. `Aug 22, 2025`
+    static var wmfShortMonthDayYearDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = .current
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMM d yyyy")
+        return dateFormatter
+    }()
+
     /// Smart formatter for "Last Read" dates:
     /// - If the date is today → show time (e.g. `2:48 PM`)
     /// - Otherwise → show month and day (e.g. `August 22`)
