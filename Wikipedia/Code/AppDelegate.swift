@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Notifications
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: any Error) {
-        DDLogError(RemoteNotificationRegistrationFailure.logMessage(for: error))
+        DDLogError("\(RemoteNotificationRegistrationFailure.logMessage(for: error))")
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

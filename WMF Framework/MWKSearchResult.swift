@@ -236,7 +236,7 @@ public final class MWKLocationSearchResult: MWKSearchResult {
 
     private static let distanceKey = "distanceFromQueryCoordinates"
 
-    public override class var supportsSecureCoding: Bool { true }
+    public override static var supportsSecureCoding: Bool { true }
 
     public required init?(coder: NSCoder) {
         distanceFromQueryCoordinates = coder.decodeObject(of: NSNumber.self, forKey: MWKLocationSearchResult.distanceKey)?.doubleValue ?? 0

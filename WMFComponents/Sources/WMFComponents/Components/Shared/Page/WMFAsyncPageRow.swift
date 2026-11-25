@@ -43,7 +43,7 @@ final class WMFAsyncPageRowViewModel: ObservableObject {
         self.footerText = footerText
         
         Task {
-            try await loadDescriptionAndImage()
+            try? await loadDescriptionAndImage()
         }
         
     }

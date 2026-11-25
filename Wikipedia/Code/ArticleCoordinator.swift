@@ -125,8 +125,12 @@ extension ArticleTabCoordinating {
         }
         
         Task {
-            try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
-            try await tabsDataController.deleteEmptyTabs()
+            do {
+                try await tabsDataController.setTabItemAsCurrent(tabIdentifier: tabIdentifier, tabItemIdentifier: tabItemIdentifier)
+                try await tabsDataController.deleteEmptyTabs()
+            } catch {
+                DDLogError("Failed to sync tabs on article appearance: \(error)")
+            }
         }
     }
 

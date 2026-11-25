@@ -235,7 +235,7 @@ public final class WMFFeedTopReadArticlePreview: WMFFeedArticlePreview {
         static let rank = "rank"
     }
 
-    public override class var supportsSecureCoding: Bool { true }
+    public override static var supportsSecureCoding: Bool { true }
 
     public required init?(coder: NSCoder) {
         numberOfViews = coder.decodeObject(of: NSNumber.self, forKey: Key.numberOfViews) ?? 0
