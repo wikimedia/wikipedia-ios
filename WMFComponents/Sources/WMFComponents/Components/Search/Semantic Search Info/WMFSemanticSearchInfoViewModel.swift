@@ -9,7 +9,7 @@ public final class WMFSemanticSearchInfoViewModel: ObservableObject {
     public typealias Action = @MainActor @Sendable () -> Void
 
     /// Which experiment the sheet explains. The interleaved list adds a button that turns the feature off.
-    /// Without an action, the button does nothing.
+    /// Without an action, the sheet hides the button.
     public enum Kind {
         case semanticSearchSheet
         case interleavedResults(turnOffAction: Action?)
@@ -76,6 +76,16 @@ public final class WMFSemanticSearchInfoViewModel: ObservableObject {
             false
         case .interleavedResults:
             true
+        }
+    }
+
+    /// Only the interleaved list has the button, and only when it has an action.
+    var showsTurnOffButton: Bool {
+        switch kind {
+        case .interleavedResults(let turnOffAction):
+            turnOffAction != nil
+        case .semanticSearchSheet:
+            false
         }
     }
 

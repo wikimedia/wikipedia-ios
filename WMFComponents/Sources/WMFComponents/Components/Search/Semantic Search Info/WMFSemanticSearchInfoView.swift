@@ -35,7 +35,7 @@ public struct WMFSemanticSearchInfoView: View {
             .scrollBounceBehavior(.basedOnSize)
             VStack(spacing: WMFSpacing.small) {
                 learnMoreButton
-                if viewModel.showsInterleavedResultsContent {
+                if viewModel.showsTurnOffButton {
                     turnOffButton
                 }
             }
@@ -82,7 +82,9 @@ public struct WMFSemanticSearchInfoView: View {
                         showsThumbnail: viewModel.exampleThumbnail != nil,
                         horizontalPadding: WMFSpacing.large,
                         bottomPadding: WMFSpacing.large,
-                        isRightToLeft: viewModel.isRightToLeft)
+                        // The direction of the example's own text. A right-to-left search language
+                        // without its own example shows the English one.
+                        isRightToLeft: viewModel.exampleResult.isRightToLeft)
                 } else {
                     WMFSemanticSearchResultCardView(viewModel: viewModel.exampleResult)
                 }

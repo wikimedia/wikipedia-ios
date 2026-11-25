@@ -49,6 +49,7 @@ final class WMFSemanticSearchInfoViewModelTests: XCTestCase {
         let viewModel = WMFSemanticSearchInfoViewModel(languageCode: "en", learnMoreAction: {}, closeAction: {})
 
         XCTAssertFalse(viewModel.showsInterleavedResultsContent)
+        XCTAssertFalse(viewModel.showsTurnOffButton)
     }
 
     func testInterleavedResultsSheetWithoutTurnOffActionKeepsItsContent() {
@@ -56,6 +57,7 @@ final class WMFSemanticSearchInfoViewModelTests: XCTestCase {
         let viewModel = WMFSemanticSearchInfoViewModel(languageCode: "en", kind: .interleavedResults(turnOffAction: nil), learnMoreAction: {}, closeAction: {})
 
         XCTAssertTrue(viewModel.showsInterleavedResultsContent)
+        XCTAssertFalse(viewModel.showsTurnOffButton, "Without an action, the button would do nothing.")
         XCTAssertNotEqual(viewModel.summary, semanticSearchSheet.summary)
         XCTAssertNotEqual(viewModel.sourcesDescription, semanticSearchSheet.sourcesDescription)
         viewModel.turnOff()
@@ -71,6 +73,7 @@ final class WMFSemanticSearchInfoViewModelTests: XCTestCase {
             closeAction: { calls.append("close") })
 
         XCTAssertTrue(viewModel.showsInterleavedResultsContent)
+        XCTAssertTrue(viewModel.showsTurnOffButton)
         XCTAssertNotEqual(viewModel.summary, semanticSearchSheet.summary)
         XCTAssertNotEqual(viewModel.sourcesDescription, semanticSearchSheet.sourcesDescription)
         XCTAssertEqual(viewModel.title, semanticSearchSheet.title)
@@ -98,5 +101,15 @@ final class WMFSemanticSearchInfoViewModelTests: XCTestCase {
             XCTAssertNotNil(row.contributorsText)
             XCTAssertTrue(viewModel.exampleThumbnail === example.thumbnail)
         }
+    }
+
+    func testInterleavedExampleFollowsTheDirectionOfItsOwnText() {
+        // Hebrew has no example of its own, so the sheet shows the English one, left to right.
+        let hebrew = WMFSemanticSearchInfoViewModel(languageCode: "he", kind: .interleavedResults(turnOffAction: {}), learnMoreAction: {}, closeAction: {})
+        let arabic = WMFSemanticSearchInfoViewModel(languageCode: "ar", kind: .interleavedResults(turnOffAction: {}), learnMoreAction: {}, closeAction: {})
+
+        XCTAssertTrue(hebrew.isRightToLeft)
+        XCTAssertFalse(hebrew.exampleResult.isRightToLeft)
+        XCTAssertTrue(arabic.exampleResult.isRightToLeft)
     }
 }

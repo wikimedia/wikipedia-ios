@@ -279,7 +279,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         coordinator.start()
     }
 
-    /// The sheet of the interleaved list. Its button to turn the feature off does nothing until the toggle exists.
+    /// The sheet of the interleaved list. It hides the button to turn the feature off until the toggle exists.
     private func showInterleavedResultsInfo(languageCode: String) {
         guard let navigationController else { return }
 
