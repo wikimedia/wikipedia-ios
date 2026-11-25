@@ -154,7 +154,9 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     /// The day and the wiki of this page. Two pages of one feed never share it.
     public let id: String
-    /// The day this page is for. Picture of the day opens its gallery for this date.
+    /// The day this page is for.
+    public let day: WMFFeedDay
+    /// The day this page is for, as a date. Picture of the day opens its gallery for this date.
     public let feedDate: Date
     /// The header above this day's modules, in the app language as on Android: "Today - Mar 23, 2026"
     /// for today, the date alone for an earlier day.
@@ -198,6 +200,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         let currentYear = Calendar.current.component(.year, from: now)
 
         self.project = project
+        self.day = response.day
         self.feedDate = response.date
         self.strings = WMFCommunityFeedStrings(languageCode: project.languageCode)
 
@@ -205,7 +208,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         keyDateFormatter.locale = Locale(identifier: "en_US_POSIX")
         keyDateFormatter.dateFormat = "yyyy-MM-dd"
         let dateKey = keyDateFormatter.string(from: response.date)
-        self.id = "\(projectID)_\(dateKey)"
+        self.id = "\(projectID)_\(response.day)"
         self.featuredArticleHideKey = response.feedResponse.todaysFeaturedArticle?.title.map { "featured_article_\($0)" }
         self.topReadHideKey = "top_read_\(dateKey)_\(projectID)"
         self.inTheNewsHideKey = "in_the_news_\(dateKey)_\(projectID)"
@@ -216,7 +219,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         self.pictureOfDayHideKey = pictureOfDayID.map { "picture_of_day_\($0)" }
 
         let formattedDate = DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: response.date)
-        let isToday = Calendar.current.isDate(response.date, inSameDayAs: now)
+        let isToday = response.day == WMFFeedDay.today(now: now)
         self.isToday = isToday
         self.date = isToday ? WMFCommunityFeedStrings.todayDateHeader(formattedDate) : formattedDate
         self.featuredArticle = response.feedResponse.todaysFeaturedArticle

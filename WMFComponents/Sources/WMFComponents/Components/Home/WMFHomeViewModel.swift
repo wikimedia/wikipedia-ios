@@ -111,16 +111,20 @@ public final class WMFHomeViewModel: ObservableObject {
     @Published public var forYouFeedError: Error?
     @Published public var isLoadingForYou: Bool = false
     @Published public private(set) var isRefreshingForYou: Bool = false
+    /// The days of the feed, newest first. Only `setCommunityFirstPage` replaces the first day and
+    /// sets `feedDay`. Earlier days are only appended, so an append after midnight cannot hide the
+    /// day change from `refreshFeedsIfDayChanged`.
     @Published public var communityPages: [WMFHomeCommunityViewModel] = [] {
         didSet {
-            if !communityPages.isEmpty {
-                feedDay = Date()
-            }
             refreshCommunitySavedStates()
         }
     }
-    /// Set when the first page fails. The tab then shows the error state instead of the feed.
+    /// Set when the first page fails and there is nothing to show. The tab then shows the error
+    /// state instead of the feed.
     @Published public var communityFeedError: Error?
+    /// Set when today cannot load but a stored earlier day is on screen, such as on the first
+    /// launch of a day while offline. The feed stays, with a note and a retry above it.
+    @Published public private(set) var communityTodayError: Error?
     @Published public var isLoadingCommunity: Bool = false
     @Published public var isLoadingCommunityPreviousPage: Bool = false
     /// Set when "See past community content" fails. The feed stays, and its footer offers a retry.
@@ -409,7 +413,10 @@ public final class WMFHomeViewModel: ObservableObject {
     // MARK: - Daily refresh
 
     public func refreshFeedsIfDayChanged(now: Date = Date()) {
-        guard let feedDay, !Calendar.current.isDate(feedDay, inSameDayAs: now) else { return }
+        guard let feedDay, !Calendar.current.isDate(feedDay, inSameDayAs: now) else {
+            loadCommunityTodayIfBehind(now: now)
+            return
+        }
 
         discardLoadedFeeds()
         loadCurrentTabFeedIfNeeded()
@@ -430,6 +437,7 @@ public final class WMFHomeViewModel: ObservableObject {
         cancelCommunityPreviousPageLoad()
         communityPages = []
         communityFeedError = nil
+        communityTodayError = nil
     }
 
     private func cancelCommunityPreviousPageLoad() {
@@ -471,47 +479,110 @@ public final class WMFHomeViewModel: ObservableObject {
     /// A failure keeps the feed that is on screen.
     public func refreshCommunityFeed() async {
         guard let language = selectedLanguage else { return }
-        let project = WMFProject.wikipedia(language)
-        do {
-            let response = try await dataController.fetchCommunity(project: project, forceFetch: true)
-            guard selectedLanguage?.id == language.id else { return }
-            // Only now does the old feed end. A day still loading for it, including one the reader
-            // asked for during the refresh, must not be appended to the new feed. If the refresh
-            // fails, that day still belongs to the feed on screen, so it is left to finish.
-            cancelCommunityPreviousPageLoad()
-            self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
-            self.communityFeedError = nil
-            loadEarlierDayIfTodayIsEmpty()
-        } catch {
-            guard selectedLanguage?.id == language.id else { return }
-            if communityPages.isEmpty {
-                self.communityFeedError = error
-            }
-        }
+        await loadCommunityToday(project: WMFProject.wikipedia(language), now: Date(), forceFetch: true)
     }
 
-    public func loadCommunityFeedIfNeeded() {
+    /// Opens the feed. A page stored on an earlier launch shows first, with its own date, so the
+    /// feed has content before any network answer, also offline. Today then replaces it.
+    public func loadCommunityFeedIfNeeded(now: Date = Date()) {
         guard makeEmbeddedCommunityViewController == nil else { return }
         guard communityPages.isEmpty, !isLoadingCommunity else { return }
         guard let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         isLoadingCommunity = true
         communityFeedError = nil
+        communityTodayError = nil
         refreshCommunityModuleVisibility()
         hiddenCardKeys = Set(dataController.hiddenCardKeys())
         communityLoadTask = Task { [weak self] in
             guard let self else { return }
-            do {
-                let response = try await self.dataController.fetchCommunity(project: project)
-                guard !Task.isCancelled else { return }
-                self.communityPages = [WMFHomeCommunityViewModel(response: response, project: project)]
-            } catch {
-                guard !Task.isCancelled else { return }
-                self.communityFeedError = error
+            if let stored = await self.dataController.lastStoredCommunity(project: project),
+               !Task.isCancelled, self.communityPages.isEmpty {
+                self.setCommunityFirstPage(stored, project: project, now: now)
             }
+            guard !Task.isCancelled else { return }
+            await self.loadCommunityToday(project: project, now: now, forceFetch: false)
+            guard !Task.isCancelled else { return }
             self.isLoadingCommunity = false
-            self.loadEarlierDayIfTodayIsEmpty()
         }
+    }
+
+    /// Loads today when the feed shows an earlier day, for example a stored page after a failed
+    /// load. Called when the app comes back to the foreground on the same day.
+    private func loadCommunityTodayIfBehind(now: Date) {
+        guard makeEmbeddedCommunityViewController == nil,
+              !isLoadingCommunity,
+              let first = communityPages.first,
+              first.day < WMFFeedDay.today(now: now),
+              let language = selectedLanguage else { return }
+        let project = WMFProject.wikipedia(language)
+        isLoadingCommunity = true
+        communityLoadTask = Task { [weak self] in
+            guard let self else { return }
+            await self.loadCommunityToday(project: project, now: now, forceFetch: false)
+            guard !Task.isCancelled else { return }
+            self.isLoadingCommunity = false
+        }
+    }
+
+    /// Fetches today and puts it at the top of the feed. Yesterday is fetched at the same time:
+    /// a small wiki often has nothing yet for today, and then the feed shows yesterday without a
+    /// second wait. The fetch of yesterday also serves the first "See past" tap.
+    private func loadCommunityToday(project: WMFProject, now: Date, forceFetch: Bool) async {
+        let today = WMFFeedDay.today(now: now)
+        let dataController = self.dataController
+        async let todayResponse = dataController.fetchCommunity(project: project, day: today, forceFetch: forceFetch)
+        async let yesterdayResponse = try? dataController.fetchCommunity(project: project, day: today.adding(days: -1))
+
+        do {
+            let response = try await todayResponse
+            guard !Task.isCancelled, isCurrentCommunityProject(project) else { return }
+            setCommunityFirstPage(response, project: project, now: now)
+            communityFeedError = nil
+            communityTodayError = nil
+
+            guard let first = communityPages.first, !hasCommunityContent(first), !isCommunityFeedEmpty else { return }
+            let yesterday = await yesterdayResponse
+            guard !Task.isCancelled, isCurrentCommunityProject(project) else { return }
+            if let yesterday, let page = appendCommunityPageIfNext(yesterday, project: project), hasCommunityContent(page) {
+                return
+            }
+            loadCommunityPreviousPage()
+        } catch {
+            guard !Task.isCancelled, isCurrentCommunityProject(project) else { return }
+            if communityPages.isEmpty {
+                communityFeedError = error
+            } else if let first = communityPages.first, first.day < today {
+                // A failed pull to refresh over today's feed says nothing, as before. Only an
+                // earlier day on screen needs the note: the reader may not know it is not today.
+                communityTodayError = error
+            }
+        }
+    }
+
+    /// Replaces the whole feed with one day. This is the only place that sets `feedDay` for
+    /// Community, and it stops a "See past" load of the feed it replaces.
+    private func setCommunityFirstPage(_ response: WMFCommunityResponse, project: WMFProject, now: Date) {
+        cancelCommunityPreviousPageLoad()
+        communityPages = [WMFHomeCommunityViewModel(response: response, project: project, now: now)]
+        feedDay = now
+    }
+
+    /// Appends a day only when it is the day before the oldest day of the feed, in the same wiki.
+    /// A day fetched for a feed that a refresh or a language change has replaced fails this
+    /// check and is dropped, so a late answer cannot land in the wrong place.
+    @discardableResult
+    private func appendCommunityPageIfNext(_ response: WMFCommunityResponse, project: WMFProject) -> WMFHomeCommunityViewModel? {
+        guard let oldest = communityPages.last,
+              oldest.project == project,
+              response.day == oldest.day.adding(days: -1) else { return nil }
+        let page = WMFHomeCommunityViewModel(response: response, project: project)
+        communityPages.append(page)
+        return page
+    }
+
+    private func isCurrentCommunityProject(_ project: WMFProject) -> Bool {
+        selectedLanguage.map { WMFProject.wikipedia($0) } == project
     }
 
     /// True when the native feed has loaded but every module is turned off in settings. The tab then
@@ -575,17 +646,10 @@ public final class WMFHomeViewModel: ObservableObject {
         !page.visibleModules(visibility: communityModuleVisibility, hiddenCardKeys: []).isEmpty
     }
 
-    /// Today often has nothing in a small wiki until its editors fill the day in. The feed then
-    /// goes back to the latest day that has content instead of showing only a date.
-    private func loadEarlierDayIfTodayIsEmpty() {
-        guard let today = communityPages.first, communityPages.count == 1,
-              !hasCommunityContent(today), !isCommunityFeedEmpty else { return }
-        loadCommunityPreviousPage()
-    }
-
     public func loadCommunityPreviousPage() {
-        guard !isLoadingCommunityPreviousPage, !communityPages.isEmpty else { return }
-        guard let language = selectedLanguage else { return }
+        guard !isLoadingCommunityPreviousPage,
+              let oldest = communityPages.last,
+              let language = selectedLanguage else { return }
         let project = WMFProject.wikipedia(language)
         isLoadingCommunityPreviousPage = true
         communityPreviousPageError = nil
@@ -596,16 +660,16 @@ public final class WMFHomeViewModel: ObservableObject {
                 // some of them) adds nothing to the feed, so the tap would seem to do nothing.
                 // Such days are skipped, up to a limit, so a wiki with no feed content cannot
                 // start an endless run of requests.
+                var day = oldest.day.adding(days: -1)
                 var emptyDaysSkipped = 0
                 while true {
-                    let response = try await self.dataController.fetchCommunityPreviousPage(project: project)
+                    let response = try await self.dataController.fetchCommunity(project: project, day: day)
                     guard !Task.isCancelled else { return }
-                    let page = WMFHomeCommunityViewModel(response: response, project: project)
-                    if !self.communityPages.contains(where: { $0.id == page.id }) {
-                        self.communityPages.append(page)
-                    }
-                    guard !self.hasCommunityContent(page), emptyDaysSkipped < Self.maxEmptyCommunityDaysSkipped else { break }
+                    guard let page = self.appendCommunityPageIfNext(response, project: project),
+                          !self.hasCommunityContent(page),
+                          emptyDaysSkipped < Self.maxEmptyCommunityDaysSkipped else { break }
                     emptyDaysSkipped += 1
+                    day = day.adding(days: -1)
                 }
             } catch {
                 guard !Task.isCancelled else { return }
