@@ -2359,6 +2359,8 @@ extension WMFAppViewController: Themeable {
         
         placesViewController.apply(theme: theme)
         savedCoordinator?.theme = theme
+        // The Home feed actions open screens with this theme.
+        homeCoordinator?.theme = theme
         searchTabViewController.apply(theme: theme)
 
         applyTheme(theme, toPresentedViewController: presentedViewController)
