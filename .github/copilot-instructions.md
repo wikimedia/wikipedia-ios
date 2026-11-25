@@ -462,6 +462,8 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
 - Use `@MainActor` on classes or methods that interact with UIKit or SwiftUI (view models, hosting controllers, UI-related helpers, coordinators). All `ObservableObject` view models should be annotated `@MainActor`.
 - Data controllers in WMFData must **not** import UIKit or SwiftUI, so they cannot be `@MainActor`. Keep them actor-isolated only when they manage shared mutable state; otherwise prefer `Sendable` value-type models as return types.
 - Methods that call `@MainActor`-isolated code from a non-isolated context must use `await MainActor.run { }` or be called from a `Task { @MainActor in ... }`.
+- A `static let` constant on a `@MainActor` type is main actor-isolated too. If non-isolated code reads it (a default argument value is a common case), mark it `nonisolated static let`. This is safe when the type of the constant is `Sendable`: the value is immutable and Swift initializes it only once. The compiler rejects the change when the type is not `Sendable` or the initializer calls main actor code. Do not use `nonisolated(unsafe)` for this.
+- When a `@MainActor` type conforms to a protocol that is not isolated (for example, `Themeable`), use an isolated conformance: `class ArticleToolbarController: @MainActor Themeable`. Do not use `@preconcurrency` for this.
 
 ### Sendable Conformance
 

@@ -66,7 +66,7 @@ final class SearchInstrumentation {
         }
     }
 
-    static let instrumentName = "apps-search"
+    nonisolated static let instrumentName = "apps-search"
     /// The spec collects the search term up to this many characters.
     static let queryLimit = 256
     /// The text field already stops at this limit. The event cuts the text too, as a safety net.
