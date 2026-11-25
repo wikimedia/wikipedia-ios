@@ -18,7 +18,11 @@ public struct WMFSearchResultsView: View {
         ZStack {
             Color(theme.paperBackground)
                 .ignoresSafeArea()
-            if let emptyState = viewModel.emptyState, !viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState {
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.top, viewModel.topPadding)
+            } else if let emptyState = viewModel.emptyState, !viewModel.showsSemanticSearchEntryPointInsteadOfEmptyState {
                 WMFEmptyView(viewModel: emptyViewModel(for: emptyState), type: .noItems, isScrollable: true)
                     .padding(.top, viewModel.topPadding)
             } else {
@@ -57,7 +61,12 @@ public struct WMFSearchResultsView: View {
                     .accessibilityFocused($focusedElementID, equals: WMFSearchResultsViewModel.semanticSearchEntryPointAccessibilityID)
             }
             ForEach(viewModel.results) { result in
-                WMFSearchResultRow(viewModel: viewModel, result: result, focusedElementID: $focusedElementID)
+                switch viewModel.rowStyle {
+                case .standard:
+                    WMFSearchResultRow(viewModel: viewModel, result: result, focusedElementID: $focusedElementID)
+                case .interleaved:
+                    WMFSearchResultInterleavedRow(viewModel: viewModel, rowViewModel: viewModel.interleavedRowViewModel(for: result), result: result, focusedElementID: $focusedElementID)
+                }
             }
         }
         .listStyle(.plain)
@@ -65,7 +74,7 @@ public struct WMFSearchResultsView: View {
             focusedElementID = viewModel.firstAccessibilityElementID
         }
         .scrollContentBackground(.hidden)
-        .scrollDismissesKeyboard(.never)
+        .scrollDismissesKeyboard(viewModel.rowStyle == .interleaved ? .immediately : .never)
         .contentMargins(.top, viewModel.topPadding, for: .scrollContent)
     }
 }

@@ -1327,6 +1327,10 @@
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";
+"search-interleaved-results-feedback-question" = "Is this result relevant?";
+"search-interleaved-results-feedback-thumbs-down-accessibility" = "No";
+"search-interleaved-results-feedback-thumbs-up-accessibility" = "Yes";
+"search-interleaved-results-lead-section" = "Lead";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "search-recent-clear-delete-all" = "Delete All";
@@ -1367,7 +1371,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "No";
 "semantic-search-feedback-thumbs-up-accessibility" = "Yes";
 "semantic-search-feedback-title" = "Feedback";
-"semantic-search-passage-not-found" = "This passage is no longer in the article";
 "serbian-variants-alert-body" = "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Updates to Serbian variant support";
 "settings-account" = "Account";

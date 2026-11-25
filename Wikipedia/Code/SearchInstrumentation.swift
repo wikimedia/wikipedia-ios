@@ -79,6 +79,7 @@ final class SearchInstrumentation {
     private let client: TestKitchenClient
     private let instrument: InstrumentImpl
     private let dataController: WMFSemanticSearchDataController
+    private let interleavedDataController: WMFSemanticSearchInterleavedDataController
     /// Off for searches that are not reading, like picking a link target in the editor. Then
     /// nothing goes out.
     private let isEnabled: Bool
@@ -87,10 +88,11 @@ final class SearchInstrumentation {
     /// What the feedback prompt did in the current funnel.
     private var feedbackPromptRecord = FeedbackPromptRecord(funnelToken: nil)
 
-    init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared, isEnabled: Bool = true) {
+    init(client: TestKitchenClient = TestKitchenAdapter.shared.client, dataController: WMFSemanticSearchDataController = .shared, interleavedDataController: WMFSemanticSearchInterleavedDataController = .shared, isEnabled: Bool = true) {
         self.client = client
         self.instrument = client.getInstrument(name: Self.instrumentName)
         self.dataController = dataController
+        self.interleavedDataController = interleavedDataController
         self.isEnabled = isEnabled
     }
 
@@ -293,6 +295,61 @@ final class SearchInstrumentation {
             actionSource: "settings",
             actionSubtype: "semantic_search",
             experimentData: dataController.experimentData
+        )
+    }
+
+    // MARK: - Semantic search interleaved
+
+    // TODO: Still to be settled. The event name and the `action_context` keys are provisional.
+
+    /// The list that rendered for a reader in the semantic search interleaved experiment, in treatment arm.
+    /// carries what the backend needs to rebuild the list from the search IDs: the seed, the coin flips, the
+    /// versions, the state and the three search IDs. It has no query and no page IDs.
+    func logInterleavedList(project: WMFProject, state: WMFSemanticSearchInterleaveState?, merge: WMFInterleaveResult<WMFSemanticSearchInterleavedList.Item>?, searchIDs: WMFSemanticSearchInterleavedIDs, listLength: Int) {
+        guard isEnabled, let experimentData = interleavedDataController.experimentData else { return }
+        var actionContext: [String: Any] = [
+            "arm": experimentData.assigned,
+            "merge_version": WMFSearchResultsInterleaver.mergeVersion,
+            "lexical_version": WMFLexicalListBuilder.lexicalVersion,
+            "list_length": listLength
+        ]
+        actionContext["seed"] = merge?.seedLog
+        actionContext["coin_flips"] = merge?.coinFlipsLog
+        actionContext["interleave_state"] = state?.rawValue
+        actionContext["search_id_pre"] = searchIDs.prefix
+        actionContext["search_id_ful"] = searchIDs.fullText
+        actionContext["search_id_sem"] = searchIDs.semantic
+        instrument.submitInteraction(
+            action: "impression",
+            actionSource: Self.actionSource,
+            actionSubtype: "interleaved_list",
+            actionContext: actionContext,
+            mediawikiDatabase: project.mediaWikiDatabase,
+            experimentData: experimentData
+        )
+    }
+
+    /// The reader rated a card of the interleaved list.
+    // TODO(EF-3): The event name and keys are provisional. Ask Shay to confirm them against the EF-3 spec.
+    // TODO(EF-3): The event does not send the search type (lexical or semantic) of the card yet.
+    // TODO(EF-3): The event does not send the team of the card yet. The ticket asks for it.
+    // TODO(EF-3): Confirm if the list ID is one ID or the three search IDs that the event sends now.
+    func logInterleavedResultFeedback(project: WMFProject, searchTerm: String, position: Int, rating: WMFSemanticSearchFeedbackViewModel.Rating, searchIDs: WMFSemanticSearchInterleavedIDs) {
+        guard isEnabled, let experimentData = interleavedDataController.experimentData else { return }
+        var actionContext = Self.queryContext(searchTerm)
+        actionContext["position"] = position
+        actionContext["score"] = rating == .positive ? 1 : 0
+        actionContext["search_id_pre"] = searchIDs.prefix
+        actionContext["search_id_ful"] = searchIDs.fullText
+        actionContext["search_id_sem"] = searchIDs.semantic
+        instrument.submitInteraction(
+            action: "click",
+            actionSource: Self.actionSource,
+            actionSubtype: "interleaved_result",
+            elementId: "feedback_submit",
+            actionContext: actionContext,
+            mediawikiDatabase: project.mediaWikiDatabase,
+            experimentData: experimentData
         )
     }
 

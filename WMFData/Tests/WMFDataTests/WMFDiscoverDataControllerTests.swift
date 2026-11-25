@@ -90,6 +90,85 @@ final class WMFDiscoverDataControllerTests {
     }
 
     @Test
+    func discoverStaysHiddenWhileTheFeatureIsOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+
+            #expect(controller.isAvailableToReader == false)
+        }
+    }
+
+    @Test
+    func discoverIsAvailableOnlyToGroupB() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentEnabled: true)
+
+            #expect(controller.isAvailableToReader == false, "A reader without a group does not see Discover")
+
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .control
+            #expect(controller.isAvailableToReader == false, "The control group does not see Discover")
+
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+            #expect(controller.isAvailableToReader)
+        }
+    }
+
+    @Test
+    func controlGroupSeesNoBadgeEvenWithDiscoverTurnedOn() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentEnabled: true)
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .control
+
+            var settings = await WMFDiscoverReadingListDataController.shared.settings
+            settings.isEnabled = true
+            try await WMFDiscoverReadingListDataController.shared.saveSettings(settings)
+            let userDefaultsStore = try #require(WMFDataEnvironment.current.userDefaultsStore)
+            try userDefaultsStore.save(key: WMFUserDefaultsKey.discoverHasUnseenList.rawValue, value: true)
+
+            #expect(controller.isAvailableToReader == false)
+            #expect(controller.shouldShowUnseenListBadge == false)
+
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+            #expect(controller.shouldShowUnseenListBadge)
+        }
+    }
+
+    @Test
+    func onlyTheControlGroupWithDiscoverOnNeedsTheTurnOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentEnabled: true)
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .control
+            #expect(controller.hasListTurnedOnInControlGroup == false, "Discover off needs no turn off")
+
+            var settings = await WMFDiscoverReadingListDataController.shared.settings
+            settings.isEnabled = true
+            try await WMFDiscoverReadingListDataController.shared.saveSettings(settings)
+            #expect(controller.hasListTurnedOnInControlGroup)
+
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .groupB
+            #expect(controller.hasListTurnedOnInControlGroup == false, "Group B keeps the list")
+
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = nil
+            #expect(controller.hasListTurnedOnInControlGroup == false, "A reader without a group keeps the settings")
+        }
+    }
+
+    // The feature config is cached in memory after its first read, so this case has its own test.
+    @Test
+    func theFeatureOffNeedsNoTurnOff() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            try saveRemoteConfig(discoverExperimentEnabled: false)
+            WMFDeveloperSettingsDataController.shared.forceDiscoverExperimentAssignment = .control
+
+            var settings = await WMFDiscoverReadingListDataController.shared.settings
+            settings.isEnabled = true
+            try await WMFDiscoverReadingListDataController.shared.saveSettings(settings)
+
+            #expect(controller.hasListTurnedOnInControlGroup == false)
+        }
+    }
+
+    @Test
     func dismissingTheAnnouncementIsPermanent() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             WMFDeveloperSettingsDataController.shared.enableDiscover = true

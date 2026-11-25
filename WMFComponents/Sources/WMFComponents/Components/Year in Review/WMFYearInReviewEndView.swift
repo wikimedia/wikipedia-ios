@@ -383,10 +383,11 @@ private struct ScrollOffsetKey: PreferenceKey {
 /// the slides use (#6328). It is registered for this process the first time it is used.
 enum WMFYearInReviewEndFont {
 
-    private static let postScriptName = "EBGaramond-Medium"
+    // The PostScript name of the variable font. `UIFont(name:size:)` gives its default weight, Regular.
+    private static let postScriptName = "EBGaramond-Regular"
 
     private static let isRegistered: Bool = {
-        guard let url = Bundle.module.url(forResource: "EBGaramond-Medium", withExtension: "ttf") else {
+        guard let url = Bundle.module.url(forResource: "EBGaramond-Variable", withExtension: "ttf") else {
             return false
         }
         // A font that is already registered gives an error, but `UIFont(name:size:)` still finds it.

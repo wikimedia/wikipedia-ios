@@ -324,6 +324,83 @@ final class SearchInstrumentationTests: XCTestCase {
         XCTAssertEqual(sender.events.compactMap(\.funnelName), [])
     }
 
+    // MARK: - Semantic search interleaved
+
+    private func makeInterleavedMerge() -> WMFInterleaveResult<WMFSemanticSearchInterleavedList.Item> {
+        WMFSearchResultsInterleaver.merge(
+            lexical: [WMFSemanticSearchInterleavedList.Item(pageID: 1, source: .lexicalPrefix), WMFSemanticSearchInterleavedList.Item(pageID: 2, source: .lexicalPrefix)],
+            semantic: [WMFSemanticSearchInterleavedList.Item(pageID: 2, source: .semantic), WMFSemanticSearchInterleavedList.Item(pageID: 3, source: .semantic)],
+            listLength: 10,
+            seed: 7,
+            pageID: { $0.pageID }
+        )
+    }
+
+    func testInterleavedListCarriesWhatTheBackendNeedsToRebuildTheList() throws {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = .treatment
+        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = nil }
+        let merge = makeInterleavedMerge()
+
+        instrumentation.logInterleavedList(
+            project: project,
+            state: .full,
+            merge: merge,
+            searchIDs: WMFSemanticSearchInterleavedIDs(prefix: "pre", fullText: nil, semantic: "sem"),
+            listLength: 10)
+
+        let event = try XCTUnwrap(sender.events.first)
+        let context = try context(of: event)
+        XCTAssertEqual(sender.events.count, 1)
+        XCTAssertEqual(event.action, "impression")
+        XCTAssertEqual(event.actionSubtype, "interleaved_list")
+        XCTAssertEqual(event.instrumentName, SearchInstrumentation.instrumentName)
+        XCTAssertEqual(event.mediawikiData?.database, "frwiki")
+        XCTAssertEqual(event.experimentData?.enrolled, WMFSemanticSearchInterleavedDataController.experimentName)
+        XCTAssertEqual(event.experimentData?.assigned, "treatment")
+        XCTAssertEqual(context["arm"], "treatment")
+        XCTAssertEqual(context["merge_version"], "1")
+        XCTAssertEqual(context["lexical_version"], "1")
+        XCTAssertEqual(context["seed"], "7")
+        XCTAssertEqual(context["coin_flips"], merge.coinFlipsLog)
+        XCTAssertEqual(context["list_length"], "10")
+        XCTAssertNil(context["result_count"])
+        XCTAssertEqual(context["interleave_state"], "full")
+        XCTAssertEqual(context["search_id_pre"], "pre")
+        XCTAssertEqual(context["search_id_sem"], "sem")
+        XCTAssertNil(context["search_id_ful"], "No full text request, so the key is left out")
+        XCTAssertNil(context["list_id"], "The list ID comes back with the per-result events")
+    }
+
+    func testInterleavedListHasNoQueryAndNoPageIDs() throws {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = .treatment
+        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = nil }
+
+        instrumentation.logInterleavedList(project: project, state: .full, merge: makeInterleavedMerge(), searchIDs: WMFSemanticSearchInterleavedIDs(prefix: "pre", fullText: nil, semantic: "sem"), listLength: 10)
+
+        let context = try context(of: try XCTUnwrap(sender.events.first))
+        XCTAssertNil(context["query"])
+        XCTAssertNil(context["page_ids"])
+        XCTAssertNil(context["page_id"])
+    }
+
+    func testInterleavedListNeedsAnAssignment() {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = nil
+
+        instrumentation.logInterleavedList(project: project, state: .full, merge: makeInterleavedMerge(), searchIDs: WMFSemanticSearchInterleavedIDs(prefix: "pre", fullText: nil, semantic: "sem"), listLength: 10)
+
+        XCTAssertTrue(sender.events.isEmpty)
+    }
+
+    func testDisabledInstrumentationSendsNoInterleavedList() {
+        WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = .treatment
+        defer { WMFDeveloperSettingsDataController.shared.forceSemanticSearchInterleavedExperimentAssignment = nil }
+        let editorSearch = SearchInstrumentation(client: client, isEnabled: false)
+
+        editorSearch.logInterleavedList(project: project, state: .full, merge: makeInterleavedMerge(), searchIDs: WMFSemanticSearchInterleavedIDs(prefix: "pre", fullText: nil, semantic: "sem"), listLength: 10)
+
+        XCTAssertTrue(sender.events.isEmpty)
+    }
+
     private func context(of event: Event) throws -> [String: String] {
         let data = try XCTUnwrap(event.actionContext?.data(using: .utf8))
         return try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: String])

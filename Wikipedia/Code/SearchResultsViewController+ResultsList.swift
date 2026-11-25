@@ -50,16 +50,16 @@ extension SearchResultsViewController {
                     self.instrumentation.logLexicalResultTap(position: position, type: displayedSearchResults.type(ofRow: index), searchIDs: displayedSearchResults.results.lexicalSearchIDs)
                 }
                 self.saveLastSearch()
-                self.articleTappedAction?(result.articleURL, false)
+                self.openArticle(for: result, needsNewTab: false)
             },
             openAction: { [weak self] result, _ in
                 ArticleTabsFunnel.shared.logLongPressOpen()
-                self?.articleTappedAction?(result.articleURL, false)
+                self?.openArticle(for: result, needsNewTab: false)
             },
             openInNewTabAction: { [weak self] result, _ in
                 WMFArticleTabsDataController.shared.didTapOpenNewTab()
                 ArticleTabsFunnel.shared.logLongPressOpenInNewTab()
-                self?.articleTappedAction?(result.articleURL, true)
+                self?.openArticle(for: result, needsNewTab: true)
             },
             openInBackgroundTabAction: { [weak self] result, _ in
                 self?.openInBackgroundTab(result)
@@ -79,7 +79,25 @@ extension SearchResultsViewController {
                     ArticleTabsFunnel.shared.logLongPressShare()
                 }
                 self?.share(result, frame: frame)
+            },
+            ratingAction: { [weak self] _, index, rating in
+                guard let self, let searchTerm = self.displayedSearchTerm, let siteURL = self.displayedSiteURL,
+                      let project = SearchResultsMapper.project(for: siteURL), let searchIDs = self.displayedInterleavedSearchIDs else { return false }
+                self.instrumentation.logInterleavedResultFeedback(project: project, searchTerm: searchTerm, position: index + 1, rating: rating, searchIDs: searchIDs)
+                return true
             })
+    }
+
+    /// A semantic row of the interleaved list opens the article at its passage. Any other row opens
+    /// the article at the top.
+    func openArticle(for result: SearchResult, needsNewTab: NeedsNewTab) {
+        if let semanticResultTappedAction,
+           let semanticResult = semanticResultsByArticleURL[result.id],
+           let project = SearchResultsMapper.project(for: result.articleURL) {
+            semanticResultTappedAction(semanticResult, project, needsNewTab)
+        } else {
+            articleTappedAction?(result.articleURL, needsNewTab)
+        }
     }
 
     // MARK: - Results
@@ -98,9 +116,77 @@ extension SearchResultsViewController {
             return result
         }
         self.searchResultsByArticleURL = searchResultsByArticleURL
+        self.semanticResultsByArticleURL = [:]
 
         resultsViewModel.showResults(results, searchTerm: searchResults.searchTerm, project: mapper.project)
         updateSemanticSearchEntryPoint(query: searchResults.searchTerm, languageCode: siteURL.wmf_languageCode, project: mapper.project)
+    }
+
+    /// The list of the treatment arm of the semantic search interleaved experiment. Semantic rows show the passage that matched and its section.
+    func displayInterleavedSearchResults(_ outcome: SemanticSearchInterleavedLoader.Outcome, searchTerm: String, siteURL: URL) {
+        displayedSearchTerm = searchTerm
+        displayedSiteURL = siteURL
+        let mapper = SearchResultsMapper(siteURL: siteURL, redirectMappings: outcome.redirectMappings)
+
+        var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+        var semanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
+        let showsSourceBadge = WMFDeveloperSettingsDataController.shared.showSemanticSearchInterleavedSourceBadge
+        let results = outcome.items.compactMap { item -> SearchResult? in
+            var searchResult: SearchResult?
+            switch item.source {
+            case .lexicalPrefix, .lexicalFullText:
+                guard let mwkResult = outcome.lexicalResultsByPageID[item.pageID], let result = mapper.searchResult(from: mwkResult) else {
+                    return nil
+                }
+                searchResultsByArticleURL[result.id] = mwkResult
+                searchResult = result
+            case .semantic:
+                guard let semanticResult = outcome.semanticResultsByPageID[item.pageID], let articleURL = siteURL.wmf_URL(withTitle: semanticResult.title) else {
+                    return nil
+                }
+                semanticResultsByArticleURL[articleURL.absoluteString] = semanticResult
+                searchResult = SearchResult(
+                    articleURL: articleURL,
+                    pageTitle: semanticResult.title,
+                    title: semanticResult.title,
+                    titleHTML: semanticResult.title,
+                    description: mapper.capitalizedDescription(semanticResult.description),
+                    extract: WMFSemanticSearchSnippet.plainText(html: semanticResult.snippetHTML),
+                    sectionTitle: semanticResult.sectionTitle,
+                    thumbnailURL: semanticResult.thumbnailURL,
+                    isArticle: SearchResultsMapper.isArticle(articleURL),
+                    isSavable: articleURL.namespace == .main)
+            }
+            if showsSourceBadge {
+                searchResult?.sourceBadge = Self.sourceBadge(for: item.source, state: outcome.state)
+            }
+            return searchResult
+        }
+        self.searchResultsByArticleURL = searchResultsByArticleURL
+        self.semanticResultsByArticleURL = semanticResultsByArticleURL
+
+        displayedInterleavedSearchIDs = outcome.searchIDs
+        resultsViewModel.showResults(results, searchTerm: searchTerm, project: mapper.project, rowStyle: .interleaved)
+        resultsViewModel.hideSemanticSearchEntryPoint()
+
+        guard let project = mapper.project else { return }
+        instrumentation.logInterleavedList(
+            project: project,
+            state: outcome.state,
+            merge: outcome.merge,
+            searchIDs: outcome.searchIDs,
+            listLength: WMFSemanticSearchInterleavedConfiguration.listLength)
+    }
+
+    /// With the developer setting on, each row shows the request that gave it and the state the list ended in.
+    private static func sourceBadge(for source: WMFSemanticSearchInterleavedList.Source, state: WMFSemanticSearchInterleaveState) -> String {
+        let name: String
+        switch source {
+        case .lexicalPrefix: name = "Lexical prefix"
+        case .lexicalFullText: name = "Lexical full text"
+        case .semantic: name = "Semantic"
+        }
+        return "\(name) · \(state.rawValue)"
     }
 
     // MARK: - Semantic search entry point
@@ -224,6 +310,7 @@ extension SearchResultsViewController {
 
     func displaySearchError(_ error: Error) {
         searchResultsByArticleURL = [:]
+        semanticResultsByArticleURL = [:]
         let error = error as NSError
 
         if error.wmf_isCancelledError() {

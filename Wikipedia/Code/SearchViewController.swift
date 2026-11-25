@@ -162,10 +162,28 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             }
             
         }
+        vc.semanticResultTappedAction = { [weak self] result, project, needsNewTab in
+            guard let self else { return }
+
+            if let customAction = self.articleTappedAction {
+                guard let articleURL = project.siteURL?.wmf_URL(withTitle: result.title) else { return }
+                customAction(articleURL)
+            } else {
+                openSemanticSearchResult(result, project: project, origin: .interleavedList(needsNewTab: needsNewTab))
+            }
+        }
         return vc
     }()
 
     // MARK: - Semantic search results
+
+    /// Where the reader found the semantic result that opens the article.
+    private enum SemanticSearchResultOrigin {
+        /// The sheet of passages that the semantic search entry point opens.
+        case sheet(searchID: String?, needsFeedback: Bool)
+        /// A semantic row of the interleaved list of the search results.
+        case interleavedList(needsNewTab: Bool)
+    }
 
     private func showSemanticSearchResults(query: String, project: WMFProject) {
         guard let navigationController else { return }
@@ -178,7 +196,7 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
             project: project,
             instrumentation: searchResultsVC.instrumentation,
             didSelectResult: { [weak self] result, searchID, needsFeedback in
-                self?.openSemanticSearchResult(result, project: project, searchID: searchID, needsFeedback: needsFeedback)
+                self?.openSemanticSearchResult(result, project: project, origin: .sheet(searchID: searchID, needsFeedback: needsFeedback))
             }
         )
 
@@ -194,29 +212,53 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
     }
 
     /// Opens the article at the section of the passage and highlights the passage in it.
-    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject, searchID: String?, needsFeedback: Bool) {
+    private func openSemanticSearchResult(_ result: WMFSemanticSearchResult, project: WMFProject, origin: SemanticSearchResultOrigin) {
         guard let dataStore, let navigationController,
-              let siteURL = project.siteURL,
-              var articleURL = siteURL.wmf_URL(withTitle: result.title)?.wmf_URL(withOptionalFragment: result.sectionTitle.map(Self.sectionAnchor))
+              let articleURL = Self.articleURL(for: result, project: project)
         else { return }
 
-        articleURL.wmf_languageVariantCode = project.languageVariantCode
-
-        let coordinator = ArticleCoordinator(
-            navigationController: navigationController,
-            articleURL: articleURL,
-            dataStore: dataStore,
-            theme: theme,
-            source: .search,
-            semanticSearchPassages: WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML),
-            semanticSearchID: searchID,
-            semanticSearchInstrumentation: searchResultsVC.instrumentation,
-            needsSemanticSearchFeedback: needsFeedback
-        )
-        pushedArticleSource = .semanticSearchSheet
+        let passages = WMFSemanticSearchSnippet.highlightedTexts(html: result.snippetHTML)
+        let coordinator: ArticleCoordinator
+        switch origin {
+        case .sheet(let searchID, let needsFeedback):
+            coordinator = ArticleCoordinator(
+                navigationController: navigationController,
+                articleURL: articleURL,
+                dataStore: dataStore,
+                theme: theme,
+                source: .search,
+                semanticSearchPassages: passages,
+                semanticSearchID: searchID,
+                semanticSearchInstrumentation: searchResultsVC.instrumentation,
+                needsSemanticSearchFeedback: needsFeedback
+            )
+            pushedArticleSource = .semanticSearchSheet
+        case .interleavedList(let needsNewTab):
+            // The feedback card in the article comes with a later user story.
+            coordinator = ArticleCoordinator(
+                navigationController: navigationController,
+                articleURL: articleURL,
+                dataStore: dataStore,
+                theme: theme,
+                source: .search,
+                tabConfig: needsNewTab ? .appendArticleAndAssignNewTabAndSetToCurrent : .appendArticleAndAssignCurrentTab,
+                semanticSearchPassages: passages
+            )
+            pushedArticleSource = .searchResults
+        }
         if !coordinator.start() {
             navigate(to: articleURL)
         }
+    }
+
+    /// The article of the result, with the section of the passage as its fragment. A passage in the
+    /// lead has no section, so the article opens at the top.
+    static func articleURL(for result: WMFSemanticSearchResult, project: WMFProject) -> URL? {
+        guard var articleURL = project.siteURL?.wmf_URL(withTitle: result.title)?.wmf_URL(withOptionalFragment: result.sectionTitle.map(sectionAnchor)) else {
+            return nil
+        }
+        articleURL.wmf_languageVariantCode = project.languageVariantCode
+        return articleURL
     }
 
     /// The id MediaWiki gives the heading of a section: the title with underscores for spaces.

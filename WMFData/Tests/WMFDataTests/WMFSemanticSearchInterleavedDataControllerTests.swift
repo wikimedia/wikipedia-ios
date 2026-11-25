@@ -11,6 +11,15 @@ final class WMFSemanticSearchInterleavedDataControllerTests {
     private let controller = WMFSemanticSearchInterleavedDataController.shared
 
     @Test
+    func onlyArabicShowsTheLastUpdateInPlaceOfReferences() {
+        #expect(controller.showsLastUpdatedInPlaceOfReferences(languageCode: "ar"))
+        #expect(controller.showsLastUpdatedInPlaceOfReferences(languageCode: "fr") == false)
+        #expect(controller.showsLastUpdatedInPlaceOfReferences(languageCode: "ja") == false)
+        #expect(controller.showsLastUpdatedInPlaceOfReferences(languageCode: "en") == false)
+        #expect(controller.showsLastUpdatedInPlaceOfReferences(languageCode: nil) == false)
+    }
+
+    @Test
     func isOffAndUnassignedWhileTheLocalFlagIsOff() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             #expect(controller.isEnabled == false)
