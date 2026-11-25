@@ -8,7 +8,9 @@ import WMFTestKitchen
 /// App-side owner of the Saved tab. Builds the SwiftUI screen, presents the flows it leads to
 /// and logs its events, as the other root tab coordinators do.
 @MainActor
-final class SavedCoordinator: NSObject, Coordinator {
+final class SavedCoordinator: NSObject, TabRootCoordinator {
+
+    let tab: WMFAppTabType = .saved
 
     // The tab's navigation controller. Injected via `attach(navigationController:)` once the
     // Saved view controller has been wrapped in its tab navigation controller.
@@ -48,6 +50,21 @@ final class SavedCoordinator: NSObject, Coordinator {
         self.savedInstrumentation = savedInstrumentation ?? .shared
         self.discoverInstrumentation = discoverInstrumentation ?? .shared
         super.init()
+    }
+
+    var rootViewController: UIViewController {
+        if let savedViewController {
+            return savedViewController
+        }
+        let vc = makeSavedViewController()
+        vc.tabBarItem.image = UIImage(named: "tabbar-save")
+        vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.savedButton
+        vc.title = WMFCommonStringsWrapper.savedTabTitle
+        return vc
+    }
+
+    func apply(theme: Theme) {
+        self.theme = theme
     }
 
     func attach(navigationController: UINavigationController) {
