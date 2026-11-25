@@ -1610,15 +1610,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     // MARK: - App Shortcuts
 
-    func dismissPresentedViewControllers() {
-        if presentedViewController != nil {
-            dismiss(animated: false, completion: nil)
-        }
-        if currentTabNavigationController?.presentedViewController != nil {
-            currentTabNavigationController?.dismiss(animated: false, completion: nil)
-        }
-    }
-
     private func showRandomArticleFromShortcut(animated: Bool) {
         dismissPresentedViewControllers()
         showRandomArticleFromShortcut(siteURL: siteURL, animated: animated, userInfo: nil)

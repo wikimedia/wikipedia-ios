@@ -65,3 +65,16 @@ final class TabBarCoordinator {
         rootCoordinators[tab.rawValue]
     }
 }
+
+extension UITabBarController {
+    /// Closes the modal on the tab bar controller and the modal on the selected tab, with no animation.
+    func dismissPresentedViewControllers() {
+        if presentedViewController != nil {
+            dismiss(animated: false)
+        }
+        if let selectedViewController,
+           selectedViewController.presentedViewController != nil {
+            selectedViewController.dismiss(animated: false)
+        }
+    }
+}

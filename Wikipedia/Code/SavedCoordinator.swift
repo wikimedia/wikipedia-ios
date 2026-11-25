@@ -119,13 +119,7 @@ final class SavedCoordinator: NSObject, TabRootCoordinator {
     /// Closes any modal, then opens the reading list on top of the Saved tab root.
     func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
         if let tabBarController = navigationController.tabBarController {
-            if tabBarController.presentedViewController != nil {
-                tabBarController.dismiss(animated: false)
-            }
-            if let selectedViewController = tabBarController.selectedViewController,
-               selectedViewController.presentedViewController != nil {
-                selectedViewController.dismiss(animated: false)
-            }
+            tabBarController.dismissPresentedViewControllers()
             tabBarController.selectedIndex = tab.rawValue
         }
         navigationController.popToRootViewController(animated: false)

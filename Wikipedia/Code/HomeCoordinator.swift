@@ -175,7 +175,7 @@ final class HomeCoordinator: NSObject, TabRootCoordinator {
     // MARK: - One-time Home onboarding
 
     /// Set by `WMFAppViewController`, because the customization flow loads the main UI when it closes.
-    var startFeedCustomization: (@MainActor (InstrumentImpl) -> Void)?
+    var startFeedCustomization: (@MainActor @Sendable (InstrumentImpl) -> Void)?
     private var oneTimeOnboardingViewController: WMFOnboardingViewController?
 
     func presentOneTimeOnboardingIfNeeded(isExistingUser: Bool) {
