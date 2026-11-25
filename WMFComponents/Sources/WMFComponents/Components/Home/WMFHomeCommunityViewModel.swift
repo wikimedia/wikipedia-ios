@@ -131,6 +131,10 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     // MARK: - Nested display types
 
     public struct NewsItem {
+        /// The position in the day's list and the story text. The position keeps two stories with
+        /// the same text, or with no text, apart. The text keeps the ID of a story stable when a
+        /// refresh of the same day brings the same list.
+        public let id: String
         public let story: String
         /// The story as the feed sent it, with all its linked articles. A tap opens it in the
         /// news story screen, like Android and the legacy Explore feed.
@@ -142,6 +146,8 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     public struct OnThisDayItem {
         public let year: Int
+        /// The year in the wiki's language: "1984", or "44 BC" for a year before year 1.
+        public let yearText: String
         public let yearsAgo: String
         public let text: String
         public let pages: [WMFCommunityArticle]
@@ -230,10 +236,11 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         self.allTopReadTitles = mostRead.map(\.title)
 
         self.newsItems = (response.feedResponse.news ?? [])
-            .map { item in
+            .enumerated()
+            .map { index, item in
                 let story = (try? HtmlUtils.stringFromHTML(item.story ?? "")) ?? item.story ?? ""
                 let featured = item.featuredArticle(picturedText: picturedText)
-                return NewsItem(story: story, newsItem: item, imageURLString: featured?.thumbnail?.source)
+                return NewsItem(id: "\(index)|\(story)", story: story, newsItem: item, imageURLString: featured?.thumbnail?.source)
             }
 
         // Like Android, the module shows the first two events the wiki's editors picked for the day.
@@ -247,9 +254,10 @@ public struct WMFHomeCommunityViewModel: Identifiable {
             self.onThisDayItems = events.prefix(2).map { event in
                 OnThisDayItem(
                     year: event.year,
-                    yearsAgo: Self.yearsAgo(currentYear - event.year, languageCode: project.languageCode),
+                    yearText: DateFormatter.wmfEventYearString(event.year, languageCode: project.languageCode),
+                    yearsAgo: Self.yearsAgo(Self.yearsBetween(event.year, and: currentYear), languageCode: project.languageCode),
                     text: event.text,
-                    pages: event.pages.map(WMFCommunityArticle.init(onThisDayPage:))
+                    pages: Self.uniqueByTitle(event.pages.map(WMFCommunityArticle.init(onThisDayPage:)))
                 )
             }
         }
@@ -276,6 +284,19 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     static func yearsAgo(_ years: Int, languageCode: String?) -> String {
         let locale = languageCode.map { Locale(identifier: $0) } ?? .current
         return String(format: CommonStrings.yearsAgo(languageCode: languageCode), locale: locale, years)
+    }
+
+    /// Years from an event to `currentYear`. The feed counts years before year 1 as negative
+    /// numbers and has no year 0, so 44 BC (-44) to 2026 is 2069 years, not 2070.
+    static func yearsBetween(_ eventYear: Int, and currentYear: Int) -> Int {
+        eventYear < 0 ? currentYear - eventYear - 1 : currentYear - eventYear
+    }
+
+    /// The articles in their order, without a second row for a title that an event lists again.
+    /// The rows use the title as their SwiftUI ID.
+    static func uniqueByTitle(_ articles: [WMFCommunityArticle]) -> [WMFCommunityArticle] {
+        var seen: Set<String> = []
+        return articles.filter { seen.insert($0.title).inserted }
     }
 
     /// The position in the day's full On this day list of an event tapped on the card. The card

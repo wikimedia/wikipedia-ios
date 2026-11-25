@@ -285,7 +285,7 @@ struct WMFCommunityFeedView: View {
         case .inTheNews:
             // The story card brings its own horizontal padding.
             TabView {
-                ForEach(page.newsItems, id: \.story) { item in
+                ForEach(page.newsItems, id: \.id) { item in
                     Button {
                         onTapNewsStory(item.newsItem, page.project)
                     } label: {
@@ -334,7 +334,7 @@ struct WMFCommunityFeedView: View {
                 onTapOnThisDay(page, item)
             } label: {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(verbatim: String(item.year))
+                    Text(verbatim: item.yearText)
                         .font(Font(WMFFont.for(.boldTitle3)))
                         .foregroundStyle(Color(uiColor: theme.text))
                     Text(item.yearsAgo)
@@ -375,6 +375,9 @@ struct WMFCommunityFeedView: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        // The button is the one VoiceOver element of the row, so VoiceOver reads the plain title
+        // and the description once, with one "button" trait.
+        .accessibilityLabel([article.plainTitle, article.description].compactMap { $0 }.joined(separator: ", "))
         .articleContextMenu(article, page: page, module: module, isSaved: isArticleSaved(article.title, page.project), onAction: onArticleAction)
     }
 
@@ -646,9 +649,6 @@ private struct WMFCommunityArticleRow: View {
             .accessibilityHidden(true)
         }
         .padding(.vertical, 10)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel([article.plainTitle, article.description].compactMap { $0 }.joined(separator: ", "))
-        .accessibilityAddTraits(.isButton)
         .task(id: article.thumbnailURL) {
             await imageViewModel.load(url: article.thumbnailURL)
         }

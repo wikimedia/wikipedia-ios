@@ -70,6 +70,32 @@ public extension DateFormatter {
         return dateFormatter
     }()
 
+    private static var wmfEventYearFormatters: [String: DateFormatter] = [:]
+
+    /// The year of an On this day event in the language of `languageCode`: `1984`, or `44 BC` for
+    /// a year before year 1. The feed gives a year before year 1 as a negative number with no
+    /// year 0, so -44 is 44 BC. Thus the era is set, and the year is not counted back from year 0.
+    static func wmfEventYearString(_ year: Int, languageCode: String?) -> String {
+        let isBeforeYearOne = year < 0
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        let key = "\(languageCode ?? "")|\(isBeforeYearOne)"
+        let formatter: DateFormatter
+        if let cached = wmfEventYearFormatters[key] {
+            formatter = cached
+        } else {
+            formatter = DateFormatter()
+            formatter.locale = languageCode.map { Locale(identifier: $0) } ?? .current
+            formatter.calendar = calendar
+            formatter.timeZone = calendar.timeZone
+            formatter.setLocalizedDateFormatFromTemplate(isBeforeYearOne ? "y G" : "y")
+            wmfEventYearFormatters[key] = formatter
+        }
+        let components = DateComponents(era: isBeforeYearOne ? 0 : 1, year: abs(year))
+        guard let date = calendar.date(from: components) else { return String(year) }
+        return formatter.string(from: date)
+    }
+
     /// Smart formatter for "Last Read" dates:
     /// - If the date is today → show time (e.g. `2:48 PM`)
     /// - Otherwise → show month and day (e.g. `August 22`)

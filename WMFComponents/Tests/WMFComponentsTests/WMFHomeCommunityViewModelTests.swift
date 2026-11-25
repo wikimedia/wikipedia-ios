@@ -81,6 +81,51 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         XCTAssertEqual(page.newsItems.first?.newsItem.links?.first?.title, "Black_hole")
     }
 
+    /// Two stories with the same text, or with no text, must not share a SwiftUI ID.
+    func testNewsStoriesWithTheSameTextHaveDifferentIDs() throws {
+        let page = try page(feedJSON: #"{ "news": [ { "story": "Same" }, { "story": "Same" }, { }, { } ] }"#)
+        XCTAssertEqual(Set(page.newsItems.map(\.id)).count, 4)
+    }
+
+    func testANewsStoryKeepsItsIDAcrossARefreshOfTheSameDay() throws {
+        let json = #"{ "news": [ { "story": "A story" }, { "story": "Another story" } ] }"#
+        XCTAssertEqual(try page(feedJSON: json).newsItems.map(\.id), try page(feedJSON: json).newsItems.map(\.id))
+    }
+
+    /// An event that lists a page twice gets one row for it, because the rows use the title as ID.
+    func testAnOnThisDayEventListsEachPageOnce() throws {
+        let feedJSON = #"{ "onthisday": [ { "text": "Picked", "year": 1945, "pages": [ { "title": "Dog" }, { "title": "Cat" }, { "title": "Dog" } ] } ] }"#
+        let item = try XCTUnwrap(try page(feedJSON: feedJSON).onThisDayItems?.first)
+        XCTAssertEqual(item.pages.map(\.title), ["Dog", "Cat"])
+    }
+
+    // MARK: - Event years
+
+    /// The feed gives 44 BC as -44 and has no year 0.
+    func testAYearBeforeYearOneShowsItsEra() {
+        XCTAssertEqual(DateFormatter.wmfEventYearString(-44, languageCode: "en"), "44 BC")
+        XCTAssertEqual(DateFormatter.wmfEventYearString(-1, languageCode: "en"), "1 BC")
+    }
+
+    func testAYearAfterYearOneShowsTheYearAlone() {
+        XCTAssertEqual(DateFormatter.wmfEventYearString(1984, languageCode: "en"), "1984")
+        XCTAssertEqual(DateFormatter.wmfEventYearString(1, languageCode: "en"), "1")
+    }
+
+    func testEventYearsCountNoYearZero() {
+        XCTAssertEqual(WMFHomeCommunityViewModel.yearsBetween(1984, and: 2026), 42)
+        XCTAssertEqual(WMFHomeCommunityViewModel.yearsBetween(-44, and: 2026), 2069)
+        XCTAssertEqual(WMFHomeCommunityViewModel.yearsBetween(-1, and: 1), 1)
+    }
+
+    func testAnOnThisDayEventBeforeYearOneShowsItsEraAndYearsAgo() throws {
+        let feedJSON = #"{ "onthisday": [ { "text": "Caesar", "year": -44, "pages": [] } ] }"#
+        let now = try XCTUnwrap(Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 3, day: 15, hour: 12)))
+        let item = try XCTUnwrap(try page(feedJSON: feedJSON, date: now, now: now).onThisDayItems?.first)
+        XCTAssertEqual(item.yearText, "44 BC")
+        XCTAssertEqual(item.yearsAgo, WMFHomeCommunityViewModel.yearsAgo(2069, languageCode: "en"))
+    }
+
     func testOnThisDayWithNoEventsHasNoItems() throws {
         XCTAssertNil(try page(onThisDayEvents: 0).onThisDayItems)
     }

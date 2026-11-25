@@ -660,6 +660,34 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertFalse(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
     }
 
+    /// A save or an unsave elsewhere changes one article. Only that article is asked about again.
+    func testAChangeToOneArticleAsksOnlyAboutThatArticle() async {
+        let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" }, "mostread": { "articles": [ { "title": "Octopus" }, { "title": "Dog" } ] } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
+        let savedList = WMFSavedTitlesSpy(savedTitles: ["Octopus"])
+        vm.isCommunityArticleSaved = { title, _ in
+            savedList.askedTitles.append(title)
+            return savedList.savedTitles.contains(title)
+        }
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty && !vm.isLoadingCommunity }
+        XCTAssertTrue(loaded)
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+
+        savedList.savedTitles = ["Dog"]
+        savedList.askedTitles = []
+        vm.refreshCommunitySavedStates { title, _ in title == "Dog" }
+
+        XCTAssertEqual(savedList.askedTitles, ["Dog"])
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Dog", project: project))
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Octopus", project: project), "Octopus was not asked about, so it keeps its state")
+
+        vm.refreshCommunitySavedStates()
+        XCTAssertFalse(vm.isCommunityArticleSaved(title: "Octopus", project: project), "A full refresh asks about every article again")
+    }
+
     func testMoreTopReadReachesTheCoordinatorWithEveryTitle() throws {
         let (vm, _) = makeViewModel()
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
@@ -1061,5 +1089,17 @@ actor WMFDayGatedFeedDataController: WMFFeedDataControlling {
     static func daysAgo(_ date: Date) -> Int {
         let calendar = Calendar(identifier: .gregorian)
         return calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
+    }
+}
+
+/// The saved list of the coordinator, for tests: which titles are saved, and which titles the
+/// view model asked about.
+@MainActor
+private final class WMFSavedTitlesSpy {
+    var savedTitles: Set<String>
+    var askedTitles: [String] = []
+
+    init(savedTitles: Set<String>) {
+        self.savedTitles = savedTitles
     }
 }

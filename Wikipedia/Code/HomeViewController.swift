@@ -223,6 +223,9 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
         viewModel.refreshSavedStates { card in
             Self.articleURL(for: card)?.wmf_inMemoryKey == changedKey
         }
+        viewModel.refreshCommunitySavedStates { title, project in
+            Self.articleURL(title: title, project: project)?.wmf_inMemoryKey == changedKey
+        }
     }
     
     private func unsaveForYouArticle(_ article: WMFForYouArticleCardViewModel) {
@@ -355,19 +358,21 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
     private var onThisDayLoadTask: Task<Void, Never>?
 
     private func pushCommunityOnThisDay(project: WMFProject, date: Date, event: (year: Int, text: String)?) {
-        // A second tap while the list loads is ignored, so the list is pushed once.
-        guard onThisDayLoadTask == nil else { return }
+        // The last tap wins. A tap while the list loads cancels the load of the earlier tap, so the
+        // list opens once, at the event the reader tapped last.
+        onThisDayLoadTask?.cancel()
         // Gregorian like the data controller, so a device set to another calendar asks for the same day.
         let calendar = Calendar(identifier: .gregorian)
         let month = calendar.component(.month, from: date)
         let day = calendar.component(.day, from: date)
         onThisDayLoadTask = Task { [weak self] in
-            defer { self?.onThisDayLoadTask = nil }
             do {
                 let response = try await WMFOnThisDayDataController.shared.fetchOnThisDay(project: project, month: month, day: day)
                 // The reader may have left Home while the list loaded. Then it is not pushed on
                 // top of whatever they opened.
-                guard let self, self.isOnScreenForCommunityOnThisDay else { return }
+                guard !Task.isCancelled, let self else { return }
+                self.onThisDayLoadTask = nil
+                guard self.isOnScreenForCommunityOnThisDay else { return }
                 let events = response.events.map { WMFFeedOnThisDayEvent(event: $0, languageVariantCode: project.languageVariantCode) }
                 guard !events.isEmpty else { return }
                 let midnightUTCDate: Date = (date as NSDate).wmf_midnightUTCDateFromLocal
@@ -377,9 +382,11 @@ final class HomeViewController: UIViewController, WMFNavigationBarConfiguring, T
                 }
                 self.navigationController?.pushViewController(onThisDayViewController, animated: true)
             } catch {
+                guard !Task.isCancelled, let self else { return }
+                self.onThisDayLoadTask = nil
                 DDLogError("Failed to load On this day events: \(error)")
                 // Same rule for the error: it is not shown over a screen the reader opened since.
-                guard let self, self.isOnScreenForCommunityOnThisDay else { return }
+                guard self.isOnScreenForCommunityOnThisDay else { return }
                 WMFToastManager.sharedInstance.showErrorAlert(error, sticky: false, dismissPreviousToasts: true)
             }
         }

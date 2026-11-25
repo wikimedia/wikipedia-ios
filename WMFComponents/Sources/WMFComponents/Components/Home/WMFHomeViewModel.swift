@@ -212,20 +212,45 @@ public final class WMFHomeViewModel: ObservableObject {
         savedCommunityArticleKeys.contains(Self.communityArticleKey(title: title, project: project))
     }
 
+    /// Asks the coordinator again about every article of the loaded pages. For a change to one
+    /// article, `refreshCommunitySavedStates(where:)` asks only about that article.
     public func refreshCommunitySavedStates() {
         guard let isCommunityArticleSaved else { return }
         var saved: Set<String> = []
         for page in communityPages {
-            let articles = [page.featuredArticleItem].compactMap { $0 }
-                + page.topReadItems
-                + (page.onThisDayItems ?? []).flatMap(\.pages)
-            for article in articles where isCommunityArticleSaved(article.title, page.project) {
+            for article in Self.communityArticles(of: page) where isCommunityArticleSaved(article.title, page.project) {
                 saved.insert(Self.communityArticleKey(title: article.title, project: page.project))
             }
         }
         if saved != savedCommunityArticleKeys {
             savedCommunityArticleKeys = saved
         }
+    }
+
+    /// Asks the coordinator again only about the articles that `matches` selects, such as the one
+    /// article that a save or an unsave changed. The other articles keep their saved state.
+    public func refreshCommunitySavedStates(where matches: (_ title: String, _ project: WMFProject) -> Bool) {
+        guard let isCommunityArticleSaved else { return }
+        var saved = savedCommunityArticleKeys
+        for page in communityPages {
+            for article in Self.communityArticles(of: page) where matches(article.title, page.project) {
+                let key = Self.communityArticleKey(title: article.title, project: page.project)
+                if isCommunityArticleSaved(article.title, page.project) {
+                    saved.insert(key)
+                } else {
+                    saved.remove(key)
+                }
+            }
+        }
+        if saved != savedCommunityArticleKeys {
+            savedCommunityArticleKeys = saved
+        }
+    }
+
+    private static func communityArticles(of page: WMFHomeCommunityViewModel) -> [WMFCommunityArticle] {
+        [page.featuredArticleItem].compactMap { $0 }
+            + page.topReadItems
+            + (page.onThisDayItems ?? []).flatMap(\.pages)
     }
 
     /// Opens the day's full Top read list ("More top read").
@@ -343,12 +368,16 @@ public final class WMFHomeViewModel: ObservableObject {
     }
 
 
+    /// Asks the coordinator again about every article of both feeds, for example when the screen
+    /// comes back.
     public func refreshSavedStates() {
+        refreshCommunitySavedStates()
         refreshSavedStates(where: { _ in true })
     }
 
+    /// Asks the coordinator again about the For You cards that `matches` selects. For Community
+    /// articles, use `refreshCommunitySavedStates(where:)`.
     public func refreshSavedStates(where matches: (WMFForYouArticleCardViewModel) -> Bool) {
-        refreshCommunitySavedStates()
         guard let isArticleSaved else { return }
         forYouViewModel?.pages.forEach { page in
             for card in page.articleViewModels where matches(card) {
