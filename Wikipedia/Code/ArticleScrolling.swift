@@ -40,7 +40,7 @@ extension ArticleScrolling where Self: UIViewController {
             return
         }
 
-        messagingController.prepareForScroll(to: anchor, highlight: highlighted) { (result) in
+        messagingController.prepareForScroll(to: anchor, highlight: highlighted) { [self] (result) in
             assert(Thread.isMainThread)
             switch result {
             case .failure(let preparationError as ArticleWebMessagingController.ScrollToAnchorPreparationError):

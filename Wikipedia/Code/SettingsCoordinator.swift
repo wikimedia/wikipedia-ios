@@ -467,7 +467,7 @@ final class SettingsCoordinator: Coordinator, SettingsCoordinatorDelegate {
             talkPagePreferencesFooter: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works")
         )
 
-        Task {
+        Task { [self] in
             let currentAutoSignValue = dataController.autoSignTalkPageDiscussions()
 
             let viewModel = WMFAccountSettingsViewModel(

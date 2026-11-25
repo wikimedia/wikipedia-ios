@@ -484,9 +484,10 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
 
         func load() {
             loadTask?.cancel()
-            loadTask = Task {
+            loadTask = Task { [weak self] in
                 do {
                     let result = try await SomeDataController.shared.fetchItems()
+                    guard let self else { return }
                     self.items = result
                 } catch {
                     // handle error
@@ -496,6 +497,19 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
 
         deinit {
             loadTask?.cancel()
+        }
+    }
+    ```
+
+- When an inner closure captures `[weak self]`, the outer closure that contains it captures `self` too. Without a capture list, that capture is strong and hidden, and Swift warns about it (`#ImplicitStrongCapture`). Give the outer closure an explicit capture list:
+    - `[weak self]` with `guard let self else { return }` when the closure is stored (toast buttons, view model callbacks) or runs after a wait (`await`, a network completion). If the screen is gone, the work stops.
+    - `[self]` when the closure runs once and soon (`DispatchQueue.main.async`, a `Task` with no `await` before it uses `self`). This keeps the current behavior and makes the strong capture visible.
+
+    ```swift
+    fetcher.fetch { [weak self] result in
+        guard let self else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.show(result)
         }
     }
     ```
@@ -518,8 +532,9 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
         @Published var title: String = ""
 
         func refresh() {
-            Task {
+            Task { [weak self] in
                 let value = try await SomeDataController.shared.fetchTitle()
+                guard let self else { return }
                 self.title = value
             }
         }
