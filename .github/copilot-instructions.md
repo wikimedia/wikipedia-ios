@@ -443,6 +443,8 @@ Note: `OS=latest` resolves to whatever iOS Simulator runtime is installed on the
 
 To run unit tests, use the same commands but add "test" after xcodebuild, e.g. `xcodebuild test \` Each scheme should run to fully confirm unit tests work (WMFData, WMFComponents, App-side).
 
+An incremental build shows warnings only for the files that it compiles again. To see every warning, build with an empty derived data folder, for example `-derivedDataPath "$(mktemp -d)"`.
+
 
 
 ## Swift 6 Strict Concurrency
