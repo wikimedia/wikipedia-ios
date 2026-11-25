@@ -14,11 +14,12 @@ class OnThisDayViewController: ColumnarCollectionViewController, WMFNavigationBa
 
     let contentGroupIDURIString: String?
 
-    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, contentGroup: WMFContentGroup, theme: Theme) {
+    /// The Home tab's Community feed has no content group, so it passes nil.
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, contentGroup: WMFContentGroup?, theme: Theme) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
-        self.contentGroupIDURIString = contentGroup.objectID.uriRepresentation().absoluteString
+        self.contentGroupIDURIString = contentGroup?.objectID.uriRepresentation().absoluteString
         super.init(nibName: nil, bundle: nil)
         self.theme = theme
         title = CommonStrings.onThisDayTitle

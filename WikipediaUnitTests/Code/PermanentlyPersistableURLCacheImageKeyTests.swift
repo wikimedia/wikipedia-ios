@@ -77,6 +77,6 @@ final class PermanentlyPersistableURLCacheImageKeyTests: XCTestCase {
         let galleryURL = try XCTUnwrap(URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/\(name)/1280px-\(name)"))
         let response = dataStore.session.cachedResponseForURL(galleryURL, type: .image)
 
-        XCTAssertEqual(response.map { String(decoding: $0.data, as: UTF8.self) }, "cached")
+        XCTAssertEqual(response.flatMap { String(bytes: $0.data, encoding: .utf8) }, "cached")
     }
 }

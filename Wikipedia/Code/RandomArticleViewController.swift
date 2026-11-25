@@ -103,7 +103,8 @@ class RandomArticleViewController: ArticleViewController {
             return
         }
         configureViews(isRandomArticleLoading: true, animated: true)
-        randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL) { (error, articleURL, summary) in
+        randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL) { [weak self] (error, articleURL, summary) in
+            guard let self else { return }
             DispatchQueue.main.async { [weak self] in
                 guard
                     let self,

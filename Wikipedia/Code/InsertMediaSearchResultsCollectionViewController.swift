@@ -268,7 +268,7 @@ extension InsertMediaSearchResultsCollectionViewController {
         let previewProvider: () -> UIViewController? = {
             return vc
         }
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { [self] (suggestedActions) -> UIMenu? in
             let selectImageAction = UIAction(title: WMFLocalizedString("insert-media-image-preview-select-image-action-title", value: "Select image", comment: "Title for preview action that results in image selection"), handler: { [weak self] (_) in
                 guard let self = self else {
                     return

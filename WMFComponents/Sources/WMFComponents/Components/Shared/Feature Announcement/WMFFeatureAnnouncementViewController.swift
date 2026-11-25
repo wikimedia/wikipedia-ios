@@ -18,7 +18,7 @@ public final class WMFFeatureAnnouncementViewController: WMFCanvasViewController
     public init(viewModel: WMFFeatureAnnouncementViewModel) {
         self.hostingViewController = WMFFeatureAnnouncementHostingController(viewModel: viewModel)
         super.init()
-        viewModel.contentHeightChanged = { height in
+        viewModel.contentHeightChanged = { [weak self] height in
             DispatchQueue.main.async { [weak self] in
                 guard let self,
                       self.preferredContentSize.height != height else { return }
