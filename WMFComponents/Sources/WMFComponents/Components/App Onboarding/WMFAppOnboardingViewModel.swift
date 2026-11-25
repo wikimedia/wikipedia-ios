@@ -78,7 +78,18 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
     /// animation, so this value comes from the file: "Timeline 1" is 60 frames at 60 fps.
     let loadingAnimationLoopDuration: TimeInterval = 1
 
-    @Published public private(set) var currentStepIndex: Int = 0
+    /// Every change of step reports the step the reader left and the step that is shown, so no
+    /// path (Next, a swipe) can miss either. Nothing is reported before the view appears, so
+    /// `jumpToStep` stays free of side effects.
+    @Published public private(set) var currentStepIndex: Int = 0 {
+        didSet {
+            guard hasAppeared, oldValue != currentStepIndex else { return }
+            didLeaveStep(steps[oldValue])
+            didShowStep(currentStep)
+        }
+    }
+
+    private var hasAppeared = false
 
     /// The step the flow started at. The condensed flow starts at the interests step and must
     /// not be able to swipe back to the steps before it.
@@ -175,15 +186,9 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         }
 
         if currentStepIndex < steps.count - 1 {
-            let previousStep = currentStep
             currentStepIndex += 1
-            // Inside the personalization pager the page view stays on screen, so no onAppear
-            // fires for the new page. The pager reports only its first page (see didShowStep).
-            if previousStep.isPersonalization && currentStep.isPersonalization {
-                didShowStep(currentStep)
-            }
         } else {
-            onCompletion()
+            complete()
         }
     }
 
@@ -194,21 +199,38 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
               currentStep.isPersonalization,
               swipeableSteps.contains(step),
               let index = steps.firstIndex(of: step) else { return }
-        if currentStep == .feedPreference {
-            feedPreferenceViewModel.didSwipeAway()
-        }
         currentStepIndex = index
-        didShowStep(step)
+    }
+
+    /// Called once, when the onboarding view appears. Later steps are reported by the change
+    /// of `currentStepIndex`.
+    func didAppear() {
+        guard !hasAppeared else { return }
+        hasAppeared = true
+        didShowStep(currentStep)
     }
 
     /// Called each time a step is shown, including when the user swipes back to it.
-    func didShowStep(_ step: Step) {
+    private func didShowStep(_ step: Step) {
         logImpression(step)
         if step == .feedPreference {
             feedPreferenceViewModel.didShow()
         }
     }
-    
+
+    /// Called each time the reader leaves a step: Next, Skip, a swipe or the end of the flow.
+    private func didLeaveStep(_ step: Step) {
+        if step == .feedPreference {
+            feedPreferenceViewModel.didLeave()
+        }
+    }
+
+    /// Ends the flow. The reader leaves the current step without a new one being shown.
+    private func complete() {
+        didLeaveStep(currentStep)
+        onCompletion()
+    }
+
     /// Sets the initial step without side effects. Only valid to call before the view appears.
     public func jumpToStep(_ step: Step) {
         guard let index = steps.firstIndex(of: step) else { return }
@@ -221,7 +243,7 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
     public func skip() {
         logSkip(currentStep)
         feedPreferenceViewModel.resetSelectionToDefault()
-        onCompletion()
+        complete()
     }
 
     private var loadingTask: Task<Void, Never>?
@@ -238,7 +260,7 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
             async let minimumElapsed: Void = Self.sleep(minimumDisplay)
             _ = await (feedLoaded, minimumElapsed)
             guard !Task.isCancelled else { return }
-            onCompletion()
+            complete()
         }
     }
 

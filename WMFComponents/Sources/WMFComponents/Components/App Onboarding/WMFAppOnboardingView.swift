@@ -40,6 +40,10 @@ public struct WMFAppOnboardingView: View {
         // one word per line and collide with the floating toolbar. Step views resolve their
         // WMFFonts against this capped size (see WMFFont.for(_:sized:)).
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
+        // The view model reports each later step when the step changes.
+        .onAppear {
+            viewModel.didAppear()
+        }
     }
 
     @ViewBuilder
@@ -50,24 +54,12 @@ public struct WMFAppOnboardingView: View {
             switch viewModel.currentStep {
             case .intro:
                 WMFAppOnboardingIntroView(viewModel: viewModel)
-                    .onAppear {
-                        viewModel.didShowStep(.intro)
-                    }
             case .dataPrivacy:
                 WMFAppOnboardingDataPrivacyView(viewModel: viewModel, theme: theme)
-                    .onAppear {
-                        viewModel.didShowStep(.dataPrivacy)
-                    }
             case .languages:
                 WMFAppOnboardingLanguagesView(viewModel: viewModel, theme: theme)
-                    .onAppear {
-                        viewModel.didShowStep(.languages)
-                    }
             case .loading:
                 WMFAppOnboardingLoadingView(viewModel: viewModel, theme: theme)
-                    .onAppear {
-                        viewModel.didShowStep(.loading)
-                    }
             case .personalizationIntro, .interests, .feedPreference:
                 EmptyView()
             }
@@ -76,7 +68,7 @@ public struct WMFAppOnboardingView: View {
 
     /// The steps with page dots can be swiped back and forth, like on Android. The pager builds
     /// the pages next to the current one before they are shown, so the pages do not log
-    /// impressions or load data in onAppear: the view model does it when a page is shown.
+    /// impressions or load data in onAppear: the view model does it when the step changes.
     private var personalizationPager: some View {
         TabView(selection: Binding(
             get: { viewModel.currentStep },
@@ -88,9 +80,6 @@ public struct WMFAppOnboardingView: View {
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .onAppear {
-            viewModel.didShowStep(viewModel.currentStep)
-        }
     }
 
     @ViewBuilder

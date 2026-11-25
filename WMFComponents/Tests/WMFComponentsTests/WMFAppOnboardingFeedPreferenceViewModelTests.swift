@@ -46,7 +46,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     @Test
     func selectPersonalizedUpdatesSelection() {
         let viewModel = makeViewModel()
-        viewModel.isPersonalizedLoading = false // as after the load
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: true)
         viewModel.select(.personalized)
         #expect(viewModel.selection == .personalized)
         viewModel.select(.community)
@@ -56,7 +56,7 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     @Test
     func resetSelectionAppliesDefault() {
         let viewModel = makeViewModel()
-        viewModel.isPersonalizedLoading = false // as after the load
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: true)
         viewModel.select(.personalized)
         viewModel.resetSelectionToDefault()
         #expect(viewModel.selection == .community)
@@ -65,29 +65,58 @@ struct WMFAppOnboardingFeedPreferenceViewModelTests {
     @Test
     func previewsShowSpinnersBeforeTheFirstLoad() {
         let viewModel = makeViewModel()
-        #expect(viewModel.isCommunityLoading)
-        #expect(viewModel.isPersonalizedLoading)
+        #expect(viewModel.communityCards == nil)
+        #expect(viewModel.isPersonalizedAvailable == nil)
     }
 
     @Test
-    func personalizedIsNotSelectableWhileLoading() {
+    func personalizedIsNotSelectableBeforeItLoads() {
         let viewModel = makeViewModel()
-        viewModel.isPersonalizedLoading = true
         viewModel.select(.personalized)
         #expect(viewModel.selection == .community)
 
-        viewModel.isPersonalizedLoading = false
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: true)
         viewModel.select(.personalized)
         #expect(viewModel.selection == .personalized)
     }
 
     @Test
-    func communityIsAlwaysSelectableWhileLoading() {
+    func personalizedIsNotSelectableWithoutInterests() {
         let viewModel = makeViewModel()
-        viewModel.isPersonalizedLoading = false
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: false)
         viewModel.select(.personalized)
-        viewModel.isPersonalizedLoading = true
+        #expect(viewModel.selection == .community)
+    }
+
+    @Test
+    func communityIsAlwaysSelectable() {
+        let viewModel = makeViewModel()
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: true)
+        viewModel.select(.personalized)
         viewModel.select(.community)
+        #expect(viewModel.selection == .community)
+    }
+
+    /// The reader chose Personalized, swiped back and changed their interests. Until the reload
+    /// shows that personalized content is available, Next must not save it.
+    @Test
+    func changingInterestsMovesAPersonalizedSelectionBackToTheDefault() {
+        let viewModel = makeViewModel()
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: true)
+        viewModel.select(.personalized)
+
+        viewModel.interestsDidChange(topics: [], selectedArticleTitles: [])
+        #expect(viewModel.selection == .community)
+        #expect(viewModel.isPersonalizedAvailable == nil, "The availability of the old interests no longer applies")
+    }
+
+    @Test
+    func aLoadWithoutInterestsMovesAPersonalizedSelectionBackToTheDefault() {
+        let viewModel = makeViewModel()
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: true)
+        viewModel.select(.personalized)
+
+        viewModel.personalizedState = .loaded(cards: [], isAvailable: false)
         #expect(viewModel.selection == .community)
     }
 
@@ -356,8 +385,7 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
 
             #expect(service.decodableGETCallCount == 1, "The preview must reuse the warmed articles, not fetch them again")
             #expect(viewModel.personalizedCards.count == 1)
-            #expect(viewModel.isPersonalizedAvailable)
-            #expect(viewModel.isPersonalizedLoading == false)
+            #expect(viewModel.isPersonalizedAvailable == true)
             // The search response carried the card content, so the reveal costs no further requests.
             #expect(await summaryController.requestedTitles.isEmpty)
         }
@@ -401,8 +429,7 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
             await viewModel.waitForLoadTasks()
 
             #expect(viewModel.personalizedCards.isEmpty)
-            #expect(viewModel.isPersonalizedLoading == false)
-            #expect(viewModel.isPersonalizedAvailable, "One topic is selected, so the option stays available")
+            #expect(viewModel.isPersonalizedAvailable == true, "One topic is selected, so the option stays available")
         }
     }
 
@@ -420,15 +447,15 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
             // The user swipes back to the interests step and changes them.
             viewModel.interestsDidChange(topics: [.biology], selectedArticleTitles: [])
             #expect(viewModel.personalizedCards.isEmpty, "The previews are stale and must not show")
-            #expect(viewModel.isPersonalizedLoading, "A spinner, not an empty row, while the user swipes back")
-            #expect(viewModel.isCommunityLoading == false, "The community previews do not depend on interests, so they stay")
+            #expect(viewModel.isPersonalizedAvailable == nil, "A spinner, not an empty row, while the user swipes back")
+            #expect(viewModel.communityCards != nil, "The community previews do not depend on interests, so they stay")
             await viewModel.waitForWarmUp()
 
             viewModel.didShow()
-            #expect(viewModel.isPersonalizedLoading)
+            #expect(viewModel.isPersonalizedAvailable == nil)
             await viewModel.waitForLoadTasks()
             #expect(viewModel.personalizedCards.count == 1)
-            #expect(viewModel.isPersonalizedLoading == false)
+            #expect(viewModel.isPersonalizedAvailable == true)
         }
     }
 
@@ -451,14 +478,14 @@ final class WMFAppOnboardingFeedPreferenceWarmUpTests {
     }
 
     @Test
-    func swipingAwayDuringTheLoadLogsNoImpressionUntilTheStepIsShownAgain() async throws {
+    func leavingDuringTheLoadLogsNoImpressionUntilTheStepIsShownAgain() async throws {
         try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
             let box = ImpressionBox()
             let (viewModel, _, _) = makeCountingViewModel(logImpression: { box.noInterests.append($0) })
 
             // Shown, then swiped away before the load finishes.
             viewModel.didShow()
-            viewModel.didSwipeAway()
+            viewModel.didLeave()
             await viewModel.waitForLoadTasks()
             #expect(box.noInterests.isEmpty, "The step is not on screen when the load finishes")
 

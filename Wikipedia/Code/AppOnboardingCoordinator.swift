@@ -129,7 +129,7 @@ final class AppOnboardingCoordinator: NSObject {
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
                 case .feedPreference:
-                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
@@ -152,7 +152,7 @@ final class AppOnboardingCoordinator: NSObject {
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
                 case .feedPreference:
-                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
@@ -253,7 +253,7 @@ final class AppOnboardingCoordinator: NSObject {
                 case .interests:
                     instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
                 case .feedPreference:
-                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                     instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
@@ -269,7 +269,7 @@ final class AppOnboardingCoordinator: NSObject {
                  case .interests:
                      instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
                  case .feedPreference:
-                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                     let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                      instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
                  case .loading:
                      assertionFailure("Loading view does not have a next button")

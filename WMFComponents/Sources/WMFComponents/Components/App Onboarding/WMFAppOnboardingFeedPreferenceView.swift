@@ -30,25 +30,26 @@ struct WMFAppOnboardingFeedPreferenceView: View {
                     isEnabled: true,
                     accessibilityIdentifier: AccessibilityIdentifiers.Onboarding.communityOptionButton
                 )
-                if viewModel.isCommunityLoading {
-                    loadingRow
+                if let communityCards = viewModel.communityCards {
+                    cardsRow(cards: communityCards)
                 } else {
-                    cardsRow(cards: viewModel.communityCards)
+                    loadingRow
                 }
 
                 optionRow(
                     title: viewModel.personalizedOptionTitle,
                     option: .personalized,
-                    isEnabled: viewModel.isPersonalizedAvailable,
+                    isEnabled: viewModel.isPersonalizedAvailable != false,
                     accessibilityIdentifier: AccessibilityIdentifiers.Onboarding.personalizedOptionButton
                 )
                 .padding(.top, 16)
 
-                if viewModel.isPersonalizedLoading {
+                switch viewModel.isPersonalizedAvailable {
+                case nil:
                     loadingRow
-                } else if viewModel.isPersonalizedAvailable {
+                case true:
                     cardsRow(cards: viewModel.personalizedCards)
-                } else {
+                case false:
                     Text(viewModel.personalizedDisabledExplanation)
                         .font(Font(WMFFont.for(.callout, sized: dynamicTypeSize)))
                         .foregroundStyle(Color(uiColor: theme.text))

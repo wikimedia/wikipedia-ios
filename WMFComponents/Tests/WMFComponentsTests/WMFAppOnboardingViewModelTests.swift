@@ -14,6 +14,7 @@ struct WMFAppOnboardingViewModelTests {
     private final class LogBox {
         var impressions: [WMFAppOnboardingViewModel.Step] = []
         var nexts: [WMFAppOnboardingViewModel.Step] = []
+        var skips: [WMFAppOnboardingViewModel.Step] = []
         var feedPreferenceImpressions = 0
     }
 
@@ -42,7 +43,7 @@ struct WMFAppOnboardingViewModelTests {
             didTapAddLanguages: {},
             onCompletion: { completionBox.completed = true },
             logImpression: { logBox.impressions.append($0) },
-            logSkip: { _ in },
+            logSkip: { logBox.skips.append($0) },
             logNext: { logBox.nexts.append($0) }
         )
     }
@@ -92,7 +93,7 @@ struct WMFAppOnboardingViewModelTests {
     @Test
     func skipResetsFeedPreferenceToDefault() {
         let viewModel = makeViewModel()
-        viewModel.feedPreferenceViewModel.isPersonalizedLoading = false // as after the load
+        viewModel.feedPreferenceViewModel.personalizedState = .loaded(cards: [], isAvailable: true)
         viewModel.feedPreferenceViewModel.select(.personalized)
         viewModel.skip()
         #expect(viewModel.feedPreferenceViewModel.selection == .community)
@@ -202,6 +203,7 @@ struct WMFAppOnboardingViewModelTests {
     func swipeLogsImpressionsButNoNextClick() {
         let logBox = LogBox()
         let viewModel = makeViewModel(logBox: logBox)
+        viewModel.didAppear()
         advanceToPersonalizationIntro(viewModel)
         let nextCount = logBox.nexts.count
         logBox.impressions.removeAll()
@@ -244,27 +246,47 @@ struct WMFAppOnboardingViewModelTests {
         #expect(viewModel.currentStep == .interests)
     }
 
+    // MARK: - Step impressions
+
     @Test
-    func advanceInsideThePagerLogsTheImpressionOfTheNewStep() {
+    func everyStepLogsOneImpressionWhenItIsShown() {
         let logBox = LogBox()
         let viewModel = makeViewModel(logBox: logBox)
-        viewModel.advance() // dataPrivacy
-        viewModel.advance() // languages
-        viewModel.advance() // personalizationIntro: the pager logs it when it appears
+        viewModel.didAppear()
+        #expect(logBox.impressions == [.intro])
+
+        for _ in 0..<(viewModel.steps.count - 1) {
+            viewModel.advance()
+        }
+        #expect(logBox.impressions == viewModel.steps)
+    }
+
+    @Test
+    func appearingAgainLogsNoSecondImpression() {
+        let logBox = LogBox()
+        let viewModel = makeViewModel(logBox: logBox)
+        viewModel.didAppear()
+        viewModel.didAppear()
+        #expect(logBox.impressions == [.intro])
+    }
+
+    @Test
+    func nothingIsLoggedBeforeTheViewAppears() {
+        let logBox = LogBox()
+        let viewModel = makeViewModel(logBox: logBox)
+        viewModel.advance()
+        viewModel.jumpToStep(.interests)
         #expect(logBox.impressions.isEmpty)
 
-        viewModel.advance() // interests
-        viewModel.advance() // feedPreference
-        #expect(logBox.impressions == [.interests, .feedPreference])
-
-        viewModel.advance() // loading: logged by its own onAppear
-        #expect(logBox.impressions == [.interests, .feedPreference])
+        viewModel.didAppear()
+        #expect(logBox.impressions == [.interests], "The condensed flow logs the step it starts on")
     }
 
     @Test
     func swipingAwayFromFeedPreferenceDuringTheLoadLogsNoImpression() async {
         let logBox = LogBox()
         let viewModel = makeViewModel(logBox: logBox)
+        viewModel.didAppear()
         advanceToPersonalizationIntro(viewModel)
         viewModel.advance() // interests
         viewModel.advance() // feedPreference: the load starts and the impression waits for it
@@ -275,5 +297,35 @@ struct WMFAppOnboardingViewModelTests {
 
         viewModel.swipe(to: .feedPreference)
         #expect(logBox.feedPreferenceImpressions == 1)
+    }
+
+    @Test
+    func nextOnFeedPreferenceDuringTheLoadLogsNoImpressionAfterTheClick() async {
+        let logBox = LogBox()
+        let viewModel = makeViewModel(logBox: logBox)
+        viewModel.didAppear()
+        advanceToPersonalizationIntro(viewModel)
+        viewModel.advance() // interests
+        viewModel.advance() // feedPreference: the load starts and the impression waits for it
+
+        viewModel.advance() // loading
+        await viewModel.feedPreferenceViewModel.waitForLoadTasks()
+        #expect(logBox.nexts.last == .feedPreference)
+        #expect(logBox.feedPreferenceImpressions == 0, "The reader is on the loading step when the load finishes")
+    }
+
+    @Test
+    func skipOnFeedPreferenceDuringTheLoadLogsNoImpressionAfterTheClick() async {
+        let logBox = LogBox()
+        let viewModel = makeViewModel(logBox: logBox)
+        viewModel.didAppear()
+        advanceToPersonalizationIntro(viewModel)
+        viewModel.advance() // interests
+        viewModel.advance() // feedPreference: the load starts and the impression waits for it
+
+        viewModel.skip()
+        await viewModel.feedPreferenceViewModel.waitForLoadTasks()
+        #expect(logBox.skips == [.feedPreference])
+        #expect(logBox.feedPreferenceImpressions == 0, "Onboarding is dismissed when the load finishes")
     }
 }
