@@ -92,6 +92,14 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         XCTAssertEqual(try page(feedJSON: json).newsItems.map(\.id), try page(feedJSON: json).newsItems.map(\.id))
     }
 
+    /// The hint says what a double tap does. With more than one story, it also gives the swipe.
+    func testTheNewsStoryHintGivesTheSwipeOnlyWithMoreThanOneStory() {
+        let one = WMFCommunityFeedStrings.newsStoryHint(storyCount: 1)
+        let many = WMFCommunityFeedStrings.newsStoryHint(storyCount: 3)
+        XCTAssertEqual(one, "Opens the story with its articles.")
+        XCTAssertEqual(many, "Opens the story with its articles. Swipe left or right with three fingers to go to the other stories.")
+    }
+
     /// An event that lists a page twice gets one row for it, because the rows use the title as ID.
     func testAnOnThisDayEventListsEachPageOnce() throws {
         let feedJSON = #"{ "onthisday": [ { "text": "Picked", "year": 1945, "pages": [ { "title": "Dog" }, { "title": "Cat" }, { "title": "Dog" } ] } ] }"#

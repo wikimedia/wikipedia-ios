@@ -284,6 +284,7 @@ struct WMFCommunityFeedView: View {
             .padding(.horizontal, Self.horizontalPadding)
         case .inTheNews:
             // The story card brings its own horizontal padding.
+            let newsStoryHint = WMFCommunityFeedStrings.newsStoryHint(storyCount: page.newsItems.count)
             TabView {
                 ForEach(page.newsItems, id: \.id) { item in
                     Button {
@@ -293,6 +294,7 @@ struct WMFCommunityFeedView: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityHint(newsStoryHint)
                 }
             }
             .tabViewStyle(.page)

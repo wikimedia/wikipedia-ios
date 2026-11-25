@@ -785,6 +785,8 @@
 "home-community-error-title" = "Title shown on the Home tab's Community segment, or at the bottom of its feed, when content cannot be loaded for a reason other than a missing internet connection.";
 "home-community-more-on-this-day" = "Link under the On this day module in the Home tab's Community feed. It opens the full list of the day's historical events.";
 "home-community-more-top-read" = "Link under the Top read module in the Home tab's Community feed. It opens the full list of the day's most read articles.";
+"home-community-news-story-carousel-hint" = "VoiceOver hint on an In the news story in the Home tab's Community feed, when the day has more than one story. Tapping the story opens it with the articles it links to. The stories are in a carousel, and a VoiceOver three-finger swipe to the left or the right moves to the next or the previous story.";
+"home-community-news-story-hint" = "VoiceOver hint on an In the news story in the Home tab's Community feed, when the day has only one story. Tapping the story opens it with the articles it links to.";
 "home-community-picture-of-the-day-hint" = "VoiceOver hint on the Picture of the day image in the Home tab's Community feed. Tapping the image opens it in the image viewer.";
 "home-community-see-past-content" = "Button at the bottom of the Community feed that loads content from previous days.";
 "home-community-tab-title" = "Title for the Community segment within the Home tab.";

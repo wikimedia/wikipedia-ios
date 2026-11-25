@@ -94,6 +94,16 @@ struct WMFCommunityFeedStrings {
         WMFLocalizedString("home-community-disclaimer", languageCode: languageCode, value: "Content and resources selected by and about the Wikimedia community.", comment: "Note at the top of the Home tab's Community feed, explaining who chose the content below it.")
     }
 
+    /// Spoken after an In the news story, which is a button. The hint replaces VoiceOver's own
+    /// button hint, so it says what the button does first. With more than one story, it then
+    /// gives the gesture that changes the story: a three-finger swipe moves the carousel.
+    static func newsStoryHint(storyCount: Int) -> String {
+        guard storyCount > 1 else {
+            return WMFLocalizedString("home-community-news-story-hint", value: "Opens the story with its articles.", comment: "VoiceOver hint on an In the news story in the Home tab's Community feed, when the day has only one story. Tapping the story opens it with the articles it links to.")
+        }
+        return WMFLocalizedString("home-community-news-story-carousel-hint", value: "Opens the story with its articles. Swipe left or right with three fingers to go to the other stories.", comment: "VoiceOver hint on an In the news story in the Home tab's Community feed, when the day has more than one story. Tapping the story opens it with the articles it links to. The stories are in a carousel, and a VoiceOver three-finger swipe to the left or the right moves to the next or the previous story.")
+    }
+
     /// Spoken after "Picture of the day" on its image, which is a button.
     static var pictureOfTheDayHint: String {
         WMFLocalizedString("home-community-picture-of-the-day-hint", value: "Opens the picture in full screen, with its description and license.", comment: "VoiceOver hint on the Picture of the day image in the Home tab's Community feed. Tapping the image opens it in the image viewer.")
