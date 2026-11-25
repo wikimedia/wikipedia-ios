@@ -1334,6 +1334,9 @@
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-field-placeholder-text" = "Search field placeholder text";
+"search-interleaved-results-feedback-question" = "Question in the feedback row at the bottom of a search result card. The reader answers it with the thumbs up and thumbs down buttons next to it.";
+"search-interleaved-results-feedback-thumbs-down-accessibility" = "Accessibility label of the thumbs down button in the feedback row of a search result card. Answers the question whether the result is relevant.";
+"search-interleaved-results-feedback-thumbs-up-accessibility" = "Accessibility label of the thumbs up button in the feedback row of a search result card. Answers the question whether the result is relevant.";
 "search-interleaved-results-lead-section" = "Names the lead section of an article, the text before its first heading, on a search result that shows the start of the article. Shown with an arrow icon, where a result from a later section shows that section's title.";
 "search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "search-recent-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";

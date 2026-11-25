@@ -386,6 +386,7 @@
 "dim-images" = "Przyciemnij obrazy";
 "discover-list-customize" = "Dostosuj funkcję „Odkrywaj”";
 "discover-list-title" = "Odkrywaj";
+"discover-settings-source-alert-never-mind" = "Anuluj";
 "discover-setup-source-history" = "Wybierz za mnie na podstawie historii przeglądania";
 "donate-already-donated" = "Dziękujemy, drogi Darczyńco! Dzięki Twojej hojności Wikipedia i inne projekty wolnej wiedzy mogą się stale rozwijać.";
 "donate-success-title" = "Dziękujemy!";
@@ -1137,6 +1138,7 @@
 "year-in-review-2026-most-time-article-subtitle" = "Łącznie spędziłeś na tym artykule {{PLURAL:$1|$1 minutę|$1 minuty|$1 minut}} w ciągu całego 2026 roku!";
 "year-in-review-2026-most-time-article-title" = "Który artykuł wciągnął Cię na najdłużej?";
 "year-in-review-2026-most-viewed-edited-articles-title" = "Najpopularniejsze edytowane przez Ciebie artykuły:";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "{{PLURAL:$1|$1 odsłona|$1 odsłony|$1 odsłon|$1 odsłony}}";
 "year-in-review-2026-niche-interest-subtitle" = "Z jakiegoś powodu ta kategoria wciągnęła Cię bez reszty!";
 "year-in-review-2026-niche-interest-title" = "Masz naprawdę niszowe zainteresowania, na przykład:";
 "year-in-review-2026-outro-share-button-title" = "Udostępnij podsumowanie";

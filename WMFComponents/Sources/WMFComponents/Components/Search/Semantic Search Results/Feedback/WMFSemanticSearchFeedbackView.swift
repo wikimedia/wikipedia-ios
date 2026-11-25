@@ -9,7 +9,6 @@ public struct WMFSemanticSearchFeedbackView: View {
     /// The card's content height at the width it's laid out at, so its sheet can fit it.
     var onCardHeightChange: ((CGFloat) -> Void)?
 
-    private static let thumbButtonSize: CGFloat = 44
     private static let textFieldMinHeight: CGFloat = 64
 
     private var theme: WMFTheme {
@@ -119,28 +118,13 @@ public struct WMFSemanticSearchFeedbackView: View {
     }
 
     private func thumbButton(for rating: WMFSemanticSearchFeedbackViewModel.Rating) -> some View {
-        let isSelected = viewModel.rating == rating
-        let symbol: WMFSFSymbolIcon = rating == .positive ? .handThumbsUp : .handThumbsDown
-
-        return Button {
-            viewModel.rate(rating)
-        } label: {
-            if let image = WMFSFSymbolIcon.for(symbol: symbol, font: .body) {
-                Image(uiImage: image)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color(theme.text))
-                    .frame(width: Self.thumbButtonSize, height: Self.thumbButtonSize)
-                    .background(
-                        Circle()
-                            .fill(Color(isSelected ? theme.baseBackground : .clear))
-                    )
-                    .contentShape(Circle())
-            }
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(rating == .positive ? viewModel.thumbsUpAccessibilityLabel : viewModel.thumbsDownAccessibilityLabel)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
-        .accessibilityIdentifier(rating == .positive ? AccessibilityIdentifiers.Search.semanticSearchFeedbackThumbsUpButton : AccessibilityIdentifiers.Search.semanticSearchFeedbackThumbsDownButton)
+        WMFSemanticSearchFeedbackThumbButton(
+            rating: rating,
+            isSelected: viewModel.rating == rating,
+            accessibilityLabel: rating == .positive ? viewModel.thumbsUpAccessibilityLabel : viewModel.thumbsDownAccessibilityLabel,
+            accessibilityIdentifier: rating == .positive ? AccessibilityIdentifiers.Search.semanticSearchFeedbackThumbsUpButton : AccessibilityIdentifiers.Search.semanticSearchFeedbackThumbsDownButton,
+            action: { viewModel.rate(rating) }
+        )
     }
 
     private var textField: some View {
