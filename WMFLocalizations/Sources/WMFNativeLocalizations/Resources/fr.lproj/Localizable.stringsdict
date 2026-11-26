@@ -1190,7 +1190,7 @@
 	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Cela vous place parmi les %1$@% des lecteurs de Wikipédia au niveau mondial. En moyenne, une personne lit %2$#@v2@ par an.</string>
+		<string>Cela vous place parmi les %1$@ des lecteurs de Wikipédia au niveau mondial. En moyenne, une personne lit %2$#@v2@ par an.</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
