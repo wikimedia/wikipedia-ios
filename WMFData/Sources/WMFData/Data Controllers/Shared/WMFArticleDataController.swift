@@ -72,7 +72,7 @@ public final class WMFArticleDataController {
     }
 
     /// Info about the current user on the article's wiki, as returned with the article info request.
-    public struct WMFArticleUserInfo {
+    public struct WMFArticleUserInfo: Sendable {
         public let userID: Int
         public let globalUserID: Int?
         public let name: String
@@ -84,7 +84,7 @@ public final class WMFArticleDataController {
         public let registrationDateString: String?
     }
 
-    public struct WMFArticleInfoResponse {
+    public struct WMFArticleInfoResponse: Sendable {
         public let watched: Bool
         public let watchlistExpiry: Date?
         public let userHasRollbackRights: Bool?

@@ -335,8 +335,9 @@ private extension HelpViewController {
         // Set export button to spinner
         setupToolbarItems(isExportingUserData: true)
 
-        saveSyncedReadingListResultsToAppContainer(completion: {
-            
+        saveSyncedReadingListResultsToAppContainer(completion: { [weak self] in
+            guard let self else { return }
+
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 
                 guard let self = self else {

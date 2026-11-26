@@ -7,7 +7,9 @@ import WMFTestKitchen
 import CocoaLumberjackSwift
 
 @MainActor
-final class HomeCoordinator: NSObject, Coordinator {
+final class HomeCoordinator: NSObject, TabRootCoordinator {
+
+    let tab: WMFAppTabType = .main
 
     // The Home tab's navigation controller. Injected via `attach(navigationController:)` once the
     // Home view controller has been wrapped in its tab navigation controller.
@@ -40,6 +42,18 @@ final class HomeCoordinator: NSObject, Coordinator {
     @objc private func handleEnableHomePhase2DidChange() {
         guard tabNavigationController != nil else { return }
         start()
+    }
+
+    var rootViewController: UIViewController {
+        homeViewController ?? makeHomeViewController()
+    }
+
+    func apply(theme: Theme) {
+        self.theme = theme
+    }
+
+    func tabWasReselected() {
+        homeViewController?.scrollSelectedFeedToTop()
     }
 
     func attach(navigationController: UINavigationController) {
@@ -472,5 +486,146 @@ final class HomeCoordinator: NSObject, Coordinator {
     func stopFunnelIfNeeded() {
         homeFeedInstrument?.stopFunnel()
         homeFeedInstrument = nil
+    }
+
+    // MARK: - One-time Home onboarding
+
+    /// Set by `WMFAppViewController`, because the customization flow loads the main UI when it closes.
+    var startFeedCustomization: (@MainActor @Sendable (InstrumentImpl) -> Void)?
+    private var oneTimeOnboardingViewController: WMFOnboardingViewController?
+
+    func presentOneTimeOnboardingIfNeeded(isExistingUser: Bool) {
+        guard let tabBarController = tabNavigationController?.tabBarController,
+              tabBarController.selectedIndex == tab.rawValue,
+              navigationController.viewControllers.count == 1,
+              tabBarController.presentedViewController == nil else { return }
+
+        // Show the sheet only to a reader who saw the old onboarding, did not see the Home onboarding, and did not see this sheet.
+        let hasSeenHomeOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
+        let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
+
+        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenHomeOnboarding else { return }
+
+        let viewModel = WMFOnboardingViewModel(
+            title: WMFLocalizedString(
+                "one-time-onboarding-title",
+                value: "Explore is now Home, with a new look",
+                comment: "Title of the one-time onboarding sheet shown to existing users after the Explore tab is renamed to Home."
+            ),
+            cells: [
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .house),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-name-title",
+                        value: "A new name",
+                        comment: "Title of the 'A new name' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-name-body",
+                        value: "The Explore feed is now Home, in the same spot as before.",
+                        comment: "Description of the 'A new name' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .squareSplit),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-feed-title",
+                        value: "Your feed, two ways",
+                        comment: "Title of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-feed-body",
+                        value: "Discover articles personalized to your interests in For You, or browse Wikipedia's best editorial content in Community.",
+                        comment: "Description of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-control-title",
+                        value: "Stay in control",
+                        comment: "Title of the 'Stay in control' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-control-body",
+                        value: "Every recommendation tells you exactly why it's there. You can update your preferences anytime in Settings.",
+                        comment: "Description of the 'Stay in control' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                ),
+                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
+                    icon: WMFSFSymbolIcon.for(symbol: .globeAmericas),
+                    title: WMFLocalizedString(
+                        "one-time-onboarding-feature-languages-title",
+                        value: "Every language, fully personalized",
+                        comment: "Title of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
+                    ),
+                    subtitle: WMFLocalizedString(
+                        "one-time-onboarding-feature-languages-body",
+                        value: "Reading in multiple languages? Each one gets its own experience. Just switch and your new feed is ready.",
+                        comment: "Description of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
+                    ),
+                    tintBlue: true
+                )
+            ],
+            primaryButtonTitle: WMFLocalizedString(
+                "one-time-onboarding-customize-button",
+                value: "Customize my feed",
+                comment: "Primary button on the one-time onboarding sheet that opens the feed customization flow."
+            ),
+            secondaryButtonTitle: WMFLocalizedString(
+                "one-time-onboarding-auto-setup-button",
+                value: "Set it up for me",
+                comment: "Secondary button on the one-time onboarding sheet that automatically configures the feed without customization."
+            )
+        )
+
+        let onboardingVC = WMFOnboardingViewController(viewModel: viewModel)
+        onboardingVC.modalPresentationStyle = .pageSheet
+        onboardingVC.delegate = self
+        oneTimeOnboardingViewController = onboardingVC
+
+        DispatchQueue.main.async {
+            tabBarController.present(onboardingVC, animated: true) {
+                TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce")
+                WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
+            }
+        }
+    }
+
+    func selectFeedChosenInOnboarding() {
+        homeViewController?.viewModel.selectedTab = WMFHomeDataController.shared.seeFirstContent() == .personalized ? .forYou : .community
+    }
+}
+
+// MARK: - WMFOnboardingViewDelegate (one-time Home onboarding)
+
+extension HomeCoordinator: WMFOnboardingViewDelegate {
+
+    func onboardingViewDidClickPrimaryButton() {
+        
+        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
+        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed")
+        
+        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
+            guard let self else { return }
+            self.oneTimeOnboardingViewController = nil
+            self.startFeedCustomization?(instrument)
+        }
+    }
+
+    func onboardingViewDidClickSecondaryButton() {
+        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default")
+        
+        WMFHomeDataController.shared.setSeeFirstContent(.community)
+        if let homeViewModel = homeViewController?.viewModel {
+            homeViewModel.selectedTab = .community
+            homeViewModel.loadForYouFeedIfNeeded()
+        }
+        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
+            self?.oneTimeOnboardingViewController = nil
+        }
     }
 }

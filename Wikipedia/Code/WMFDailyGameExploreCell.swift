@@ -397,11 +397,11 @@ extension WMFDailyGameExploreCell: Themeable {
         eventRowB.apply(theme: theme)
         if let lastState {
             switch lastState {
-            case .notStarted(let optionA, let optionB):
+            case .notStarted:
                 headerIconView.tintColor = theme.colors.primaryText
-            case .inProgress(let questionsAnswered, let score):
+            case .inProgress:
                 headerIconView.tintColor = theme.colors.link
-            case .completed(let score, let totalQuestions):
+            case .completed:
                 headerIconView.tintColor = theme.colors.accent
             }
         }

@@ -17,7 +17,7 @@ public actor WMFSettingsDataController: ObservableObject {
     let donationDataController: WMFDonateDataController?
 
     init(yirDataController: WMFYearInReviewDataController? = try? WMFYearInReviewDataController(),
-                  donationDataController: WMFDonateDataController? = WMFDonateDataController()
+         donationDataController: WMFDonateDataController? = WMFDonateDataController()
     ) {
         self.yirDataController = yirDataController
         self.donationDataController = donationDataController

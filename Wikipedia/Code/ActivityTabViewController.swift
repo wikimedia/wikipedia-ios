@@ -397,7 +397,7 @@ final class WMFActivityTabHostingController: WMFComponentHostingController<WMFAc
     private func presentModalsIfNeeded() {
         
         // Prioritize reading challenge, then fall back to Activity onboarding or survey view if that doesn't present
-        guard let navigationController, let dataStore else {
+        guard navigationController != nil, dataStore != nil else {
             presentActivityOnboardingOrSurveyIfNeeded()
             return
         }

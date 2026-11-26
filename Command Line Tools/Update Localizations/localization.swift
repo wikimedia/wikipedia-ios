@@ -353,7 +353,8 @@ func exportLocalizationsFromSourceCode(_ path: String) {
     do {
         let commentSet = CharacterSet(charactersIn: "/* ")
         let quoteSet = CharacterSet(charactersIn: "\"")
-        let string = try String(contentsOfFile: iOSENPath)
+        var usedEncoding = String.Encoding.utf8
+        let string = try String(contentsOfFile: iOSENPath, usedEncoding: &usedEncoding)
         let lines = string.components(separatedBy: .newlines)
         var currentComment: String?
         var currentKey: String?

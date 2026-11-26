@@ -66,7 +66,7 @@ final class SearchInstrumentation {
         }
     }
 
-    static let instrumentName = "apps-search"
+    nonisolated static let instrumentName = "apps-search"
     /// The spec collects the search term up to this many characters.
     static let queryLimit = 256
     /// The text field already stops at this limit. The event cuts the text too, as a safety net.
@@ -329,11 +329,11 @@ final class SearchInstrumentation {
         )
     }
 
-    /// The reader rated a card of the interleaved list.
     // TODO(EF-3): The event name and keys are provisional. Ask Shay to confirm them against the EF-3 spec.
     // TODO(EF-3): The event does not send the search type (lexical or semantic) of the card yet.
     // TODO(EF-3): The event does not send the team of the card yet. The ticket asks for it.
     // TODO(EF-3): Confirm if the list ID is one ID or the three search IDs that the event sends now.
+    /// The reader rated a card of the interleaved list.
     func logInterleavedResultFeedback(project: WMFProject, searchTerm: String, position: Int, rating: WMFSemanticSearchFeedbackViewModel.Rating, searchIDs: WMFSemanticSearchInterleavedIDs) {
         guard isEnabled, let experimentData = interleavedDataController.experimentData else { return }
         var actionContext = Self.queryContext(searchTerm)

@@ -1231,8 +1231,11 @@
 		830378412940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */; };
 		830378422940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */; };
 		8307951F2C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
+		1439C998786F18E9B1A1BF27 /* WatchlistFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14174688743B18560B01AF7A /* WatchlistFlowCoordinator.swift */; };
 		830795202C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
+		5D3955D4682A5443DBD2685F /* WatchlistFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14174688743B18560B01AF7A /* WatchlistFlowCoordinator.swift */; };
 		830795212C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */; };
+		9FE1ED9A95FCCAC57FB0FF0E /* WatchlistFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14174688743B18560B01AF7A /* WatchlistFlowCoordinator.swift */; };
 		830795232C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */; };
 		830795242C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */; };
 		830795252C9DB3C100E453BD /* LogoutCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */; };
@@ -2584,8 +2587,20 @@
 		FA71B2C500000001000000AB /* ReadingListImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71B2C500000002000000AB /* ReadingListImporterTests.swift */; };
 		FAC0D3AA00000001000000AA /* CollectionViewUpdaterCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */; };
 		FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
+		8D6315BE30166377C41D0DC1 /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */; };
+		287A6E1295E6562FD81EDD4A /* ActivityTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */; };
+		BB9CA220C53270CB3EB68698 /* PlacesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */; };
+		09324B6139C18E2B5A9D6AFF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55244B803D722B4903C88286 /* TabBarCoordinator.swift */; };
 		FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
+		614B3D4C8C0BAB5306C9AD7C /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */; };
+		71514AB229352B1680FCA889 /* ActivityTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */; };
+		611912C3CDB33374460F0F04 /* PlacesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */; };
+		C395C492B170BBFDEB58F498 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55244B803D722B4903C88286 /* TabBarCoordinator.swift */; };
 		FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE01 /* HomeCoordinator.swift */; };
+		E23BB8E5083394358714D396 /* SearchTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */; };
+		51002602C22956B9118783AE /* ActivityTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */; };
+		EE1560BA3B719872A33EBD55 /* PlacesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */; };
+		66C70AB494D4BFC752A7E1A8 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55244B803D722B4903C88286 /* TabBarCoordinator.swift */; };
 		FACE0000000000000000FE06 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
 		FACE0000000000000000FE07 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
 		FACE0000000000000000FE08 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE0000000000000000FE05 /* HomeViewController.swift */; };
@@ -3478,6 +3493,7 @@
 		83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionsController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		8303783F2940E41B00D20E01 /* UITextView+FormattingToolbarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+FormattingToolbarExtension.swift"; sourceTree = "<group>"; };
 		8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistCoordinator.swift; sourceTree = "<group>"; };
+		14174688743B18560B01AF7A /* WatchlistFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistFlowCoordinator.swift; sourceTree = "<group>"; };
 		830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		830795262C9DE91900E453BD /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		830AD2B824D1D615003EEFE6 /* WebPageUserScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageUserScript.swift; sourceTree = "<group>"; };
@@ -4254,6 +4270,10 @@
 		FA71B2C500000002000000AB /* ReadingListImporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListImporterTests.swift; sourceTree = "<group>"; };
 		FAC0D3AA00000002000000AA /* CollectionViewUpdaterCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdaterCrashTests.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE01 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabCoordinator.swift; sourceTree = "<group>"; };
+		564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTabCoordinator.swift; sourceTree = "<group>"; };
+		F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesCoordinator.swift; sourceTree = "<group>"; };
+		55244B803D722B4903C88286 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE05 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedSettingsCoordinator.swift; sourceTree = "<group>"; };
 		FB91BF0BBD5F478E2BAFDD9C /* SearchFixtureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFixtureService.swift; sourceTree = "<group>"; };
@@ -6170,6 +6190,10 @@
 				675826732D68CEB8002B0EE7 /* ArticleCoordinator.swift */,
 				675826812D69394E002B0EE7 /* RandomArticleCoordinator.swift */,
 				FACE0000000000000000FE01 /* HomeCoordinator.swift */,
+				7C896BB28A2E25C7C9540CD7 /* SearchTabCoordinator.swift */,
+				564911A99F02C5ED516A6C00 /* ActivityTabCoordinator.swift */,
+				F5804132B6BC5E79EBD461E3 /* PlacesCoordinator.swift */,
+				55244B803D722B4903C88286 /* TabBarCoordinator.swift */,
 				FACE0000000000000000FE11 /* HomeFeedSettingsCoordinator.swift */,
 				675826772D68D108002B0EE7 /* LinkCoordinator.swift */,
 				205753DD2B61458DA0A0971D /* VisualEditorReturnJourney.swift */,
@@ -6178,6 +6202,7 @@
 				830795262C9DE91900E453BD /* LoginCoordinator.swift */,
 				830795222C9DB3BA00E453BD /* LogoutCoordinatorDelegate.swift */,
 				8307951E2C9DA33D00E453BD /* WatchlistCoordinator.swift */,
+				14174688743B18560B01AF7A /* WatchlistFlowCoordinator.swift */,
 				83B024AC2C9CA4A8006EAEFA /* TalkPageCoordinator.swift */,
 				83B024A82C9C8E39006EAEFA /* UserPageCoordinator.swift */,
 				83796AEF2C9C6EB300E55C69 /* Coordinator.swift */,
@@ -9358,6 +9383,10 @@
 				67C6F7AB27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift in Sources */,
 				675826842D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				FACE0000000000000000FE04 /* HomeCoordinator.swift in Sources */,
+				E23BB8E5083394358714D396 /* SearchTabCoordinator.swift in Sources */,
+				51002602C22956B9118783AE /* ActivityTabCoordinator.swift in Sources */,
+				EE1560BA3B719872A33EBD55 /* PlacesCoordinator.swift in Sources */,
+				66C70AB494D4BFC752A7E1A8 /* TabBarCoordinator.swift in Sources */,
 				FACE0000000000000000FE14 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE08 /* HomeViewController.swift in Sources */,
 				83510B0728F4CF6400B6235B /* TalkPageErrorStateView.swift in Sources */,
@@ -9430,6 +9459,7 @@
 				6741245027E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
 				00E2EA8926E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */,
 				830795202C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
+				5D3955D4682A5443DBD2685F /* WatchlistFlowCoordinator.swift in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
 				B0F4761B21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
@@ -10328,6 +10358,10 @@
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				675826822D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				FACE0000000000000000FE02 /* HomeCoordinator.swift in Sources */,
+				8D6315BE30166377C41D0DC1 /* SearchTabCoordinator.swift in Sources */,
+				287A6E1295E6562FD81EDD4A /* ActivityTabCoordinator.swift in Sources */,
+				BB9CA220C53270CB3EB68698 /* PlacesCoordinator.swift in Sources */,
+				09324B6139C18E2B5A9D6AFF /* TabBarCoordinator.swift in Sources */,
 				FACE0000000000000000FE12 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE06 /* HomeViewController.swift in Sources */,
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
@@ -10519,6 +10553,7 @@
 				7AB209FA22FC67B4006FECB4 /* PageHistoryViewController.swift in Sources */,
 				6782DBBC2343B861003FA21B /* DiffListViewController.swift in Sources */,
 				8307951F2C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
+				1439C998786F18E9B1A1BF27 /* WatchlistFlowCoordinator.swift in Sources */,
 				7AF6F76722395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				67B278F12D47CEF300E2DF8A /* ArticleLinkInteractionFunnel.swift in Sources */,
 				83C06895292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,
@@ -10873,6 +10908,10 @@
 				B0016CC521362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				675826832D693953002B0EE7 /* RandomArticleCoordinator.swift in Sources */,
 				FACE0000000000000000FE03 /* HomeCoordinator.swift in Sources */,
+				614B3D4C8C0BAB5306C9AD7C /* SearchTabCoordinator.swift in Sources */,
+				71514AB229352B1680FCA889 /* ActivityTabCoordinator.swift in Sources */,
+				611912C3CDB33374460F0F04 /* PlacesCoordinator.swift in Sources */,
+				C395C492B170BBFDEB58F498 /* TabBarCoordinator.swift in Sources */,
 				FACE0000000000000000FE13 /* HomeFeedSettingsCoordinator.swift in Sources */,
 				FACE0000000000000000FE07 /* HomeViewController.swift in Sources */,
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
@@ -11065,6 +11104,7 @@
 				D8EC3E971E9BDA35006712EB /* TableOfContentsHeader.swift in Sources */,
 				7AF6F76822395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				830795212C9DA34F00E453BD /* WatchlistCoordinator.swift in Sources */,
+				9FE1ED9A95FCCAC57FB0FF0E /* WatchlistFlowCoordinator.swift in Sources */,
 				7A4B333E2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				67B278F02D47CEF300E2DF8A /* ArticleLinkInteractionFunnel.swift in Sources */,
 				83C06894292EEF4A00DF1403 /* TalkPageTopicComposeViewController+TalkPageFormattingToolbar.swift in Sources */,

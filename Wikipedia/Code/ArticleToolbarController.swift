@@ -28,7 +28,7 @@ protocol ArticleToolbarHandling: AnyObject {
 }
 
 @MainActor
-class ArticleToolbarController: Themeable {
+class ArticleToolbarController: @MainActor Themeable {
     weak var delegate: ArticleToolbarHandling?
 
     var currentItems: [UIBarButtonItem] = []

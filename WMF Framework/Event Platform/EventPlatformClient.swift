@@ -937,7 +937,7 @@ import WMFTestKitchen
 
     /// Private, synchronous version of `submit`.
     private func _submit<E: EventInterface>(stream: Stream, event: E, date: Date, domain: String? = nil, needsMinimal: Bool = false) {
-        guard let storageManager = self.storageManager else {
+        guard self.storageManager != nil else {
             return
         }
 
@@ -1013,7 +1013,7 @@ import WMFTestKitchen
         // Convert to loose dictionary so we can sort keys and print that way.
         if let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
             let printablePayload = PrintableEventPayload(payload: dict)
-            DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(config.destination_event_service):")
+            DDLogDebug("\n\n📊EPC: Scheduling event to be sent to \(String(describing: config.destination_event_service)):")
             DDLogDebug("\(printablePayload)")
         }
         #endif
