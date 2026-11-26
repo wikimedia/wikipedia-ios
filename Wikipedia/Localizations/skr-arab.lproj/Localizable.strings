@@ -401,6 +401,8 @@
 "search-button-accessibility-label" = "وکیپیڈیا وچ ڳولو";
 "search-clear-title" = "صاف";
 "search-field-placeholder-text" = "وکیپیڈیا وچ ڳولو";
+"search-interleaved-results-feedback-thumbs-down-accessibility" = "کو";
+"search-interleaved-results-feedback-thumbs-up-accessibility" = "جیا";
 "search-recent-clear-confirmation-sub-heading" = "اے کم واپس نی تھی سڳدا";
 "search-recent-clear-delete-all" = "سارے مٹاؤ";
 "search-title" = "ڳولو";
