@@ -72,6 +72,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             return _tabBarCoordinator
         }
         let coordinator = TabBarCoordinator(theme: theme, dataStore: dataStore)
+        coordinator.home.startFeedCustomization = { [weak self] instrument in
+            self?.startFeedCustomizationOnboarding(instrument: instrument)
+        }
         _tabBarCoordinator = coordinator
         return coordinator
     }
@@ -1077,7 +1080,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
-            self.presentOneTimeHomeOnboardingIfNeeded()
+            self._tabBarCoordinator?.home.presentOneTimeOnboardingIfNeeded(isExistingUser: UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding))
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
@@ -1130,110 +1133,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     
-    private var oneTimeOnboardingViewController: WMFOnboardingViewController?
-    
-    private func presentOneTimeHomeOnboardingIfNeeded() {
-        guard selectedIndex == WMFAppTabType.main.rawValue else { return }
-        guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
-              homeNav.viewControllers.count == 1 else { return }
-        guard presentedViewController == nil else { return }
-
-        let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
-        // Show the sheet only to a reader who saw the old onboarding, did not see the Home onboarding, and did not see this sheet.
-        let hasSeenHomeOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
-        let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
-
-        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenHomeOnboarding else { return }
-
-        let viewModel = WMFOnboardingViewModel(
-            title: WMFLocalizedString(
-                "one-time-onboarding-title",
-                value: "Explore is now Home, with a new look",
-                comment: "Title of the one-time onboarding sheet shown to existing users after the Explore tab is renamed to Home."
-            ),
-            cells: [
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .house),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-name-title",
-                        value: "A new name",
-                        comment: "Title of the 'A new name' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-name-body",
-                        value: "The Explore feed is now Home, in the same spot as before.",
-                        comment: "Description of the 'A new name' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                ),
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .squareSplit),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-feed-title",
-                        value: "Your feed, two ways",
-                        comment: "Title of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-feed-body",
-                        value: "Discover articles personalized to your interests in For You, or browse Wikipedia's best editorial content in Community.",
-                        comment: "Description of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                ),
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-control-title",
-                        value: "Stay in control",
-                        comment: "Title of the 'Stay in control' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-control-body",
-                        value: "Every recommendation tells you exactly why it's there. You can update your preferences anytime in Settings.",
-                        comment: "Description of the 'Stay in control' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                ),
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .globeAmericas),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-languages-title",
-                        value: "Every language, fully personalized",
-                        comment: "Title of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-languages-body",
-                        value: "Reading in multiple languages? Each one gets its own experience. Just switch and your new feed is ready.",
-                        comment: "Description of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                )
-            ],
-            primaryButtonTitle: WMFLocalizedString(
-                "one-time-onboarding-customize-button",
-                value: "Customize my feed",
-                comment: "Primary button on the one-time onboarding sheet that opens the feed customization flow."
-            ),
-            secondaryButtonTitle: WMFLocalizedString(
-                "one-time-onboarding-auto-setup-button",
-                value: "Set it up for me",
-                comment: "Secondary button on the one-time onboarding sheet that automatically configures the feed without customization."
-            )
-        )
-
-        let onboardingVC = WMFOnboardingViewController(viewModel: viewModel)
-        onboardingVC.modalPresentationStyle = .pageSheet
-        onboardingVC.delegate = self
-        oneTimeOnboardingViewController = onboardingVC
-
-        DispatchQueue.main.async {
-              self.present(onboardingVC, animated: true) {
-                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce")
-                  WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
-              }
-        }
-    }
-
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
         var timeInterval: TimeInterval = 2 * 60 * 60
         let key = WMFFeedDayResponse.maxAgeKey()
@@ -1643,6 +1542,23 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         coordinator.start()
     }
 
+    private func startFeedCustomizationOnboarding(instrument: InstrumentImpl) {
+        let coordinator = AppOnboardingCoordinator(
+            presentingViewController: self,
+            dataStore: dataStore,
+            theme: theme,
+            willDismiss: { [weak self] in
+                self?.loadMainUI()
+            },
+            completion: { [weak self] in
+                self?._tabBarCoordinator?.home.selectFeedChosenInOnboarding()
+                self?.appOnboardingCoordinator = nil
+            }
+        )
+        appOnboardingCoordinator = coordinator
+        coordinator.startCondensed(instrument: instrument)
+    }
+
     // MARK: - Splash
 
     func showSplashView() {
@@ -1693,15 +1609,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     }
 
     // MARK: - App Shortcuts
-
-    func dismissPresentedViewControllers() {
-        if presentedViewController != nil {
-            dismiss(animated: false, completion: nil)
-        }
-        if currentTabNavigationController?.presentedViewController != nil {
-            currentTabNavigationController?.dismiss(animated: false, completion: nil)
-        }
-    }
 
     private func showRandomArticleFromShortcut(animated: Bool) {
         dismissPresentedViewControllers()
@@ -2043,7 +1950,7 @@ extension WMFAppViewController {
         return nil
     }
 
-    private var topMostViewController: UIViewController? {
+    var topMostViewController: UIViewController? {
 
         var topViewController: UIViewController = currentTabNavigationController ?? self
 
@@ -2499,17 +2406,12 @@ extension WMFAppViewController {
         nc.pushViewController(searchVC, animated: animated)
     }
 
-    func showImportedReadingList(_ readingList: ReadingList) {
-        showReadingList(readingList, fromImport: true)
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
+        tabBarCoordinator.saved.showReadingList(readingList, fromImport: fromImport)
     }
 
-    /// Closes any modal, then opens the reading list on top of the Saved tab root.
-    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
-        dismissPresentedViewControllers()
-        selectedIndex = WMFAppTabType.saved.rawValue
-        currentTabNavigationController?.popToRootViewController(animated: false)
-        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
-        currentTabNavigationController?.pushViewController(detailVC, animated: true)
+    var savedCoordinator: SavedCoordinator {
+        tabBarCoordinator.saved
     }
 
     var settingsViewController: SettingsTabViewController {
@@ -2631,34 +2533,6 @@ extension WMFAppViewController {
     @objc private func entriesLimitReachedWithNotification(_ notification: Notification) {
         guard let readingList = notification.userInfo?[ReadingList.entriesLimitReachedReadingListKey] as? ReadingList else { return }
         readingListsAlertController.showLimitHitForDefaultListPanelIfNecessary(presenter: self, dataStore: dataStore, readingList: readingList, theme: theme)
-    }
-}
-
-// MARK: Importing Reading Lists - CreateReadingListCoordinatorDelegate
-
-extension WMFAppViewController: CreateReadingListCoordinatorDelegate {
-    func createReadingListCoordinator(_ coordinator: CreateReadingListCoordinator, didCreateReadingListWith name: String, description: String, articles: [WMFArticle]) {
-
-        guard !articles.isEmpty else {
-            WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
-            return
-        }
-
-        do {
-            coordinator.setCreating(true)
-            let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
-            ReadingListsFunnel.shared.logCompletedImport(articlesCount: articles.count)
-            showImportedReadingList(readingList)
-
-        } catch let error {
-            switch error {
-            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
-                coordinator.handleReadingListNameError(readingListError)
-            default:
-                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
-            }
-            coordinator.setCreating(false)
-        }
     }
 }
 
@@ -2813,318 +2687,6 @@ extension WMFAppViewController {
         
         return vc
     }
-}
-
-// MARK: - WMFOnboardingViewDelegate (one-time home onboarding)
-
-extension WMFAppViewController: WMFOnboardingViewDelegate {
-
-    func onboardingViewDidClickPrimaryButton() {
-        
-        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
-        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed")
-        
-        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
-            guard let self else { return }
-            self.oneTimeOnboardingViewController = nil
-            let coordinator = AppOnboardingCoordinator(
-                presentingViewController: self,
-                dataStore: self.dataStore,
-                theme: self.theme,
-                willDismiss: { [weak self] in
-                    self?.loadMainUI()
-                },
-                completion: { [weak self] in
-                    if let homeViewModel = self?._tabBarCoordinator?.home.homeViewController?.viewModel {
-                        homeViewModel.selectedTab = WMFHomeDataController.shared.seeFirstContent() == .personalized ? .forYou : .community
-                    }
-                    self?.appOnboardingCoordinator = nil
-                }
-            )
-            self.appOnboardingCoordinator = coordinator
-            coordinator.startCondensed(instrument: instrument)
-        }
-    }
-
-    func onboardingViewDidClickSecondaryButton() {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default")
-        
-        WMFHomeDataController.shared.setSeeFirstContent(.community)
-        if let homeViewModel = _tabBarCoordinator?.home.homeViewController?.viewModel {
-            homeViewModel.selectedTab = .community
-            homeViewModel.loadForYouFeedIfNeeded()
-        }
-        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
-            self?.oneTimeOnboardingViewController = nil
-        }
-    }
-}
-
-// MARK: - Watchlist
-
-extension WMFAppViewController: WMFWatchlistDelegate {
-
-    public func watchlistUserDidTapDiff(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt) {
-        let wikimediaProject = WikimediaProject(wmfProject: project)
-        guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current), !(revisionID == 0 && oldRevisionID == 0) else {
-            return
-        }
-
-        let diffURL: URL?
-
-        if revisionID == 0 {
-            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)")
-        } else if oldRevisionID == 0 {
-            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(revisionID)")
-        } else {
-            diffURL = siteURL.wmf_URL(withPath: "/wiki/Special:MobileDiff/\(oldRevisionID)...\(revisionID)")
-        }
-
-        let userInfo: [AnyHashable : Any] = [RoutingUserInfoKeys.source: RoutingUserInfoSourceValue.watchlist.rawValue]
-
-        navigate(to: diffURL, userInfo: userInfo)
-    }
-
-    public func watchlistUserDidTapUser(project: WMFProject, title: String, revisionID: UInt, oldRevisionID: UInt, username: String, action: WMFWatchlistUserButtonAction) {
-        let wikimediaProject = WikimediaProject(wmfProject: project)
-        guard let siteURL = wikimediaProject.mediaWikiAPIURL(configuration: .current) else {
-            return
-        }
-
-        switch action {
-        case .userPage:
-            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User:\(username)"))
-        case .userTalkPage:
-            navigate(to: siteURL.wmf_URL(withPath: "/wiki/User_talk:\(username)"))
-        case .userContributions:
-            navigate(to: siteURL.wmf_URL(withPath: "/wiki/Special:Contributions/\(username)"))
-        case .thank(let revisionID):
-            let performThanks = {
-                let diffThanker = DiffThanker()
-                diffThanker.thank(siteURL: siteURL, rev: Int(revisionID), completion: { result in
-                    Task { @MainActor in
-                        switch result {
-                        case .success:
-                            let successfulThanks = WMFLocalizedString("watchlist-thanks-success", value: "Your ‘Thanks’ was sent to %@", comment: "Message displayed in a toast on successful thanking of user in Watchlist view. %@ is replaced with the user being thanked.")
-                            let successMessage = String.localizedStringWithFormat(successfulThanks, username)
-                            WMFToastManager.sharedInstance.showRichToast(successMessage, subtitle: nil, image: UIImage(named: "watchlist-thanks-checkmark"), dismissPreviousToasts: true)
-                        case .failure(let failure):
-                            WMFToastManager.sharedInstance.showRichToast(failure.localizedDescription, subtitle: nil, image: nil, dismissPreviousToasts: true)
-                        }
-                    }
-                })
-            }
-
-            if !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() {
-                topMostViewController?.wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {
-                    WatchlistFunnel.shared.logThanksTapSend(project: wikimediaProject)
-                    UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-                    performThanks()
-                }, cancelHandler: {
-                    WatchlistFunnel.shared.logThanksTapCancel(project: wikimediaProject)
-                })
-            } else {
-                performThanks()
-            }
-        case .diff(let revId, let oldRevId):
-            watchlistUserDidTapDiff(project: project, title: title, revisionID: revId, oldRevisionID: oldRevId)
-        }
-    }
-
-    public func watchlistEmptyViewUserDidTapSearch() {
-        NSUserActivity.wmf_navigate(to: NSUserActivity.wmf_searchView())
-    }
-
-    public func watchlistUserDidTapAddLanguage(from viewController: UIViewController, viewModel: WMFWatchlistFilterViewModel) {
-        let languagesController = WMFLanguagesViewController(nibName: "WMFLanguagesViewController", bundle: nil)
-        languagesController.title = CommonStrings.wikipediaLanguages
-        languagesController.apply(theme)
-        languagesController.delegate = self
-        languagesController.showAllLanguages = true
-        languagesController.showPreferredLanguages = false
-        languagesController.showNonPreferredLanguages = false
-
-        languagesController.userLanguageSelectionBlock = { [weak self, weak viewModel] in
-            guard let self = self else { return }
-
-            // From `ViewControllerRouter`
-            let dataStore = self.dataStore
-            let appLanguages = dataStore.languageLinkController.preferredLanguages
-            var localizedProjectNames = appLanguages.reduce(into: [WMFProject: String]()) { result, language in
-                guard let wikimediaProject = WikimediaProject(siteURL: language.siteURL, languageLinkController: dataStore.languageLinkController), let wmfProject = wikimediaProject.wmfProject else {
-                    return
-                }
-
-                result[wmfProject] = wikimediaProject.projectName(shouldReturnCodedFormat: false)
-            }
-            localizedProjectNames[.wikidata] = WikimediaProject.wikidata.projectName(shouldReturnCodedFormat: false)
-            localizedProjectNames[.commons] = WikimediaProject.commons.projectName(shouldReturnCodedFormat: false)
-
-            viewModel?.reloadWikipedias(localizedProjectNames: localizedProjectNames)
-        }
-
-        let navigationController = WMFComponentNavigationController(rootViewController: languagesController, modalPresentationStyle: .overFullScreen)
-        viewController.present(navigationController, animated: true)
-    }
-
-}
-
-extension WMFAppViewController: WMFLanguagesViewControllerDelegate {
-
-    public func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
-        dataStore.languageLinkController.appendPreferredLanguage(language)
-        controller.userLanguageSelectionBlock?()
-        controller.dismiss(animated: true)
-    }
-
-}
-
-extension WMFAppViewController: WMFWatchlistLoggingDelegate {
-    public func logWatchlistDidLoad(itemCount: Int) {
-        WatchlistFunnel.shared.logWatchlistLoaded(itemCount: itemCount)
-    }
-
-    public func logWatchlistUserDidTapNavBarFilterButton() {
-        WatchlistFunnel.shared.logOpenFilterSettings()
-    }
-
-    public func logWatchlistUserDidSaveFilterSettings(filterSettings: WMFWatchlistFilterSettings, onProjects: [WMFProject]) {
-
-        // Projects
-        let commonsAndWikidataProjects: WatchlistFunnel.FilterEnabledList.Projects?
-
-        if onProjects.contains(.commons) && onProjects.contains(.wikidata) {
-            commonsAndWikidataProjects = .both
-        } else if onProjects.contains(.commons) && onProjects.contains(.commons) {
-            commonsAndWikidataProjects = .commons
-        } else if onProjects.contains(.wikidata) {
-            commonsAndWikidataProjects = .wikidata
-        } else {
-            commonsAndWikidataProjects = nil
-        }
-
-        // Wikis
-        let wikipediaProjects = onProjects.map { WikimediaProject(wmfProject: $0) }.filter {
-            switch $0 {
-            case .wikipedia: return true
-            default: return false
-            }
-        }
-
-        let wikiIdentifiers = wikipediaProjects.map { $0.notificationsApiWikiIdentifier }
-
-        // Latest
-        let latest: WatchlistFunnel.FilterEnabledList.Latest
-        switch filterSettings.latestRevisions {
-        case .notTheLatestRevision:
-            latest = .notLatest
-        case .latestRevision:
-            latest = .latest
-        }
-
-        // Activity
-        let activity: WatchlistFunnel.FilterEnabledList.Activity
-        switch filterSettings.activity {
-        case .all:
-            activity = .all
-        case .seenChanges:
-            activity = .seen
-        case .unseenChanges:
-            activity = .unseen
-        }
-
-        // Automated
-        let automated: WatchlistFunnel.FilterEnabledList.Automated
-        switch filterSettings.automatedContributions {
-        case .all:
-            automated = .all
-        case .bot:
-            automated = .bot
-        case .human:
-            automated = .nonBot
-        }
-
-        // Significance
-        let significance: WatchlistFunnel.FilterEnabledList.Significance
-        switch filterSettings.significance {
-        case .all:
-            significance = .all
-        case .minorEdits:
-            significance = .minor
-        case .nonMinorEdits:
-            significance = .nonMinor
-        }
-
-        // User Registration
-        let userRegistration: WatchlistFunnel.FilterEnabledList.UserRegistration
-        switch filterSettings.userRegistration {
-        case .all:
-            userRegistration = .all
-        case .registered:
-            userRegistration = .registered
-        case .unregistered:
-            userRegistration = .unregistered
-        }
-
-        // Type Change
-        var onTypeChanges: [WatchlistFunnel.FilterEnabledList.TypeChange] = []
-        for changeType in WMFWatchlistFilterSettings.ChangeType.allCases {
-            if !filterSettings.offTypes.contains(changeType) {
-                switch changeType {
-                case .categoryChanges: onTypeChanges.append(.categoryChanges)
-                case .loggedActions: onTypeChanges.append(.logActions)
-                case .pageCreations: onTypeChanges.append(.pageCreations)
-                case .pageEdits: onTypeChanges.append(.pageEdits)
-                case .wikidataEdits: onTypeChanges.append(.wikidataEdits)
-                }
-            }
-        }
-
-        let filterEnabledList = WatchlistFunnel.FilterEnabledList(projects: commonsAndWikidataProjects, wikis: wikiIdentifiers, latest: latest, activity: activity, automated: automated, significance: significance, userRegistration: userRegistration, typeChange: onTypeChanges)
-
-        WatchlistFunnel.shared.logSaveFilterSettings(filterEnabledList: filterEnabledList)
-    }
-
-    public func logWatchlistEmptyViewDidShow(type: WMFEmptyViewStateType) {
-        switch type {
-        case .noItems: WatchlistFunnel.shared.logWatchlistSawEmptyStateNoFilters()
-        case .filter: WatchlistFunnel.shared.logWatchlistSawEmptyStateWithFilters()
-        }
-    }
-
-    public func logWatchlistEmptyViewUserDidTapSearch() {
-        WatchlistFunnel.shared.logWatchlistEmptyStateTapSearch()
-    }
-
-    public func logWatchlistEmptyViewUserDidTapModifyFilters() {
-        WatchlistFunnel.shared.logWatchlistEmptyStateTapModifyFilters()
-    }
-
-    public func logWatchlistUserDidTapUserButton(project: WMFData.WMFProject) {
-
-        let wikimediaProject = WikimediaProject(wmfProject: project)
-        WatchlistFunnel.shared.logTapUserMenu(project: wikimediaProject)
-    }
-
-    public func logWatchlistUserDidTapUserButtonAction(project: WMFData.WMFProject, action: WMFComponents.WMFWatchlistUserButtonAction) {
-
-        let wikimediaProject = WikimediaProject(wmfProject: project)
-
-        switch action {
-        case .userPage:
-            WatchlistFunnel.shared.logTapUserPage(project: wikimediaProject)
-        case .userTalkPage:
-            WatchlistFunnel.shared.logTapUserTalk(project: wikimediaProject)
-        case .userContributions:
-            WatchlistFunnel.shared.logTapUserContributions(project: wikimediaProject)
-        case .thank:
-            WatchlistFunnel.shared.logTapUserThank(project: wikimediaProject)
-        case .diff:
-            break
-        }
-    }
-
-
 }
 
 // MARK: WMFData setup

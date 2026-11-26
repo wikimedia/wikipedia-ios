@@ -116,6 +116,17 @@ final class SavedCoordinator: NSObject, TabRootCoordinator {
         return hostingController
     }
 
+    /// Closes any modal, then opens the reading list on top of the Saved tab root.
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
+        if let tabBarController = navigationController.tabBarController {
+            tabBarController.dismissPresentedViewControllers()
+            tabBarController.selectedIndex = tab.rawValue
+        }
+        navigationController.popToRootViewController(animated: false)
+        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
+        navigationController.pushViewController(detailVC, animated: true)
+    }
+
     // MARK: - Discover
 
     private let discoverNoThanksToastTitle = WMFLocalizedString("discover-announcement-no-thanks-toast", value: "To set up your recommended reading list later, go to Settings.", comment: "Toast shown after the reader dismisses the Discover onboarding card on the Saved tab.")
@@ -311,6 +322,34 @@ extension SavedCoordinator: LogoutCoordinatorDelegate {
         let dataStore = self.dataStore
         savedViewController?.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
             dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
+        }
+    }
+}
+
+// MARK: - Importing Reading Lists - CreateReadingListCoordinatorDelegate
+
+extension SavedCoordinator: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(_ coordinator: CreateReadingListCoordinator, didCreateReadingListWith name: String, description: String, articles: [WMFArticle]) {
+
+        guard !articles.isEmpty else {
+            WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            return
+        }
+
+        do {
+            coordinator.setCreating(true)
+            let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
+            ReadingListsFunnel.shared.logCompletedImport(articlesCount: articles.count)
+            showReadingList(readingList, fromImport: true)
+
+        } catch let error {
+            switch error {
+            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
+                coordinator.handleReadingListNameError(readingListError)
+            default:
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            }
+            coordinator.setCreating(false)
         }
     }
 }
