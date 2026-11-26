@@ -797,7 +797,6 @@
 "home-card-more-options-accessibility-label" = "Повеќе можности";
 "home-community-see-past-content" = "Минати содржини од заедницата";
 "home-community-tab-title" = "Заедница";
-"home-edit-languages-title" = "Додај или измени јазици";
 "home-empty-community-feed-subtitle" = "Вклучете ги модулите $1„Заедница“$2 за да почнете да гледате содржини избрани од учесници во Викимедииното движење.";
 "home-empty-feed-manage-modules-button" = "Управ. со модули";
 "home-empty-feed-title" = "Вашиот тековник е празен";
@@ -1341,6 +1340,7 @@
 "search-button-accessibility-label" = "Пребарај ја Википедија";
 "search-clear-title" = "Исчисти";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
+"search-interleaved-results-lead-section" = "Вовед";
 "search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
 "search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "search-recent-clear-delete-all" = "Избриши ги сите";
@@ -1381,7 +1381,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "Не";
 "semantic-search-feedback-thumbs-up-accessibility" = "Да";
 "semantic-search-feedback-title" = "Мислења";
-"semantic-search-passage-not-found" = "Овој пасус повеќе не е во статијата";
 "serbian-variants-alert-body" = "Прилогот на Википедија сега ги поддржува следниве српски варијанти како главен или спореден јазик во прилогот, олеснувајќи го читањето, пребарувањето и уредувањето на вашите претпочитани варијанти:\n\nсрпски ћирилица — српски на кирилица (sr-ec)\nsrpski latinica — српски на латиница (sr-el)";
 "serbian-variants-alert-title" = "Новост за поддршка на српски варијанти";
 "settings-account" = "Сметка";
@@ -1864,11 +1863,13 @@
 "year-in-review-2026-reread-articles-empty-title" = "Не сте пречитувач";
 "year-in-review-2026-reread-articles-title" = "Некои статии што ги читавте повеќе пати:";
 "year-in-review-2026-reread-articles-visit-count" = "{{PLURAL:$1|$1 посета|$1 посети}}";
+"year-in-review-2026-reveal-answer-accessibility-hint" = "Допрете двапати за да го видите одговорот.";
 "year-in-review-2026-runner-up-topics-title" = "Останати пласмани за 2026 година:";
 "year-in-review-2026-saved-articles-empty-subtitle" = "Моментално имате 0 зачувани статии. Побарајте ја иконката за одбележувач на статијата, за да можете да прочитате другите подоцна.";
 "year-in-review-2026-saved-articles-empty-title" = "Имате 0 зачувани статии";
 "year-in-review-2026-saved-articles-title" = "Статии што ги зачувавте за подоцна:";
 "year-in-review-2026-share-text" = "Еве го мојот Преглед на годината 2026 на Википедија, од Википедииниот прилог: $1";
+"year-in-review-2026-slide-accessibility-hint" = "Повлечете нагоре или надолу со три прсти за да го смените прикажаното.";
 "year-in-review-2026-store-card-button-title" = "Посетете ја продавницата";
 "year-in-review-2026-store-card-subtitle" = "Бидејќи се заложувате за слободното знаење ви даваме попуст од $1 во Википедиината продавница. Не ви треба код, попустот се применува при наплата.";
 "year-in-review-2026-store-card-title" = "Мала благодарност";
@@ -1877,6 +1878,12 @@
 "year-in-review-2026-thank-you-editor-and-donor-subtitle" = "Како уредник, вашите уредувања овозможуваат Википедија да остане без реклами, од одверба и достапна за сите. Бескрајно сме ви благодарни за вашата поддршка на Википедија!";
 "year-in-review-2026-thank-you-editor-subtitle" = "Како уредник, вашите уредувања овозможуваат Википедија да остане без реклами, од одверба и достапна за сите. Бескрајно сме ви благодарни за вашата поддршка на Википедија!";
 "year-in-review-2026-thank-you-title" = "Ви благодариме!";
+"year-in-review-2026-time-of-day-afternoons" = "Попладне";
+"year-in-review-2026-time-of-day-evenings" = "Навечер";
+"year-in-review-2026-time-of-day-late-nights" = "Доцна вечер";
+"year-in-review-2026-time-of-day-middays" = "На пладне";
+"year-in-review-2026-time-of-day-mornings" = "Наутро";
+"year-in-review-2026-time-of-day-nights" = "Ноќно време";
 "year-in-review-2026-top-topic-empty-subtitle" = "Со толкав број интереси, нема ниедна тема што ги опишува вашите навики на читање.";
 "year-in-review-2026-top-topic-empty-title" = "Вашата тема број 1 во 2026 година е… сите";
 "year-in-review-2026-top-topic-sentence-africa" = "Оваа година читајќи ја пропатувавте Африка.";

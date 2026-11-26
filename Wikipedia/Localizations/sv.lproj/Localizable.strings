@@ -773,7 +773,6 @@
 "home-card-more-options-accessibility-label" = "Fler alternativ";
 "home-community-see-past-content" = "Se tidigare gemenskapsinnehåll";
 "home-community-tab-title" = "Gemenskap";
-"home-edit-languages-title" = "Lägg till eller redigera språk";
 "home-empty-community-feed-subtitle" = "Aktivera moduler i $1\"Gemenskap\"$2 för att börja se innehåll som har utvalts av bidragsgivare inom Wikimedia-rörelsen.";
 "home-empty-feed-manage-modules-button" = "Hantera moduler";
 "home-empty-feed-title" = "Ditt flöde är tomt";
@@ -1353,7 +1352,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "Nej";
 "semantic-search-feedback-thumbs-up-accessibility" = "Ja";
 "semantic-search-feedback-title" = "Återkoppling";
-"semantic-search-passage-not-found" = "Detta stycke finns inte längre i artikeln";
 "serbian-variants-alert-body" = "Wikipediaappen stödjer följande serbiska varianter som primära eller sekundära språk i appen, vilket gör det enklare att läsa, söka och redigera på dina föredragna varianter:\n\nсрпски ћирилица serbiska, kyrilliska (sr-ec)\nsrpski latinica serbiska, latinska (sr-el)";
 "serbian-variants-alert-title" = "Uppdaterades till stöd för serbiska varianter";
 "settings-account" = "Konto";

@@ -732,7 +732,6 @@
 "home-card-more-options-accessibility-label" = "နောက်ထပ် ရွီးချယ်စရာတိ";
 "home-community-see-past-content" = "အယင်က ကွန်မြူနတီ အကြောင်းအရာတိကို ‌‌ကြေ့ပါ";
 "home-community-tab-title" = "ကွန်မြူနတီ";
-"home-edit-languages-title" = "ဘာသာစကားတိ ပေါင်းထည့်/တီးဖြတ်";
 "home-empty-community-feed-subtitle" = "ဝီကီးမီဒီယာလှုပ်ယှားမှုတစ်လျှောက် ပံ့ပိုးကူညီသူတိမှ ရွီးချယ်ထားရေ အကြောင်းအရာတိကို စတင်ကြေ့ရှုပါ $1“အသိုင်းအဝိုင်း”$2 မော်ဂျူးတိကို ဖွင့်ပါ။";
 "home-empty-feed-manage-modules-button" = "မော်ဂျူးတိကို စီမံခန့်ခွဲပါ";
 "home-empty-feed-title" = "သင့် feed မာ ဗလာဖြစ်နီရေ";
@@ -1311,7 +1310,6 @@
 "search-widget-announcement-title" = "ယှာဖွီမှုဝစ်ဂျက်အသစ် ရဟိနိုင်ပါရေ";
 "search-widget-description" = "ဝီကီးပီးဒီးယားကို ယှာဖွီဖို့ အမြန်ဝင်ရောက်ခွင့်။";
 "search-widget-wikipedia-title" = "ဝီကီးပီးဒီးယား";
-"semantic-search-passage-not-found" = "ဒေစာပိုဒ်က ဆောင်းပါးထဲမာ မပါပါယာ";
 "serbian-variants-alert-body" = "Wikipedia အက်ပ်စွာ အဂု အက်ပ်အတွင်းက အဓိက ယင်းသို့မဟုတ် အလယ်တန်းဘာသာစကားတိအဖြိုက်နန့် အောက်ပါ ဆားဘီးယားမျိုးကွဲတိကို ပံ့ပိုးပီးထားပြီး သင်ခြီရေ မျိုးကွဲတိမာ ဖတ်ဖို့၊ ယှာဖွီဖို့နန့် တီးဖြတ်ဖို့ ပိုပြီးကေလွယ်ကူစီရေ-\n\n српски ћирилица ဆားဘီးယား၊ Cyrillic (sr-ec)\n srpski Latinica ဆားဘီးယား၊ လက်တင် (sr-el)";
 "serbian-variants-alert-title" = "ဆားဘီးယားမျိုးကွဲ ပံ့ပိုးမှုအတွက် အပ်ဒိတ်တိ";
 "settings-account" = "အကောင့်";

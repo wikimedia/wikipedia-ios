@@ -2,8 +2,10 @@
 // Exported from translatewiki.net
 // Author: -jem-
 // Author: A.jalate
+// Author: ARamadan-WMF
 // Author: AVIADOR71
 // Author: Agusbou2015
+// Author: Andhillebrand
 // Author: Andru1013
 // Author: Asierog
 // Author: Astroemi
@@ -46,6 +48,7 @@
 // Author: Juan Cuartas
 // Author: Koavf
 // Author: Laranxa
+// Author: Lilitik22
 // Author: Luigi Nakano
 // Author: Luisangelrg
 // Author: Luzcaru
@@ -79,6 +82,7 @@
 // Author: YeBoy371
 // Author: Yllelder
 // Author: Yucavalla
+// Author: ZebaX2010
 // Author: Zpizza
 
 "about-content-license" = "Licencia del contenido";
@@ -102,6 +106,7 @@
 "about-translators-details" = "Traducido por voluntarios en $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "about-wikipedia" = "Wikipedia";
+"about-year-in-review-illustrations-attribution" = "\nIlustraciones del Resumen Anual realizadas por Sharon Park para la Fundación Wikimedia";
 "account-creation-captcha-cannot-see-image" = "¿No puedes ver la imagen? $1";
 "account-creation-captcha-obtaining" = "Obteniendo un nuevo CAPTCHA...";
 "account-creation-captcha-request-account" = "Solicitar cuenta.";
@@ -199,6 +204,11 @@
 "activity-tab-unsatisfied" = "Insatisfecho";
 "activity-tab-very-satisfied" = "Muy satisfecho";
 "activity-tab-very-unsatisfied" = "Muy insatisfecho";
+"activity-tab-year-in-review-cta" = "Comenzar";
+"activity-tab-year-in-review-data-rich-subtitle" = "Descubra nuevamente este año en Wikipedia";
+"activity-tab-year-in-review-data-rich-title" = "Su Resumen Anual está listo";
+"activity-tab-year-in-review-low-data-subtitle" = "Descubra nuevamente este año en Wikipedia";
+"activity-tab-year-in-review-low-data-title" = "Nuestro Resumen Anual está listo";
 "activity-tab-your-impact" = "Tu impacto";
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "advanced-settings-title" = "Ajustes avanzados";
@@ -518,6 +528,9 @@
 "empty-no-search-results-message" = "No se encontraron resultados";
 "error-generic-recovery-suggestion" = "\nPor favor, inténtalo de nuevo más tarde";
 "error-unknown" = "Ocurrió un error desconocido";
+"evergreen-account-creation-year-in-review-body" = "Once a year, your reading days come back as a look at where the year took you, ready to share.";
+"evergreen-account-creation-year-in-review-title" = "Vea cómo se unen sus días de lectura en el Resumen del Año.";
+"evergreen-account-creation-year-in-review-title-count" = "Vea cómo sus {{PLURAL:$1| $1 día de lectura| $1 días de lectura}} se unen en el Resumen del Año.";
 "explore-another-random" = "Otro artículo aleatorio";
 "explore-because-you-read" = "Porque leíste";
 "explore-because-you-read-footer" = "\nArtículos relacionados adicionales";
@@ -570,6 +583,7 @@
 "explore-feed-preferences-top-read-description" = "Artículos más leídos del día";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-title" = "¿Quieres activar la pestaña Explorar?";
+"explore-games-title" = "Juegos";
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
@@ -642,14 +656,44 @@
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
 "forgot-password-title" = "Restablecer contraseña";
 "forgot-password-username-or-email-title" = "O";
+"games-announcement-title" = "Juega a \"¿qué fue primero?\"";
 "games-email-report-body-encountered" = "Encontré un problema con la función Wikipedia juegos:";
 "games-email-report-subject" = "Informe de problemas - Wikipedia juegos";
+"games-wcf-button-play-title" = "Juega al juego del día";
+"games-wcf-explore-title" = "¿Qué fue primero?";
 "gan-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del gan siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, simplificado (gan-hans)\n贛語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualizaciones a soporte de variantes del gan";
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
 "history-title" = "Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
+"home-card-more-options-accessibility-label" = "Más opciones";
+"home-community-disclaimer" = "Contenido y recursos seleccionados por y sobre la comunidad de Wikimedia";
+"home-community-see-past-content" = "Ver contenido anterior de la comunidad";
+"home-community-tab-title" = "Comunidad";
+"home-community-today-date-header" = "Hoy - $1";
+"home-empty-feed-title" = "Tu feed está vacío";
+"home-feed-for-you-because-you-read-title" = "Porque leíste";
+"home-feed-for-you-settings-title" = "Módulos";
+"home-feed-interests-header-title" = "¿Qué te interesa?";
+"home-feed-interests-search-placeholder" = "Busca un artículo";
+"home-feed-interests-settings-empty-message" = "Tus intereses aparecerán aquí";
+"home-feed-interests-settings-title" = "Tus intereses";
+"home-feed-modules-featured-article-title" = "Artículo destacado";
+"home-feed-modules-in-the-news-title" = "Actualidad";
+"home-feed-modules-on-this-day-subtitle" = "Descubre eventos históricos de este día";
+"home-feed-modules-on-this-day-title" = "Tal día como hoy";
+"home-feed-modules-picture-of-the-day-title" = "Imagen del día";
+"home-feed-modules-top-read-subtitle" = "Tendencias de hoy en Wikipedia";
+"home-feed-settings-community-section-title" = "Comunidad";
+"home-feed-settings-for-you-section-title" = "Para ti";
+"home-feed-settings-modules-title" = "Módulos";
+"home-feed-settings-title" = "Personaliza tu feed";
+"home-feed-whats-driving-languages-subtitle" = "Edita tus idiomas preferidos";
+"home-feed-whats-driving-languages-title" = "Idiomas";
+"home-feed-whats-driving-reading-history-title" = "Historial de lectura";
+"home-feed-whats-driving-your-interests-title" = "Tus intereses";
+"home-for-you-tab-title" = "Para ti";
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más lugares cerca de tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";
@@ -1154,6 +1198,7 @@
 "settings-clear-cache-are-you-sure-message" = "El borrado de los datos almacenados en caché liberará alrededor de $1 de espacio. No eliminará tus páginas guardadas.";
 "settings-clear-cache-are-you-sure-title" = "\n¿Quieres borrar los datos en la caché?";
 "settings-clear-cache-ok" = "Vaciar antememoria";
+"settings-community-feed-title" = "Comunidad";
 "settings-donate" = "Donar";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Mostrar los idiomas al buscar";
@@ -1180,6 +1225,9 @@
 "settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos";
 "settings-title" = "Configuración";
 "settings-year-in-review-header" = "Al desactivar el resumen anual, se borrarán todos los datos personalizados almacenados y se ocultará el resumen anual.";
+"settings-year-in-review-turn-off-alert-cancel" = "No, gracias";
+"settings-year-in-review-turn-off-alert-confirm" = "Sí, estoy seguro.";
+"settings-year-in-review-turn-off-alert-title" = "¿Estás seguro que deseas desactivar tu Resumen Anual?";
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en Wikipedia:";
 "share-building" = "Construyendo una tarjeta comparte-un-hecho…";
@@ -1426,11 +1474,181 @@
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 "wikitext-upload-save-terms-and-licenses-ccsa4" = "Al publicar los cambios, aceptas los $1Términos de Uso$2 y aceptas irrevocablemente publicar tu contribución bajo la Licencia $3CC BY-SA 3.0$4 y la $5GFDL$6. Aceptas que un hipervínculo o una URL son atribución suficiente bajo la licencia Creative Commons.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
+"year-in-review-2026-about-insights" = "Acerca de tus ideas";
 "year-in-review-2026-announcement-exit-toast-title" = "Podrás acceder a tu Resumen Anual más tarde en el menú de Actividad.";
+"year-in-review-2026-announcement-explore" = "Explorar";
+"year-in-review-2026-announcement-login-personalized-message" = "Ingrese a su cuenta para ver sus temás principales de interés, sus artículos, rachas y más. Sin ingresar a su cuenta, puede ver datos colectivos.";
+"year-in-review-2026-announcement-login-personalized-title" = "Su Resumen Anual se visualiza mejor desde una cuenta abierta";
+"year-in-review-2026-articles-read-title" = "Ejemplos de los artículos que ha leído:";
+"year-in-review-2026-biggest-reading-day-subtitle" = "En total, ha estado {{PLURAL:$1|$1 minute|$1 minutos}} en Wikipedia. ¡Cuánta productividad!";
+"year-in-review-2026-biggest-reading-day-title" = "El día con más tiempo de lectura:";
+"year-in-review-2026-collective-articles-subtitle" = "Wikipedia continúa siendo edificada por seres humanos. Nuestros voluntarios de todas partes del mundo utilizan fuentes para crear y mantener su contenido.";
+"year-in-review-2026-collective-articles-title" = "Artículos en Wikipedia:";
+"year-in-review-2026-collective-card-button-title" = "Explorar ahora";
+"year-in-review-2026-collective-card-subtitle" = "Juntos, volvamos a descubrir el modo en que el mundo lee, edita y explora.";
+"year-in-review-2026-collective-card-title" = "Nuestro Resumen Anual";
+"year-in-review-2026-collective-editors-subtitle" = "¿Sabía usted que todos los proyectos Wikimedia son hechos por voluntarios y voluntarias? Estas personas contribuyen con nuevos y mejorados artículos.";
+"year-in-review-2026-collective-editors-title" = "Editores y editoras voluntarios:";
+"year-in-review-2026-collective-edits-subtitle" = "Cada hora, cada día, personas alrededor del mundo trabajan ampliando Wikipedia al actualizar datos en artículos, fotografiando sitios históricos y corrigiendo errores ortográficos.";
+"year-in-review-2026-collective-edits-title" = "Ediciones de nuestros voluntarios:";
+"year-in-review-2026-collective-global-reach-data" = "Es uno de los sitios web más visitados en el mundo.";
+"year-in-review-2026-collective-global-reach-subtitle" = "Wikipedia es la columna vertebral del conocimiento en internet. Todos aprenden algo allí, desde estudiantes hasta chatbots.";
+"year-in-review-2026-collective-global-reach-title" = "Alcance mundial de Wikipedia:";
+"year-in-review-2026-collective-hours-read-subtitle" = "De forma colectiva, a través de todas las lenguas, nuestros lectores y lectoras invirtieron cerca a {{PLURAL:$1|$1 año|$1 años}} leyendo Wikipedia.";
+"year-in-review-2026-collective-hours-read-title" = "Cantidad de horas de lectura de Wikipedia en 2026:";
+"year-in-review-2026-collective-intro-subtitle" = "Esta vez no hubo suficiente actividad como para generar tu propio resumen del año, pero aún puedes explorar juntos lo que el mundo descubrió.";
+"year-in-review-2026-collective-intro-title" = "Nuestro Resumen Anual está listo";
+"year-in-review-2026-collective-languages-data" = "$1+";
+"year-in-review-2026-collective-languages-subtitle" = "A Wikipedia la escriben y mantienen las comunidades de voluntarios de todas partes del mundo. Esto es prueba de que el conocimiento humano habla mucho más que un solo idioma.";
+"year-in-review-2026-collective-languages-title" = "Idiomas en los que está disponible Wikipedia:";
+"year-in-review-2026-collective-saved-articles-subtitle" = "Miles y miles de artículos fueron marcados para leerlos por primera, tercera, o milésima vez.";
+"year-in-review-2026-collective-saved-articles-title" = "Artículos guardados en 2026:";
+"year-in-review-2026-days-visited-subtitle" = "Su actividad aumentó en $1, pues nos visitó {{PLURAL:$2|$2 un día|$2 varios días}}.";
+"year-in-review-2026-days-visited-title" = "Los días en los que visitó Wikipedia este 2026:";
+"year-in-review-2026-edit-views-subtitle" = "En 2026, las personas de todo el mundo pudieron ver los cambios hechos por usted.";
+"year-in-review-2026-edit-views-title" = "Cantidad de vistas de sus ediciones:";
+"year-in-review-2026-edits-empty-subtitle" = "Aún no ha realizado ninguna edición, pero es fácil aprender a hacerlo. Es un buen momento para unirse a la comunidad que compone Wikipedia.";
+"year-in-review-2026-edits-empty-title" = "Hasta el momento, ha realizado 0 ediciones.";
+"year-in-review-2026-edits-subtitle" = "Le agradecemos por mejorar el acceso de todas las personas al conocimiento humano, ya sea contribuyendo a Wikipedia, Wikimedia Commons o Wikidata.";
+"year-in-review-2026-edits-title" = "Sus ediciones:";
+"year-in-review-2026-favorite-time-empty-subtitle" = "No hay un momento o un día específicos para explorar páginas de Wikipedia.";
+"year-in-review-2026-favorite-time-empty-title" = "Ha leído en todo momento, básicamente.";
+"year-in-review-2026-favorite-time-subtitle" = "$1 de sus exploraciones pasaron a esta hora. ¿Será coincidencia?";
+"year-in-review-2026-favorite-time-title" = "Horario favorito de exploración:";
 "year-in-review-2026-feedback-email-first-line" = "Tengo comentarios sobre el Resumen Anual:";
 "year-in-review-2026-feedback-email-subject" = "Comentarios sobre el Resumen Anual";
+"year-in-review-2026-games-card-button-title" = "Jugar";
+"year-in-review-2026-games-card-subtitle" = "Pon a prueba tu cerebro en Wikipedia con los juegos rápidos que creamos inspirándonos en el conocimiento mundial.";
+"year-in-review-2026-games-card-title" = "¿Listos para más desafíos?";
+"year-in-review-2026-highlights-articles-read" = "Cantidad de artículos leídos:";
+"year-in-review-2026-highlights-created-with" = "Creado con la App de Wikipedia";
+"year-in-review-2026-highlights-minutes-read" = "Cantidad total de minutos de lectura:";
+"year-in-review-2026-highlights-niche-category" = "Categoría más específica explorada:";
+"year-in-review-2026-highlights-rabbit-hole" = "Tema de mayor interés:";
+"year-in-review-2026-highlights-rank" = "($1)";
+"year-in-review-2026-highlights-rotation" = "Artículos en rotación:";
+"year-in-review-2026-highlights-title" = "Resumen Anual Wikipedia 2026";
+"year-in-review-2026-interests-card-button-title" = "Personalizar intereses";
+"year-in-review-2026-interests-card-subtitle" = "Escoger los temas que le fascinan, para recibir recomendaciones ajustadas a sus intereses.";
+"year-in-review-2026-interests-card-title" = "Desarrollar un propio inicio";
+"year-in-review-2026-intro-subtitle" = "Спасибо, что в 2026 году вы провели {{PLURAL:$1|$1 день|$1 дня|$1 дней}} с вашим надёжным приложением Википедии.";
+"year-in-review-2026-intro-title" = "Su Resumen Anual Wikipedia está listo";
+"year-in-review-2026-login-prompt-collective-message" = "Al ingresar a su cuenta, se le da acceso a las mejores partes de la app. Puede empezar a crear su próximo Resumen Anual creando una cuenta.";
+"year-in-review-2026-login-prompt-collective-title" = "Wikipedia funciona mejor desde una cuenta abierta";
+"year-in-review-2026-minutes-read-comparison-days" = "Esto equivale a más de {{PLURAL:$1|$1 día entero|$1 días enteros}}.";
+"year-in-review-2026-minutes-read-comparison-egg" = "Es más tiempo del que se necesita para preparar un huevo duro.";
+"year-in-review-2026-minutes-read-comparison-fall-asleep" = "Es más tiempo que el promedio de tiempo que toma caer dormido o dormida.";
+"year-in-review-2026-minutes-read-comparison-honeybee" = "Más tiempo del que le toma a una abeja reina poner hasta 2000 huevos.";
+"year-in-review-2026-minutes-read-comparison-hummingbird" = "Más tiempo del que le toma al corazón de un colibrí latir unas 1200 veces.";
+"year-in-review-2026-minutes-read-comparison-marathon" = "Más que récord actual mundial en maratón.";
+"year-in-review-2026-minutes-read-comparison-night-sleep" = "Más que una noche entera de descanso.";
+"year-in-review-2026-minutes-read-comparison-sitcom" = "Más que el episodio de una sitcom, con comerciales y todo.";
+"year-in-review-2026-minutes-read-comparison-space-station" = "Más de lo que le toma a la Estación Espacial Internacional darle una vuelta completa a la Tierra.";
+"year-in-review-2026-minutes-read-comparison-sunlight" = "Más de lo que le toma a la luz del sol llegar a la Tierra.";
+"year-in-review-2026-minutes-read-subtitle" = "El tiempo vuela al clavarse en un tema.";
+"year-in-review-2026-minutes-read-title" = "Cantidad total de minutos de lectura:";
+"year-in-review-2026-most-time-article-subtitle" = "En total, ha estado {{PLURAL:$1|$1 minute|$1 minutos}} en Wikipedia. ¡Cuánta productividad!";
+"year-in-review-2026-most-time-article-title" = "¿En cuál ha invertido la mayor cantidad de tiempo?";
+"year-in-review-2026-most-viewed-edited-articles-title" = "Los más vistos desde que los editó:";
+"year-in-review-2026-most-viewed-edited-articles-view-count" = "{{PLURAL:$1|$1 vista|$1 vistas}}";
+"year-in-review-2026-niche-interest-subtitle" = "Por alguna razón, ¡se metió de lleno en esta categoría!";
+"year-in-review-2026-niche-interest-title" = "Hablando de intereses peculiares:";
+"year-in-review-2026-outro-share-button-title" = "Comparta sus hallazgos";
+"year-in-review-2026-outro-subtitle" = "Ya sea por un artículo o por cien, le damos gracias por explorar, leer y mantener viva la curiosidad aquí, en Wikipedia.";
+"year-in-review-2026-outro-title" = "Hasta el próximo clavado";
+"year-in-review-2026-places-empty-subtitle" = "Usted ha viajado por toda la Wikipedia en 2026. Para más ideas, ingrese al aplicativo Places.";
+"year-in-review-2026-places-empty-title" = "Sus lecturas le llevaron a recorrer todo el mapa";
+"year-in-review-2026-places-title" = "Prácticamente, sus lecturas le llevaron a:";
+"year-in-review-2026-quiz-card-button-title" = "Complete el cuestionario";
+"year-in-review-2026-quiz-card-subtitle" = "Desde los días de la conexión dial-up hasta el presente, recorramos la historia de Wikipedia.";
+"year-in-review-2026-quiz-card-title" = "¿Cuál Wikipedia es usted?";
+"year-in-review-2026-rabbit-hole-reveal-subtitle" = "¿Qué temas le provocarán un fuerte interés en el futuro?";
+"year-in-review-2026-rabbit-hole-reveal-title" = "{{PLURAL:$1|$1 enlace|$1 enlaces}}. Impresionante.";
+"year-in-review-2026-rabbit-hole-title" = "¿Cuál fue el tema que más le atrajo?";
+"year-in-review-2026-reading-streak-empty-subtitle" = "Una racha empieza solo cuando lee 3 días consecutivos. ¡Empezemos ahora!";
+"year-in-review-2026-reading-streak-empty-title" = "0 rachas de lectura… por lo pronto";
+"year-in-review-2026-reading-streak-subtitle" = "Desde $1, empezó a leer cada día.";
+"year-in-review-2026-reading-streak-title" = "Mayor racha de días seguidos de lectura:";
+"year-in-review-2026-reread-articles-empty-subtitle" = "Ni pensar en consultar dos veces un mismo artículo, y prefiere las novedades y oportunidades de clavarse con nuevos temas.";
+"year-in-review-2026-reread-articles-empty-title" = "Usted no suele volver a leer";
+"year-in-review-2026-reread-articles-title" = "Algunos artículos que ha visitado:";
+"year-in-review-2026-reread-articles-visit-count" = "{{PLURAL:$1| $1 visita| $1 visitas}}";
+"year-in-review-2026-reveal-answer-accessibility-hint" = "Doble el toque para revelar la respuesta.";
+"year-in-review-2026-runner-up-topics-title" = "Y sus finalistas de 2026:";
+"year-in-review-2026-saved-articles-empty-subtitle" = "Actualmente, tiene 0 artículos guardados. Para guardar lecturas, busque el ícono de marcador de libros en cada artículo.";
+"year-in-review-2026-saved-articles-empty-title" = "Usted tiene 0 artículos guardados";
+"year-in-review-2026-saved-articles-title" = "Artículos guardados para verlos después:";
+"year-in-review-2026-share-text" = "A continuación, su Resumen Anual 2026de Wikipedia, de la app de Wikipedia: $1";
+"year-in-review-2026-slide-accessibility-hint" = "Deslice tres dedos hacia arriba o hacia abajo para cambiar de diapositiva.";
+"year-in-review-2026-store-card-button-title" = "Visita la tienda";
+"year-in-review-2026-store-card-subtitle" = "Dado que usted ha aportado a la libertad del conocimiento, tiene un descuento de $1 en la tienda Wikipedia. Este descuento no requiere ningún código y se aplica al momento de la compra.";
+"year-in-review-2026-store-card-title" = "Un pequeño agradecimiento.";
+"year-in-review-2026-tabs-card-title" = "Visite de vuelta sus pestañas abiertas";
+"year-in-review-2026-thank-you-donor-subtitle" = "Como donante, su contribución ayuda a mantener Wikipedia libre de publicidad, además de garantizar su confiabilidad y disponibilidad para todas las personas. ¡Le agradecemos muchísimo por apoyar a Wikipedia!";
+"year-in-review-2026-thank-you-editor-and-donor-subtitle" = "Como persona que edita y hace donaciones, sus contribuciones ayudan a mantener Wikipedia libre de publicidad, además de garantizar su confiabilidad y disponibilidad para todas las personas. ¡Le agradecemos muchísimo por apoyar a Wikipedia!";
+"year-in-review-2026-thank-you-editor-subtitle" = "Como persona que edita, sus contribuciones ayudan a mantener Wikipedia libre de publicidad, además de garantizar su confiabilidad y disponibilidad para todas las personas. ¡Le agradecemos muchísimo por apoyar a Wikipedia!";
+"year-in-review-2026-thank-you-title" = "¡Gracias!";
+"year-in-review-2026-time-of-day-afternoons" = "Tardes";
+"year-in-review-2026-time-of-day-evenings" = "Atardeceres";
+"year-in-review-2026-time-of-day-late-nights" = "Madrugadas";
+"year-in-review-2026-time-of-day-middays" = "Mediodías";
+"year-in-review-2026-time-of-day-mornings" = "Mañanas";
+"year-in-review-2026-time-of-day-nights" = "Noches";
+"year-in-review-2026-top-topic-empty-subtitle" = "Con tantos intereses, no puede decirse que haya uno solo que defina sus hábitos de lectura.";
+"year-in-review-2026-top-topic-empty-title" = "Su tema #1 de 2026 es… todos ellos";
+"year-in-review-2026-top-topic-sentence-africa" = "Sus lecturas le llevaron a recorrer África este año.";
+"year-in-review-2026-top-topic-sentence-architecture" = "Pasó el año contemplando cosas creadas para perdurar.";
+"year-in-review-2026-top-topic-sentence-art" = "Y se aproximó a la belleza, el atrevimiento y la ocasional perplejidad.";
+"year-in-review-2026-top-topic-sentence-asia" = "Sus lecturas le llevaron a recorrer Asia este año.";
+"year-in-review-2026-top-topic-sentence-biography" = "Pasó el año conociendo las historias de otras personas.";
+"year-in-review-2026-top-topic-sentence-biology" = "Exploró la ciencia de los seres vivos.";
+"year-in-review-2026-top-topic-sentence-business-and-economics" = "Y analizó de cerca el modo en que el mundo hace negocios.";
+"year-in-review-2026-top-topic-sentence-central-america" = "Sus lecturas le llevaron a recorrer América Central este año.";
+"year-in-review-2026-top-topic-sentence-chemistry" = "Algo de química se mezcló en sus lecturas anuales.";
+"year-in-review-2026-top-topic-sentence-comics-and-anime" = "Panel por panel, se sumergió en el mundo de los cómics y el anime.";
+"year-in-review-2026-top-topic-sentence-computers-and-internet" = "Pasó una cantidad importante de tiempo tratando de comprender la tecnología que yace tras la pantalla.";
+"year-in-review-2026-top-topic-sentence-earth-and-environment" = "Y leyó con los pies bien plantados en tierra, literalmente.";
+"year-in-review-2026-top-topic-sentence-education" = "Aprender sobre aprendizaje fue lo suyo este año.";
+"year-in-review-2026-top-topic-sentence-engineering" = "Le gustó aprender el modo en que las cosas se construyen y el modo en que operan.";
+"year-in-review-2026-top-topic-sentence-entertainment" = "No pudo alejarse del mundo del entretenimiento este año.";
+"year-in-review-2026-top-topic-sentence-europe" = "Sus lecturas le llevaron a recorrer Europa este año.";
+"year-in-review-2026-top-topic-sentence-fashion" = "Hizo más clics hacia el mundo del estilo que la mayoría.";
+"year-in-review-2026-top-topic-sentence-food-and-drink" = "Su curiosidad tuvo buen apetito este año.";
+"year-in-review-2026-top-topic-sentence-general-science" = "Su curiosidad se expandió hacia las ciencias.";
+"year-in-review-2026-top-topic-sentence-history" = "Claramente, el pasado le fascina.";
+"year-in-review-2026-top-topic-sentence-literature" = "Sus lecturas le hicieron hallar una veta literaria este año.";
+"year-in-review-2026-top-topic-sentence-mathematics" = "Los números entran en sus cuentas de este año.";
+"year-in-review-2026-top-topic-sentence-medicine-and-health" = "Pasó tiempo aprendiendo sobre el funcionamiento del cuerpo.";
+"year-in-review-2026-top-topic-sentence-military-and-warfare" = "Se sumergió en la historia de conflictos y defensas.";
+"year-in-review-2026-top-topic-sentence-music" = "Este año, su curiosidad tuvo una banda sonora.";
+"year-in-review-2026-top-topic-sentence-north-america" = "Sus lecturas le llevaron a explorar un lugar más cercano al hogar: Norteamérica (aunque lo estudie desde lejos).";
+"year-in-review-2026-top-topic-sentence-oceania" = "Sus lecturas le llevaron a recorrer Oceanía este año.";
+"year-in-review-2026-top-topic-sentence-performing-arts" = "Le atrajo la palestra, de una forma u otra.";
+"year-in-review-2026-top-topic-sentence-philosophy-and-religion" = "Este año, invirtió tiempo pensando en las grandes preguntas.";
+"year-in-review-2026-top-topic-sentence-physics" = "Analizó las normas que rigen el universo.";
+"year-in-review-2026-top-topic-sentence-politics-and-government" = "Siguió los rastros que le permitieron entender el funcionamiento del mundo.";
+"year-in-review-2026-top-topic-sentence-society" = "Tuvo curiosidad sobre los modos de vida y organización de las personas.";
+"year-in-review-2026-top-topic-sentence-south-america" = "Sus lecturas le llevaron a recorrer Sudamérica este año.";
+"year-in-review-2026-top-topic-sentence-sports" = "Estuvo atento a los marcadores en temas de deportes.";
+"year-in-review-2026-top-topic-sentence-technology" = "Se mantuvo informado sobre los cambios que sufren algunas cosas.";
+"year-in-review-2026-top-topic-sentence-transportation" = "Tomó interés en la forma de moverse del mundo, de lugar a lugar.";
+"year-in-review-2026-top-topic-sentence-tv-and-film" = "Así, sus listas le sirvieron de lista de seguimiento.";
+"year-in-review-2026-top-topic-sentence-video-games" = "Su conocimiento de videojuegos subió de nivel.";
+"year-in-review-2026-top-topic-subtitle" = "De $1 a $2, {{PLURAL:$3|$3 de sus artículos tuvo|$3 de sus artículos tuvieron}} relación con este tema.";
+"year-in-review-2026-top-topic-title" = "Su tema principal de 2026:";
+"year-in-review-2026-total-articles-empty-subtitle" = "Solo espere a ver qué es lo que falta aprender en Wikipedia.";
+"year-in-review-2026-total-articles-empty-title" = "Aún quedan millones de artículos por descubrir";
+"year-in-review-2026-total-articles-subtitle" = "Su exploración ha durado todo el año, y cada artículo ha agregado algún conocimiento nuevo para usted.";
+"year-in-review-2026-total-articles-title" = "Conteo total de artículos:";
+"year-in-review-2026-total-articles-top-percent-subtitle" = "Esto le sitúa en el top $1 de lectores de Wikipedia a nivel global. En promedio, las personas leen {{PLURAL:$2|$2 artículo|$2 artículos}} por año.";
+"year-in-review-2026-you-matter-log-in-subtitle" = "¿Ya anteriormente ha contribuido? Ingrese a su cuenta, o cree una nueva para poder ver sus logros.";
+"year-in-review-2026-you-matter-subtitle" = "Wikipedia existe gracias a personas reales que contribuyen lo que pueden, aportando a su vitalidad. Si la Wikipedia es valiosa para usted, por favor considere brindar apoyo editando o efectuando una donación.";
+"year-in-review-2026-you-matter-title" = "Usted es importante.";
 "year-in-review-button-title" = "Resumen del año";
 "year-in-review-feature-announcement-title-personalized" = "Consulta tu resumen anual de Wikipedia";
+"year-in-review-feature-explore-body-v3" = "Consulta información sobre los artículos que leíste en la aplicación Wikipedia y las ediciones que realizaste.";
 "year-in-review-feature-explore-footer-v3" = "Tu historial de lectura está protegido. Los datos de lectura se calculan con datos almacenados localmente en tu dispositivo.";
+"year-in-review-highlights-share-logo-caption" = "Logotipo de Wikipedia";
+"year-in-review-intro-login-title" = "¿Iniciar sesión para la personalización?";
 "yesterday-title" = "Ayer";
 "zero-edits-to-articles" = "0 ediciones de artículos recientemente";

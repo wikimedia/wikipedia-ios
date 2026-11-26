@@ -468,7 +468,7 @@
 "donate-transaction-fee-opt-in-text" = "我愿意慷慨地增加$1来包含手续费，这样我的捐款就能100%%保留。";
 "donate-wikimedia-fine-print-1" = "我们不会向任何人出售或交易您的信息。通过捐款，您同意与维基媒体基金会共享您的个人信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并且其服务提供商遵照我们的[捐款人隐私政策]($1)。维基媒体基金会及其服务提供商位于美国和其他国家，这些国家的隐私法律与您所在国的可能不等价。关于更多信息，请阅读我们的[捐款人隐私政策]($1)。";
 "donate-wikimedia-fine-print-2" = "对于循环捐赠人，每月固定支付将记入维基媒体基金会账户，根据首次捐赠日期月月重复，直到您通知我们停止。每月29、30或31号开始的捐赠将会在较短月份的最后一天重复，尽量与原日期靠近。如有疑问，敬请联系donate@wikimedia.org。";
-"donation-reminder-card-body" = "您捐赠$1后，要求我们在您阅读完{{PLURAL:$2|$2篇条目}}后提醒您捐赠。如果维基百科为您提供了价值$3的知识，请加入捐赠者的行列，成为2%的捐赠者，并立即完成您的捐赠承诺。";
+"donation-reminder-card-body" = "您捐赠$1后，要求我们在您阅读完{{PLURAL:$2|$2篇条目}}后提醒您捐赠。如果维基百科为您提供了价值$3的知识，请加入捐赠者的行列，成为2%%的捐赠者，并立即完成您的捐赠承诺。";
 "donation-reminder-card-donate" = "是的，现在就捐款吧";
 "donation-reminder-card-heading" = "自从您捐赠了$2以来，您已经阅读了{{PLURAL:$1|$1篇条目}}！";
 "donation-reminder-card-not-now" = "现在不要";
@@ -770,7 +770,6 @@
 "home-card-more-options-accessibility-label" = "更多选项";
 "home-community-see-past-content" = "查看以往的社群内容";
 "home-community-tab-title" = "社群";
-"home-edit-languages-title" = "添加或编辑语言";
 "home-feed-for-you-based-on-interests-subtitle" = "根据您选择的主题量身定制的条目。";
 "home-feed-for-you-based-on-interests-title" = "根据你的兴趣";
 "home-feed-for-you-because-you-read-subtitle" = "根据您历史记录中的一篇近期条目提出的建议";

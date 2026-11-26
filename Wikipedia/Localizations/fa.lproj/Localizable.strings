@@ -831,7 +831,6 @@
 "home-card-more-options-accessibility-label" = "گزینه‌های بیشتر";
 "home-community-see-past-content" = "مشاهدهٔ محتوای گذشته جامعه";
 "home-community-tab-title" = "جامعه";
-"home-edit-languages-title" = "افزودن یا ویرایش زبان‌ها";
 "home-empty-community-feed-subtitle" = "پودمان‌های $1«اجتماع»$2 را فعال کنید تا محتوای برگزیدهٔ مشارکت‌کنندگان جنبش ویکی‌مدیا را ببینید.";
 "home-empty-feed-manage-modules-button" = "مدیریت پودمان‌ها";
 "home-empty-feed-title" = "خوراک شما خالی است";
@@ -1416,7 +1415,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "خیر";
 "semantic-search-feedback-thumbs-up-accessibility" = "بله";
 "semantic-search-feedback-title" = "بازخورد";
-"semantic-search-passage-not-found" = "این بخش دیگر در مقاله وجود ندارد";
 "serbian-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان صربی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان صربی";
 "settings-account" = "حساب";

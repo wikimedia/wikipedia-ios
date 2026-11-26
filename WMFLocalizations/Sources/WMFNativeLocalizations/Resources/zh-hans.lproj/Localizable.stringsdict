@@ -257,7 +257,7 @@
 	<key>donation-reminder-card-body</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>您捐赠%1$@后，要求我们在您阅读完%2$#@v2@后提醒您捐赠。如果维基百科为您提供了价值%3$@的知识，请加入捐赠者的行列，成为2%的捐赠者，并立即完成您的捐赠承诺。</string>
+		<string>您捐赠%1$@后，要求我们在您阅读完%2$#@v2@后提醒您捐赠。如果维基百科为您提供了价值%3$@的知识，请加入捐赠者的行列，成为2%%的捐赠者，并立即完成您的捐赠承诺。</string>
 		<key>v2</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

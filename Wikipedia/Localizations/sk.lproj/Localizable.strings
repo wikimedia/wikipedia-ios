@@ -754,7 +754,6 @@
 "home-card-more-options-accessibility-label" = "Ďalšie možnosti";
 "home-community-see-past-content" = "Zobraziť starší obsah komunity";
 "home-community-tab-title" = "Komunita";
-"home-edit-languages-title" = "Pridať alebo upraviť jazyky";
 "home-empty-community-feed-subtitle" = "Zapnite moduly kanála $1„Komunita“$2 a začnite vidieť obsah vybraný prispievateľmi z celého hnutia Wikimedia.";
 "home-empty-feed-manage-modules-button" = "Spravovať moduly";
 "home-empty-feed-title" = "Váš kanál je prázdny";
@@ -1339,7 +1338,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "Nie";
 "semantic-search-feedback-thumbs-up-accessibility" = "Áno";
 "semantic-search-feedback-title" = "Spätná väzba";
-"semantic-search-passage-not-found" = "Táto pasáž už v článku nie je";
 "serbian-variants-alert-body" = "Wikipédia teraz podporuje aj varianty srbského jazyka ako primárny a sekundárny jazyk aplikácie:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Aktualizácie podpory variánt srbského jazyka";
 "settings-account" = "Účet";

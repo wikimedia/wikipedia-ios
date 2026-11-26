@@ -736,7 +736,6 @@
 "home-card-more-options-accessibility-label" = "Daha çox seçim";
 "home-community-see-past-content" = "Keçmiş icma məzmununa bax";
 "home-community-tab-title" = "İcma";
-"home-edit-languages-title" = "Dil əlavə et və ya redaktə et";
 "home-empty-community-feed-subtitle" = "Vikimedia hərəkatının iştirakçıları tərəfindən hazırlanmış məzmunu görməyə başlamaq üçün $1“İcma”$2 modullarını aktiv edin.";
 "home-empty-feed-manage-modules-button" = "Modulları idarə et";
 "home-empty-feed-title" = "Lentiniz boşdur";
@@ -1314,7 +1313,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "Xeyr";
 "semantic-search-feedback-thumbs-up-accessibility" = "Bəli";
 "semantic-search-feedback-title" = "Rəy";
-"semantic-search-passage-not-found" = "Bu hissə artıq məqalədə yoxdur";
 "serbian-variants-alert-body" = "Vikipediya tətbiqi artıq tətbiq daxilində əsas və ya köməkçi dillər kimi aşağıdakı serb variantlarını dəstəkləyir və bu, seçdiyiniz variantlarda oxumağı, axtarmağı və redaktə etməyi asanlaşdırır:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Serbcə variant dəstəyi üçün yeniləmələr";
 "settings-account" = "Hesab";

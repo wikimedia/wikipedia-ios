@@ -1,5 +1,6 @@
 // Messages for Hebrew (עברית)
 // Exported from translatewiki.net
+// Author: A100Star
 // Author: Amire80
 // Author: Erelon
 // Author: Falling star
@@ -105,8 +106,7 @@
 "activity-tab-customize-timeline-of-behavior" = "ציר זמן של התנהגות";
 "activity-tab-email-fifth-line" = "[צילומי מסך או קישורים]";
 "activity-tab-email-first-line" = "נתקלתי בבעיה עם יכולת לשונית הפעילות:";
-// Fuzzy
-"activity-tab-email-fourth-line" = "[נא לתאר את ההתנהגות הרצויה]";
+"activity-tab-email-fourth-line" = "[נא לתאר פתרון מוצע]";
 "activity-tab-email-second-line" = "- [נא לתאר בעיה מסוימת]";
 "activity-tab-email-third-line" = "ההתנהגות שאני רוצה לראות היא:";
 "activity-tab-email-title" = "דיווח בעיה - לשונית פעילות";
@@ -301,8 +301,7 @@
 "donate-accessibility-monthly-recurring-hint" = "יש להקיש פעמיים כדי לאפשר תרומות חודשיות אוטומטיות בסכום הזה.";
 "donate-accessibility-textfield-hint" = "יש להזין סכום מותאם אישית לתרומה.";
 "donate-accessibility-transaction-fee-hint" = "יש להקיש פעמיים כדי להוסיף עמלת עסקה לסכום התרומה.";
-// Fuzzy
-"donate-already-donated" = "תודה, תורם יקר! הנדיבות שלך עוזרת להבטיח את צמיחתם של ויקיפדיה ושל האתרים הקשורים אליה.";
+"donate-already-donated" = "תודה רבה על התרומה! הנדיבות הזאת מסייעת לוויקיפדיה ולמיזמי ידע חופשי נוספים להמשיך ולשגשג.";
 "donate-apple-fine-print" = "אפל אינה אחראית על גיוס כסף למטרה הזאת.";
 "donate-email-opt-in-text" = "כן, קרן ויקימדיה יכולה לשלוח לי דואר אלקטרוני מדי פעם.";
 "donate-help-frequently-asked-questions" = "שאלות ותשובות";
@@ -614,8 +613,7 @@
 "image-rec-tooltip-3-body" = "יש להחליט האם התמונה עוזרת לקוראים להבין טוב יותר את הנושא הזה.";
 "image-rec-tooltip-3-title" = "להחליט";
 "image-rec-view-article" = "הצגת הערך";
-// Fuzzy
-"image-recommendations-email-first-line" = "נתקלתי בבעיה בתכונת העריכות המוצעות \"הוספת תמונה\":";
+"image-recommendations-email-first-line" = "נתקלתי בבעיה בתכונת „הוספת תמונה” במסגרת העריכות המוצעות:";
 "image-recommendations-email-title" = "דו\"ח בעיה - תכונת הוספת תמונה";
 "image-recs-no-title" = "לא";
 "image-recs-not-sure-title" = "אין לי תשובה";
@@ -702,8 +700,7 @@
 "more-menu" = "עוד";
 "move-articles-to-reading-list" = "העברת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
 "navbar-title-mode-edit-wikitext-preview" = "תצוגה מקדימה";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 רגל";
+"nearby-distance-label-feet" = "{{PLURAL:$1|one=$1 רגל|two=$1 רגל|many=$1 רגל|$1 רגל}}";
 "nearby-distance-label-km" = "$1 ק״מ";
 // Fuzzy
 "nearby-distance-label-meters" = "$1 מטרים";
@@ -924,8 +921,7 @@
 "profile-page-join-subtext" = "אנו מזמינים אותך להירשם לחשבון ויקיפדיה כדי לעקוב אחר התרומות שלך, לשמור ערכים במצב לא מקוון ולסנכרן בין מכשירים.";
 "profile-page-join-title" = "כניסה לחשבון / הצטרפות לוויקיפדיה";
 "profile-page-logged-out-year-in-review-subtext" = "ניתן להיכנס או ליצור חשבון כדי לקבל סקירת שנה משופרת בשנה הבאה";
-// Fuzzy
-"profile-year-in-review-login-subtitle" = "יש להיכנס או ליצור חשבון כדי לצפות בסקירה השנתית שלך שוב ולזכות בתובנות שיותר תואמות לך.";
+"profile-year-in-review-login-subtitle" = "כדי לצפות שוב בסקירה השנתית ולקבל תובנות מותאמות אישית נוספות, יש להיכנס לחשבון או ליצור חשבון חדש.";
 "project-name-mediawiki" = "mediawiki.org";
 "project-name-wikibooks" = "ויקיספר";
 "project-name-wikidata" = "ויקינתונים";
@@ -966,10 +962,8 @@
 "reading-list-list-limit-reached" = "הגעת למגבלה של $1 רשימות קריאה לחשבון אחד";
 "reading-list-login-or-create-account-button-title" = "כניסה לחשבון או יצירת חשבון";
 "reading-list-name-user-created-annotation" = "_[המשתמש נוצר]";
-// Fuzzy
-"reading-list-new-list-description-placeholder" = "תיאור קצר אופציונלי";
-// Fuzzy
-"reading-list-new-list-name-placeholder" = "כותרת רשימת הקריאה";
+"reading-list-new-list-description-placeholder" = "תיאור קצר (לא חובה)";
+"reading-list-new-list-name-placeholder" = "שם רשימת הקריאה";
 "reading-list-sync-disabled-panel-message" = "סנכרון רשימות הקריאה של חשבון הוויקיפדיה שלך בוטל במכשיר אחר. באפשרותך להפעיל את הסנכרון מחדש באמצעות עדכון ההגדרות.";
 "reading-list-sync-disabled-panel-title" = "הסנכרון בוטל";
 "reading-list-sync-enable-button-title" = "הפעלת סנכרון";

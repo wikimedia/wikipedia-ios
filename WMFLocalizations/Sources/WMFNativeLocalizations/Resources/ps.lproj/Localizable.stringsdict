@@ -66,6 +66,22 @@
 			<string>ليکنې ړنگې شوې</string>
 		</dict>
 	</dict>
+	<key>close-all-tabs-confirmation-title-with-value</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ وتړئ؟</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ريښه</string>
+			<key>other</key>
+			<string>%1$d ريښکې</string>
+		</dict>
+	</dict>
 	<key>closed-all-tabs-confirmation-with-value</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -82,6 +98,86 @@
 			<string>%1$d ريښکې تړل‌شوې دي</string>
 		</dict>
 	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d سمون</string>
+			<key>other</key>
+			<string>%1$d سمونونه</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>په %1$@ کې تاسو له موږ غوښتي وو، چې د %2$#@v2@ لوستلو وروسته تاسو ته د بسپنې ورکولو خبر درکړي. که ويکي‌پېډيا ستاسو د پوهې %3$@ لوړه کړې وي؛ نو له 2%% هغه لوستونکو سره يوځای شئ چې بسپنه ورکوي او خپله ژمنه پوره کړئ.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d ليکنې</string>
+			<key>other</key>
+			<string>%2$d ليکنو</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-subsequent-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>تاسو %1$#@v1@!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d بله ليکنه لوستی ده</string>
+			<key>other</key>
+			<string>%1$d نورې ليکنې لوستی دي</string>
+		</dict>
+	</dict>
+	<key>home-feed-interests-selected-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ټاکل شوی</string>
+			<key>other</key>
+			<string>%1$d ټاکل شوي</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ لوستلړ ته لېږدول</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$dليکنه</string>
+			<key>other</key>
+			<string>%1$d ليکنې</string>
+		</dict>
+	</dict>
 	<key>nearby-distance-label-feet</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +192,70 @@
 			<string>%1$d گام</string>
 			<key>other</key>
 			<string>%1$d گامه</string>
+		</dict>
+	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d پيغام</string>
+			<key>other</key>
+			<string>%1$d پيغامونه</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-body-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>په %2$@ کې %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d نوی پيغام</string>
+			<key>other</key>
+			<string>%1$d نوي پيغامونه</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>نوی پيغام</string>
+			<key>other</key>
+			<string>نوي پيغامونه</string>
+		</dict>
+	</dict>
+	<key>page-history-stats-text</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>له %2$@ راهیسی %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d سمون</string>
+			<key>other</key>
+			<string>%1$d سمونونه</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -234,6 +394,70 @@
 			<string>%1$d کاله مخکې</string>
 			<key>zero</key>
 			<string>سږ کال</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@ ناخوندي کړئ؟</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ليکنه</string>
+			<key>other</key>
+			<string>ليکنې</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-contributors</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ونډه وال</string>
+			<key>other</key>
+			<string>%1$d ونډه والان</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-references</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d سرچينه</string>
+			<key>other</key>
+			<string>%1$d سرچينې</string>
+		</dict>
+	</dict>
+	<key>tabs-navbar-title-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ريښکه</string>
+			<key>other</key>
+			<string>%1$d ريښکې</string>
 		</dict>
 	</dict>
 </dict>

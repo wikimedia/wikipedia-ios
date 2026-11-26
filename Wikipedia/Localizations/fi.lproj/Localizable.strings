@@ -588,7 +588,7 @@
 "featured-widget-from-wikipedia" = "Wikipediasta";
 "featured-widget-language-failure" = "Ensisijainen Wikipedia-kielesi ei tue Suositeltua artikkelia. Voit päivittää Wikipedian asetuksia sovelluksen asetuksista.";
 "featured-widget-title" = "Suositeltu artikkeli";
-"fetcher-error-generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin";
+"fetcher-error-generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin.";
 "fetcher-error-unexpected-response" = "Sovellus vastaanotti odottamattoman vastauksen palvelimelta. Yritä myöhemmin uudelleen.";
 "field-alert-captcha-invalid" = "Virheellinen kuvavarmennuksen vastaus";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
@@ -634,7 +634,6 @@
 "history-title" = "Historia";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
 "home-community-tab-title" = "Yhteisö";
-"home-edit-languages-title" = "Lisää tai muokkaa kieliä";
 "home-feed-for-you-based-on-interests-subtitle" = "Valitsemiisi aiheisiin mukautettuja artikkeleita.";
 "home-feed-for-you-based-on-interests-title" = "Kiinnostuksenkohteidesi perusteella";
 "home-feed-for-you-because-you-read-subtitle" = "Hiljattain lukemaasi artikkeliin perustuvia ehdotuksia";

@@ -218,6 +218,22 @@
 			<string>%1$d renglones</string>
 		</dict>
 	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Vea cómo sus %1$#@v1@ se unen en el Resumen del Año.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d día de lectura</string>
+			<key>other</key>
+			<string> %1$d días de lectura</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -802,6 +818,182 @@
 			<string>%1$d filtro</string>
 			<key>other</key>
 			<string>%1$d filtros</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-biggest-reading-day-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>En total, ha estado %1$#@v1@ en Wikipedia. ¡Cuánta productividad!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d minute</string>
+			<key>other</key>
+			<string>%1$d minutos</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-collective-hours-read-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>De forma colectiva, a través de todas las lenguas, nuestros lectores y lectoras invirtieron cerca a %1$#@v1@ leyendo Wikipedia.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d año</string>
+			<key>other</key>
+			<string>%1$d años</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-days-visited-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Su actividad aumentó en %1$@, pues nos visitó %2$#@v2@.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d un día</string>
+			<key>other</key>
+			<string>%2$d varios días</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-intro-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Спасибо, что в 2026 году вы провели %1$#@v1@ с вашим надёжным приложением Википедии.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d день</string>
+			<key>other</key>
+			<string>%1$d дней</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-minutes-read-comparison-days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Esto equivale a más de %1$#@v1@.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d día entero</string>
+			<key>other</key>
+			<string>%1$d días enteros</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-time-article-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>En total, ha estado %1$#@v1@ en Wikipedia. ¡Cuánta productividad!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d minute</string>
+			<key>other</key>
+			<string>%1$d minutos</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-most-viewed-edited-articles-view-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d vista</string>
+			<key>other</key>
+			<string>%1$d vistas</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-rabbit-hole-reveal-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Impresionante.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d enlace</string>
+			<key>other</key>
+			<string>%1$d enlaces</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-reread-articles-visit-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> %1$d visita</string>
+			<key>other</key>
+			<string> %1$d visitas</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-top-topic-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>De %1$@ a %2$@, %3$#@v3@ relación con este tema.</string>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%3$d de sus artículos tuvo</string>
+			<key>other</key>
+			<string>%3$d de sus artículos tuvieron</string>
+		</dict>
+	</dict>
+	<key>year-in-review-2026-total-articles-top-percent-subtitle</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Esto le sitúa en el top %1$@ de lectores de Wikipedia a nivel global. En promedio, las personas leen %2$#@v2@ por año.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d artículo</string>
+			<key>other</key>
+			<string>%2$d artículos</string>
 		</dict>
 	</dict>
 </dict>
