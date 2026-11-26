@@ -532,7 +532,7 @@
 "history-title" = "Cronologia";
 "home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
 "home-community-tab-title" = "Comunità";
-"home-edit-languages-title" = "Aggiungi o modifica lingue";
+"home-community-today-date-header" = "Oggi - $1";
 "home-feed-for-you-based-on-interests-title" = "In base ai tuoi interessi";
 "home-feed-for-you-settings-title" = "Moduli";
 "home-feed-settings-community-section-title" = "Comunità";
