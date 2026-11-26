@@ -93,6 +93,7 @@
 "activity-tab-time-spent-reading" = "Čas, porabljen za branje ta teden";
 "activity-tab-top-categories" = "Najbolj brane kategorije ta mesec";
 "add-articles-to-reading-list" = "Dodaj {{PLURAL:$1|$1 članek|$1 članka|$1 članke|$1 člankov}} na bralni seznam";
+"alert-temporary-account" = "Uporabljate začasni račun. Račun bo potekel čez 90 dni.";
 "announcements-dismiss" = "Opusti";
 "app-onboarding-feed-preference-community-option" = "S skupnostjo povezano vsebino";
 "app-onboarding-feed-preference-personalized-option" = "Osebno prilagojeno vsebino";
@@ -131,6 +132,7 @@
 "article-share" = "Deli";
 "article-talk-page" = "Pogovorna stran članka";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Upravljanje bralnih tem";
+"article-view-controller-editing-temp-account-created-title" = "Začasni račun ustvarjen";
 "back-button-accessibility-label" = "Nazaj";
 "back-button-popover-title" = "Tapnite, da se vrnete nazaj";
 "button-go-back" = "Nazaj";
@@ -287,6 +289,7 @@
 "edit-notices-always-display" = "Vedno prikaži obvestila o urejanju";
 "edit-notices-please-read" = "Prosimo, preberite pred urejanjem";
 "edit-preview-simplified-format-message" = "Vsa vsebina je prikazana v poenostavljeni obliki.";
+"edit-sheet-temp-account-notice" = "Obvestilo o začasnem računu";
 "edit-show-web-preview" = "Prikaži spletni predogled";
 "edit-summary-add-summary-text" = "Dodaj povzetek urejanja";
 "edit-summary-choice-fixed-grammar" = "Slovnični popravek";
@@ -991,6 +994,7 @@
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "V pogledu bralnih seznamov prikažite shranjeni (npr. privzeti) bralni seznam kot ločen seznam. Ta seznam se prikaže v napravah Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Prikaži bralni seznam Shranjeno";
 "settings-storage-and-syncing-title" = "Shranjevanje in sinhroniziranje člankov";
+"settings-temp-accounts-talk-page-footer" = "Začasni račun bo potekel čez 90 dni";
 "settings-title" = "Nastavitve";
 "share-a-fact-made-with" = "Ustvarjeno z aplikacijo Wikipedija";
 "share-article-name-on-wikipedia" = "»$1« v Wikipediji:";
@@ -1088,6 +1092,7 @@
 "talk-pages-user-groups" = "Uporabniške skupine";
 "talk-pages-user-logs" = "Dnevniki";
 "talk-pages-view-title" = "Pogovor";
+"temporary-account" = "Začasni račun";
 "terms-of-use-title" = "Pogoji uporabe";
 "theme-black-display-name" = "Črna";
 "theme-dark-display-name" = "Temna";
