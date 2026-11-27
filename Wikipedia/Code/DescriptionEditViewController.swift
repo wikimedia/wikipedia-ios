@@ -203,9 +203,9 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     image: image,
                     dismissPreviousToasts: true,
-                    buttonCallBack: {
+                    buttonCallBack: { [weak self] in
                         Task { @MainActor in
-                            guard let navigationController = self.navigationController else { return }
+                            guard let self, let navigationController = self.navigationController else { return }
                             let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
                                 self?.dismiss(animated: true)
                             }, didTapContinue: { [weak self] in
@@ -226,9 +226,9 @@ protocol DescriptionEditViewControllerDelegate: AnyObject {
                     buttonTitle: CommonStrings.tempAccountsReadMoreTitle,
                     image: image,
                     dismissPreviousToasts: true,
-                    buttonCallBack: {
+                    buttonCallBack: { [weak self] in
                         Task { @MainActor in
-                            guard let navigationController = self.navigationController else { return }
+                            guard let self, let navigationController = self.navigationController else { return }
                             let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
                                 self?.dismiss(animated: true)
                             }, didTapContinue: { [weak self] in

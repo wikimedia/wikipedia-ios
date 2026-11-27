@@ -8,7 +8,9 @@ import WMFTestKitchen
 /// App-side owner of the Saved tab. Builds the SwiftUI screen, presents the flows it leads to
 /// and logs its events, as the other root tab coordinators do.
 @MainActor
-final class SavedCoordinator: NSObject, Coordinator {
+final class SavedCoordinator: NSObject, TabRootCoordinator {
+
+    let tab: WMFAppTabType = .saved
 
     // The tab's navigation controller. Injected via `attach(navigationController:)` once the
     // Saved view controller has been wrapped in its tab navigation controller.
@@ -48,6 +50,21 @@ final class SavedCoordinator: NSObject, Coordinator {
         self.savedInstrumentation = savedInstrumentation ?? .shared
         self.discoverInstrumentation = discoverInstrumentation ?? .shared
         super.init()
+    }
+
+    var rootViewController: UIViewController {
+        if let savedViewController {
+            return savedViewController
+        }
+        let vc = makeSavedViewController()
+        vc.tabBarItem.image = UIImage(named: "tabbar-save")
+        vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.savedButton
+        vc.title = WMFCommonStringsWrapper.savedTabTitle
+        return vc
+    }
+
+    func apply(theme: Theme) {
+        self.theme = theme
     }
 
     func attach(navigationController: UINavigationController) {
@@ -97,6 +114,17 @@ final class SavedCoordinator: NSObject, Coordinator {
         self.viewModel = viewModel
         self.savedViewController = hostingController
         return hostingController
+    }
+
+    /// Closes any modal, then opens the reading list on top of the Saved tab root.
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
+        if let tabBarController = navigationController.tabBarController {
+            tabBarController.dismissPresentedViewControllers()
+            tabBarController.selectedIndex = tab.rawValue
+        }
+        navigationController.popToRootViewController(animated: false)
+        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
+        navigationController.pushViewController(detailVC, animated: true)
     }
 
     // MARK: - Discover
@@ -294,6 +322,34 @@ extension SavedCoordinator: LogoutCoordinatorDelegate {
         let dataStore = self.dataStore
         savedViewController?.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .logout, theme: theme, authInstrument: authInstrument) {
             dataStore.authenticationManager.logout(initiatedBy: .user, authInstrument: authInstrument)
+        }
+    }
+}
+
+// MARK: - Importing Reading Lists - CreateReadingListCoordinatorDelegate
+
+extension SavedCoordinator: CreateReadingListCoordinatorDelegate {
+    func createReadingListCoordinator(_ coordinator: CreateReadingListCoordinator, didCreateReadingListWith name: String, description: String, articles: [WMFArticle]) {
+
+        guard !articles.isEmpty else {
+            WMFToastManager.sharedInstance.showErrorAlert(ImportReadingListError.missingArticles, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            return
+        }
+
+        do {
+            coordinator.setCreating(true)
+            let readingList = try dataStore.readingListsController.createReadingList(named: name, description: description, with: articles)
+            ReadingListsFunnel.shared.logCompletedImport(articlesCount: articles.count)
+            showReadingList(readingList, fromImport: true)
+
+        } catch let error {
+            switch error {
+            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
+                coordinator.handleReadingListNameError(readingListError)
+            default:
+                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true, tapCallBack: nil)
+            }
+            coordinator.setCreating(false)
         }
     }
 }

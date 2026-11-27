@@ -7,6 +7,8 @@ import UserNotifications
 import CocoaLumberjackSwift
 import SwiftUI
 import WMFNativeLocalizations
+import TipKit
+import WMFTestKitchen
 
 // MARK: - Tab enum
 
@@ -36,6 +38,7 @@ private let wmfSuppressGamesAnnouncementForTesting = "WMFSuppressGamesAnnounceme
 private let wmfSuppressYearInReviewAnnouncementForTesting = "WMFSuppressYearInReviewAnnouncementForTesting"
 private let wmfSuppressHomeOnboardingForTesting = "WMFSuppressHomeOnboardingForTesting"
 private let wmfUITestDiscoverState = "WMFUITestDiscoverState"
+private let wmfHideTipsForTesting = "WMFHideTipsForTesting"
 
 // KVO context pointers
 private var kvoSavedArticlesFetcherProgress = UInt8(0)
@@ -63,23 +66,29 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private var transitionsController: ViewControllerTransitionsController?
 
     private var _settingsViewController: SettingsTabViewController?
-    private var homeCoordinator: HomeCoordinator?
+    private var _tabBarCoordinator: TabBarCoordinator?
+    private var tabBarCoordinator: TabBarCoordinator {
+        if let _tabBarCoordinator {
+            return _tabBarCoordinator
+        }
+        let coordinator = TabBarCoordinator(theme: theme, dataStore: dataStore)
+        coordinator.home.startFeedCustomization = { [weak self] instrument in
+            self?.startFeedCustomizationOnboarding(instrument: instrument)
+        }
+        _tabBarCoordinator = coordinator
+        return coordinator
+    }
 
     /// True when this activation was started by a deep link. Set by SceneDelegate, which resets it at
     /// the start of each foreground cycle. Home reads it to hold back modals.
     var didOpenAppFromExternalLink = false {
         didSet {
-            homeCoordinator?.homeViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
+            _tabBarCoordinator?.home.homeViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
         }
     }
 
     /// Held while the evergreen account creation prompt is on screen, since it owns its outcome reporting.
     var evergreenAccountCreationCoordinator: EvergreenAccountCreationCoordinator?
-    private var _searchTabViewController: SearchViewController?
-    private var _savedViewController: WMFSavedHostingController?
-    private var savedCoordinator: SavedCoordinator?
-    private var _placesViewController: PlacesViewController?
-    private var _activityTabViewController: WMFActivityTabViewController?
 
     private var splashScreenViewController: SplashScreenViewController?
 
@@ -369,9 +378,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         transitionsController = ViewControllerTransitionsController()
 
-        searchTabViewController.apply(theme: theme)
+        tabBarCoordinator.search.viewController.apply(theme: theme)
 
-        if let savedTabBarItem = savedViewController.tabBarItem {
+        if let savedTabBarItem = tabBarCoordinator.saved.savedViewController?.tabBarItem {
             savedTabBadgeController = SavedTabBadgeController(
                 tabBarItem: savedTabBarItem,
                 tabBar: tabBar,
@@ -387,18 +396,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func configureTabController() {
         self.delegate = self
 
-        let coordinator = HomeCoordinator(theme: theme, dataStore: dataStore)
-        let homeViewController = coordinator.makeHomeViewController()
-        homeViewController.didOpenAppFromExternalLink = didOpenAppFromExternalLink
-        let nav1 = rootNavigationController(with: homeViewController)
-        coordinator.attach(navigationController: nav1)
-        homeCoordinator = coordinator
-        let nav2 = rootNavigationController(with: placesViewController)
-        let nav3 = rootNavigationController(with: savedViewController)
-        savedCoordinator?.attach(navigationController: nav3)
-        let nav4 = rootNavigationController(with: activityTabViewController)
-        let nav5 = rootNavigationController(with: searchTabViewController)
-        let rootNavigationControllers = [nav1, nav2, nav3, nav4, nav5]
+        let rootNavigationControllers = tabBarCoordinator.makeRootNavigationControllers(delegate: self)
+        tabBarCoordinator.home.homeViewController?.didOpenAppFromExternalLink = didOpenAppFromExternalLink
         rootTabAccessibilityIdentifiers = rootNavigationControllers.map { nav in
             nav.viewControllers.first?.tabBarItem.accessibilityIdentifier
         }
@@ -424,7 +423,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
 
         // This should be called all the time for backward compatibility
-        setViewControllers([nav1, nav2, nav3, nav4, nav5], animated: false)
+        setViewControllers(rootNavigationControllers, animated: false)
         applyRootTabAccessibilityIdentifiers()
 
         updateUserInterfaceStyleOfNavigationControllersForCurrentTheme()
@@ -432,16 +431,10 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         let shouldOpenOnSearch = shouldOpenAppOnSearchTab()
         if shouldOpenOnSearch && selectedIndex != WMFAppTabType.search.rawValue {
             selectedIndex = WMFAppTabType.search.rawValue
-            searchTabViewController.makeSearchBarBecomeFirstResponder()
+            tabBarCoordinator.search.viewController.makeSearchBarBecomeFirstResponder()
         } else if selectedIndex != WMFAppTabType.main.rawValue {
             selectedIndex = WMFAppTabType.main.rawValue
         }
-    }
-
-    private func rootNavigationController(with rootViewController: UIViewController) -> WMFComponentNavigationController {
-        let navigationController = WMFComponentNavigationController(rootViewController: rootViewController, modalPresentationStyle: .overFullScreen, customBarBackgroundColor: nil)
-        navigationController.delegate = self
-        return navigationController
     }
 
     private func applyRootTabAccessibilityIdentifiers() {
@@ -866,7 +859,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             }
 
             self.setupTips()
-            WMFToastPresenter.shared.startObservingKeyboard()
+            MainActor.assumeIsolated {
+                WMFToastPresenter.shared.startObservingKeyboard()
+            }
             self.setupWMFDataEnvironment()
             self.setupWMFDataCoreDataStore()
 
@@ -1068,7 +1063,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     private func finishResumingApp() {
         let resumeAndAnnouncementsCompleteGroup = WMFTaskGroup()
         resumeAndAnnouncementsCompleteGroup.enter()
-        dataStore.authenticationManager.attemptLogin {
+        dataStore.authenticationManager.attemptLogin { [self] in
             self.checkRemoteAppConfigIfNecessary()
             if self.reachabilityNotifier == nil {
                 self.reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] isReachable, _ in
@@ -1085,7 +1080,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             resumeAndAnnouncementsCompleteGroup.leave()
             self.performTasksThatShouldOccurAfterBecomeActiveAndResume()
             self.showLoggedOutPanelIfNeeded()
-            self.presentOneTimeHomeOnboardingIfNeeded()
+            self._tabBarCoordinator?.home.presentOneTimeOnboardingIfNeeded(isExistingUser: UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding))
             let key = WMFUserDefaultsKey.needsDailyGameFeedRefresh.rawValue
             if UserDefaults.standard.bool(forKey: key) {
                 UserDefaults.standard.removeObject(forKey: key)
@@ -1138,110 +1133,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     
     private var homeFeedSettingsCoordinator: HomeFeedSettingsCoordinator?
     
-    private var oneTimeOnboardingViewController: WMFOnboardingViewController?
-    
-    private func presentOneTimeHomeOnboardingIfNeeded() {
-        guard selectedIndex == WMFAppTabType.main.rawValue else { return }
-        guard let homeNav = viewControllers?[WMFAppTabType.main.rawValue] as? UINavigationController,
-              homeNav.viewControllers.count == 1 else { return }
-        guard presentedViewController == nil else { return }
-
-        let isExistingUser = UserDefaults.standard.bool(forKey: Self.wmfDidShowOnboarding)
-        // Show the sheet only to a reader who saw the old onboarding, did not see the Home onboarding, and did not see this sheet.
-        let hasSeenHomeOnboarding = WMFHomeDataController.shared.hasSeenUpdatedHomeOnboarding()
-        let hasSeenOneTimeOnboarding = WMFHomeDataController.shared.hasSeenOneTimeOnboarding()
-
-        guard isExistingUser && !hasSeenOneTimeOnboarding && !hasSeenHomeOnboarding else { return }
-
-        let viewModel = WMFOnboardingViewModel(
-            title: WMFLocalizedString(
-                "one-time-onboarding-title",
-                value: "Explore is now Home, with a new look",
-                comment: "Title of the one-time onboarding sheet shown to existing users after the Explore tab is renamed to Home."
-            ),
-            cells: [
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .house),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-name-title",
-                        value: "A new name",
-                        comment: "Title of the 'A new name' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-name-body",
-                        value: "The Explore feed is now Home, in the same spot as before.",
-                        comment: "Description of the 'A new name' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                ),
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .squareSplit),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-feed-title",
-                        value: "Your feed, two ways",
-                        comment: "Title of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-feed-body",
-                        value: "Discover articles personalized to your interests in For You, or browse Wikipedia's best editorial content in Community.",
-                        comment: "Description of the 'Your feed, two ways' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                ),
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-control-title",
-                        value: "Stay in control",
-                        comment: "Title of the 'Stay in control' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-control-body",
-                        value: "Every recommendation tells you exactly why it's there. You can update your preferences anytime in Settings.",
-                        comment: "Description of the 'Stay in control' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                ),
-                WMFOnboardingViewModel.WMFOnboardingCellViewModel(
-                    icon: WMFSFSymbolIcon.for(symbol: .globeAmericas),
-                    title: WMFLocalizedString(
-                        "one-time-onboarding-feature-languages-title",
-                        value: "Every language, fully personalized",
-                        comment: "Title of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
-                    ),
-                    subtitle: WMFLocalizedString(
-                        "one-time-onboarding-feature-languages-body",
-                        value: "Reading in multiple languages? Each one gets its own experience. Just switch and your new feed is ready.",
-                        comment: "Description of the 'Every language, fully personalized' feature item on the one-time onboarding sheet."
-                    ),
-                    tintBlue: true
-                )
-            ],
-            primaryButtonTitle: WMFLocalizedString(
-                "one-time-onboarding-customize-button",
-                value: "Customize my feed",
-                comment: "Primary button on the one-time onboarding sheet that opens the feed customization flow."
-            ),
-            secondaryButtonTitle: WMFLocalizedString(
-                "one-time-onboarding-auto-setup-button",
-                value: "Set it up for me",
-                comment: "Secondary button on the one-time onboarding sheet that automatically configures the feed without customization."
-            )
-        )
-
-        let onboardingVC = WMFOnboardingViewController(viewModel: viewModel)
-        onboardingVC.modalPresentationStyle = .pageSheet
-        onboardingVC.delegate = self
-        oneTimeOnboardingViewController = onboardingVC
-
-        DispatchQueue.main.async {
-              self.present(onboardingVC, animated: true) {
-                  TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "impression", actionSource: "feed_announce")
-                  WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
-              }
-        }
-    }
-
     private func timeBeforeRefreshingExploreFeed() -> TimeInterval {
         var timeInterval: TimeInterval = 2 * 60 * 60
         let key = WMFFeedDayResponse.maxAgeKey()
@@ -1305,7 +1196,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
                 showSearchInCurrentNavigationController()
             } else {
                 switchToSearch(animated: false)
-                searchTabViewController.makeSearchBarBecomeFirstResponder()
+                tabBarCoordinator.search.viewController.makeSearchBarBecomeFirstResponder()
             }
         } else if item.type == WMFIconShortcutTypeRandom {
             showRandomArticleFromShortcut(animated: false)
@@ -1362,8 +1253,8 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             selectedIndex = WMFAppTabType.places.rawValue
             currentTabNavigationController?.popToRootViewController(animated: animated)
             if let articleURL = activity.wmf_linkURL() {
-                placesViewController.updateViewModeToMap()
-                placesViewController.showArticleURL(articleURL)
+                tabBarCoordinator.places.viewController.updateViewModeToMap()
+                tabBarCoordinator.places.viewController.showArticleURL(articleURL)
             }
 
         case .random:
@@ -1372,7 +1263,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         case .activity:
             
-            let activityVC = activityTabViewController
+            let activityVC = tabBarCoordinator.activity.viewController
             activityVC.disableModalsOnAppearance = true
             
             dismissPresentedViewControllers()
@@ -1414,11 +1305,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
         case .search:
             switchToSearch(animated: animated)
-            searchTabViewController.makeSearchBarBecomeFirstResponder()
+            tabBarCoordinator.search.viewController.makeSearchBarBecomeFirstResponder()
 
         case .searchResults:
             dismissPresentedViewControllers()
-            searchTabViewController.searchAndMakeResultsVisibleForSearchTerm( activity.wmf_searchTerm(), animated: animated)
+            tabBarCoordinator.search.viewController.searchAndMakeResultsVisibleForSearchTerm( activity.wmf_searchTerm(), animated: animated)
             switchToSearch(animated: animated)
 
         case .settings:
@@ -1539,7 +1430,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
 
     @objc func handleExploreCenterBadgeNeedsUpdateNotification() {
         DispatchQueue.main.async {
-            self.homeCoordinator?.homeViewController?.updateProfileButton()
+            self._tabBarCoordinator?.home.homeViewController?.updateProfileButton()
         }
     }
 
@@ -1593,7 +1484,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         }
         // Read the cached controller rather than the lazy getter — badging must never be the thing
         // that constructs the Activity tab.
-        _activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
+        _tabBarCoordinator?.activity.activityTabViewController?.tabBarItem.showYearInReviewBadge(needsBadge)
         if !needsBadge {
             savedTabBadgeController?.setHasOtherBadges(false)
         }
@@ -1604,67 +1495,6 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
             try? UNUserNotificationCenter.current().setBadgeCount(self.dataStore.remoteNotificationsController.numberOfUnreadNotifications().intValue)
             try? self.dataStore.remoteNotificationsController.updateCacheWithCurrentUnreadNotificationsCount()
         }
-    }
-
-    var searchTabViewController: SearchViewController {
-        
-        guard let _searchTabViewController else {
-            let vc = SearchViewController(source: .searchTab)
-            vc.apply(theme: theme)
-            vc.dataStore = dataStore
-            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: Int(WMFAppTabType.search.rawValue))
-            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.searchButton
-            vc.title = WMFCommonStringsWrapper.searchTitle
-            _searchTabViewController = vc
-            return vc
-        }
-        
-        return _searchTabViewController
-    }
-
-    var savedViewController: WMFSavedHostingController {
-        
-        guard let _savedViewController else {
-            let coordinator = SavedCoordinator(theme: theme, dataStore: dataStore)
-            let vc = coordinator.makeSavedViewController()
-            savedCoordinator = coordinator
-            vc.tabBarItem.image = UIImage(named: "tabbar-save")
-            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.savedButton
-            vc.title = WMFCommonStringsWrapper.savedTabTitle
-            _savedViewController = vc
-            return vc
-        }
-        
-        return _savedViewController
-    }
-
-    var activityTabViewController: WMFActivityTabViewController {
-        
-        guard let _activityTabViewController else {
-            let vc = generateActivityTab()
-            vc.tabBarItem.image = UIImage(named: "tabbar-recent")
-            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.activityButton
-            vc.title = WMFCommonStringsWrapper.activityTitle
-            _activityTabViewController = vc
-            return vc
-        }
-        
-        return _activityTabViewController
-    }
-
-    var placesViewController: PlacesViewController {
-        
-        guard let _placesViewController else {
-            let vc = UIStoryboard(name: "Places", bundle: nil).instantiateInitialViewController() as! PlacesViewController
-            vc.apply(theme: theme)
-            vc.tabBarItem.image = UIImage(named: "tabbar-nearby")
-            vc.tabBarItem.accessibilityIdentifier = AccessibilityIdentifiers.RootTab.placesButton
-            vc.title = WMFCommonStringsWrapper.placesTabTitle
-            _placesViewController = vc
-            return vc
-        }
-        
-        return _placesViewController
     }
 
     // MARK: - Onboarding
@@ -1712,6 +1542,23 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         coordinator.start()
     }
 
+    private func startFeedCustomizationOnboarding(instrument: InstrumentImpl) {
+        let coordinator = AppOnboardingCoordinator(
+            presentingViewController: self,
+            dataStore: dataStore,
+            theme: theme,
+            willDismiss: { [weak self] in
+                self?.loadMainUI()
+            },
+            completion: { [weak self] in
+                self?._tabBarCoordinator?.home.selectFeedChosenInOnboarding()
+                self?.appOnboardingCoordinator = nil
+            }
+        )
+        appOnboardingCoordinator = coordinator
+        coordinator.startCondensed(instrument: instrument)
+    }
+
     // MARK: - Splash
 
     func showSplashView() {
@@ -1757,20 +1604,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
     func switchToSearchTab(focusSearchBar: Bool, animated: Bool) {
         switchToSearch(animated: animated)
         if focusSearchBar {
-            searchTabViewController.makeSearchBarBecomeFirstResponder()
+            tabBarCoordinator.search.viewController.makeSearchBarBecomeFirstResponder()
         }
     }
 
     // MARK: - App Shortcuts
-
-    func dismissPresentedViewControllers() {
-        if presentedViewController != nil {
-            dismiss(animated: false, completion: nil)
-        }
-        if currentTabNavigationController?.presentedViewController != nil {
-            currentTabNavigationController?.dismiss(animated: false, completion: nil)
-        }
-    }
 
     private func showRandomArticleFromShortcut(animated: Bool) {
         dismissPresentedViewControllers()
@@ -1781,7 +1619,7 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         dismissPresentedViewControllers()
         selectedIndex = WMFAppTabType.places.rawValue
         currentTabNavigationController?.popToRootViewController(animated: false)
-        placesViewController.showNearbyArticles()
+        tabBarCoordinator.places.viewController.showNearbyArticles()
     }
 
     // MARK: - App config
@@ -1851,17 +1689,12 @@ extension WMFAppViewController: UITabBarControllerDelegate {
         let selected = viewController
 
         if viewController == tabBarController.selectedViewController {
-            switch tabBarController.selectedIndex {
-            case WMFAppTabType.main.rawValue:
-                homeCoordinator?.homeViewController?.scrollSelectedFeedToTop()
-            case WMFAppTabType.search.rawValue:
-                searchTabViewController.makeSearchBarBecomeFirstResponder()
-            default:
-                break
+            if let tab = WMFAppTabType(rawValue: tabBarController.selectedIndex) {
+                tabBarCoordinator.coordinator(for: tab).tabWasReselected()
             }
 
             if (currentTabNavigationController?.viewControllers.count ?? 0) > 1 {
-                logTabBarSelectionsForActivityTab(currentTabSelection: current, newTabSelection: selected)
+                tabBarCoordinator.activity.logTabBarSelectionsForActivityTab(currentTabSelection: current, newTabSelection: selected)
                 return true
             } else {
                 // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
@@ -1869,13 +1702,13 @@ extension WMFAppViewController: UITabBarControllerDelegate {
             }
         }
 
-        logTabBarSelectionsForActivityTab(currentTabSelection: current, newTabSelection: selected)
+        tabBarCoordinator.activity.logTabBarSelectionsForActivityTab(currentTabSelection: current, newTabSelection: selected)
 
         // When switching to Activity via tab bar button, increment the visit count
         if let navVC = viewController as? UINavigationController,
            navVC.viewControllers.count == 1,
            navVC.viewControllers[0] is WMFActivityTabViewController {
-            incrementActivityTabVisitCount()
+            tabBarCoordinator.activity.incrementActivityTabVisitCount()
         }
 
         return true
@@ -1905,6 +1738,76 @@ extension WMFAppViewController: UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return transitionsController?.navigationController(navigationController, animationControllerFor: operation, from: fromVC, to: toVC)
+    }
+}
+
+// MARK: - Link user activity
+
+extension WMFAppViewController {
+
+    @objc func shouldOpenAppOnSearchTab() -> Bool {
+        return WMFSettingsDataController.shared.openAppOnSearchTab()
+    }
+
+    @objc internal func processLinkUserActivity(_ userActivity: NSUserActivity) -> Bool {
+
+        guard let linkURL = userActivity.wmf_linkURL() else {
+            return false
+        }
+
+        guard let navigationController = self.currentTabNavigationController else {
+            return false
+        }
+
+        // Use the article source from userInfo if provided (e.g. widget deep links inject .widget),
+        // otherwise default to external_link for generic deep links from browsers etc.
+        let articleSource: ArticleSource
+        if let sourceInt = userActivity.userInfo?[ArticleSourceUserInfoKeys.articleSource] as? Int,
+           let source = ArticleSource(rawValue: sourceInt) {
+            articleSource = source
+        } else {
+            articleSource = .external_link
+        }
+
+        if let returnJourney = VisualEditorReturnJourney(url: linkURL) {
+            return processVisualEditorReturnJourney(returnJourney, navigationController: navigationController, articleSource: articleSource)
+        }
+
+        // Any other article deep link (e.g. Safari's native app banner): if the linked article
+        // is already on screen, bring the app to the foreground instead of pushing a duplicate
+        if LinkCoordinator.destination(for: linkURL) == .article,
+           let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = linkURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if let fragment = linkURL.fragment?.removingPercentEncoding, !fragment.isEmpty {
+                articleViewController.scroll(to: fragment, animated: true)
+            }
+            return true
+        }
+
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: linkURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignNewTabAndSetToCurrent)
+        return linkCoordinator.start()
+    }
+
+    /// Handles the redirect back into the app after a web Visual Editor session (T434236).
+    /// If the same article is already on screen, refreshes it in place instead of pushing a duplicate.
+    private func processVisualEditorReturnJourney(_ returnJourney: VisualEditorReturnJourney, navigationController: UINavigationController, articleSource: ArticleSource) -> Bool {
+
+        if let articleViewController = visibleArticleViewController(),
+           let visibleArticleKey = articleViewController.articleURL.wmf_databaseKey,
+           let incomingArticleKey = returnJourney.articleURL.wmf_databaseKey,
+           visibleArticleKey == incomingArticleKey {
+            if returnJourney.saved {
+                articleViewController.waitForNewContentAndRefresh(returnJourney.revisionID)
+            }
+            // saved == false: the edit was abandoned, leave the article as-is
+            return true
+        }
+
+        // The user is continuing their journey, so append to the current tab rather than opening a new one
+        let linkCoordinator = LinkCoordinator(navigationController: navigationController, url: returnJourney.articleURL, dataStore: dataStore, theme: theme, articleSource: articleSource, tabConfig: .appendArticleAndAssignCurrentTab, revisionID: returnJourney.revisionID)
+        return linkCoordinator.start()
     }
 }
 
@@ -1976,6 +1879,248 @@ extension WMFAppViewController: UNUserNotificationCenterDelegate {
     }
 }
 
+// MARK: - Notifications
+
+extension WMFAppViewController: NotificationsCenterPresentationDelegate {
+
+    /// Perform conditional presentation logic depending on origin `UIViewController`
+    public func userDidTapNotificationsCenter(from viewController: UIViewController? = nil) {
+        let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
+        let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
+
+        currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
+    }
+}
+
+extension WMFAppViewController {
+    @objc func userDidTapPushNotification() {
+        guard let topMostViewController = self.topMostViewController else {
+            return
+        }
+
+        // If already displaying Notifications Center (or some part of it), exit early
+        if let notificationsCenterFlowViewController = topMostViewController.notificationsCenterFlowViewController {
+            notificationsCenterFlowViewController.tappedPushNotification()
+            return
+        }
+
+        let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: dataStore.languageLinkController)
+
+        let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
+
+        let dismissAndPushBlock = { [weak self] in
+            self?.dismissPresentedViewControllers()
+            self?.currentTabNavigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        }
+
+        guard let editingFlowViewController = editingFlowViewControllerInHierarchy,
+            editingFlowViewController.shouldDisplayExitConfirmationAlert else {
+            dismissAndPushBlock()
+            return
+        }
+
+        presentEditorAlert(on: topMostViewController, confirmationBlock: dismissAndPushBlock)
+    }
+
+    var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
+        var currentController: UIViewController? = currentTabNavigationController
+
+        while let presentedViewController = currentController?.presentedViewController {
+            if let presentedNavigationController = (presentedViewController as? UINavigationController) {
+                for viewController in presentedNavigationController.viewControllers {
+                    if let editingFlowViewController = viewController as? EditingFlowViewController {
+                        return editingFlowViewController
+                    }
+                }
+            } else if let editingFlowViewController = presentedViewController as? EditingFlowViewController {
+                return editingFlowViewController
+            }
+
+            currentController = presentedViewController
+        }
+
+        return nil
+    }
+
+    @objc var currentTabNavigationController: WMFComponentNavigationController? {
+        if let componentNavVC = selectedViewController as? WMFComponentNavigationController {
+            return componentNavVC
+        }
+
+        return nil
+    }
+
+    var topMostViewController: UIViewController? {
+
+        var topViewController: UIViewController = currentTabNavigationController ?? self
+
+        while let presentedViewController = topViewController.presentedViewController {
+            topViewController = presentedViewController
+        }
+
+        return topViewController
+    }
+
+    private func presentEditorAlert(on viewController: UIViewController, confirmationBlock: @escaping () -> Void) {
+
+        let title = CommonStrings.editorExitConfirmationTitle
+        let message = CommonStrings.editorExitConfirmationBody
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let discardAction = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
+            confirmationBlock()
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+
+        alertController.addAction(discardAction)
+        alertController.addAction(cancelAction)
+
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func showRandomArticleFromShortcut(siteURL: URL?, animated: Bool, userInfo: [AnyHashable: Any]? = nil) {
+        guard let navVC = currentTabNavigationController else { return }
+        let articleSource: ArticleSource
+        if let sourceInt = userInfo?[ArticleSourceUserInfoKeys.articleSource] as? Int,
+           let source = ArticleSource(rawValue: sourceInt) {
+            articleSource = source
+        } else {
+            articleSource = .undefined
+        }
+        let coordinator = RandomArticleCoordinator(navigationController: navVC, articleURL: nil, siteURL: siteURL, dataStore: dataStore, theme: theme, source: articleSource, animated: animated)
+        coordinator.start()
+    }
+
+}
+
+fileprivate extension UIViewController {
+
+    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
+    /// Does not consider presenting view controllers
+    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
+
+        if let viewController = self as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+
+        if let navigationController = self as? UINavigationController,
+           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+
+        return nil
+    }
+}
+
+// MARK: - Language Variant Migration Alerts
+
+extension WMFAppViewController {
+
+    @objc internal func presentLanguageVariantAlerts(completion: @escaping () -> Void) {
+
+        guard shouldPresentLanguageVariantAlerts else {
+            completion()
+            return
+        }
+
+        let savedLibraryVersion = UserDefaults.standard.integer(forKey: WMFLanguageVariantAlertsLibraryVersion)
+        guard savedLibraryVersion < MWKDataStore.currentLibraryVersion else {
+            completion()
+            return
+        }
+
+        let languageCodesNeedingAlerts = self.dataStore.languageCodesNeedingVariantAlerts(since: savedLibraryVersion)
+        guard let firstCode = languageCodesNeedingAlerts.first else {
+            completion()
+            return
+        }
+
+        self.presentVariantAlert(for: firstCode, remainingCodes: Array(languageCodesNeedingAlerts.dropFirst()), completion: completion)
+
+        UserDefaults.standard.set(MWKDataStore.currentLibraryVersion, forKey: WMFLanguageVariantAlertsLibraryVersion)
+    }
+
+    private func presentVariantAlert(for languageCode: String, remainingCodes: [String], completion: @escaping () -> Void) {
+
+        let title = alertTitleForLanguageVariantCode(languageCode)
+        let message = alertBodyForLanguageVariantCode(languageCode)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        // If there are remaining codes, primary button shows the next variant alert
+        if let nextCode = remainingCodes.first {
+            alert.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: .default) { [weak self] _ in
+                self?.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
+            })
+        } else {
+            // No more to show: primary button navigates to language settings, secondary dismisses
+            alert.addAction(UIAlertAction(title: CommonStrings.variantsAlertPreferencesButton, style: .default) { [weak self] _ in
+                self?.displayPreferredLanguageSettings(completion: completion)
+            })
+            alert.addAction(UIAlertAction(title: CommonStrings.noThanksTitle, style: .cancel) { _ in
+                completion()
+            })
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func alertTitleForLanguageVariantCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertTitle
+        case "gan": return CommonStrings.ganVariantsAlertTitle
+        case "iu": return CommonStrings.inuktitutVariantsAlertTitle
+        case "kk": return CommonStrings.kazakhVariantsAlertTitle
+        case "ku": return CommonStrings.kurdishVariantsAlertTitle
+        case "sr": return CommonStrings.serbianVariantsAlertTitle
+        case "tg": return CommonStrings.tajikVariantsAlertTitle
+        case "uz": return CommonStrings.uzbekVariantsAlertTitle
+        case "zh": return CommonStrings.chineseVariantsAlertTitle
+        case "shi": return CommonStrings.tachelhitVariantsAlertTitle
+        default:
+            assertionFailure("No language variant alert title for language code '\(languageCode)'")
+            return ""
+        }
+    }
+
+    private func alertBodyForLanguageVariantCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertBody
+        case "gan": return CommonStrings.ganVariantsAlertBody
+        case "iu": return CommonStrings.inuktitutVariantsAlertBody
+        case "kk": return CommonStrings.kazakhVariantsAlertBody
+        case "ku": return CommonStrings.kurdishVariantsAlertBody
+        case "sr": return CommonStrings.serbianVariantsAlertBody
+        case "tg": return CommonStrings.tajikVariantsAlertBody
+        case "uz": return CommonStrings.uzbekVariantsAlertBody
+        case "zh": return CommonStrings.chineseVariantsAlertBody
+        case "shi": return CommonStrings.tachelhitVariantsAlertBody
+        default:
+            assertionFailure("No language variant alert body for language code '\(languageCode)'")
+            return ""
+        }
+    }
+
+    // Don't present over modals or navigation stacks
+    // The user is deep linking in these states and we don't want to interrupt them
+    private var shouldPresentLanguageVariantAlerts: Bool {
+        guard presentedViewController == nil,
+              let navigationController = currentTabNavigationController,
+              navigationController.viewControllers.count == 1 else {
+            return false
+        }
+        return true
+    }
+
+    private func displayPreferredLanguageSettings(completion: @escaping () -> Void) {
+        self.dismissPresentedViewControllers()
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC.showExploreFeedCustomizationSettings = true
+        languagesVC.userDismissalCompletionBlock = completion
+        languagesVC.apply(self.theme)
+        let navVC = WMFComponentNavigationController(rootViewController: languagesVC, modalPresentationStyle: .overFullScreen)
+        present(navVC, animated: true, completion: nil)
+    }
+}
+
 // MARK: - Themeable
 
 extension WMFAppViewController: Themeable {
@@ -2042,9 +2187,7 @@ extension WMFAppViewController: Themeable {
             return
         }
         
-        placesViewController.apply(theme: theme)
-        savedCoordinator?.theme = theme
-        searchTabViewController.apply(theme: theme)
+        tabBarCoordinator.apply(theme: theme)
 
         applyTheme(theme, toPresentedViewController: presentedViewController)
 
@@ -2115,6 +2258,53 @@ extension WMFAppViewController: Themeable {
     @objc private func debounceTraitCollectionThemeUpdate() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(updateAppThemeIfNecessary), object: nil)
         perform(#selector(updateAppThemeIfNecessary), with: nil, afterDelay: 0.3)
+    }
+}
+
+// MARK: WMFComponents App Environment Helpers
+extension WMFAppViewController {
+
+    @objc func updateAppEnvironment(theme: Theme, traitCollection: UITraitCollection) {
+        let wmfTheme = Theme.wmfTheme(from: theme)
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
+    }
+
+    @objc func appEnvironmentTraitCollectionIsDifferentThanTraitCollection(_ traitCollection: UITraitCollection) -> Bool {
+        return WMFAppEnvironment.current.traitCollection.hasDifferentColorAppearance(comparedTo: traitCollection)
+        || WMFAppEnvironment.current.traitCollection.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory
+    }
+
+}
+
+// MARK: - TipKit and WMFComponents theme
+
+extension WMFAppViewController {
+    @objc func setupTips() {
+        do {
+            try Tips.configure()
+            if UserDefaults.standard.bool(forKey: wmfHideTipsForTesting) {
+                Tips.hideAllTipsForTesting()
+            }
+        } catch {
+            DDLogError("Error initializing TipKit: \(error.localizedDescription)")
+        }
+    }
+
+    @objc func setWMFAppEnvironmentTheme(theme: Theme, traitCollection: UITraitCollection) {
+        let wmfTheme: WMFTheme
+        switch theme.name {
+        case "light":
+            wmfTheme = WMFTheme.light
+        case "sepia":
+            wmfTheme = WMFTheme.sepia
+        case "dark":
+            wmfTheme = WMFTheme.dark
+        case "black":
+            wmfTheme = WMFTheme.black
+        default:
+            wmfTheme = WMFTheme.light
+        }
+        WMFAppEnvironment.current.set(theme: wmfTheme, traitCollection: traitCollection)
     }
 }
 
@@ -2216,17 +2406,12 @@ extension WMFAppViewController {
         nc.pushViewController(searchVC, animated: animated)
     }
 
-    func showImportedReadingList(_ readingList: ReadingList) {
-        showReadingList(readingList, fromImport: true)
+    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
+        tabBarCoordinator.saved.showReadingList(readingList, fromImport: fromImport)
     }
 
-    /// Closes any modal, then opens the reading list on top of the Saved tab root.
-    func showReadingList(_ readingList: ReadingList, fromImport: Bool) {
-        dismissPresentedViewControllers()
-        selectedIndex = WMFAppTabType.saved.rawValue
-        currentTabNavigationController?.popToRootViewController(animated: false)
-        let detailVC = ReadingListDetailViewController(for: readingList, with: dataStore, fromImport: fromImport, theme: theme)
-        currentTabNavigationController?.pushViewController(detailVC, animated: true)
+    var savedCoordinator: SavedCoordinator {
+        tabBarCoordinator.saved
     }
 
     var settingsViewController: SettingsTabViewController {
@@ -2274,6 +2459,70 @@ extension WMFAppViewController {
 
     private func showSettings(animated: Bool) {
         showSettings(with: nil, animated: animated)
+    }
+}
+
+// MARK: - Settings tab
+
+extension WMFAppViewController {
+
+    @objc func generateSettingsTab() -> SettingsTabViewController {
+        let dataController = WMFSettingsDataController.shared
+
+        let themeName = UserDefaults.standard.themeDisplayName
+        let username = dataStore.authenticationManager.authStatePermanentUsername
+        let tempUsername = dataStore.authenticationManager.authStateTemporaryUsername
+        let isTempAccount = WMFTempAccountDataController.shared.primaryWikiHasTempAccountsEnabled &&
+                            dataStore.authenticationManager.authStateIsTemporary
+        let language = dataStore.languageLinkController.appLanguage?.contentLanguageCode.uppercased() ?? String()
+
+        let localizedStrings = WMFSettingsViewModel.LocalizedStrings(
+            settingTitle: CommonStrings.settingsTitle,
+            doneButtonTitle: CommonStrings.doneTitle,
+            cancelButtonTitle: CommonStrings.cancelActionTitle,
+            accountTitle: CommonStrings.account,
+            logInTitle: CommonStrings.logIn,
+            myLanguagesTitle: CommonStrings.myLanguages,
+            searchTitle: CommonStrings.searchTitle,
+            exploreFeedTitle: CommonStrings.exploreFeedTitle,
+            homeFeedTitle: CommonStrings.homeFeedTitle,
+            onTitle: CommonStrings.onTitle,
+            offTitle: CommonStrings.offTitle,
+            yirTitle: CommonStrings.yirTitle,
+            pushNotificationsTitle: CommonStrings.pushNotifications,
+            readingpreferences: CommonStrings.readingPreferences,
+            articleSyncing: CommonStrings.settingsStorageAndSyncing,
+            databasePopulation: "Database population",
+            clearCacheTitle: CommonStrings.clearCachedDataSettings,
+            privacyHeader: CommonStrings.privacyTermsHeader,
+            privacyPolicyTitle: CommonStrings.privacyPolicyTitle,
+            termsOfUseTitle: CommonStrings.termsOfUseTitle,
+            rateTheAppTitle: CommonStrings.rateTheAppTitle,
+            helpTitle: CommonStrings.helpAndfeedbackTitle,
+            aboutTitle: CommonStrings.aboutTitle,
+            safetyTitle: CommonStrings.legalAndSafety
+        )
+
+        let viewModel = WMFSettingsViewModel.__createSynchronously(
+            localizedStrings: localizedStrings,
+            username: username,
+            tempUsername: tempUsername,
+            isTempAccount: isTempAccount,
+            primaryLanguage: language,
+            readingPreferenceTheme: themeName,
+            coordinatorDelegate: nil,
+            dataController: dataController
+        )
+
+        let controller = SettingsTabViewController(
+            viewModel: viewModel,
+            coordinatorDelegate: nil,
+            dataStore: dataStore,
+            theme: theme,
+            dataController: dataController
+        )
+
+        return controller
     }
 }
 
@@ -2326,7 +2575,7 @@ extension WMFAppViewController {
     @objc private func userWasLoggedOut(_ note: Notification) {
         showLoggedOutPanelIfNeeded()
         DispatchQueue.main.async {
-            self.homeCoordinator?.homeViewController?.updateProfileButton()
+            self._tabBarCoordinator?.home.homeViewController?.updateProfileButton()
             UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
 
             if self.isResumeComplete {
@@ -2341,7 +2590,7 @@ extension WMFAppViewController {
 
     @objc private func userWasLoggedIn(_ note: Notification) {
         DispatchQueue.main.async {
-            self.homeCoordinator?.homeViewController?.updateProfileButton()
+            self._tabBarCoordinator?.home.homeViewController?.updateProfileButton()
 
             if self.isResumeComplete {
                 self.dataStore.feedContentController.updateContentSource(WMFFeedPromptsContentSource.self, force: true, completion: nil)
@@ -2414,48 +2663,452 @@ extension WMFAppViewController {
     }
 }
 
-// MARK: - WMFOnboardingViewDelegate (one-time home onboarding)
+// MARK: - Two-factor login from auto login
 
-extension WMFAppViewController: WMFOnboardingViewDelegate {
+extension WMFAppViewController {
+    @objc func createTwoFactorViewControllerFromAutoLoginNotification(userInfo: [AnyHashable : Any], needsEmailToken: Bool) -> WMFTwoFactorPasswordViewController? {
+        guard let message = userInfo["mediaWikiMessage"] as? String else {
+            return nil
+        }
+        
+        let authInstrument = userInfo["authInstrument"] as? WMFTestKitchen.InstrumentImpl
+        
+        let vc = WMFTwoFactorPasswordViewController.wmf_initialViewControllerFromClassStoryboard()
+        vc?.mediaWikiMessage = message
+        vc?.authInstrument = authInstrument
+        
+        if needsEmailToken {
+            vc?.setDisplayModeToShortAlphanumeric()
+        }
+        
+        vc?.cancelAction = { [weak self] in
+            self?.dataStore.authenticationManager.logout(initiatedBy: .app)
+        }
+        
+        return vc
+    }
+}
 
-    func onboardingViewDidClickPrimaryButton() {
-        
-        let instrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").startFunnel(name: "feed_customize")
-        instrument.submitInteraction(action: "click", actionSource: "feed_announce", elementId: "customize_feed")
-        
-        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
-            guard let self else { return }
-            self.oneTimeOnboardingViewController = nil
-            let coordinator = AppOnboardingCoordinator(
-                presentingViewController: self,
-                dataStore: self.dataStore,
-                theme: self.theme,
-                willDismiss: { [weak self] in
-                    self?.loadMainUI()
-                },
-                completion: { [weak self] in
-                    if let homeViewModel = self?.homeCoordinator?.homeViewController?.viewModel {
-                        homeViewModel.selectedTab = WMFHomeDataController.shared.seeFirstContent() == .personalized ? .forYou : .community
-                    }
-                    self?.appOnboardingCoordinator = nil
-                }
-            )
-            self.appOnboardingCoordinator = coordinator
-            coordinator.startCondensed(instrument: instrument)
+// MARK: WMFData setup
+
+extension WMFAppViewController {
+
+    @objc func setupWMFDataCoreDataStore() {
+        WMFDataEnvironment.current.appContainerURL = FileManager.default.wmf_containerURL()
+
+        migrateAutoSignTalkPageDiscussions()
+        migrateShowLanguageBar()
+        migrateOpenAppOnSearchTab()
+        migrateIsSubscribedToEchoNotifications()
+
+        Task(priority: .userInitiated) {
+            do {
+                WMFDataEnvironment.current.coreDataStore = try await WMFCoreDataStore()
+                await self.migrateSavedArticleInfoWithBackgroundTask()
+                await self.recoverReadingChallenge2026Completion()
+            } catch let error {
+                DDLogError("Error setting up WMFCoreDataStore: \(error)")
+            }
         }
     }
 
-    func onboardingViewDidClickSecondaryButton() {
-        TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed").submitInteraction(action: "click", actionSource: "feed_announce", elementId: "accept_default")
+    /// Determines whether the user completed the (since removed) 2026 Reading Challenge and saves it
+    /// to user defaults. No-ops after it succeeds once. Retries on the next launch if it throws,
+    /// which is why the error is logged rather than surfaced.
+    private func recoverReadingChallenge2026Completion() async {
+        do {
+            try await WMFReadingChallengeCompletionDataController.shared.recoverCompletionIfNeeded()
+        } catch let error {
+            DDLogError("Error recovering 2026 Reading Challenge completion: \(error)")
+        }
+    }
+
+    private func migrateSavedArticleInfoWithBackgroundTask() async {
+
+        var bgTask: UIBackgroundTaskIdentifier = .invalid
+        bgTask = UIApplication.shared.beginBackgroundTask(withName: "WMFDataMigration") {
+            if bgTask != .invalid {
+                UIApplication.shared.endBackgroundTask(bgTask)
+                bgTask = .invalid
+            }
+        }
+
+        await WMFArticleSavedStateMigrationManager.shared.migrateAllIfNeeded()
+
+        if bgTask != .invalid {
+            UIApplication.shared.endBackgroundTask(bgTask)
+            bgTask = .invalid
+        }
+    }
+
+    private func migrateAutoSignTalkPageDiscussions() {
+        let settingsDataController = WMFSettingsDataController.shared
+        guard !settingsDataController.didMigrateAutoSignTalkPageDiscussions() else {
+            return
+        }
+
+        if settingsDataController.hasStoredAutoSignTalkPageDiscussions() {
+            settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
+            return
+        }
+        let legacyKey = "WMFAutoSignTalkPageDiscussions"
+        let bundleID = Bundle.main.bundleIdentifier ?? ""
+        let persistedValue = UserDefaults.standard.persistentDomain(forName: bundleID)?[legacyKey] as? Bool ?? true
+        settingsDataController.setAutoSignTalkPageDiscussions(persistedValue)
+        settingsDataController.setDidMigrateAutoSignTalkPageDiscussions(true)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateShowLanguageBar() {
+        let legacyKey = "ShowLanguageBar"
+        let settingsDataController = WMFSettingsDataController.shared
+        guard let legacyValue = UserDefaults.standard.object(forKey: legacyKey) as? NSNumber else {
+            // No legacy value — set default to true if not yet stored
+            let hasStoredValue = UserDefaults.standard.object(forKey: WMFUserDefaultsKey.showSearchLanguageBar.rawValue) != nil
+            if !hasStoredValue {
+                settingsDataController.setShowSearchLanguageBar(true)
+            }
+            return
+        }
+        settingsDataController.setShowSearchLanguageBar(legacyValue.boolValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateOpenAppOnSearchTab() {
+        let legacyKey = "WMFOpenAppOnSearchTab"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        guard WMFSettingsDataController.shared.setOpenAppOnSearchTab(legacyValue) else {
+            return
+        }
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    private func migrateIsSubscribedToEchoNotifications() {
+        let legacyKey = "WMFIsSubscribedToEchoNotifications"
+        guard UserDefaults.standard.object(forKey: legacyKey) != nil else {
+            return
+        }
+        let legacyValue = UserDefaults.standard.bool(forKey: legacyKey)
+        let store = WMFDataEnvironment.current.userDefaultsStore
+        try? store?.save(key: WMFUserDefaultsKey.isSubscribedToEchoNotifications.rawValue, value: legacyValue)
+        UserDefaults.standard.removeObject(forKey: legacyKey)
+    }
+
+    @objc func setupWMFDataEnvironment() {
+        WMFDataEnvironment.current.mediaWikiService = MediaWikiFetcher(session: dataStore.session, configuration: dataStore.configuration)
+
+        switch Configuration.current.environment {
+        case .staging:
+            WMFDataEnvironment.current.serviceEnvironment = .staging
+        default:
+            WMFDataEnvironment.current.serviceEnvironment = .production
+        }
+
+        WMFDataEnvironment.current.userAgentUtility = {
+            return WikipediaAppUtils.versionedUserAgent()
+        }
+
+        WMFDataEnvironment.current.appInstallIDUtility = {
+            return try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        }
+
+        WMFDataEnvironment.current.acceptLanguageUtility = {
+            return Locale.acceptLanguageHeaderForPreferredLanguages
+        }
+
+        WMFDataEnvironment.current.httpErrorLogger = { info in
+            ClientErrorFunnel.shared.logHTTPError(info: info)
+        }
+
+        WMFDataEnvironment.current.sharedCacheStore = SharedContainerCacheStore()
+
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+
+        WMFDataEnvironment.current.testKitchenClient = TestKitchenAdapter.shared.client
+
+        evaluateAppInstallAndSessionIDs()
+
+        // Warn level on purpose: the default log threshold (WMFLogging.h) is
+        // warning, and this line must reach the log file that ships with the
+        // "Export user data" package so errors in Logstash can be correlated
+        // with an exported log through the same install ID.
+        if let appInstallID: String = try? WMFDataEnvironment.current.crossProcessUserDefaultsStore?.load(key: WMFUserDefaultsKey.appInstallID.rawValue) {
+            DDLogWarn("App install ID: \(appInstallID)")
+        }
+
+        // Notify the scene delegate that the data environment is ready, so it can submit any
+        // deferred app_open event (e.g. on fresh install where languages weren't set up yet).
+        #if !TEST
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.dataEnvironmentDidSetup()
+        }
+        #endif
+    }
+    
+    private func evaluateAppInstallAndSessionIDs() {
         
-        WMFHomeDataController.shared.setSeeFirstContent(.community)
-        if let homeViewModel = homeCoordinator?.homeViewController?.viewModel {
-            homeViewModel.selectedTab = .community
-            homeViewModel.loadForYouFeedIfNeeded()
+        let legacyAppInstallID = UserDefaults.standard.string(forKey: WMFAppInstallId)
+        let legacySessionID = UserDefaults.standard.wmf_sessionID
+        
+        let store = WMFDataEnvironment.current.crossProcessUserDefaultsStore
+        let appInstallID: String? = try? store?.load(key: WMFUserDefaultsKey.appInstallID.rawValue)
+        let sessionID: String? = try? store?.load(key: WMFUserDefaultsKey.sessionID.rawValue)
+        
+        if legacyAppInstallID == nil && appInstallID == nil {
+            // This is likely a fresh install! Generate a new app install ID
+            
+            let newAppInstallId = UUID().uuidString
+            try? store?.save(key: WMFUserDefaultsKey.appInstallID.rawValue, value: newAppInstallId)
+        } else {
+            
+            // Check to see if migrations are needed
+            if legacyAppInstallID != nil && appInstallID == nil {
+                try? store?.save(key: WMFUserDefaultsKey.appInstallID.rawValue, value: legacyAppInstallID)
+                UserDefaults.standard.wmf_appInstallId = nil
+            }
+            
+            if legacySessionID != nil && sessionID == nil {
+                try? store?.save(key: WMFUserDefaultsKey.sessionID.rawValue, value: legacySessionID)
+                UserDefaults.standard.wmf_sessionID = nil
+            }
         }
-        oneTimeOnboardingViewController?.dismiss(animated: true) { [weak self] in
-            self?.oneTimeOnboardingViewController = nil
+    }
+
+    @objc func updateWMFDataEnvironmentFromLanguagesDidChange() {
+        let languages = dataStore.languageLinkController.preferredLanguages.map { WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode) }
+        WMFDataEnvironment.current.appData = WMFAppData(appLanguages: languages)
+    }
+
+    @objc func performWMFDataHousekeeping() {
+        WMFExperimentsDataController.pruneRetiredExperiments()
+
+        let coreDataStore = WMFDataEnvironment.current.coreDataStore
+        Task {
+            do {
+                try await coreDataStore?.performDatabaseHousekeeping()
+            } catch {
+                DDLogError("Error pruning WMFData database: \(error)")
+            }
+
+            do {
+                let pageViewsDataController = try WMFPageViewsDataController()
+                let clampedCount = try await pageViewsDataController.clampInflatedPageViewSecondsIfNeeded()
+                if clampedCount > 0 {
+                    DDLogInfo("Clamped inflated reading time on \(clampedCount) page views.")
+                }
+            } catch {
+                DDLogError("Error clamping inflated page view seconds: \(error)")
+            }
         }
+    }
+
+    @objc func deleteYearInReviewPersonalizedNetworkData() {
+        Task {
+            do {
+                let yirDataController = try WMFYearInReviewDataController()
+                try await yirDataController.deletePersonalizedData(for: .account)
+            } catch {
+                DDLogError("Failure deleting personalized editing data from year in review: \(error)")
+            }
+        }
+    }
+}
+
+// MARK: - Discover
+
+extension WMFAppViewController {
+
+    /// Generates the Discover reading list when its cadence is due. Runs each time the app becomes
+    /// active. On a cold launch the Core Data store is not ready yet, so it runs again when the
+    /// store posts `coreDataStoreSetup`. Only group B gets a list. A reader in the control group
+    /// who turned Discover on before the group gate gets it turned off, list included.
+    @objc func generateDiscoverReadingListIfNeeded() {
+        guard WMFDataEnvironment.current.coreDataStore != nil else { return }
+        let discoverDataController = WMFDiscoverDataController.shared
+        Task {
+            let dataController = WMFDiscoverReadingListDataController.shared
+            if discoverDataController.hasListTurnedOnInControlGroup {
+                try? await dataController.turnOff()
+                return
+            }
+            guard discoverDataController.isAvailableToReader, await dataController.settings.isEnabled else { return }
+            _ = try? await dataController.generateRecommendationsIfNeeded()
+        }
+    }
+}
+
+// MARK: - Tabs
+
+ extension WMFAppViewController {
+
+     @objc func assignMoreDynamicTabsV2ExperimentIfNeeded() {
+         ArticleTabsFunnel.shared.logGroupAssignment(group: "dynamic_c")
+     }
+
+     @objc func observeArticleTabsNSNotifications() {
+              NotificationCenter.default.addObserver(self, selector: #selector(articleTabDeleted(_:)), name: WMFNSNotification.articleTabDeleted, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(articleTabItemDeleted(_:)), name: WMFNSNotification.articleTabItemDeleted, object: nil)
+          }
+
+      @objc func articleTabDeleted(_ note: Notification) {
+          guard
+             let tabIdentifier = note.userInfo?[WMFNSNotification.UserInfoKey.articleTabIdentifier] as? UUID
+          else {
+              return
+          }
+
+          DispatchQueue.main.async {
+              self.removeArticlesForDeletedTabParts(tabIdentifier: tabIdentifier)
+          }
+      }
+
+     @objc func articleTabItemDeleted(_ note: Notification) {
+         guard
+            let tabItemIdentifier = note.userInfo?[WMFNSNotification.UserInfoKey.articleTabItemIdentifier] as? UUID
+         else {
+             return
+         }
+
+         DispatchQueue.main.async {
+             self.removeArticlesForDeletedTabParts(tabItemIdentifier: tabItemIdentifier)
+         }
+     }
+
+     func removeArticlesForDeletedTabParts(tabIdentifier: UUID? = nil, tabItemIdentifier: UUID? = nil) {
+         if let tabIdentifier {
+             tabIdentifiersToDelete.append(tabIdentifier)
+         }
+
+         if let tabItemIdentifier {
+             tabItemIdentifiersToDelete.append(tabItemIdentifier)
+         }
+
+         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debounceRemoveArticlesForDeletedTabParts), object: nil)
+         perform(#selector(debounceRemoveArticlesForDeletedTabParts), with: nil, afterDelay: 0.5)
+     }
+
+      /// Removes any articles from the navigation stack that belong to the deleted tab or a deleted article
+     @objc func debounceRemoveArticlesForDeletedTabParts() {
+
+          guard let viewControllers else {
+              return
+          }
+
+          // Loop through all view controllers
+          for viewController in viewControllers {
+              // Check if it's a navigation controller
+              guard let navigationController = viewController as? UINavigationController else {
+                  continue
+              }
+
+              // Get all view controllers in the navigation stack
+              let viewControllers = navigationController.viewControllers
+
+              // Filter out any ArticleViewControllers that belong to the deleted tab
+              let remainingViewControllers = viewControllers.filter { viewController in
+                  if let articleViewController = viewController as? ArticleViewController,
+                        let coordinator = articleViewController.coordinator,
+                        let tabIdentifier = coordinator.tabIdentifier,
+                        let tabItemIdentifier = coordinator.tabItemIdentifier,
+                        tabIdentifiersToDelete.contains(tabIdentifier) || tabItemIdentifiersToDelete.contains(tabItemIdentifier) {
+                      return false // Remove this view controller
+                  }
+
+                  return true // Keep this view controller
+              }
+
+              // Update the navigation stack if we removed any view controllers
+              if remainingViewControllers.count < viewControllers.count {
+                  navigationController.setViewControllers(remainingViewControllers, animated: false)
+              }
+          }
+
+         tabIdentifiersToDelete.removeAll()
+         tabItemIdentifiersToDelete.removeAll()
+      }
+ }
+
+// MARK: - Evergreen Account Creation
+
+extension WMFAppViewController {
+
+    /// Starts the prompt's session, then records the app open the session was launched by.
+    ///
+    /// `startSession` only weighs days before today, so it does not matter that the open being
+    /// recorded here belongs to the session it is deciding about.
+    @objc func startEvergreenAccountCreationSession() {
+        Task {
+            let dataController = WMFEvergreenAccountCreationDataController.shared
+            await dataController.startSession()
+
+            // Ordered deliberately: this session's app open has to be recorded before eligibility is
+            // weighed, or a reader crossing the "two more app open days" line is passed over until
+            // their next launch. Prompts presented synchronously by the resume have already taken the
+            // screen by the time these awaits resolve, so this one still yields to them.
+            if isViewingEligibleMainTab {
+                await dataController.recordAppOpen()
+            }
+
+            presentEvergreenAccountCreationPromptIfNeeded()
+        }
+    }
+
+    /// App opens are proxied by an impression of one of the main tabs, or of an article view.
+    @objc func recordEvergreenAccountCreationAppOpenIfNeeded() {
+        guard isViewingEligibleMainTab else { return }
+
+        Task {
+            await WMFEvergreenAccountCreationDataController.shared.recordAppOpen()
+        }
+    }
+
+    /// Attempts the prompt on Home or Saved, from the currently selected tab.
+    ///
+    /// Deliberately last in the app's prompt chain — after the logged out panel and the one time
+    /// Home onboarding — and it bails if any of them took the screen.
+    @objc func presentEvergreenAccountCreationPromptIfNeeded() {
+        guard presentedViewController == nil,
+              let navigationController = currentTabNavigationController,
+              let context = evergreenAccountCreationContextForSelectedTab else {
+            return
+        }
+
+        let coordinator = EvergreenAccountCreationCoordinator(navigationController: navigationController, theme: theme, dataStore: dataStore, context: context)
+        evergreenAccountCreationCoordinator = coordinator
+        coordinator.start()
+    }
+
+    private var evergreenAccountCreationContextForSelectedTab: WMFEvergreenAccountCreationDataController.PresentationContext? {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first,
+              currentTabNavigationController?.viewControllers.count == 1 else {
+            return nil
+        }
+
+        if rootViewController is HomeViewController || rootViewController is ExploreViewController {
+            return .home
+        }
+
+        if rootViewController is WMFSavedHostingController {
+            return .saved
+        }
+
+        return nil
+    }
+
+    /// Settings can take the first tab's place for some readers, and is not one of the main tabs.
+    private var isViewingEligibleMainTab: Bool {
+        guard let rootViewController = currentTabNavigationController?.viewControllers.first else { return false }
+
+        return rootViewController is HomeViewController
+            || rootViewController is ExploreViewController
+            || rootViewController is PlacesViewController
+            || rootViewController is WMFSavedHostingController
+            || rootViewController is WMFActivityTabViewController
+            || rootViewController is SearchViewController
     }
 }
 

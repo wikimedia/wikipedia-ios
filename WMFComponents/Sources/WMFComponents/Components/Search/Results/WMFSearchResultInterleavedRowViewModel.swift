@@ -15,6 +15,9 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         let referencesFormat: String
         let lastUpdatedFormat: String
         let leadSectionTitle: String
+        let feedbackQuestion: String
+        let thumbsUpAccessibilityLabel: String
+        let thumbsDownAccessibilityLabel: String
 
         /// The strings the card shares with the semantic search sheet come from it, so each is defined once.
         static func forLanguage(_ languageCode: String?) -> LocalizedStrings {
@@ -24,7 +27,10 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
                 contributorsFormat: sheetStrings.contributorsFormat,
                 referencesFormat: sheetStrings.referencesFormat,
                 lastUpdatedFormat: sheetStrings.lastUpdatedFormat,
-                leadSectionTitle: WMFLocalizedString("search-interleaved-results-lead-section", languageCode: languageCode, value: "Lead", comment: "Names the lead section of an article, the text before its first heading, on a search result that shows the start of the article. Shown with an arrow icon, where a result from a later section shows that section's title.")
+                leadSectionTitle: WMFLocalizedString("search-interleaved-results-lead-section", languageCode: languageCode, value: "Lead", comment: "Names the lead section of an article, the text before its first heading, on a search result that shows the start of the article. Shown with an arrow icon, where a result from a later section shows that section's title."),
+                feedbackQuestion: WMFLocalizedString("search-interleaved-results-feedback-question", languageCode: languageCode, value: "Is this result relevant?", comment: "Question in the feedback row at the bottom of a search result card. The reader answers it with the thumbs up and thumbs down buttons next to it."),
+                thumbsUpAccessibilityLabel: WMFLocalizedString("search-interleaved-results-feedback-thumbs-up-accessibility", languageCode: languageCode, value: "Yes", comment: "Accessibility label of the thumbs up button in the feedback row of a search result card. Answers the question whether the result is relevant."),
+                thumbsDownAccessibilityLabel: WMFLocalizedString("search-interleaved-results-feedback-thumbs-down-accessibility", languageCode: languageCode, value: "No", comment: "Accessibility label of the thumbs down button in the feedback row of a search result card. Answers the question whether the result is relevant.")
             )
         }
     }
@@ -35,11 +41,17 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         case loaded(WMFSemanticSearchAttribution?)
     }
 
+    /// Returns true when the answer is sent. When it returns false, the card stays open for another try.
+    typealias RatingAction = @MainActor @Sendable (SearchResult, WMFSemanticSearchFeedbackViewModel.Rating) -> Bool
+
     let result: SearchResult
     let localizedStrings: LocalizedStrings
 
     @Published private(set) var attributionState: AttributionLoadState = .loading
+    /// The answer of the reader. A card takes one answer, and it does not change.
+    @Published private(set) var rating: WMFSemanticSearchFeedbackViewModel.Rating?
 
+    private let ratingAction: RatingAction
     private let project: WMFProject?
     private let languageCode: String?
     private let showsLastUpdatedInPlaceOfReferences: Bool
@@ -50,13 +62,17 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         project: WMFProject?,
         showsLastUpdatedInPlaceOfReferences: Bool,
         attributionProvider: @escaping WMFSearchResultsViewModel.AttributionProvider,
+        attributionState: AttributionLoadState = .loading,
+        ratingAction: @escaping RatingAction = { _, _ in true },
         localizedStrings: LocalizedStrings? = nil
     ) {
         self.result = result
+        self.ratingAction = ratingAction
         self.project = project
         self.languageCode = project?.languageCode
         self.showsLastUpdatedInPlaceOfReferences = showsLastUpdatedInPlaceOfReferences
         self.attributionProvider = attributionProvider
+        self.attributionState = attributionState
         self.localizedStrings = localizedStrings ?? LocalizedStrings.forLanguage(project?.languageCode)
     }
 
@@ -71,6 +87,15 @@ final class WMFSearchResultInterleavedRowViewModel: ObservableObject {
         guard !Task.isCancelled else { return }
 
         attributionState = .loaded(attribution)
+    }
+
+    // MARK: - Feedback
+
+    /// Takes the first answer of the reader and passes it on. Later answers are ignored, so a card sends one answer.
+    func rate(_ newRating: WMFSemanticSearchFeedbackViewModel.Rating) {
+        guard rating == nil, ratingAction(result, newRating) else { return }
+
+        rating = newRating
     }
 
     // MARK: - Presentation

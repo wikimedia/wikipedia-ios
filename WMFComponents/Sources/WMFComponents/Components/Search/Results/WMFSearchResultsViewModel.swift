@@ -1,5 +1,6 @@
 import SwiftUI
 import WMFData
+import WMFNativeLocalizations
 
 @MainActor
 public final class WMFSearchResultsViewModel: ObservableObject {
@@ -109,8 +110,12 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     public typealias SaveAction = @MainActor @Sendable (SearchResult, Int, ActionSource) -> Void
     public typealias ShareAction = @MainActor @Sendable (SearchResult, Int, CGRect?, ActionSource) -> Void
     public typealias IsSavedAction = @MainActor @Sendable (SearchResult) -> Bool
+    /// The reader rated a result of the interleaved list. The index is the position of the result in the list.
+    /// Returns true when the answer is sent. When it returns false, the card does not take the answer.
+    public typealias RatingAction = @MainActor @Sendable (SearchResult, Int, WMFSemanticSearchFeedbackViewModel.Rating) -> Bool
     public typealias SummaryProvider = @Sendable (WMFProject, String) async throws -> WMFArticleSummary
     public typealias AttributionProvider = @Sendable (WMFProject, String) async throws -> WMFSemanticSearchAttribution
+    public typealias InfoAction = @MainActor @Sendable () -> Void
 
     /// How the list draws its results. The semantic search interleaved treatment uses its own rows.
     public enum RowStyle: Equatable, Sendable {
@@ -151,8 +156,10 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     private let openOnMapAction: ResultAction
     private let saveOrUnsaveAction: SaveAction
     private let shareAction: ShareAction
+    private let ratingAction: RatingAction
     private let summaryProvider: SummaryProvider
     private let attributionProvider: AttributionProvider
+    private let interleavedInfoAction: InfoAction?
 
     public init(
         localizedStrings: LocalizedStrings,
@@ -165,8 +172,10 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         openOnMapAction: @escaping ResultAction,
         saveOrUnsaveAction: @escaping SaveAction,
         shareAction: @escaping ShareAction,
+        ratingAction: @escaping RatingAction = { _, _, _ in true },
         summaryProvider: SummaryProvider? = nil,
-        attributionProvider: AttributionProvider? = nil
+        attributionProvider: AttributionProvider? = nil,
+        interleavedInfoAction: InfoAction? = nil
     ) {
         self.localizedStrings = localizedStrings
         self.noInternetConnectionImage = noInternetConnectionImage
@@ -178,6 +187,8 @@ public final class WMFSearchResultsViewModel: ObservableObject {
         self.openOnMapAction = openOnMapAction
         self.saveOrUnsaveAction = saveOrUnsaveAction
         self.shareAction = shareAction
+        self.ratingAction = ratingAction
+        self.interleavedInfoAction = interleavedInfoAction
         self.summaryProvider = summaryProvider ?? { project, title in
             try await WMFArticleSummaryDataController.shared.fetchArticleSummary(project: project, title: title)
         }
@@ -242,6 +253,24 @@ public final class WMFSearchResultsViewModel: ObservableObject {
     /// shows the card alone instead of the no results message.
     var showsSemanticSearchEntryPointInsteadOfEmptyState: Bool {
         emptyState == .noResults && semanticSearchEntryPointViewModel != nil
+    }
+
+    /// The interleaved list starts with a row that says the results are an experiment. It comes with
+    /// the results, so it does not move them after they render.
+    var showsInterleavedHeader: Bool {
+        rowStyle == .interleaved && !results.isEmpty && interleavedInfoAction != nil
+    }
+
+    var betaLabel: String {
+        CommonStrings.betaLabel(languageCode: languageCode)
+    }
+
+    var interleavedInfoAccessibilityLabel: String {
+        WMFLocalizedString("search-interleaved-results-info-accessibility-label", languageCode: languageCode, value: "About these results", comment: "Accessibility label of the info button above the search results that can include passages from inside articles. The button opens a sheet that explains the experiment.")
+    }
+
+    func showInterleavedInfo() {
+        interleavedInfoAction?()
     }
 
     var firstAccessibilityElementID: String? {
@@ -349,7 +378,18 @@ public final class WMFSearchResultsViewModel: ObservableObject {
             result: result,
             project: project,
             showsLastUpdatedInPlaceOfReferences: WMFSemanticSearchInterleavedDataController.shared.showsLastUpdatedInPlaceOfReferences(languageCode: languageCode),
-            attributionProvider: attributionProvider)
+            attributionProvider: attributionProvider,
+            ratingAction: { [weak self] result, rating in
+                self?.rate(result, rating) ?? false
+            })
+    }
+
+    /// Passes the answer on and thanks the reader. Returns false, with no thanks, when the answer is not sent.
+    private func rate(_ result: SearchResult, _ rating: WMFSemanticSearchFeedbackViewModel.Rating) -> Bool {
+        guard let index = index(of: result), ratingAction(result, index, rating) else { return false }
+
+        WMFToastPresenter.shared.show(WMFToastConfig(title: WMFSemanticSearchFeedbackViewModel.thanksToastTitle(languageCode: languageCode)))
+        return true
     }
 
     func loadImage(url: URL?) async -> UIImage? {

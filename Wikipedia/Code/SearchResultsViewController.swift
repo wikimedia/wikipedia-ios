@@ -32,6 +32,11 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// for navigating to the given URL.
     var articleTappedAction: ((URL, NeedsNewTab) -> Void)?
 
+    /// Called when the reader opens a semantic row of the interleaved list, with a tap or from the
+    /// long-press menu. The caller opens the article at the passage. If it is nil, the row opens
+    /// through `articleTappedAction`, at the top of the article.
+    var semanticResultTappedAction: (@MainActor @Sendable (WMFSemanticSearchResult, WMFProject, NeedsNewTab) -> Void)?
+
     /// Called with the query and the project of the search when the reader taps the semantic
     /// search entry point.
     /// Follows the search into the sheet of passages and the article. The search screen owns it.
@@ -46,6 +51,8 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// Called with the search language code when the reader taps the info button of the
     /// semantic search entry point.
     var semanticSearchInfoTappedAction: (@MainActor @Sendable (String) -> Void)?
+    /// Opens the sheet that explains the interleaved list, in the language of the search.
+    var interleavedResultsInfoTappedAction: (@MainActor @Sendable (String) -> Void)?
 
     /// Called when the user selects a recently-searched term so the parent can write the text into
     /// its own search bar and activate it.
@@ -111,6 +118,12 @@ class SearchResultsViewController: ThemeableViewController, WMFNavigationBarConf
     /// bar without asking for that edit, so an empty bar that doesn't match it is a tap on clear.
     var expectedSearchBarText: String?
     var searchResultsByArticleURL: [String: MWKSearchResult] = [:]
+    /// The semantic results of the interleaved list as the API returned them, by article URL. A row shows
+    /// the passage as plain text. This keeps the passage with its markup and its section, so that opening
+    /// the article from a semantic row can highlight it, as the semantic search sheet does.
+    var semanticResultsByArticleURL: [String: WMFSemanticSearchResult] = [:]
+    /// The search IDs of the interleaved list on screen. The feedback of a card carries them.
+    var displayedInterleavedSearchIDs: WMFSemanticSearchInterleavedIDs?
 
     var siteURL: URL? {
         get {

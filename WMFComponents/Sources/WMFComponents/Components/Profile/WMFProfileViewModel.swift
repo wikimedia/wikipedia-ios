@@ -160,7 +160,7 @@ enum ProfileState {
                     coordinatorDelegate?.handleProfileAction(.logDonateTap)
                 }
             )
-            var section3Items = [donateItem]
+            let section3Items = [donateItem]
             
             let settingsItem = ProfileListItem(
                 text: localizedStrings.settingsTitle,
@@ -450,7 +450,7 @@ enum ProfileState {
                 subtext: nil
             )
 
-            var sections = [joinSection, donateSection, settingsSection]
+            let sections = [joinSection, donateSection, settingsSection]
             
             return sections
         }

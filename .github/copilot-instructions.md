@@ -443,6 +443,8 @@ Note: `OS=latest` resolves to whatever iOS Simulator runtime is installed on the
 
 To run unit tests, use the same commands but add "test" after xcodebuild, e.g. `xcodebuild test \` Each scheme should run to fully confirm unit tests work (WMFData, WMFComponents, App-side).
 
+An incremental build shows warnings only for the files that it compiles again. To see every warning, build with an empty derived data folder, for example `-derivedDataPath "$(mktemp -d)"`.
+
 
 
 ## Swift 6 Strict Concurrency
@@ -462,6 +464,8 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
 - Use `@MainActor` on classes or methods that interact with UIKit or SwiftUI (view models, hosting controllers, UI-related helpers, coordinators). All `ObservableObject` view models should be annotated `@MainActor`.
 - Data controllers in WMFData must **not** import UIKit or SwiftUI, so they cannot be `@MainActor`. Keep them actor-isolated only when they manage shared mutable state; otherwise prefer `Sendable` value-type models as return types.
 - Methods that call `@MainActor`-isolated code from a non-isolated context must use `await MainActor.run { }` or be called from a `Task { @MainActor in ... }`.
+- A `static let` constant on a `@MainActor` type is main actor-isolated too. If non-isolated code reads it (a default argument value is a common case), mark it `nonisolated static let`. This is safe when the type of the constant is `Sendable`: the value is immutable and Swift initializes it only once. The compiler rejects the change when the type is not `Sendable` or the initializer calls main actor code. Do not use `nonisolated(unsafe)` for this.
+- When a `@MainActor` type conforms to a protocol that is not isolated (for example, `Themeable`), use an isolated conformance: `class ArticleToolbarController: @MainActor Themeable`. Do not use `@preconcurrency` for this.
 
 ### Sendable Conformance
 
@@ -484,9 +488,10 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
 
         func load() {
             loadTask?.cancel()
-            loadTask = Task {
+            loadTask = Task { [weak self] in
                 do {
                     let result = try await SomeDataController.shared.fetchItems()
+                    guard let self else { return }
                     self.items = result
                 } catch {
                     // handle error
@@ -496,6 +501,19 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
 
         deinit {
             loadTask?.cancel()
+        }
+    }
+    ```
+
+- When an inner closure captures `[weak self]`, the outer closure that contains it captures `self` too. Without a capture list, that capture is strong and hidden, and Swift warns about it (`#ImplicitStrongCapture`). Give the outer closure an explicit capture list:
+    - `[weak self]` with `guard let self else { return }` when the closure is stored (toast buttons, view model callbacks) or runs after a wait (`await`, a network completion). If the screen is gone, the work stops.
+    - `[self]` when the closure runs once and soon (`DispatchQueue.main.async`, a `Task` with no `await` before it uses `self`). This keeps the current behavior and makes the strong capture visible.
+
+    ```swift
+    fetcher.fetch { [weak self] result in
+        guard let self else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.show(result)
         }
     }
     ```
@@ -518,8 +536,9 @@ All new code must comply with Swift 6 strict concurrency. The following rules ap
         @Published var title: String = ""
 
         func refresh() {
-            Task {
+            Task { [weak self] in
                 let value = try await SomeDataController.shared.fetchTitle()
+                guard let self else { return }
                 self.title = value
             }
         }

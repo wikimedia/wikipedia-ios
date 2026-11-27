@@ -610,7 +610,7 @@ private extension NotificationsCenterViewController {
                 return
             }
 
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 let alert = UIAlertController(
                     title: WMFLocalizedString("notifications-center-onboarding-panel-heading", value: "Turn on push notifications?", comment: "Title for Notifications Center onboarding panel."),
                     message: WMFLocalizedString("notifications-center-onboarding-panel-subheading", value: "Wikipedia is a collaborative project and turning on push notifications can make it easier to keep up to date with messages, alerts, and \"thanks\" from fellow editors.", comment: "Message for Notifications Center onboarding panel."),

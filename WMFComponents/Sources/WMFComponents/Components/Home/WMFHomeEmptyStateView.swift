@@ -7,12 +7,14 @@ import WMFNativeLocalizations
 struct WMFHomeEmptyStateView: View {
 
     /// The two segments show the same title. This key is already translated, so both segments use it.
-    private let title = WMFLocalizedString("home-empty-feed-title", value: "Your feed is empty", comment: "Title shown on the Home tab's For You or Community segment when the reader has turned off every feed module for it in settings.")
+    private var title: String { WMFLocalizedString("home-empty-feed-title", languageCode: languageCode, value: "Your feed is empty", comment: "Title shown on the Home tab's For You or Community segment when the reader has turned off every feed module for it in settings.") }
 
-    private let buttonTitle = WMFLocalizedString("home-empty-feed-manage-modules-button", value: "Manage modules", comment: "Button on the Home tab's For You or Community empty state. It opens the modules screen of the feed settings.")
+    private var buttonTitle: String { WMFLocalizedString("home-empty-feed-manage-modules-button", languageCode: languageCode, value: "Manage modules", comment: "Button on the Home tab's For You or Community empty state. It opens the modules screen of the feed settings.") }
 
     let subtitle: String
     let theme: WMFTheme
+    /// The Community feed passes its wiki language, the way Android does. Nil is the app language.
+    var languageCode: String? = nil
     let action: () -> Void
 
     private let uiImage = UIImage(named: "empty_feed", in: Bundle.module, compatibleWith: nil)

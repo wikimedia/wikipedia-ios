@@ -91,7 +91,7 @@ class DonateCoordinator: Coordinator {
             url = articleCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
         } else if case .donationReminderCampaignModal(_, _, let donationReminderCampaignDonateURL) = source {
             url = donationReminderCampaignDonateURL.replacingDonateParameters(language: languageCode, metricsId: metricsID)
-        } else if case .donationReminderArticle(let articleURL, _, _) = source {
+        } else if case .donationReminderArticle = source {
             let donateURL = URL(string:"https://donate.wikimedia.org/?wmf_medium=WikipediaApp&wmf_campaign=$platform;&wmf_source=$formattedId;&uselang=$language;&app_install_id=$appInstallId;&app_version=$appVersion;")
 
             url = donateURL?.replacingDonateParameters(language: languageCode, metricsId: metricsID)

@@ -129,8 +129,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         
         if authManager.authStateIsTemporary {
             let viewModel = WMFTempAccountsToastViewModel(
-                    didTapReadMore: {
-                        guard let navigationController = self.navigationController else { return }
+                    didTapReadMore: { [weak self] in
+                        guard let self, let navigationController = self.navigationController else { return }
                         let tempAccountSheetCoordinator = TempAccountSheetCoordinator(navigationController: navigationController, theme: self.theme, dataStore: self.dataStore, didTapDone: { [weak self] in
                             self?.dismiss(animated: true)
                         }, didTapContinue: { [weak self] in
@@ -258,14 +258,14 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         hcaptchaVC.modalTransitionStyle = .crossDissolve
         hcaptchaVC.modalPresentationStyle = .overFullScreen
         
-        hcaptchaVC.successAction = { token in
+        hcaptchaVC.successAction = { [weak self] token in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = token
                 self?.createAccount()
             }
         }
         
-        hcaptchaVC.errorAction = { error in
+        hcaptchaVC.errorAction = { [weak self] error in
             hcaptchaVC.dismiss(animated: true) { [weak self] in
                 self?.hCaptchaToken = nil
                 WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true)

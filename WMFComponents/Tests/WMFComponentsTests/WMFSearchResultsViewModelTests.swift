@@ -28,6 +28,7 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
     private final class Recorder {
         var actions = RecordedActions()
         var savedURLs: Set<URL> = []
+        var interleavedInfoCount = 0
     }
 
     private let localizedStrings = WMFSearchResultsViewModel.LocalizedStrings(
@@ -71,10 +72,32 @@ final class WMFSearchResultsViewModelTests: XCTestCase {
             saveOrUnsaveAction: { recorder.actions.savedOrUnsaved.append(($0, $1, $2)) },
             shareAction: { recorder.actions.shared.append(($0, $1, $2, $3)) },
             summaryProvider: summaryProvider,
-            attributionProvider: attributionProvider)
+            attributionProvider: attributionProvider,
+            interleavedInfoAction: { recorder.interleavedInfoCount += 1 })
     }
 
     // MARK: - State
+
+    func testInterleavedHeaderComesWithTheInterleavedResultsOnly() {
+        let recorder = Recorder()
+        let viewModel = makeViewModel(recorder: recorder)
+        XCTAssertFalse(viewModel.showsInterleavedHeader)
+
+        viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject)
+        XCTAssertFalse(viewModel.showsInterleavedHeader, "The control list has no header.")
+
+        viewModel.showLoading()
+        XCTAssertFalse(viewModel.showsInterleavedHeader)
+
+        viewModel.showResults([makeResult("Cat")], searchTerm: "cat", project: englishProject, rowStyle: .interleaved)
+        XCTAssertTrue(viewModel.showsInterleavedHeader)
+
+        viewModel.showInterleavedInfo()
+        XCTAssertEqual(recorder.interleavedInfoCount, 1)
+
+        viewModel.showResults([], searchTerm: "zzz", project: englishProject, rowStyle: .interleaved)
+        XCTAssertFalse(viewModel.showsInterleavedHeader, "No results, no header.")
+    }
 
     func testShowLoadingClearsTheListAndEveryOutcomeEndsIt() {
         let viewModel = makeViewModel(recorder: Recorder())

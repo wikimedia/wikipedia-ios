@@ -49,6 +49,12 @@ public enum ArticleSource: Int {
     case places = 9
     case readingList = 11
     case homeFeedForYouBecauseYouReadCard = 13
+    // The Community feed cards reuse Android's numbers for the same cards (HistoryEntry.SOURCE_*),
+    // so both platforms log them alike. On this day uses Android's SOURCE_ON_THIS_DAY_CARD: the
+    // number Android's Community feed sends (46) is already the For You interests card here.
+    case homeFeedCommunityTopReadCard = 14
+    case homeFeedCommunityFeaturedArticleCard = 15
+    case homeFeedCommunityOnThisDayCard = 23
     case widget = 29
     case game = 43
     case discover = 44

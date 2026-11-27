@@ -37,10 +37,7 @@ extension ArticleViewController {
                 switch result {
                 case .highlighted(let rect):
                     target = SemanticSearchScroll(target: .offset(rect.midY + webView.scrollView.contentOffset.y), centered: true)
-                case .notFound:
-                    WMFToastManager.sharedInstance.showToast(Self.passageNotFoundMessage, sticky: false, dismissPreviousToasts: true)
-                    fallthrough
-                case .unavailable:
+                case .notFound, .unavailable:
                     guard let sectionAnchor else { return }
                     target = SemanticSearchScroll(target: .anchor(sectionAnchor), centered: false)
                 }
@@ -158,6 +155,4 @@ extension ArticleViewController {
             WMFToastManager.sharedInstance.showToast(WMFSemanticSearchFeedbackViewModel.thanksToastTitle(), sticky: false, dismissPreviousToasts: true)
         }
     }
-
-    private static let passageNotFoundMessage = WMFLocalizedString("semantic-search-passage-not-found", value: "This passage is no longer in the article", comment: "Message shown after opening an article from a passage found by the search, when the passage is not in the article anymore.")
 }

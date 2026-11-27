@@ -193,7 +193,7 @@ public final class WMFImageRecommendationsViewController: WMFCanvasViewControlle
             bottomSheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
 
-        navigationController?.present(imageRecommendationBottomSheetController, animated: true, completion: {
+        navigationController?.present(imageRecommendationBottomSheetController, animated: true, completion: { [weak self] in
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
 

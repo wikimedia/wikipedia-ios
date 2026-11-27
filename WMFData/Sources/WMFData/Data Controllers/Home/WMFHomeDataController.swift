@@ -20,6 +20,10 @@ import Foundation
 
     // Dates for which feed data has been fetched per project, in descending order (most recent first).
     private var communityFetchedDates: [WMFProject: [Date]] = [:]
+    /// Increases each time a first page starts the feed of a project over. A previous page that
+    /// was fetched for an older generation belongs to a feed that is gone, so its date is not
+    /// recorded.
+    private var communityGenerations: [WMFProject: Int] = [:]
 
     @objc public static let shared = WMFHomeDataController()
 
@@ -729,12 +733,15 @@ import Foundation
 
     // MARK: - Community
 
-    /// Fetches the Home feed "Community" data for the given date.
+    /// Fetches the first page of the Home feed "Community" data, for the given date.
     /// Pass `Date()` (the default) to fetch today's data. The first-page response is cached per project per day.
+    ///
+    /// A first page starts the feed over, so `fetchCommunityPreviousPage` continues from `date` and
+    /// not from older days that an earlier feed loaded.
     @discardableResult
     public func fetchCommunity(project: WMFProject, date: Date = Date(), forceFetch: Bool = false) async throws -> WMFCommunityResponse {
-        if !forceFetch, let cached = cachedCommunityResponse(for: project) {
-            recordCommunityFetchedDate(date, project: project)
+        if !forceFetch, let cached = cachedCommunityResponse(for: project, date: date) {
+            resetCommunityFetchedDates(to: date, project: project)
             return cached
         }
         let calendar = Calendar(identifier: .gregorian)
@@ -743,7 +750,7 @@ import Foundation
         async let feedResponse = feedDataController.fetchFeed(project: project, date: date)
         async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
         let response = try await WMFCommunityResponse(date: date, feedResponse: feedResponse, onThisDay: onThisDay)
-        recordCommunityFetchedDate(date, project: project)
+        resetCommunityFetchedDates(to: date, project: project)
         cacheCommunityResponse(response, for: project)
         return response
     }
@@ -762,10 +769,15 @@ import Foundation
 
         let month = calendar.component(.month, from: previousDate)
         let day = calendar.component(.day, from: previousDate)
+        let generation = communityGenerations[project, default: 0]
         async let feedResponse = feedDataController.fetchFeed(project: project, date: previousDate)
         async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
         let response = try await WMFCommunityResponse(date: previousDate, feedResponse: feedResponse, onThisDay: onThisDay)
-        recordCommunityFetchedDate(previousDate, project: project)
+        // A first page fetched during the await started the feed over, so this day belongs to the
+        // old feed. Recording it would make the next previous page skip it.
+        if communityGenerations[project, default: 0] == generation {
+            recordCommunityFetchedDate(previousDate, project: project)
+        }
         return response
     }
 
@@ -792,10 +804,12 @@ import Foundation
         try? store.save(key: forYouCacheKey(for: project), value: entry)
     }
 
-    private func cachedCommunityResponse(for project: WMFProject) -> WMFCommunityResponse? {
+    /// The cached first page, if it was saved today and holds the feed of `date`.
+    private func cachedCommunityResponse(for project: WMFProject, date: Date) -> WMFCommunityResponse? {
         guard let store = WMFDataEnvironment.current.sharedCacheStore,
               let entry: WMFHomeCommunityFirstPageCacheEntry = try? store.load(key: communityCacheKey(for: project)),
-              Calendar.current.isDateInToday(entry.date) else { return nil }
+              Calendar.current.isDateInToday(entry.date),
+              Calendar(identifier: .gregorian).isDate(entry.response.date, inSameDayAs: date) else { return nil }
         return entry.response
     }
 
@@ -803,6 +817,11 @@ import Foundation
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let entry = WMFHomeCommunityFirstPageCacheEntry(date: Date(), response: response)
         try? store.save(key: communityCacheKey(for: project), value: entry)
+    }
+
+    private func resetCommunityFetchedDates(to date: Date, project: WMFProject) {
+        communityFetchedDates[project] = [Calendar(identifier: .gregorian).startOfDay(for: date)]
+        communityGenerations[project, default: 0] += 1
     }
 
     private func recordCommunityFetchedDate(_ date: Date, project: WMFProject) {

@@ -187,9 +187,19 @@ public enum AccessibilityIdentifiers {
         public static let semanticSearchFeedbackTextField = "Search Semantic Search Feedback Text Field"
         public static let semanticSearchFeedbackSubmitButton = "Search Semantic Search Feedback Submit Button"
         public static let semanticSearchFeedbackCloseButton = "Search Semantic Search Feedback Close Button"
+        public static func interleavedResultFeedbackThumbsUpButton(_ title: String) -> String {
+            "Search Interleaved Result Feedback Thumbs Up Button \(title)"
+        }
+
+        public static func interleavedResultFeedbackThumbsDownButton(_ title: String) -> String {
+            "Search Interleaved Result Feedback Thumbs Down Button \(title)"
+        }
         public static let semanticSearchInfoView = "Search Semantic Search Info View"
         public static let semanticSearchInfoCloseButton = "Search Semantic Search Info Close Button"
         public static let semanticSearchInfoLearnMoreButton = "Search Semantic Search Info Learn More Button"
+        public static let semanticSearchInfoTurnOffButton = "Search Semantic Search Info Turn Off Button"
+        public static let interleavedResultsHeader = "Search Interleaved Results Header"
+        public static let interleavedResultsInfoButton = "Search Interleaved Results Info Button"
         public static let searchBar = "Search Bar"
         public static let tabButton = "Search Tab Button"
         public static let view = "Search View"

@@ -781,9 +781,15 @@
 "home-button-home-accessibility-label" = "Wikipedia, return to Home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-card-more-options-accessibility-label" = "More options";
+"home-community-disclaimer" = "Content and resources selected by and about the Wikimedia community.";
+"home-community-error-title" = "Could not load content";
+"home-community-more-on-this-day" = "More on this day";
+"home-community-more-top-read" = "More top read";
+"home-community-picture-of-the-day-hint" = "Opens the picture in full screen, with its description and license.";
 "home-community-see-past-content" = "See past community content";
 "home-community-tab-title" = "Community";
-"home-edit-languages-title" = "Add or edit languages";
+"home-community-today-date-header" = "Today - $1";
+"home-community-top-read-past-subtitle" = "What was trending on Wikipedia that day";
 "home-empty-community-feed-subtitle" = "Turn on $1“Community”$2 modules to start seeing content curated by contributors across the Wikimedia movement.";
 "home-empty-feed-manage-modules-button" = "Manage modules";
 "home-empty-feed-title" = "Your feed is empty";
@@ -834,6 +840,7 @@
 "home-for-you-next-module-accessibility-action" = "Next module";
 "home-for-you-previous-module-accessibility-action" = "Previous module";
 "home-for-you-tab-title" = "For You";
+"home-manage-languages-title" = "Manage languages";
 "home-menu-hide-module" = "Hide module";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More places near your location";
@@ -1327,6 +1334,13 @@
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-clear-title" = "Clear";
 "search-field-placeholder-text" = "Search Wikipedia";
+"search-interleaved-info-experiment" = "This is an experiment to help us improve search.";
+"search-interleaved-info-summary" = "Some results include passages drawn from articles that people researched, wrote, and edited, each one backed by cited sources you can check.";
+"search-interleaved-info-turn-off" = "Turn feature off";
+"search-interleaved-results-feedback-question" = "Is this result relevant?";
+"search-interleaved-results-feedback-thumbs-down-accessibility" = "No";
+"search-interleaved-results-feedback-thumbs-up-accessibility" = "Yes";
+"search-interleaved-results-info-accessibility-label" = "About these results";
 "search-interleaved-results-lead-section" = "Lead";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
@@ -1368,7 +1382,6 @@
 "semantic-search-feedback-thumbs-down-accessibility" = "No";
 "semantic-search-feedback-thumbs-up-accessibility" = "Yes";
 "semantic-search-feedback-title" = "Feedback";
-"semantic-search-passage-not-found" = "This passage is no longer in the article";
 "serbian-variants-alert-body" = "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "Updates to Serbian variant support";
 "settings-account" = "Account";

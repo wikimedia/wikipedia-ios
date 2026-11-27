@@ -172,14 +172,36 @@ final class WMFFeedDataControllerTests: XCTestCase {
         XCTAssertEqual(lastItem?.links?.first?.pageid, 238341)
     }
 
-    // MARK: - onthisday excluded
+    // MARK: - onthisday
 
-    func testOnThisDayIsNotDeserialized() async throws {
-        // WMFFeedAPIResponse intentionally omits onthisday (T418486).
-        // Verify that omitting it doesn't break decoding of everything else.
+    /// The feed's On this day events are the ones the wiki's editors picked for the day.
+    func testOnThisDayPicksAreDecoded() async throws {
         let response = try await fetchFixture()
-        XCTAssertNotNil(response.todaysFeaturedArticle, "TFA must decode even when onthisday is present in JSON")
-        XCTAssertNotNil(response.mostRead, "mostRead must decode even when onthisday is present in JSON")
-        XCTAssertNotNil(response.image, "image must decode even when onthisday is present in JSON")
+        XCTAssertFalse(response.onThisDay?.isEmpty ?? true)
+        XCTAssertNotNil(response.todaysFeaturedArticle)
+        XCTAssertNotNil(response.mostRead)
+        XCTAssertNotNil(response.image)
+    }
+
+    /// An On this day event the model cannot read drops only the picks. The rest of the day still
+    /// decodes, so the Community feed does not show its full-screen error.
+    func testABrokenOnThisDayEventKeepsTheRestOfTheDay() throws {
+        let json = #"""
+        {
+          "tfa": { "title": "Black_hole" },
+          "mostread": { "articles": [ { "title": "Octopus" } ] },
+          "news": [ { "story": "A story" } ],
+          "onthisday": [
+            { "text": "Something happened", "year": 2013, "pages": [
+              { "title": "Something", "thumbnail": { "source": "https://upload.wikimedia.org/a.jpg" } }
+            ] }
+          ]
+        }
+        """#
+        let response = try JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(json.utf8))
+        XCTAssertNil(response.onThisDay)
+        XCTAssertEqual(response.todaysFeaturedArticle?.title, "Black_hole")
+        XCTAssertEqual(response.mostRead?.articles?.first?.title, "Octopus")
+        XCTAssertEqual(response.news?.count, 1)
     }
 }
