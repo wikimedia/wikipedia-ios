@@ -1,0 +1,28 @@
+{
+  "batchcomplete": true,
+  "query": {
+    "pages": [
+      {
+        "pageid": 12290408,
+        "ns": 0,
+        "title": "Australian History Awards",
+        "index": 1,
+        "snippet": "The pre-eminent prize for &quot;original published research that contributes to the history of Australia or New Zealand or to the history of colonisation in"
+      },
+      {
+        "pageid": 101,
+        "ns": 0,
+        "title": "A page with a match",
+        "index": 2,
+        "snippet": "Some text with a <span class=\"searchmatch\">match</span> in it"
+      },
+      {
+        "pageid": 103,
+        "ns": 0,
+        "title": "A page without text",
+        "index": 3,
+        "snippet": ""
+      }
+    ]
+  }
+}

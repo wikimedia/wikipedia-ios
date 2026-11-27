@@ -12,6 +12,67 @@ final class WMFArticleSearchDataControllerPageSearchTests: XCTestCase {
         WMFArticleSearchDataController(basicService: WMFMockBasicService(jsonResourceName: fixture))
     }
 
+    // MARK: - First sections
+
+    func testFetchFirstSectionsReturnsTheSnippetByPageID() async throws {
+        let sections = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [12290408, 101, 103], project: enProject)
+
+        XCTAssertTrue(sections[12290408]?.snippetHTML.hasPrefix("The pre-eminent prize for &quot;original") == true, "The snippet is kept as the search gives it, with its entities")
+        XCTAssertNotNil(sections[101]?.snippetHTML)
+    }
+
+    func testFetchFirstSectionsLeavesOutAPageWithoutText() async throws {
+        let sections = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [12290408, 101, 103], project: enProject)
+
+        XCTAssertEqual(Set(sections.keys), [12290408, 101], "Page 103 has an empty snippet")
+    }
+
+    func testFetchFirstSectionsAsksForAllThePagesInOneSearchByPageID() async throws {
+        let service = CapturingService(data: try fixtureData("article-search-first-sections-get"))
+
+        _ = try await WMFArticleSearchDataController(basicService: service).fetchFirstSections(pageIDs: [3, 1, 2], project: enProject)
+
+        let requests = service.capturedParameters
+        XCTAssertEqual(requests.count, 1, "One request for all of them")
+        let parameters = try XCTUnwrap(requests.first)
+        XCTAssertEqual(parameters["generator"] as? String, "search")
+        XCTAssertEqual(parameters["gsrsearch"] as? String, "pageid:3|1|2")
+        XCTAssertEqual(parameters["gsrlimit"] as? String, "3")
+        XCTAssertEqual(parameters["gsrnamespace"] as? String, "0")
+        XCTAssertEqual(parameters["gsrprop"] as? String, "snippet")
+        XCTAssertNil(parameters["prop"], "The internal search document is not asked for")
+        XCTAssertNil(parameters["cdincludes"])
+    }
+
+    func testFetchFirstSectionsWithoutPagesSendsNoRequest() async throws {
+        let service = CapturingService(data: Data())
+
+        let sections = try await WMFArticleSearchDataController(basicService: service).fetchFirstSections(pageIDs: [], project: enProject)
+
+        XCTAssertTrue(sections.isEmpty)
+        XCTAssertTrue(service.capturedParameters.isEmpty)
+    }
+
+    func testFetchFirstSectionsRejectsProjectsItDoesNotSearch() async {
+        do {
+            _ = try await controller(fixture: "article-search-first-sections-get").fetchFirstSections(pageIDs: [1], project: .wikidata)
+            XCTFail("Expected an unsupported project error")
+        } catch {
+            XCTAssertEqual(error as? WMFDataControllerError, .unsupportedProject)
+        }
+    }
+
+    func testFetchFirstSectionsThrowsTheErrorOfTheResponseBody() async {
+        do {
+            _ = try await controller(fixture: "article-search-error-get").fetchFirstSections(pageIDs: [1], project: enProject)
+            XCTFail("Expected the error of the body")
+        } catch {
+            guard case WMFDataControllerError.mediaWikiResponseError = error else {
+                return XCTFail("Unexpected error: \(error)")
+            }
+        }
+    }
+
     // MARK: - Page search
 
     func testSearchPagesDecodesResultsInIndexOrder() async throws {
@@ -210,6 +271,65 @@ private final class CapturingSearchService: WMFService, @unchecked Sendable {
 
     func performDecodablePOST<R: WMFServiceRequest, T: Decodable>(request: R, completion: @escaping (Result<T, Error>) -> Void) {
         performDecodableGET(request: request, completion: completion)
+    }
+
+    func clearCachedData() {
+    }
+}
+
+private func fixtureData(_ name: String) throws -> Data {
+    let url = try XCTUnwrap(WMFDataMocksResources.url(forResource: name))
+    return try Data(contentsOf: url)
+}
+
+/// Answers every request with the same data, and keeps the parameters of the requests.
+private final class CapturingService: WMFService, @unchecked Sendable {
+    private let lock = NSLock()
+    private let data: Data
+    private var captured: [[String: Any]] = []
+
+    init(data: Data) {
+        self.data = data
+    }
+
+    var capturedParameters: [[String: Any]] {
+        lock.lock()
+        defer { lock.unlock() }
+        return captured
+    }
+
+    private func record(_ request: any WMFServiceRequest) {
+        lock.lock()
+        captured.append(request.parameters ?? [:])
+        lock.unlock()
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
+        record(request)
+        completion(.success(data))
+    }
+
+    func perform<R: WMFServiceRequest>(request: R, completion: @escaping @Sendable (Result<[String: Any]?, Error>) -> Void) {
+        record(request)
+        completion(.success(try? JSONSerialization.jsonObject(with: data) as? [String: Any]))
+    }
+
+    func performDecodableGET<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
+        record(request)
+        completion(Result { try JSONDecoder().decode(T.self, from: data) })
+    }
+
+    func performDecodablePOST<R: WMFServiceRequest, T: Decodable & Sendable>(request: R, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
+        performDecodableGET(request: request, completion: completion)
+    }
+
+    func performCancellableDecodableGETWithResponse<R: WMFServiceRequest, T: Decodable & Sendable>(
+        request: R,
+        completion: @escaping @Sendable (Result<WMFServiceResponse<T>, Error>) -> Void
+    ) -> WMFURLSessionDataTask? {
+        record(request)
+        completion(Result { WMFServiceResponse(value: try JSONDecoder().decode(T.self, from: data), headers: [:]) })
+        return nil
     }
 
     func clearCachedData() {
