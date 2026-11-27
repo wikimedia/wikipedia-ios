@@ -162,7 +162,9 @@ class ArticleTableOfContentsDisplayController: Themeable {
             guard viewController.parent != delegate else {
                 return
             }
-            let wasVisible = viewController.isVisible
+            // Size classes can flip transiently (e.g. iPad background snapshot), so consult the
+            // persisted inline visibility as well; isVisible alone is already lost by then.
+            let wasVisible = viewController.isVisible || UserDefaults.standard.wmf_isTableOfContentsVisibleInline()
             if wasVisible {
                 hideModal(animated: false)
             }
@@ -196,7 +198,10 @@ class ArticleTableOfContentsDisplayController: Themeable {
             viewController.removeFromParent()
             viewController = recreateTableOfContentsViewController()
             if wasVisible {
-                hideInline()
+                // Hide the inline container directly instead of hideInline(): a transient trait
+                // change must not overwrite the user's persisted visibility preference.
+                inlineContainerView.isHidden = true
+                separatorView.isHidden = true
                 showModal(animated: false)
             }
             delegate?.tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController()
