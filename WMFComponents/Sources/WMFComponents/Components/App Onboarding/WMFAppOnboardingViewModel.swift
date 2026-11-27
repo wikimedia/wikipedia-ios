@@ -5,7 +5,7 @@ import WMFData
 @MainActor
 public final class WMFAppOnboardingViewModel: ObservableObject {
 
-    public enum Step: Equatable {
+    public enum Step: Hashable {
         case intro
         case dataPrivacy
         case languages
@@ -78,7 +78,22 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
     /// animation, so this value comes from the file: "Timeline 1" is 60 frames at 60 fps.
     let loadingAnimationLoopDuration: TimeInterval = 1
 
-    @Published public private(set) var currentStepIndex: Int = 0
+    /// Every change of step reports the step the reader left and the step that is shown, so no
+    /// path (Next, a swipe) can miss either. Nothing is reported before the view appears, so
+    /// `jumpToStep` stays free of side effects.
+    @Published public private(set) var currentStepIndex: Int = 0 {
+        didSet {
+            guard hasAppeared, oldValue != currentStepIndex else { return }
+            didLeaveStep(steps[oldValue])
+            didShowStep(currentStep)
+        }
+    }
+
+    private var hasAppeared = false
+
+    /// The step the flow started at. The condensed flow starts at the interests step and must
+    /// not be able to swipe back to the steps before it.
+    private var firstStepIndex: Int = 0
     @Published public private(set) var languages: [LanguageItem]
 
     public let interestsViewModel: WMFHomeFeedInterestsSettingsViewModel
@@ -141,6 +156,14 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         return steps.filter { $0.isPersonalization }
     }
 
+    /// The steps the user can swipe between: the personalization steps from the start of the flow.
+    var swipeableSteps: [Step] {
+        return personalizationSteps.filter { step in
+            guard let index = steps.firstIndex(of: step) else { return false }
+            return index >= firstStepIndex
+        }
+    }
+
     var currentDotIndex: Int? {
         return personalizationSteps.firstIndex(of: currentStep)
     }
@@ -157,7 +180,7 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         
         logNext(currentStep)
         // Interests are final once the user leaves the interests step — start fetching the
-        // feed preference previews now for a head start over the step's onAppear.
+        // feed preference previews now, before the step is shown.
         if currentStep == .interests {
             feedPreferenceViewModel.loadIfNeeded()
         }
@@ -165,13 +188,53 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
         if currentStepIndex < steps.count - 1 {
             currentStepIndex += 1
         } else {
-            onCompletion()
+            complete()
         }
     }
-    
+
+    /// Moves between the personalization steps when the user swipes the pager. Like Android, a
+    /// swipe logs no click event: only the impression of the step that is shown.
+    func swipe(to step: Step) {
+        guard step != currentStep,
+              currentStep.isPersonalization,
+              swipeableSteps.contains(step),
+              let index = steps.firstIndex(of: step) else { return }
+        currentStepIndex = index
+    }
+
+    /// Called once, when the onboarding view appears. Later steps are reported by the change
+    /// of `currentStepIndex`.
+    func didAppear() {
+        guard !hasAppeared else { return }
+        hasAppeared = true
+        didShowStep(currentStep)
+    }
+
+    /// Called each time a step is shown, including when the user swipes back to it.
+    private func didShowStep(_ step: Step) {
+        logImpression(step)
+        if step == .feedPreference {
+            feedPreferenceViewModel.didShow()
+        }
+    }
+
+    /// Called each time the reader leaves a step: Next, Skip, a swipe or the end of the flow.
+    private func didLeaveStep(_ step: Step) {
+        if step == .feedPreference {
+            feedPreferenceViewModel.didLeave()
+        }
+    }
+
+    /// Ends the flow. The reader leaves the current step without a new one being shown.
+    private func complete() {
+        didLeaveStep(currentStep)
+        onCompletion()
+    }
+
     /// Sets the initial step without side effects. Only valid to call before the view appears.
     public func jumpToStep(_ step: Step) {
         guard let index = steps.firstIndex(of: step) else { return }
+        firstStepIndex = index
         currentStepIndex = index
     }
 
@@ -180,7 +243,7 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
     public func skip() {
         logSkip(currentStep)
         feedPreferenceViewModel.resetSelectionToDefault()
-        onCompletion()
+        complete()
     }
 
     private var loadingTask: Task<Void, Never>?
@@ -197,7 +260,7 @@ public final class WMFAppOnboardingViewModel: ObservableObject {
             async let minimumElapsed: Void = Self.sleep(minimumDisplay)
             _ = await (feedLoaded, minimumElapsed)
             guard !Task.isCancelled else { return }
-            onCompletion()
+            complete()
         }
     }
 

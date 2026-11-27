@@ -95,7 +95,13 @@ final class AppOnboardingCoordinator: NSObject {
                 guard let self else { return }
                 switch step {
                 case .personalizationIntro:
-                    self.homeFeedInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed")
+                    // The step can be shown again by swiping back. Like Android, the funnel
+                    // starts once, when the personalization steps are first shown, so it also
+                    // covers readers who swipe forward instead of tapping Next.
+                    if self.homeFeedInstrument == nil {
+                        self.homeFeedInstrument = TestKitchenAdapter.shared.client.getInstrument(name: "apps-home-feed")
+                            .startFunnel(name: "feed_customize")
+                    }
                     self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_entry")
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "impression", actionSource: "feed_customize")
@@ -119,11 +125,11 @@ final class AppOnboardingCoordinator: NSObject {
                 guard let self else { return }
                 switch step {
                 case .personalizationIntro:
-                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "skip_button")
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_entry", elementId: "skip_button")
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
                 case .feedPreference:
-                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
@@ -142,11 +148,11 @@ final class AppOnboardingCoordinator: NSObject {
                 guard let self else { return }
                 switch step {
                 case .personalizationIntro:
-                    self.homeFeedInstrument?.startFunnel(name: "feed_customize").submitInteraction(action: "click", actionSource: "feed_entry", elementId: "next_button")
+                    self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_entry", elementId: "next_button")
                 case .interests:
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
                 case .feedPreference:
-                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                     self.homeFeedInstrument?.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
@@ -247,7 +253,7 @@ final class AppOnboardingCoordinator: NSObject {
                 case .interests:
                     instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "skip_button")
                 case .feedPreference:
-                    let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                    let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                     instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "skip_button")
                 case .loading:
                     assertionFailure("Loading view does not have a skip button")
@@ -263,7 +269,7 @@ final class AppOnboardingCoordinator: NSObject {
                  case .interests:
                      instrument.submitInteraction(action: "click", actionSource: "feed_customize", elementId: "next_button")
                  case .feedPreference:
-                     let actionSubtype: String? = !feedPreferenceViewModel.isPersonalizedAvailable ? "no_interests" : nil
+                     let actionSubtype: String? = feedPreferenceViewModel.isPersonalizedAvailable == false ? "no_interests" : nil
                      instrument.submitInteraction(action: "click", actionSource: "feed_order_customize", actionSubtype: actionSubtype, elementId: "next_button")
                  case .loading:
                      assertionFailure("Loading view does not have a next button")

@@ -40,51 +40,63 @@ public struct WMFAppOnboardingView: View {
         // one word per line and collide with the floating toolbar. Step views resolve their
         // WMFFonts against this capped size (see WMFFont.for(_:sized:)).
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
+        // The view model reports each later step when the step changes.
+        .onAppear {
+            viewModel.didAppear()
+        }
     }
 
     @ViewBuilder
     private var stepContent: some View {
-        switch viewModel.currentStep {
-        case .intro:
-            WMFAppOnboardingIntroView(viewModel: viewModel)
-                .onAppear {
-                    viewModel.logImpression(.intro)
-                }
-        case .dataPrivacy:
-            WMFAppOnboardingDataPrivacyView(viewModel: viewModel, theme: theme)
-                .onAppear {
-                    viewModel.logImpression(.dataPrivacy)
-                }
-        case .languages:
-            WMFAppOnboardingLanguagesView(viewModel: viewModel, theme: theme)
-                .onAppear {
-                    viewModel.logImpression(.languages)
-                }
+        if viewModel.currentStep.isPersonalization {
+            personalizationPager
+        } else {
+            switch viewModel.currentStep {
+            case .intro:
+                WMFAppOnboardingIntroView(viewModel: viewModel)
+            case .dataPrivacy:
+                WMFAppOnboardingDataPrivacyView(viewModel: viewModel, theme: theme)
+            case .languages:
+                WMFAppOnboardingLanguagesView(viewModel: viewModel, theme: theme)
+            case .loading:
+                WMFAppOnboardingLoadingView(viewModel: viewModel, theme: theme)
+            case .personalizationIntro, .interests, .feedPreference:
+                EmptyView()
+            }
+        }
+    }
+
+    /// The steps with page dots can be swiped back and forth, like on Android. The pager builds
+    /// the pages next to the current one before they are shown, so the pages do not log
+    /// impressions or load data in onAppear: the view model does it when the step changes.
+    private var personalizationPager: some View {
+        TabView(selection: Binding(
+            get: { viewModel.currentStep },
+            set: { viewModel.swipe(to: $0) }
+        )) {
+            ForEach(viewModel.swipeableSteps, id: \.self) { step in
+                personalizationPage(step)
+                    .tag(step)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+    }
+
+    @ViewBuilder
+    private func personalizationPage(_ step: WMFAppOnboardingViewModel.Step) -> some View {
+        switch step {
         case .personalizationIntro:
             WMFAppOnboardingPersonalizationIntroView(viewModel: viewModel, theme: theme)
-                .onAppear {
-                    viewModel.logImpression(.personalizationIntro)
-                }
         case .interests:
             VStack(spacing: 0) {
                 WMFHomeFeedInterestsSettingsView(viewModel: viewModel.interestsViewModel, topContentInset: Self.interestsTopContentInset, bottomContentInset: Self.toolbarContentInset)
-                    .onAppear {
-                        viewModel.logImpression(.interests)
-                    }
             }
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier(AccessibilityIdentifiers.Interests.view)
         case .feedPreference:
             WMFAppOnboardingFeedPreferenceView(viewModel: viewModel.feedPreferenceViewModel, theme: theme)
-                .onAppear {
-                    viewModel.feedPreferenceViewModel.loadIfNeeded()
-                    viewModel.logImpression(.feedPreference)
-                }
-        case .loading:
-            WMFAppOnboardingLoadingView(viewModel: viewModel, theme: theme)
-                .onAppear {
-                    viewModel.logImpression(.loading)
-                }
+        case .intro, .dataPrivacy, .languages, .loading:
+            EmptyView()
         }
     }
 }
