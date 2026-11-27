@@ -460,7 +460,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
         _ = try await controller.fetchCommunity(project: enProject)
 
         let (laterController, laterSpy) = makeController()
-        let stored = await laterController.lastStoredCommunity(project: enProject)
+        let stored = try await laterController.lastStoredCommunity(project: enProject)
         XCTAssertEqual(stored?.day, WMFFeedDay.today())
         _ = try await laterController.fetchCommunity(project: enProject)
         let calls = await laterSpy.calls
@@ -471,7 +471,7 @@ final class WMFHomeDataControllerTests: XCTestCase {
     func testAnEarlierDayIsNotStored() async throws {
         let (controller, _) = makeController()
         _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
-        let stored = await controller.lastStoredCommunity(project: enProject)
+        let stored = try await controller.lastStoredCommunity(project: enProject)
         XCTAssertNil(stored)
     }
 
@@ -479,8 +479,33 @@ final class WMFHomeDataControllerTests: XCTestCase {
         let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
         let (controller, _) = makeController()
         _ = try await controller.fetchCommunity(project: enProject)
-        let stored = await controller.lastStoredCommunity(project: esProject)
+        let stored = try await controller.lastStoredCommunity(project: esProject)
         XCTAssertNil(stored)
+    }
+
+    /// The stored page of an earlier day was fetched on that day, when editors may not have
+    /// filled it in yet. A later launch shows it first, but a fetch of that day asks the network.
+    func testAStoredEarlierDayIsFetchedAgain() async throws {
+        let yesterday = WMFFeedDay.today().adding(days: -1)
+        let stored = WMFCommunityResponse(date: yesterday.date, feedResponse: stubResponse, onThisDay: nil)
+        let entry = WMFHomeCommunityFirstPageCacheEntry(date: yesterday.date, response: stored)
+        try WMFDataEnvironment.current.sharedCacheStore?.save(key: WMFHomeDataController.communityCacheKey(for: enProject), value: entry)
+
+        let (controller, spy) = makeController()
+        let lastStored = try await controller.lastStoredCommunity(project: enProject)
+        XCTAssertEqual(lastStored?.day, yesterday)
+        _ = try await controller.fetchCommunity(project: enProject, day: yesterday)
+        let calls = await spy.calls
+        XCTAssertEqual(calls.count, 1)
+    }
+
+    /// A copy fetched on its own day can be partial, so it answers only while that day is today.
+    func testACopyFetchedOnItsOwnDayIsFinalOnlyAfterThatDay() {
+        let nov26 = WMFFeedDay(year: 2026, month: 11, day: 26)
+        let nov27 = WMFFeedDay(year: 2026, month: 11, day: 27)
+        XCTAssertTrue(WMFHomeDataController.communityCopyIsUsable(fetchedOn: nov26, for: nov26, today: nov26), "Today's copy answers for today")
+        XCTAssertFalse(WMFHomeDataController.communityCopyIsUsable(fetchedOn: nov26, for: nov26, today: nov27), "After midnight it can be partial")
+        XCTAssertTrue(WMFHomeDataController.communityCopyIsUsable(fetchedOn: nov27, for: nov26, today: nov27), "Fetched after the day, it is final")
     }
 
     // MARK: - WMFFeedDay

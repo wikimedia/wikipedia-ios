@@ -1,4 +1,5 @@
 import Foundation
+import WMFData
 
 public extension DateFormatter {
 
@@ -85,7 +86,7 @@ public extension DateFormatter {
             formatter = cached
         } else {
             formatter = DateFormatter()
-            formatter.locale = languageCode.map { Locale(identifier: $0) } ?? .current
+            formatter.locale = Locale.formatting(forWikipediaLanguageCode: languageCode)
             formatter.calendar = calendar
             formatter.timeZone = calendar.timeZone
             formatter.setLocalizedDateFormatFromTemplate(isBeforeYearOne ? "y G" : "y")

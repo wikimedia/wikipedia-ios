@@ -125,6 +125,9 @@ public final class WMFHomeViewModel: ObservableObject {
     /// Set when today cannot load but a stored earlier day is on screen, such as on the first
     /// launch of a day while offline. The feed stays, with a note and a retry above it.
     @Published public private(set) var communityTodayError: Error?
+    /// True while the retry of the today-error note runs. The note then shows progress, and a
+    /// second tap does nothing.
+    @Published public private(set) var isRetryingCommunityToday: Bool = false
     @Published public var isLoadingCommunity: Bool = false
     @Published public var isLoadingCommunityPreviousPage: Bool = false
     /// Set when "See past community content" fails. The feed stays, and its footer offers a retry.
@@ -504,6 +507,17 @@ public final class WMFHomeViewModel: ObservableObject {
 
     // MARK: - Community
 
+    /// The retry of the today-error note. One retry runs at a time.
+    public func retryCommunityToday() {
+        guard !isRetryingCommunityToday else { return }
+        isRetryingCommunityToday = true
+        Task { [weak self] in
+            guard let self else { return }
+            await self.refreshCommunityFeed()
+            self.isRetryingCommunityToday = false
+        }
+    }
+
     /// Pull to refresh. The feed starts over at today: the older days it had loaded are dropped.
     /// A failure keeps the feed that is on screen.
     public func refreshCommunityFeed() async {
@@ -525,7 +539,8 @@ public final class WMFHomeViewModel: ObservableObject {
         hiddenCardKeys = Set(dataController.hiddenCardKeys())
         communityLoadTask = Task { [weak self] in
             guard let self else { return }
-            if let stored = await self.dataController.lastStoredCommunity(project: project),
+            // A stored page that cannot be read is the same as none: today loads as on a first launch.
+            if let stored = try? await self.dataController.lastStoredCommunity(project: project),
                !Task.isCancelled, self.communityPages.isEmpty {
                 self.setCommunityFirstPage(stored, project: project, now: now)
             }
@@ -561,7 +576,9 @@ public final class WMFHomeViewModel: ObservableObject {
         let today = WMFFeedDay.today(now: now)
         let dataController = self.dataController
         async let todayResponse = dataController.fetchCommunity(project: project, day: today, forceFetch: forceFetch)
-        async let yesterdayResponse = try? dataController.fetchCommunity(project: project, day: today.adding(days: -1))
+        // Not an `async let`: this function would then wait for yesterday also when it does not
+        // use it. The request runs on, so its answer still serves the first "See past" tap.
+        let yesterdayTask = Task { try? await dataController.fetchCommunity(project: project, day: today.adding(days: -1)) }
 
         do {
             let response = try await todayResponse
@@ -571,11 +588,17 @@ public final class WMFHomeViewModel: ObservableObject {
             communityTodayError = nil
 
             guard let first = communityPages.first, !hasCommunityContent(first), !isCommunityFeedEmpty else { return }
-            let yesterday = await yesterdayResponse
+            let yesterday = await yesterdayTask.value
             guard !Task.isCancelled, isCurrentCommunityProject(project) else { return }
-            if let yesterday, let page = appendCommunityPageIfNext(yesterday, project: project), hasCommunityContent(page) {
+            if let yesterday, let page = appendCommunityPageIfNext(yesterday, project: project) {
+                if !hasCommunityContent(page) {
+                    loadCommunityPreviousPage()
+                }
                 return
             }
+            // Another load (a "See past" tap, a refresh) added yesterday during the wait. It goes
+            // on from there, so this load adds nothing more.
+            guard communityPages.count == 1, communityPages.first?.day == today else { return }
             loadCommunityPreviousPage()
         } catch {
             guard !Task.isCancelled, isCurrentCommunityProject(project) else { return }

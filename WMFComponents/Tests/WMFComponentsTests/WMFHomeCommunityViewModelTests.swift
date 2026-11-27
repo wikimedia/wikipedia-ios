@@ -115,6 +115,11 @@ final class WMFHomeCommunityViewModelTests: XCTestCase {
         XCTAssertEqual(DateFormatter.wmfEventYearString(-1, languageCode: "en"), "1 BC")
     }
 
+    /// "simple" is not a locale. It formats as English, like the legacy On this day card.
+    func testAYearOnSimpleEnglishUsesTheEnglishEra() {
+        XCTAssertEqual(DateFormatter.wmfEventYearString(-44, languageCode: "simple"), "44 BC")
+    }
+
     func testAYearAfterYearOneShowsTheYearAlone() {
         XCTAssertEqual(DateFormatter.wmfEventYearString(1984, languageCode: "en"), "1984")
         XCTAssertEqual(DateFormatter.wmfEventYearString(1, languageCode: "en"), "1")

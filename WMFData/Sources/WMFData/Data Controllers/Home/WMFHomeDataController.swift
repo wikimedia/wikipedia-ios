@@ -23,9 +23,24 @@ import Foundation
         let day: WMFFeedDay
     }
 
-    /// Community days fetched in this session. A day's content does not change after the day, so
-    /// an earlier day is never fetched twice. Only the newest first page is also kept on disk.
-    private var communityDays: [CommunityKey: WMFCommunityResponse] = [:]
+    /// A fetched day, with the day on which its request started.
+    private struct CommunityDay {
+        let response: WMFCommunityResponse
+        let fetchedOn: WMFFeedDay
+
+        func isUsable(for day: WMFFeedDay, today: WMFFeedDay) -> Bool {
+            WMFHomeDataController.communityCopyIsUsable(fetchedOn: fetchedOn, for: day, today: today)
+        }
+    }
+
+    /// Editors fill a day in during that day, so a copy fetched on the day itself can be partial.
+    /// It answers only for today. A copy fetched after the day is final. Internal for tests.
+    nonisolated static func communityCopyIsUsable(fetchedOn: WMFFeedDay, for day: WMFFeedDay, today: WMFFeedDay) -> Bool {
+        fetchedOn > day || (day == today && fetchedOn == today)
+    }
+
+    /// Community days fetched in this session. Only the newest first page is also kept on disk.
+    private var communityDays: [CommunityKey: CommunityDay] = [:]
     /// How many days `communityDays` keeps. The oldest days go first.
     private static let maxCommunityDaysInMemory = 60
 
@@ -747,19 +762,21 @@ import Foundation
     /// as the day before the oldest day on screen. So any caller can fetch any day in any order
     /// without an effect on the others.
     ///
-    /// A day fetched before in this session comes from memory, and today's page also comes from
-    /// disk. `forceFetch` skips both and asks the network.
+    /// Today's page comes from memory or disk. An earlier day comes from memory only when it was
+    /// fetched after that day: a copy from the day itself can be partial, so it is fetched again.
+    /// `forceFetch` skips both and asks the network.
     @discardableResult
     public func fetchCommunity(project: WMFProject, day: WMFFeedDay = .today(), forceFetch: Bool = false) async throws -> WMFCommunityResponse {
         let key = CommunityKey(project: project, day: day)
+        let today = WMFFeedDay.today()
 
         if !forceFetch {
-            if let cached = communityDays[key] {
-                return cached
+            if let cached = communityDays[key], cached.isUsable(for: day, today: today) {
+                return cached.response
             }
-            if let stored = storedCommunityFirstPage(for: project), stored.day == day {
-                remember(stored, for: key)
-                return stored
+            if day == today, let stored = storedCommunityFirstPage(for: project), stored.response.day == day {
+                remember(stored.response, for: key, fetchedOn: WMFFeedDay(date: stored.date))
+                return stored.response
             }
             if let running = communityRequests[key] {
                 return try await running.value
@@ -775,7 +792,7 @@ import Foundation
         }
 
         let response = try await request.value
-        remember(response, for: key)
+        remember(response, for: key, fetchedOn: today)
         if day == .today() {
             storeCommunityFirstPage(response, for: project)
         }
@@ -784,9 +801,12 @@ import Foundation
 
     /// The newest first page on disk for the project, from any earlier day too. The Home feed
     /// shows it before it asks the network for today, so the feed never opens empty when a
-    /// reader has opened it before, also offline. Nil on the first launch.
-    public func lastStoredCommunity(project: WMFProject) -> WMFCommunityResponse? {
-        storedCommunityFirstPage(for: project)
+    /// reader has opened it before, also offline. Nil on the first launch. Throws when the stored
+    /// page cannot be read, for example after a change to its format.
+    public func lastStoredCommunity(project: WMFProject) async throws -> WMFCommunityResponse? {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return nil }
+        let entry: WMFHomeCommunityFirstPageCacheEntry? = try store.load(key: Self.communityCacheKey(for: project))
+        return entry?.response
     }
 
     private func requestCommunity(project: WMFProject, day: WMFFeedDay) async throws -> WMFCommunityResponse {
@@ -795,8 +815,8 @@ import Foundation
         return try await WMFCommunityResponse(date: day.date, feedResponse: feedResponse, onThisDay: onThisDay)
     }
 
-    private func remember(_ response: WMFCommunityResponse, for key: CommunityKey) {
-        communityDays[key] = response
+    private func remember(_ response: WMFCommunityResponse, for key: CommunityKey, fetchedOn: WMFFeedDay) {
+        communityDays[key] = CommunityDay(response: response, fetchedOn: fetchedOn)
         guard communityDays.count > Self.maxCommunityDaysInMemory,
               let oldest = communityDays.keys.min(by: { $0.day < $1.day }) else { return }
         communityDays[oldest] = nil
@@ -826,10 +846,9 @@ import Foundation
         try? store.save(key: forYouCacheKey(for: project), value: entry)
     }
 
-    private func storedCommunityFirstPage(for project: WMFProject) -> WMFCommunityResponse? {
-        guard let store = WMFDataEnvironment.current.sharedCacheStore,
-              let entry: WMFHomeCommunityFirstPageCacheEntry = try? store.load(key: Self.communityCacheKey(for: project)) else { return nil }
-        return entry.response
+    private func storedCommunityFirstPage(for project: WMFProject) -> WMFHomeCommunityFirstPageCacheEntry? {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return nil }
+        return try? store.load(key: Self.communityCacheKey(for: project))
     }
 
     private func storeCommunityFirstPage(_ response: WMFCommunityResponse, for project: WMFProject) {

@@ -34,6 +34,7 @@ struct WMFCommunityFeedView: View {
     let onCustomize: (() -> Void)?
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
+    let isRetryingToday: Bool
     let onRetryToday: () -> Void
     let onArticleAction: (WMFCommunityArticleAction, String, WMFProject, WMFCommunityModule) -> Void
     let isArticleSaved: (String, WMFProject) -> Bool
@@ -136,14 +137,19 @@ struct WMFCommunityFeedView: View {
                 .foregroundStyle(Color(uiColor: theme.secondaryText))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
-            Button(action: onRetryToday) {
-                Text(retryTitle)
-                    .font(Font(WMFFont.for(.semiboldSubheadline)))
-                    .foregroundStyle(Color(uiColor: theme.link))
+            if isRetryingToday {
+                ProgressView()
                     .frame(minHeight: 44)
-                    .contentShape(Rectangle())
+            } else {
+                Button(action: onRetryToday) {
+                    Text(retryTitle)
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .foregroundStyle(Color(uiColor: theme.link))
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
         }
         .padding(.horizontal, Self.horizontalPadding)
     }

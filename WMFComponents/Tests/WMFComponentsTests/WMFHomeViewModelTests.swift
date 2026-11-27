@@ -541,6 +541,23 @@ final class WMFHomeViewModelTests: XCTestCase {
         }
     }
 
+    /// Today has content, so the load ends without a wait for the parallel fetch of yesterday.
+    func testTheLoadDoesNotWaitForYesterdayWhenTodayHasContent() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureCacheStore) {
+            let feed = WMFDayGatedFeedDataController(response: feedWithContent)
+            await feed.hold(day: 1)
+            let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed), selectedLanguage: english)
+            vm.selectedTab = .community
+            vm.loadCommunityFeedIfNeeded()
+
+            let loaded = await waitUntil { vm.communityPages.first?.day == WMFFeedDay.today() && !vm.isLoadingCommunity }
+            XCTAssertTrue(loaded)
+            let yesterdayIsHeld = await feed.waitUntilHeld(day: 1)
+            XCTAssertTrue(yesterdayIsHeld, "Yesterday is still in flight")
+            await feed.release(day: 1)
+        }
+    }
+
     /// Offline on the first open of a day: the stored earlier day stays on screen with a note,
     /// not the full-screen error.
     func testOfflineFirstOpenOfADayKeepsTheStoredDay() async throws {
@@ -558,6 +575,36 @@ final class WMFHomeViewModelTests: XCTestCase {
             XCTAssertEqual(vm.communityPages.first?.day, WMFFeedDay.today().adding(days: -1))
             XCTAssertNil(vm.communityFeedError)
             XCTAssertNotNil(vm.communityTodayError)
+        }
+    }
+
+    /// A second tap on Retry while the first retry runs starts no second request.
+    func testRetryOfTodayRunsOnceAtATime() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureCacheStore) {
+            let project = WMFProject.wikipedia(english)
+            try storeYesterday(project: project)
+            let feed = WMFDayGatedFeedDataController(response: feedWithContent)
+            await feed.fail(day: 0)
+            let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed), selectedLanguage: english)
+            vm.selectedTab = .community
+            vm.loadCommunityFeedIfNeeded()
+            let noteShows = await waitUntil { !vm.isLoadingCommunity && vm.communityTodayError != nil }
+            XCTAssertTrue(noteShows)
+
+            await feed.hold(day: 0)
+            vm.retryCommunityToday()
+            vm.retryCommunityToday()
+            XCTAssertTrue(vm.isRetryingCommunityToday)
+            let retryIsHeld = await feed.waitUntilHeld(day: 0)
+            XCTAssertTrue(retryIsHeld)
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            let heldRequests = await feed.heldCount(day: 0)
+            XCTAssertEqual(heldRequests, 1)
+
+            await feed.release(day: 0)
+            let retryEnded = await waitUntil { !vm.isRetryingCommunityToday }
+            XCTAssertTrue(retryEnded)
+            XCTAssertNotNil(vm.communityTodayError, "Today still fails, so the note stays")
         }
     }
 
@@ -1065,6 +1112,9 @@ actor WMFDayGatedFeedDataController: WMFFeedDataControlling {
         heldDays.remove(day)
         held.removeValue(forKey: day)?.forEach { $0.resume() }
     }
+
+    /// How many requests for `day` wait for a release.
+    func heldCount(day: Int) -> Int { held[day]?.count ?? 0 }
 
     /// Gives up after about two seconds, so a broken test fails instead of hanging the suite.
     func waitUntilHeld(day: Int) async -> Bool {

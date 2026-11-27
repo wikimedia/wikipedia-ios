@@ -292,7 +292,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     /// string, formatted with the wiki's locale so its plural rules apply, the way the legacy On
     /// this day card does.
     static func yearsAgo(_ years: Int, languageCode: String?) -> String {
-        let locale = languageCode.map { Locale(identifier: $0) } ?? .current
+        let locale = Locale.formatting(forWikipediaLanguageCode: languageCode)
         return String(format: CommonStrings.yearsAgo(languageCode: languageCode), locale: locale, years)
     }
 
