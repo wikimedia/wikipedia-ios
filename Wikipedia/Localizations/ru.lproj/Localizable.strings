@@ -748,7 +748,6 @@
 "history-title" = "История";
 "home-button-saved-accessibility-label" = "Википедия, вернуться к Сохранённым";
 "home-community-tab-title" = "Сообщество";
-"home-edit-languages-title" = "Добавить или изменить языки";
 "home-empty-community-feed-subtitle" = "Включите модули $1«Сообщество»$2 для отображения контента, отбираемого редакторами.";
 "home-empty-feed-manage-modules-button" = "Настройка модулей";
 "home-empty-feed-title" = "В вашей ленте пока что ничего нет";

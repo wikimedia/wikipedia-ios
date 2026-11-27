@@ -282,6 +282,86 @@
 			<string>%1$d linhas não editadas</string>
 		</dict>
 	</dict>
+	<key>discover-list-onboarding-toast-daily</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Suas recomendações são armazenadas localmente no seu dispositivo.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>O Discover será atualizado com %1$d artigo novo por dia</string>
+			<key>other</key>
+			<string>O Discover será atualizado com %1$d artigos novos por dia</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-monthly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Suas recomendações são armazenadas localmente no seu dispositivo.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>O Discover será atualizado com %1$d artigo novo por mês</string>
+			<key>other</key>
+			<string>O Discover será atualizado com %1$d artigos novos por mês</string>
+		</dict>
+	</dict>
+	<key>discover-list-onboarding-toast-weekly</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@. Suas recomendações são armazenadas localmente no seu dispositivo.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>O Discover será atualizado com %1$d artigo novo por semana</string>
+			<key>other</key>
+			<string>O Discover será atualizado com %1$d artigos novos por semana</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-body</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Por %1$@, você nos pediu para lembrá-lo de fazer uma doação depois de ler %2$#@v2@. Se a Wikipédia lhe proporcionou %3$@ de conhecimento, junte-se aos 2%% leitores que contribuem e cumpra sua promessa de doação hoje mesmo.</string>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d artigo</string>
+			<key>other</key>
+			<string>%2$d artigos</string>
+		</dict>
+	</dict>
+	<key>donation-reminder-card-heading</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Você já leu %1$#@v1@ desde que fez uma doação de %2$@!</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artigo</string>
+			<key>other</key>
+			<string>%1$d artigos</string>
+		</dict>
+	</dict>
 	<key>donation-reminder-card-subsequent-heading</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -296,6 +376,54 @@
 			<string>%1$d artigo</string>
 			<key>other</key>
 			<string>%1$d artigos</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-activity-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Revisite suas %1$#@v1@ com a seção “Atividade”</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d leitura recente</string>
+			<key>other</key>
+			<string>%1$d leituras recentes</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-saved-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Sincronize seus %1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artigo salvo</string>
+			<key>other</key>
+			<string>%1$d artigos salvos</string>
+		</dict>
+	</dict>
+	<key>evergreen-account-creation-year-in-review-title-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Veja seus %1$#@v1@ reunidos na Retrospectiva do Ano</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d dia de leitura</string>
+			<key>other</key>
+			<string>%1$d dias de leitura</string>
 		</dict>
 	</dict>
 	<key>home-feed-interests-selected-count</key>
@@ -344,6 +472,22 @@
 			<string>%1$d pé</string>
 			<key>other</key>
 			<string>%1$d pés</string>
+		</dict>
+	</dict>
+	<key>nearby-distance-label-meters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d metro</string>
+			<key>other</key>
+			<string>%1$d metros</string>
 		</dict>
 	</dict>
 	<key>notifications-center-empty-state-num-filters</key>
@@ -833,6 +977,38 @@
 			<string>o artigo</string>
 			<key>other</key>
 			<string>os artigos</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-contributors</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>colaborador %1$d</string>
+			<key>other</key>
+			<string>colaboradores %1$d</string>
+		</dict>
+	</dict>
+	<key>search-semantic-results-references</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d referência</string>
+			<key>other</key>
+			<string>%1$d referências</string>
 		</dict>
 	</dict>
 	<key>tabs-navbar-title-format</key>

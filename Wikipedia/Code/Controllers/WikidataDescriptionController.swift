@@ -39,11 +39,11 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
         return WMFProject.wikidata.siteURL?.wmf_URL(withTitle: wikiDataID)
     }
 
-    func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
+    func publishDescription(_ description: String, editType: ArticleDescriptionEditType, hCaptchaToken: String?, forceShowCaptcha: Bool, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         let editTag: WMFEditTag = editType == .add ? .appDescriptionAdd : .appDescriptionChange
 
-        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, languageCode: articleLanguageCode, editTags: [editTag]) { (result) in
+        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, languageCode: articleLanguageCode, editTags: [editTag], hCaptchaToken: hCaptchaToken, forceShowCaptcha: forceShowCaptcha) { (result) in
             switch result {
             case .failure(let error):
                 completion(.failure(error))

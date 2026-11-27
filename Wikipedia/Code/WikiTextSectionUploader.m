@@ -2,6 +2,7 @@
 @import WMF;
 
 NSString *const NSErrorUserInfoDisplayError = @"displayError";
+NSString *const WikiTextSectionUploaderErrorUserInfoCaptchaKey = @"captcha";
 
 @implementation WikiTextSectionUploader
 
@@ -61,6 +62,8 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
              isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
             editTags:(nullable NSArray<NSString *> *)editTags
+           hCaptchaToken:(nullable NSString *)hCaptchaToken
+        forceShowCaptcha:(BOOL)forceShowCaptcha
                    completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
 
     NSString *title = articleURL.wmf_title;
@@ -95,7 +98,9 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
         params[@"matags"] = [editTags componentsJoinedByString:@","];
     }
 
-    [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
+    [self addHCaptchaToken:hCaptchaToken forceShowCaptcha:forceShowCaptcha toParameters:params];
+
+    [self updateWithArticleURL:articleURL parameters:params captchaWord:hCaptchaToken completion:completion];
 }
 
 - (void)uploadWikiText:(nullable NSString *)wikiText
@@ -107,6 +112,8 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
              baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
+         hCaptchaToken:(nullable NSString *)hCaptchaToken
+      forceShowCaptcha:(BOOL)forceShowCaptcha
               editTags:(nullable NSArray<NSString *> *)editTags
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
     
@@ -147,7 +154,9 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
         params[@"baserevid"] = [NSString stringWithFormat:@"%@", baseRevID];
     }
 
-    if (captchaWord && captchaId) {
+    if (hCaptchaToken) {
+        [self addHCaptchaToken:hCaptchaToken forceShowCaptcha:forceShowCaptcha toParameters:params];
+    } else if (captchaWord && captchaId) {
         params[@"captchaid"] = captchaId;
         params[@"captchaword"] = captchaWord;
     }
@@ -156,7 +165,18 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
         params[@"matags"] = [editTags componentsJoinedByString:@","];
     }
     
-    [self updateWithArticleURL:articleURL parameters:params captchaWord:captchaWord completion:completion];
+    [self updateWithArticleURL:articleURL parameters:params captchaWord:(hCaptchaToken ?: captchaWord) completion:completion];
+}
+
+// hCaptcha sends no captchaid. The token goes in captchaword.
+- (void)addHCaptchaToken:(nullable NSString *)hCaptchaToken forceShowCaptcha:(BOOL)forceShowCaptcha toParameters:(NSMutableDictionary *)params {
+    if (!hCaptchaToken) {
+        return;
+    }
+    params[@"captchaword"] = hCaptchaToken;
+    if (forceShowCaptcha) {
+        params[@"wgConfirmEditForceShowCaptcha"] = @"1";
+    }
 }
 
 - (void)updateWithArticleURL: (NSURL *)articleURL parameters: (NSDictionary<NSString *, NSString *> *)parameters captchaWord: (nullable NSString *)captchaWord completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
@@ -232,7 +252,16 @@ NSString *const NSErrorUserInfoDisplayError = @"displayError";
     }
 
     if (!error && result && [result isEqualToString:@"Failure"]) {
-        if (responseObject[@"edit"][@"captcha"]) {
+        NSDictionary *captcha = responseObject[@"edit"][@"captcha"];
+        NSString *captchaType = [captcha isKindOfClass:[NSDictionary class]] ? captcha[@"type"] : nil;
+        if ([captchaType isKindOfClass:[NSString class]] && [captchaType.lowercaseString isEqualToString:@"hcaptcha"]) {
+            NSMutableDictionary *errorDict = [@{} mutableCopy];
+            // captchaWord holds the hCaptcha token when the request sent one.
+            errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ? WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-error", nil, nil, @"CAPTCHA verification error.", @"Alert text shown when section wikitext upload captcha fails")
+                                                                                                       : WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-needed", nil, nil, @"Need CAPTCHA verification.", @"Alert text shown when section wikitext upload captcha is required");
+            errorDict[WikiTextSectionUploaderErrorUserInfoCaptchaKey] = captcha;
+            error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WikiTextSectionUploaderErrorTypeNeedsHCaptcha userInfo:errorDict];
+        } else if (captcha) {
             NSMutableDictionary *errorDict = [@{} mutableCopy];
 
             errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ? WMFLocalizedStringWithDefaultValue(@"wikitext-upload-captcha-error", nil, nil, @"CAPTCHA verification error.", @"Alert text shown when section wikitext upload captcha fails")

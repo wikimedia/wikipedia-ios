@@ -17,6 +17,7 @@
 // Author: Daud I.F. Argana
 // Author: Fate Kage
 // Author: Felianiwiki
+// Author: Furina2009
 // Author: Gombang
 // Author: Hanif Al Husaini
 // Author: Hendra ibaraki1
@@ -920,6 +921,8 @@
 "search-button-accessibility-label" = "Telusuri Wikipedia";
 "search-clear-title" = "Kosongkan";
 "search-field-placeholder-text" = "Telusuri Wikipedia";
+"search-interleaved-results-feedback-thumbs-down-accessibility" = "Tidak";
+"search-interleaved-results-feedback-thumbs-up-accessibility" = "Ya";
 "search-recent-clear-confirmation-heading" = "Hapus semua pencarian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "search-recent-clear-delete-all" = "Hapus Semua";

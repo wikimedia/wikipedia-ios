@@ -141,6 +141,9 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         vc.semanticSearchInfoTappedAction = { [weak self] languageCode in
             self?.showSemanticSearchInfo(languageCode: languageCode)
         }
+        vc.interleavedResultsInfoTappedAction = { [weak self] languageCode in
+            self?.showInterleavedResultsInfo(languageCode: languageCode)
+        }
         vc.articleTappedAction = { [weak self] articleURL, needsNewTab in
             guard let self, let dataStore, let navVC = navigationController else { return }
             
@@ -272,6 +275,20 @@ class SearchViewController: ThemeableViewController, WMFNavigationBarConfiguring
         guard let navigationController else { return }
 
         let coordinator = SemanticSearchInfoCoordinator(navigationController: navigationController, languageCode: languageCode, instrumentation: searchResultsVC.instrumentation)
+        semanticSearchInfoCoordinator = coordinator
+        coordinator.start()
+    }
+
+    /// The sheet of the interleaved list. It hides the button to turn the feature off until the toggle exists.
+    private func showInterleavedResultsInfo(languageCode: String) {
+        guard let navigationController else { return }
+
+        let coordinator = SemanticSearchInfoCoordinator(
+            navigationController: navigationController,
+            languageCode: languageCode,
+            instrumentation: searchResultsVC.instrumentation,
+            kind: .interleavedResults(turnOffAction: nil) // TODO(T444343): Open the Search settings at the toggle of the interleaved results. The toggle does not exist yet.
+        )
         semanticSearchInfoCoordinator = coordinator
         coordinator.start()
     }

@@ -845,7 +845,6 @@
 "home-card-more-options-accessibility-label" = "その他の操作";
 "home-community-see-past-content" = "過去のコミュニティコンテンツを見る";
 "home-community-tab-title" = "コミュニティ";
-"home-edit-languages-title" = "言語の追加または編集";
 "home-empty-community-feed-subtitle" = "$1コミュニティ$2モジュールを有効にすると、ウィキメディア・ムーブメントの貢献者たちが厳選したコンテンツが表示されるようになります。";
 "home-empty-feed-manage-modules-button" = "モジュールを管理";
 "home-empty-feed-title" = "あなたのフィードは空です";

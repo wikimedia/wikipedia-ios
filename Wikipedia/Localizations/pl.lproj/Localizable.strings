@@ -563,11 +563,17 @@
 "history-clear-delete-all" = "Tak, usuń wszystko";
 "history-title" = "Historia";
 "home-button-saved-accessibility-label" = "Wikipedia, wróć do Zapisane";
+"home-community-disclaimer" = "Treści i zasoby wybrane przez społeczność Wikimediów oraz jej dotyczące.";
+"home-community-more-on-this-day" = "Więcej w tym dniu";
+"home-community-more-top-read" = "Więcej najczęściej czytanych";
 "home-community-tab-title" = "Społeczność";
+"home-community-today-date-header" = "Dzisiaj – $1";
+"home-community-top-read-past-subtitle" = "Artykuły cieszące się tego dnia największym zainteresowaniem";
 "home-feed-settings-community-section-title" = "Społeczność";
 "home-feed-settings-for-you-section-title" = "Dla Ciebie";
 "home-for-you-card-position-accessibility-value" = "$1 z $2";
 "home-for-you-tab-title" = "Dla Ciebie";
+"home-manage-languages-title" = "Zarządzaj językami";
 "home-more-like-footer" = "Więcej jak $1";
 "home-nearby-footer" = "Więcej miejsc w pobliżu Twojej lokalizacji";
 "home-nearby-location-footer" = "Więcej niedaleko";
