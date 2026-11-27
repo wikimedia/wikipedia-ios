@@ -24,6 +24,9 @@ struct WMFCommunityFeedView: View {
     let isLoadingPreviousPage: Bool
     let previousPageFailed: Bool
     let previousPageErrorTitle: String
+    /// Set when today could not load and an earlier stored day is on screen. A note with a retry
+    /// then shows above the feed.
+    let todayErrorTitle: String?
     let retryTitle: String
     let onHideModule: (WMFCommunityModule) -> Void
     let onHideCard: (String) -> Void
@@ -31,6 +34,8 @@ struct WMFCommunityFeedView: View {
     let onCustomize: (() -> Void)?
     let onRefresh: () async -> Void
     let onTapSeePastContent: () -> Void
+    let isRetryingToday: Bool
+    let onRetryToday: () -> Void
     let onArticleAction: (WMFCommunityArticleAction, String, WMFProject, WMFCommunityModule) -> Void
     let isArticleSaved: (String, WMFProject) -> Bool
     let onTapNewsStory: (WMFFeedNewsItem, WMFProject) -> Void
@@ -77,6 +82,9 @@ struct WMFCommunityFeedView: View {
                         .frame(height: 0)
                         .id(Self.topAnchorID)
                     LazyVStack(alignment: .leading, spacing: WMFCommunityFeedMetrics.moduleSpacing) {
+                        if let todayErrorTitle {
+                            todayErrorNote(todayErrorTitle)
+                        }
                         // On iPad the disclaimer is drawn inside the first day's leading column, so
                         // the trailing column starts at the top beside it, as in the Figma. A first
                         // day drawn at full width has no leading column, so it goes above it.
@@ -116,6 +124,34 @@ struct WMFCommunityFeedView: View {
         }
         .background(Color(uiColor: theme.paperBackground))
         .environment(\.layoutDirection, layoutDirection)
+    }
+
+    // MARK: - Today error
+
+    /// One line over a stored earlier day: today did not load. The date header below already
+    /// says which day the reader sees.
+    private func todayErrorNote(_ title: String) -> some View {
+        HStack(spacing: 8) {
+            Text(title)
+                .font(Font(WMFFont.for(.subheadline)))
+                .foregroundStyle(Color(uiColor: theme.secondaryText))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .fixedSize(horizontal: false, vertical: true)
+            if isRetryingToday {
+                ProgressView()
+                    .frame(minHeight: 44)
+            } else {
+                Button(action: onRetryToday) {
+                    Text(retryTitle)
+                        .font(Font(WMFFont.for(.semiboldSubheadline)))
+                        .foregroundStyle(Color(uiColor: theme.link))
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(.horizontal, Self.horizontalPadding)
     }
 
     // MARK: - Disclaimer
@@ -254,8 +290,9 @@ struct WMFCommunityFeedView: View {
             .padding(.horizontal, Self.horizontalPadding)
         case .inTheNews:
             // The story card brings its own horizontal padding.
+            let newsStoryHint = WMFCommunityFeedStrings.newsStoryHint(storyCount: page.newsItems.count)
             TabView {
-                ForEach(page.newsItems, id: \.story) { item in
+                ForEach(page.newsItems, id: \.id) { item in
                     Button {
                         onTapNewsStory(item.newsItem, page.project)
                     } label: {
@@ -263,6 +300,7 @@ struct WMFCommunityFeedView: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityHint(newsStoryHint)
                 }
             }
             .tabViewStyle(.page)
@@ -304,7 +342,7 @@ struct WMFCommunityFeedView: View {
                 onTapOnThisDay(page, item)
             } label: {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(verbatim: String(item.year))
+                    Text(verbatim: item.yearText)
                         .font(Font(WMFFont.for(.boldTitle3)))
                         .foregroundStyle(Color(uiColor: theme.text))
                     Text(item.yearsAgo)
@@ -345,6 +383,9 @@ struct WMFCommunityFeedView: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        // The button is the one VoiceOver element of the row, so VoiceOver reads the plain title
+        // and the description once, with one "button" trait.
+        .accessibilityLabel([article.plainTitle, article.description].compactMap { $0 }.joined(separator: ", "))
         .articleContextMenu(article, page: page, module: module, isSaved: isArticleSaved(article.title, page.project), onAction: onArticleAction)
     }
 
@@ -616,9 +657,6 @@ private struct WMFCommunityArticleRow: View {
             .accessibilityHidden(true)
         }
         .padding(.vertical, 10)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel([article.plainTitle, article.description].compactMap { $0 }.joined(separator: ", "))
-        .accessibilityAddTraits(.isButton)
         .task(id: article.thumbnailURL) {
             await imageViewModel.load(url: article.thumbnailURL)
         }

@@ -24,22 +24,6 @@ final class WMFHomeDataControllerTests: XCTestCase {
         try await super.tearDown()
     }
 
-    private var dec11: Date {
-        var components = DateComponents()
-        components.year = 2025
-        components.month = 12
-        components.day = 11
-        return Calendar(identifier: .gregorian).date(from: components)!
-    }
-
-    private var dec10: Date {
-        var components = DateComponents()
-        components.year = 2025
-        components.month = 12
-        components.day = 10
-        return Calendar(identifier: .gregorian).date(from: components)!
-    }
-
     private let stubResponse = WMFFeedAPIResponse(todaysFeaturedArticle: nil, mostRead: nil, image: nil, news: nil)
 
     private func makeController() -> (WMFHomeDataController, WMFMockFeedDataController) {
@@ -367,138 +351,95 @@ final class WMFHomeDataControllerTests: XCTestCase {
 
     // MARK: - fetchCommunity
 
+    private var dec11Day: WMFFeedDay { WMFFeedDay(year: 2025, month: 12, day: 11) }
+    private var dec10Day: WMFFeedDay { WMFFeedDay(year: 2025, month: 12, day: 10) }
+
     func testFetchCommunitySucceeds() async throws {
         let (controller, _) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        let response = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        XCTAssertEqual(response.day, dec11Day)
     }
 
-    func testFetchCommunityRequestsCorrectDate() async throws {
+    func testFetchCommunityRequestsTheGivenDay() async throws {
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 1)
-        XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[0].date, inSameDayAs: dec11))
-    }
-
-    /// A refresh or a language change fetches the first page again. The next "See past community
-    /// content" tap must then load the day before that page, not continue from the oldest day an
-    /// earlier feed reached.
-    func testFetchCommunityRestartsPagination() async throws {
-        let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        _ = try await controller.fetchCommunityPreviousPage(project: enProject) // Dec 10
-        _ = try await controller.fetchCommunityPreviousPage(project: enProject) // Dec 9
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11, forceFetch: true)
-        _ = try await controller.fetchCommunityPreviousPage(project: enProject)
-        let calls = await spy.calls
-        XCTAssertEqual(calls.count, 5)
-        XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[4].date, inSameDayAs: dec10))
-    }
-
-    /// The feed shows only today. "See past" starts Dec 10, and a refresh lands before it finishes.
-    /// The late Dec 10 belongs to the old feed and is dropped by the view model, so the next tap
-    /// must load Dec 10 again instead of skipping to Dec 9.
-    func testPreviousPageFinishingAfterARefreshDoesNotSkipADay() async throws {
-        let calendar = Calendar(identifier: .gregorian)
-        let dec10 = self.dec10
-        let spy = WMFMockGatedFeedDataController(response: stubResponse) { _, date in
-            calendar.isDate(date, inSameDayAs: dec10)
-        }
-        let controller = WMFHomeDataController(feedDataController: spy)
-        let project = enProject
-
-        _ = try await controller.fetchCommunity(project: project, date: dec11)
-        let lateDec10 = Task { try await controller.fetchCommunityPreviousPage(project: project) }
-        let isHeld = await spy.waitUntilHeld()
-        XCTAssertTrue(isHeld)
-
-        _ = try await controller.fetchCommunity(project: project, date: dec11, forceFetch: true)
-        await spy.releaseHeld()
-        _ = try await lateDec10.value
-
-        _ = try await controller.fetchCommunityPreviousPage(project: project)
-        let calls = await spy.calls
-        XCTAssertTrue(calendar.isDate(try XCTUnwrap(calls.last).date, inSameDayAs: dec10))
-    }
-
-    func testFetchCommunityFromCacheRestartsPagination() async throws {
-        let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        _ = try await controller.fetchCommunityPreviousPage(project: enProject) // Dec 10
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11) // cached
-        _ = try await controller.fetchCommunityPreviousPage(project: enProject)
-        let calls = await spy.calls
-        XCTAssertEqual(calls.count, 3)
-        XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[2].date, inSameDayAs: dec10))
+        XCTAssertEqual(WMFFeedDay(date: calls[0].date), dec11Day)
     }
 
     func testFetchCommunityFailsForNonWikipediaProject() async throws {
         let controller = WMFHomeDataController(feedDataController: WMFFeedDataController())
         do {
-            _ = try await controller.fetchCommunity(project: .commons, date: dec11)
+            _ = try await controller.fetchCommunity(project: .commons, day: dec11Day)
             XCTFail("Expected unsupportedProject error")
         } catch WMFDataControllerError.unsupportedProject {
             // expected
         }
     }
 
-    // MARK: - fetchCommunityPreviousPage
-
-    func testFetchPreviousPageThrowsWithoutInitialFetch() async throws {
-        let (controller, _) = makeController()
-        do {
-            _ = try await controller.fetchCommunityPreviousPage(project: enProject)
-            XCTFail("Expected noFetchedDatesAvailable error")
-        } catch WMFHomeDataControllerError.noFetchedDatesAvailable {
-            // expected
-        }
-    }
-
-    func testFetchPreviousPageIsIsolatedByProject() async throws {
-        let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
-        let (controller, _) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        // Fetching en on Dec 11 should not seed the es project's date history.
-        do {
-            _ = try await controller.fetchCommunityPreviousPage(project: esProject)
-            XCTFail("Expected noFetchedDatesAvailable error")
-        } catch WMFHomeDataControllerError.noFetchedDatesAvailable {
-            // expected
-        }
-    }
-
-    func testFetchPreviousPageRequestsPreviousDate() async throws {
+    /// The controller keeps no position in the feed. A caller that fetches other days, such as
+    /// the onboarding prefetch of today, does not change which day another caller gets.
+    func testFetchingOtherDaysDoesNotChangeTheDayAskedFor() async throws {
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        _ = try await controller.fetchCommunityPreviousPage(project: enProject)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        _ = try await controller.fetchCommunity(project: enProject)
+        let response = try await controller.fetchCommunity(project: enProject, day: dec10Day)
+        XCTAssertEqual(response.day, dec10Day)
         let calls = await spy.calls
-        XCTAssertEqual(calls.count, 2)
-        XCTAssertTrue(Calendar(identifier: .gregorian).isDate(calls[1].date, inSameDayAs: dec10))
+        XCTAssertEqual(WMFFeedDay(date: try XCTUnwrap(calls.last).date), dec10Day)
     }
 
-    // MARK: - fetchCommunity caching
+    /// The onboarding prefetch and the Home feed can ask for today at the same time. They share
+    /// one request.
+    func testTwoCallersOfOneDayShareOneRequest() async throws {
+        let spy = WMFMockGatedFeedDataController(response: stubResponse) { _, _ in true }
+        let controller = WMFHomeDataController(feedDataController: spy)
+        let project = enProject
+        let day = dec11Day
 
-    func testFetchCommunityReturnsCachedResponseOnSameDay() async throws {
-        let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
+        let first = Task { try await controller.fetchCommunity(project: project, day: day) }
+        let isHeld = await spy.waitUntilHeld()
+        XCTAssertTrue(isHeld)
+        let second = Task { try await controller.fetchCommunity(project: project, day: day) }
+        // Give the second call time to reach the controller and join the first request.
+        try await Task.sleep(nanoseconds: 50_000_000)
+
+        await spy.releaseHeld()
+        let firstResponse = try await first.value
+        let secondResponse = try await second.value
+
+        XCTAssertEqual(firstResponse.day, day)
+        XCTAssertEqual(secondResponse.day, day)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 1)
     }
 
-    func testFetchCommunityCacheDoesNotAnswerForAnotherDate() async throws {
+    // MARK: - fetchCommunity caching
+
+    func testFetchCommunityFetchesADayOnce() async throws {
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        let response = try await controller.fetchCommunity(project: enProject, date: dec10)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec10Day)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec10Day)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 2)
-        XCTAssertTrue(Calendar(identifier: .gregorian).isDate(response.date, inSameDayAs: dec10))
+    }
+
+    func testFetchCommunityCacheDoesNotAnswerForAnotherDay() async throws {
+        let (controller, spy) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        let response = try await controller.fetchCommunity(project: enProject, day: dec10Day)
+        let calls = await spy.calls
+        XCTAssertEqual(calls.count, 2)
+        XCTAssertEqual(response.day, dec10Day)
     }
 
     func testFetchCommunityForceFetchBypassesCache() async throws {
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11, forceFetch: true)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day, forceFetch: true)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 2)
     }
@@ -506,10 +447,86 @@ final class WMFHomeDataControllerTests: XCTestCase {
     func testFetchCommunityCacheIsIsolatedByProject() async throws {
         let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
         let (controller, spy) = makeController()
-        _ = try await controller.fetchCommunity(project: enProject, date: dec11)
-        _ = try await controller.fetchCommunity(project: esProject, date: dec11)
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        _ = try await controller.fetchCommunity(project: esProject, day: dec11Day)
         let calls = await spy.calls
         XCTAssertEqual(calls.count, 2)
+    }
+
+    /// Today's page goes to disk. A new controller (a later launch) offers it before any request,
+    /// and answers today with it.
+    func testTodayIsStoredForALaterLaunch() async throws {
+        let (controller, _) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject)
+
+        let (laterController, laterSpy) = makeController()
+        let stored = try await laterController.lastStoredCommunity(project: enProject)
+        XCTAssertEqual(stored?.day, WMFFeedDay.today())
+        _ = try await laterController.fetchCommunity(project: enProject)
+        let calls = await laterSpy.calls
+        XCTAssertEqual(calls.count, 0)
+    }
+
+    /// Only today goes to disk. An earlier day fetched with "See past" does not replace it.
+    func testAnEarlierDayIsNotStored() async throws {
+        let (controller, _) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject, day: dec11Day)
+        let stored = try await controller.lastStoredCommunity(project: enProject)
+        XCTAssertNil(stored)
+    }
+
+    func testStoredPageIsIsolatedByProject() async throws {
+        let esProject = WMFProject.wikipedia(WMFLanguage(languageCode: "es", languageVariantCode: nil))
+        let (controller, _) = makeController()
+        _ = try await controller.fetchCommunity(project: enProject)
+        let stored = try await controller.lastStoredCommunity(project: esProject)
+        XCTAssertNil(stored)
+    }
+
+    /// The stored page of an earlier day was fetched on that day, when editors may not have
+    /// filled it in yet. A later launch shows it first, but a fetch of that day asks the network.
+    func testAStoredEarlierDayIsFetchedAgain() async throws {
+        let yesterday = WMFFeedDay.today().adding(days: -1)
+        let stored = WMFCommunityResponse(date: yesterday.date, feedResponse: stubResponse, onThisDay: nil)
+        let entry = WMFHomeCommunityFirstPageCacheEntry(date: yesterday.date, response: stored)
+        try WMFDataEnvironment.current.sharedCacheStore?.save(key: WMFHomeDataController.communityCacheKey(for: enProject), value: entry)
+
+        let (controller, spy) = makeController()
+        let lastStored = try await controller.lastStoredCommunity(project: enProject)
+        XCTAssertEqual(lastStored?.day, yesterday)
+        _ = try await controller.fetchCommunity(project: enProject, day: yesterday)
+        let calls = await spy.calls
+        XCTAssertEqual(calls.count, 1)
+    }
+
+    /// A copy fetched on its own day can be partial, so it answers only while that day is today.
+    func testACopyFetchedOnItsOwnDayIsFinalOnlyAfterThatDay() {
+        let nov26 = WMFFeedDay(year: 2026, month: 11, day: 26)
+        let nov27 = WMFFeedDay(year: 2026, month: 11, day: 27)
+        XCTAssertTrue(WMFHomeDataController.communityCopyIsUsable(fetchedOn: nov26, for: nov26, today: nov26), "Today's copy answers for today")
+        XCTAssertFalse(WMFHomeDataController.communityCopyIsUsable(fetchedOn: nov26, for: nov26, today: nov27), "After midnight it can be partial")
+        XCTAssertTrue(WMFHomeDataController.communityCopyIsUsable(fetchedOn: nov27, for: nov26, today: nov27), "Fetched after the day, it is final")
+    }
+
+    // MARK: - WMFFeedDay
+
+    func testFeedDayAddsDaysAcrossAMonthAndAYear() {
+        XCTAssertEqual(WMFFeedDay(year: 2026, month: 1, day: 1).adding(days: -1), WMFFeedDay(year: 2025, month: 12, day: 31))
+        XCTAssertEqual(WMFFeedDay(year: 2024, month: 2, day: 28).adding(days: 1), WMFFeedDay(year: 2024, month: 2, day: 29))
+    }
+
+    func testFeedDayOfItsOwnDateIsTheSameDay() {
+        let day = WMFFeedDay(year: 2026, month: 3, day: 29)
+        XCTAssertEqual(WMFFeedDay(date: day.date), day)
+    }
+
+    func testFeedDaysCompareByDate() {
+        XCTAssertLessThan(dec10Day, dec11Day)
+        XCTAssertLessThan(WMFFeedDay(year: 2025, month: 12, day: 31), WMFFeedDay(year: 2026, month: 1, day: 1))
+    }
+
+    func testFeedDayDescriptionIsTheISODate() {
+        XCTAssertEqual(WMFFeedDay(year: 2026, month: 3, day: 9).description, "2026-03-09")
     }
 
     // MARK: - fetchForYou caching

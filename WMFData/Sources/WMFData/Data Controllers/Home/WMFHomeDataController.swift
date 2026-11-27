@@ -18,12 +18,35 @@ import Foundation
 
     nonisolated private let userDefaultsStore: WMFKeyValueStore?
 
-    // Dates for which feed data has been fetched per project, in descending order (most recent first).
-    private var communityFetchedDates: [WMFProject: [Date]] = [:]
-    /// Increases each time a first page starts the feed of a project over. A previous page that
-    /// was fetched for an older generation belongs to a feed that is gone, so its date is not
-    /// recorded.
-    private var communityGenerations: [WMFProject: Int] = [:]
+    private struct CommunityKey: Hashable {
+        let project: WMFProject
+        let day: WMFFeedDay
+    }
+
+    /// A fetched day, with the day on which its request started.
+    private struct CommunityDay {
+        let response: WMFCommunityResponse
+        let fetchedOn: WMFFeedDay
+
+        func isUsable(for day: WMFFeedDay, today: WMFFeedDay) -> Bool {
+            WMFHomeDataController.communityCopyIsUsable(fetchedOn: fetchedOn, for: day, today: today)
+        }
+    }
+
+    /// Editors fill a day in during that day, so a copy fetched on the day itself can be partial.
+    /// It answers only for today. A copy fetched after the day is final. Internal for tests.
+    nonisolated static func communityCopyIsUsable(fetchedOn: WMFFeedDay, for day: WMFFeedDay, today: WMFFeedDay) -> Bool {
+        fetchedOn > day || (day == today && fetchedOn == today)
+    }
+
+    /// Community days fetched in this session. Only the newest first page is also kept on disk.
+    private var communityDays: [CommunityKey: CommunityDay] = [:]
+    /// How many days `communityDays` keeps. The oldest days go first.
+    private static let maxCommunityDaysInMemory = 60
+
+    /// Community requests in flight. Callers that ask for the same day at the same time, such as
+    /// the onboarding prefetch and the Home feed, share one request.
+    private var communityRequests: [CommunityKey: Task<WMFCommunityResponse, Error>] = [:]
 
     @objc public static let shared = WMFHomeDataController()
 
@@ -733,52 +756,70 @@ import Foundation
 
     // MARK: - Community
 
-    /// Fetches the first page of the Home feed "Community" data, for the given date.
-    /// Pass `Date()` (the default) to fetch today's data. The first-page response is cached per project per day.
+    /// The Community feed of one project on one day. Pass nothing for today.
     ///
-    /// A first page starts the feed over, so `fetchCommunityPreviousPage` continues from `date` and
-    /// not from older days that an earlier feed loaded.
+    /// The controller keeps no position in the feed: the caller asks for the day it needs, such
+    /// as the day before the oldest day on screen. So any caller can fetch any day in any order
+    /// without an effect on the others.
+    ///
+    /// Today's page comes from memory or disk. An earlier day comes from memory only when it was
+    /// fetched after that day: a copy from the day itself can be partial, so it is fetched again.
+    /// `forceFetch` skips both and asks the network.
     @discardableResult
-    public func fetchCommunity(project: WMFProject, date: Date = Date(), forceFetch: Bool = false) async throws -> WMFCommunityResponse {
-        if !forceFetch, let cached = cachedCommunityResponse(for: project, date: date) {
-            resetCommunityFetchedDates(to: date, project: project)
-            return cached
+    public func fetchCommunity(project: WMFProject, day: WMFFeedDay = .today(), forceFetch: Bool = false) async throws -> WMFCommunityResponse {
+        let key = CommunityKey(project: project, day: day)
+        let today = WMFFeedDay.today()
+
+        if !forceFetch {
+            if let cached = communityDays[key], cached.isUsable(for: day, today: today) {
+                return cached.response
+            }
+            if day == today, let stored = storedCommunityFirstPage(for: project), stored.response.day == day {
+                remember(stored.response, for: key, fetchedOn: WMFFeedDay(date: stored.date))
+                return stored.response
+            }
+            if let running = communityRequests[key] {
+                return try await running.value
+            }
         }
-        let calendar = Calendar(identifier: .gregorian)
-        let month = calendar.component(.month, from: date)
-        let day = calendar.component(.day, from: date)
-        async let feedResponse = feedDataController.fetchFeed(project: project, date: date)
-        async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let response = try await WMFCommunityResponse(date: date, feedResponse: feedResponse, onThisDay: onThisDay)
-        resetCommunityFetchedDates(to: date, project: project)
-        cacheCommunityResponse(response, for: project)
+
+        let request = Task { try await self.requestCommunity(project: project, day: day) }
+        communityRequests[key] = request
+        defer {
+            if communityRequests[key] == request {
+                communityRequests[key] = nil
+            }
+        }
+
+        let response = try await request.value
+        remember(response, for: key, fetchedOn: today)
+        if day == .today() {
+            storeCommunityFirstPage(response, for: project)
+        }
         return response
     }
 
-    /// Fetches the feed data for the day that precedes the earliest date already fetched for the given project.
-    /// Callers must have fetched at least one page via `fetchCommunity` before calling this.
-    public func fetchCommunityPreviousPage(project: WMFProject) async throws -> WMFCommunityResponse {
-        guard let earliest = communityFetchedDates[project]?.last else {
-            throw WMFHomeDataControllerError.noFetchedDatesAvailable
-        }
+    /// The newest first page on disk for the project, from any earlier day too. The Home feed
+    /// shows it before it asks the network for today, so the feed never opens empty when a
+    /// reader has opened it before, also offline. Nil on the first launch. Throws when the stored
+    /// page cannot be read, for example after a change to its format.
+    public func lastStoredCommunity(project: WMFProject) async throws -> WMFCommunityResponse? {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return nil }
+        let entry: WMFHomeCommunityFirstPageCacheEntry? = try store.load(key: Self.communityCacheKey(for: project))
+        return entry?.response
+    }
 
-        let calendar = Calendar(identifier: .gregorian)
-        guard let previousDate = calendar.date(byAdding: .day, value: -1, to: earliest) else {
-            throw WMFHomeDataControllerError.failureCalculatingPreviousDate
-        }
+    private func requestCommunity(project: WMFProject, day: WMFFeedDay) async throws -> WMFCommunityResponse {
+        async let feedResponse = feedDataController.fetchFeed(project: project, date: day.date)
+        async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: day.month, day: day.day)
+        return try await WMFCommunityResponse(date: day.date, feedResponse: feedResponse, onThisDay: onThisDay)
+    }
 
-        let month = calendar.component(.month, from: previousDate)
-        let day = calendar.component(.day, from: previousDate)
-        let generation = communityGenerations[project, default: 0]
-        async let feedResponse = feedDataController.fetchFeed(project: project, date: previousDate)
-        async let onThisDay = try? onThisDayDataController.fetchOnThisDay(project: project, month: month, day: day)
-        let response = try await WMFCommunityResponse(date: previousDate, feedResponse: feedResponse, onThisDay: onThisDay)
-        // A first page fetched during the await started the feed over, so this day belongs to the
-        // old feed. Recording it would make the next previous page skip it.
-        if communityGenerations[project, default: 0] == generation {
-            recordCommunityFetchedDate(previousDate, project: project)
-        }
-        return response
+    private func remember(_ response: WMFCommunityResponse, for key: CommunityKey, fetchedOn: WMFFeedDay) {
+        communityDays[key] = CommunityDay(response: response, fetchedOn: fetchedOn)
+        guard communityDays.count > Self.maxCommunityDaysInMemory,
+              let oldest = communityDays.keys.min(by: { $0.day < $1.day }) else { return }
+        communityDays[oldest] = nil
     }
 
     // MARK: - Private
@@ -787,7 +828,8 @@ import Foundation
         "home.forYou.\(project.id)"
     }
 
-    private func communityCacheKey(for project: WMFProject) -> String {
+    /// Internal for tests, which store an earlier day to open the feed with.
+    nonisolated static func communityCacheKey(for project: WMFProject) -> String {
         "home.community.\(project.id)"
     }
 
@@ -804,34 +846,15 @@ import Foundation
         try? store.save(key: forYouCacheKey(for: project), value: entry)
     }
 
-    /// The cached first page, if it was saved today and holds the feed of `date`.
-    private func cachedCommunityResponse(for project: WMFProject, date: Date) -> WMFCommunityResponse? {
-        guard let store = WMFDataEnvironment.current.sharedCacheStore,
-              let entry: WMFHomeCommunityFirstPageCacheEntry = try? store.load(key: communityCacheKey(for: project)),
-              Calendar.current.isDateInToday(entry.date),
-              Calendar(identifier: .gregorian).isDate(entry.response.date, inSameDayAs: date) else { return nil }
-        return entry.response
+    private func storedCommunityFirstPage(for project: WMFProject) -> WMFHomeCommunityFirstPageCacheEntry? {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return nil }
+        return try? store.load(key: Self.communityCacheKey(for: project))
     }
 
-    private func cacheCommunityResponse(_ response: WMFCommunityResponse, for project: WMFProject) {
+    private func storeCommunityFirstPage(_ response: WMFCommunityResponse, for project: WMFProject) {
         guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
         let entry = WMFHomeCommunityFirstPageCacheEntry(date: Date(), response: response)
-        try? store.save(key: communityCacheKey(for: project), value: entry)
-    }
-
-    private func resetCommunityFetchedDates(to date: Date, project: WMFProject) {
-        communityFetchedDates[project] = [Calendar(identifier: .gregorian).startOfDay(for: date)]
-        communityGenerations[project, default: 0] += 1
-    }
-
-    private func recordCommunityFetchedDate(_ date: Date, project: WMFProject) {
-        let calendar = Calendar(identifier: .gregorian)
-        let normalized = calendar.startOfDay(for: date)
-        var dates = communityFetchedDates[project] ?? []
-        guard !dates.contains(where: { calendar.isDate($0, inSameDayAs: normalized) }) else { return }
-        dates.append(normalized)
-        dates.sort(by: >)
-        communityFetchedDates[project] = dates
+        try? store.save(key: Self.communityCacheKey(for: project), value: entry)
     }
 }
 
@@ -849,6 +872,10 @@ public struct WMFCommunityResponse: Codable, Sendable {
     public let date: Date
     public let feedResponse: WMFFeedAPIResponse
     public let onThisDay: WMFOnThisDayResponse?
+
+    /// The day of this feed. Responses saved before `WMFFeedDay` hold the time of the fetch as
+    /// `date`, which gives the same day.
+    public var day: WMFFeedDay { WMFFeedDay(date: date) }
 }
 
 // MARK: - For You response models
@@ -906,7 +933,8 @@ private struct WMFHomeForYouCacheEntry: Codable {
     let response: WMFForYouResponse
 }
 
-private struct WMFHomeCommunityFirstPageCacheEntry: Codable {
+/// Internal for tests, which store an earlier day to open the feed with.
+struct WMFHomeCommunityFirstPageCacheEntry: Codable {
     let date: Date
     let response: WMFCommunityResponse
 }
@@ -919,18 +947,4 @@ struct WMFTopicArticlesAPIResponse: Decodable {
 
 struct WMFTopicArticlesQuery: Decodable {
     let pages: [WMFRandomArticle]?
-}
-
-public enum WMFHomeDataControllerError: LocalizedError {
-    case noFetchedDatesAvailable
-    case failureCalculatingPreviousDate
-
-    public var errorDescription: String? {
-        switch self {
-        case .noFetchedDatesAvailable:
-            return "No feed pages have been fetched yet. Call fetchCommunity first."
-        case .failureCalculatingPreviousDate:
-            return "Failed to calculate the previous date."
-        }
-    }
 }

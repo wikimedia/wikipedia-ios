@@ -785,6 +785,8 @@
 "home-community-error-title" = "Could not load content";
 "home-community-more-on-this-day" = "More on this day";
 "home-community-more-top-read" = "More top read";
+"home-community-news-story-carousel-hint" = "Opens the story with its articles. Swipe left or right with three fingers to go to the other stories.";
+"home-community-news-story-hint" = "Opens the story with its articles.";
 "home-community-picture-of-the-day-hint" = "Opens the picture in full screen, with its description and license.";
 "home-community-see-past-content" = "See past community content";
 "home-community-tab-title" = "Community";

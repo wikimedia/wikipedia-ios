@@ -31,4 +31,19 @@ public extension Locale {
         }
         return String(first).uppercased(with: locale) + name.dropFirst()
     }
+
+    /// The locale that formats dates and numbers for a Wikipedia language code, as the legacy
+    /// `NSLocale.wmf_locale(for:)` does: "simple" and "test" are English, and a code that `Locale`
+    /// does not know gives the device locale, not the root locale.
+    static func formatting(forWikipediaLanguageCode languageCode: String?) -> Locale {
+        guard let languageCode else { return .autoupdatingCurrent }
+        let lookupCode = localeLanguageCodeOverrides[languageCode] ?? languageCode
+        if Locale.availableIdentifiers.contains(lookupCode) {
+            return Locale(identifier: lookupCode)
+        }
+        if languageCode == "simple" || languageCode == "test" {
+            return Locale(identifier: "en")
+        }
+        return .autoupdatingCurrent
+    }
 }

@@ -365,6 +365,18 @@ final class WMFHomeViewModelTests: XCTestCase {
         XCTAssertTrue(vm.hasCommunityContent(vm.communityPages[1]))
     }
 
+    /// Yesterday is fetched together with today, so an empty today costs no second wait and
+    /// no second request.
+    func testAnEmptyTodayShowsYesterdayFromTheParallelFetch() async {
+        let (vm, feed) = makeCommunityViewModel(daysWithContent: [1])
+        vm.selectedLanguage = WMFLanguage(languageCode: "sco", languageVariantCode: nil)
+
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage && !vm.isLoadingCommunity }
+        XCTAssertTrue(loaded)
+        let calls = await feed.callCount
+        XCTAssertEqual(calls, 2)
+    }
+
     /// "See past" skips days with nothing to show, so a tap always adds a day the reader can see.
     func testSeePastSkipsDaysWithNothingToShow() async {
         let (vm, feed) = makeCommunityViewModel(daysWithContent: [0, 3])
@@ -397,25 +409,35 @@ final class WMFHomeViewModelTests: XCTestCase {
         vm.communityPages.map { WMFDayGatedFeedDataController.daysAgo($0.feedDate) }
     }
 
+    /// Brings the feed to today and yesterday. Yesterday comes from the parallel fetch of the
+    /// first load, so the first "See past" tap needs no request.
+    private func loadYesterday(_ vm: WMFHomeViewModel) async {
+        vm.loadCommunityPreviousPage()
+        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(loaded)
+        XCTAssertEqual(daysAgo(vm), [0, 1])
+    }
+
     /// The reader taps "See past" while a pull to refresh runs, and the refresh finishes first. The
     /// day belongs to the feed the refresh replaced, so it is dropped, and the next tap loads
     /// yesterday.
     func testSeePastStartedDuringARefreshIsDroppedWhenTheRefreshFinishesFirst() async {
         let (vm, feed) = await makeGatedCommunityViewModel()
+        await loadYesterday(vm)
 
         await feed.hold(day: 0)
         let refresh = Task { await vm.refreshCommunityFeed() }
         let refreshIsHeld = await feed.waitUntilHeld(day: 0)
         XCTAssertTrue(refreshIsHeld)
 
-        await feed.hold(day: 1)
+        await feed.hold(day: 2)
         vm.loadCommunityPreviousPage()
-        let seePastIsHeld = await feed.waitUntilHeld(day: 1)
+        let seePastIsHeld = await feed.waitUntilHeld(day: 2)
         XCTAssertTrue(seePastIsHeld)
 
         await feed.release(day: 0)
         await refresh.value
-        await feed.release(day: 1)
+        await feed.release(day: 2)
         try? await Task.sleep(nanoseconds: 200_000_000)
 
         XCTAssertEqual(daysAgo(vm), [0])
@@ -431,25 +453,180 @@ final class WMFHomeViewModelTests: XCTestCase {
     /// stays, so the day it asked for still arrives, and the next tap continues from it.
     func testSeePastFinishesWhenTheRefreshFails() async {
         let (vm, feed) = await makeGatedCommunityViewModel()
+        await loadYesterday(vm)
 
-        await feed.hold(day: 1)
+        await feed.hold(day: 2)
         vm.loadCommunityPreviousPage()
-        let seePastIsHeld = await feed.waitUntilHeld(day: 1)
+        let seePastIsHeld = await feed.waitUntilHeld(day: 2)
         XCTAssertTrue(seePastIsHeld)
 
         await feed.fail(day: 0)
         await vm.refreshCommunityFeed()
-        await feed.release(day: 1)
+        await feed.release(day: 2)
 
-        let loaded = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        let loaded = await waitUntil { vm.communityPages.count == 3 && !vm.isLoadingCommunityPreviousPage }
         XCTAssertTrue(loaded)
-        XCTAssertEqual(daysAgo(vm), [0, 1])
+        XCTAssertEqual(daysAgo(vm), [0, 1, 2])
         XCTAssertNil(vm.communityFeedError)
+        XCTAssertNil(vm.communityTodayError, "Today is on screen, so a failed refresh needs no note")
 
         vm.loadCommunityPreviousPage()
-        let loadedMore = await waitUntil { vm.communityPages.count == 3 && !vm.isLoadingCommunityPreviousPage }
+        let loadedMore = await waitUntil { vm.communityPages.count == 4 && !vm.isLoadingCommunityPreviousPage }
         XCTAssertTrue(loadedMore)
-        XCTAssertEqual(daysAgo(vm), [0, 1, 2])
+        XCTAssertEqual(daysAgo(vm), [0, 1, 2, 3])
+    }
+
+    /// A day that does not follow the oldest day of the feed is never appended, whatever its
+    /// timing. Here a refresh replaced the feed while "See past" waited for day 2.
+    func testOnlyTheDayBeforeTheOldestDayIsAppended() async {
+        let (vm, feed) = await makeGatedCommunityViewModel()
+        await loadYesterday(vm)
+
+        await feed.hold(day: 2)
+        vm.loadCommunityPreviousPage()
+        let seePastIsHeld = await feed.waitUntilHeld(day: 2)
+        XCTAssertTrue(seePastIsHeld)
+
+        await vm.refreshCommunityFeed()
+        XCTAssertEqual(daysAgo(vm), [0])
+        await feed.release(day: 2)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+
+        XCTAssertEqual(daysAgo(vm), [0], "Day 2 would leave a gap where yesterday belongs")
+    }
+
+    // MARK: - Community stored page and day change
+
+    private let english = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+
+    private var feedWithContent: WMFFeedAPIResponse {
+        (try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" } }"#.utf8))) ?? emptyFeed
+    }
+
+    /// Puts yesterday's page on disk, as a launch on an earlier day leaves it.
+    private func storeYesterday(project: WMFProject) throws {
+        let yesterday = WMFFeedDay.today().adding(days: -1)
+        let response = WMFCommunityResponse(date: yesterday.date, feedResponse: feedWithContent, onThisDay: nil)
+        let entry = WMFHomeCommunityFirstPageCacheEntry(date: yesterday.date, response: response)
+        try WMFDataEnvironment.current.sharedCacheStore?.save(key: WMFHomeDataController.communityCacheKey(for: project), value: entry)
+    }
+
+    private func configureCacheStore() async {
+        WMFDataEnvironment.current.sharedCacheStore = WMFMockKeyValueStore()
+    }
+
+    /// The first open of a day shows the page stored on an earlier day before any answer from
+    /// the network, with its own date. Today then replaces it.
+    func testAStoredEarlierDayShowsWhileTodayLoads() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureCacheStore) {
+            let project = WMFProject.wikipedia(english)
+            try storeYesterday(project: project)
+            let feed = WMFDayGatedFeedDataController(response: feedWithContent)
+            await feed.hold(day: 0)
+            let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed), selectedLanguage: english)
+            vm.selectedTab = .community
+            vm.loadCommunityFeedIfNeeded()
+
+            let storedShows = await waitUntil { vm.communityPages.count == 1 }
+            XCTAssertTrue(storedShows)
+            XCTAssertEqual(vm.communityPages.first?.day, WMFFeedDay.today().adding(days: -1))
+            XCTAssertEqual(vm.communityPages.first?.isToday, false)
+            XCTAssertTrue(vm.isLoadingCommunity)
+
+            await feed.release(day: 0)
+            let todayShows = await waitUntil { vm.communityPages.first?.day == WMFFeedDay.today() && !vm.isLoadingCommunity }
+            XCTAssertTrue(todayShows)
+            XCTAssertEqual(vm.communityPages.first?.isToday, true)
+            XCTAssertNil(vm.communityTodayError)
+        }
+    }
+
+    /// Today has content, so the load ends without a wait for the parallel fetch of yesterday.
+    func testTheLoadDoesNotWaitForYesterdayWhenTodayHasContent() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureCacheStore) {
+            let feed = WMFDayGatedFeedDataController(response: feedWithContent)
+            await feed.hold(day: 1)
+            let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed), selectedLanguage: english)
+            vm.selectedTab = .community
+            vm.loadCommunityFeedIfNeeded()
+
+            let loaded = await waitUntil { vm.communityPages.first?.day == WMFFeedDay.today() && !vm.isLoadingCommunity }
+            XCTAssertTrue(loaded)
+            let yesterdayIsHeld = await feed.waitUntilHeld(day: 1)
+            XCTAssertTrue(yesterdayIsHeld, "Yesterday is still in flight")
+            await feed.release(day: 1)
+        }
+    }
+
+    /// Offline on the first open of a day: the stored earlier day stays on screen with a note,
+    /// not the full-screen error.
+    func testOfflineFirstOpenOfADayKeepsTheStoredDay() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureCacheStore) {
+            let project = WMFProject.wikipedia(english)
+            try storeYesterday(project: project)
+            let feed = WMFDayGatedFeedDataController(response: feedWithContent)
+            await feed.fail(day: 0)
+            let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed), selectedLanguage: english)
+            vm.selectedTab = .community
+            vm.loadCommunityFeedIfNeeded()
+
+            let done = await waitUntil { !vm.isLoadingCommunity && !vm.communityPages.isEmpty }
+            XCTAssertTrue(done)
+            XCTAssertEqual(vm.communityPages.first?.day, WMFFeedDay.today().adding(days: -1))
+            XCTAssertNil(vm.communityFeedError)
+            XCTAssertNotNil(vm.communityTodayError)
+        }
+    }
+
+    /// A second tap on Retry while the first retry runs starts no second request.
+    func testRetryOfTodayRunsOnceAtATime() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureCacheStore) {
+            let project = WMFProject.wikipedia(english)
+            try storeYesterday(project: project)
+            let feed = WMFDayGatedFeedDataController(response: feedWithContent)
+            await feed.fail(day: 0)
+            let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed), selectedLanguage: english)
+            vm.selectedTab = .community
+            vm.loadCommunityFeedIfNeeded()
+            let noteShows = await waitUntil { !vm.isLoadingCommunity && vm.communityTodayError != nil }
+            XCTAssertTrue(noteShows)
+
+            await feed.hold(day: 0)
+            vm.retryCommunityToday()
+            vm.retryCommunityToday()
+            XCTAssertTrue(vm.isRetryingCommunityToday)
+            let retryIsHeld = await feed.waitUntilHeld(day: 0)
+            XCTAssertTrue(retryIsHeld)
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            let heldRequests = await feed.heldCount(day: 0)
+            XCTAssertEqual(heldRequests, 1)
+
+            await feed.release(day: 0)
+            let retryEnded = await waitUntil { !vm.isRetryingCommunityToday }
+            XCTAssertTrue(retryEnded)
+            XCTAssertNotNil(vm.communityTodayError, "Today still fails, so the note stays")
+        }
+    }
+
+    /// The feed opens late on one day, and the reader loads an earlier day after midnight. The
+    /// append must not count as a load of the new day, so the day change still opens today.
+    func testAnEarlierDayAppendedAfterMidnightDoesNotHideTheDayChange() async throws {
+        let feed = WMFDayGatedFeedDataController(response: feedWithContent)
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed), selectedLanguage: english)
+        vm.selectedTab = .community
+        let lateYesterday = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -1, to: Date()))
+        vm.loadCommunityFeedIfNeeded(now: lateYesterday)
+        let opened = await waitUntil { vm.communityPages.count == 1 && !vm.isLoadingCommunity }
+        XCTAssertTrue(opened)
+
+        vm.loadCommunityPreviousPage()
+        let appended = await waitUntil { vm.communityPages.count == 2 && !vm.isLoadingCommunityPreviousPage }
+        XCTAssertTrue(appended)
+
+        vm.refreshFeedsIfDayChanged()
+        let reopened = await waitUntil { vm.communityPages.first?.day == WMFFeedDay.today() && !vm.isLoadingCommunity }
+        XCTAssertTrue(reopened)
+        XCTAssertEqual(vm.communityPages.first?.isToday, true)
     }
 
     /// A wiki without feed content must not start an endless run of requests.
@@ -483,8 +660,9 @@ final class WMFHomeViewModelTests: XCTestCase {
         try? await Task.sleep(nanoseconds: 200_000_000)
 
         XCTAssertEqual(vm.communityPages.count, 1)
+        // Today and the parallel fetch of yesterday, and nothing after them.
         let calls = await feed.callCount
-        XCTAssertEqual(calls, 1)
+        XCTAssertEqual(calls, 2)
     }
 
     func testTappingACommunityArticleReachesTheCoordinatorWithItsModuleAndAction() {
@@ -527,6 +705,34 @@ final class WMFHomeViewModelTests: XCTestCase {
         let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
         XCTAssertTrue(vm.isCommunityArticleSaved(title: "Octopus", project: project))
         XCTAssertFalse(vm.isCommunityArticleSaved(title: "Black_hole", project: project))
+    }
+
+    /// A save or an unsave elsewhere changes one article. Only that article is asked about again.
+    func testAChangeToOneArticleAsksOnlyAboutThatArticle() async {
+        let tfa = try? JSONDecoder().decode(WMFFeedAPIResponse.self, from: Data(#"{ "tfa": { "title": "Black_hole" }, "mostread": { "articles": [ { "title": "Octopus" }, { "title": "Dog" } ] } }"#.utf8))
+        let feed = WMFMockGatedFeedDataController(response: tfa ?? emptyFeed, holdCount: 0) { _, _ in false }
+        let vm = WMFHomeViewModel(dataController: makeDataController(feed: feed))
+        let savedList = WMFSavedTitlesSpy(savedTitles: ["Octopus"])
+        vm.isCommunityArticleSaved = { title, _ in
+            savedList.askedTitles.append(title)
+            return savedList.savedTitles.contains(title)
+        }
+        vm.selectedTab = .community
+        vm.selectedLanguage = WMFLanguage(languageCode: "en", languageVariantCode: nil)
+        let loaded = await waitUntil { !vm.communityPages.isEmpty && !vm.isLoadingCommunity }
+        XCTAssertTrue(loaded)
+        let project = WMFProject.wikipedia(WMFLanguage(languageCode: "en", languageVariantCode: nil))
+
+        savedList.savedTitles = ["Dog"]
+        savedList.askedTitles = []
+        vm.refreshCommunitySavedStates { title, _ in title == "Dog" }
+
+        XCTAssertEqual(savedList.askedTitles, ["Dog"])
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Dog", project: project))
+        XCTAssertTrue(vm.isCommunityArticleSaved(title: "Octopus", project: project), "Octopus was not asked about, so it keeps its state")
+
+        vm.refreshCommunitySavedStates()
+        XCTAssertFalse(vm.isCommunityArticleSaved(title: "Octopus", project: project), "A full refresh asks about every article again")
     }
 
     func testMoreTopReadReachesTheCoordinatorWithEveryTitle() throws {
@@ -907,6 +1113,9 @@ actor WMFDayGatedFeedDataController: WMFFeedDataControlling {
         held.removeValue(forKey: day)?.forEach { $0.resume() }
     }
 
+    /// How many requests for `day` wait for a release.
+    func heldCount(day: Int) -> Int { held[day]?.count ?? 0 }
+
     /// Gives up after about two seconds, so a broken test fails instead of hanging the suite.
     func waitUntilHeld(day: Int) async -> Bool {
         for _ in 0..<200 {
@@ -930,5 +1139,17 @@ actor WMFDayGatedFeedDataController: WMFFeedDataControlling {
     static func daysAgo(_ date: Date) -> Int {
         let calendar = Calendar(identifier: .gregorian)
         return calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
+    }
+}
+
+/// The saved list of the coordinator, for tests: which titles are saved, and which titles the
+/// view model asked about.
+@MainActor
+private final class WMFSavedTitlesSpy {
+    var savedTitles: Set<String>
+    var askedTitles: [String] = []
+
+    init(savedTitles: Set<String>) {
+        self.savedTitles = savedTitles
     }
 }

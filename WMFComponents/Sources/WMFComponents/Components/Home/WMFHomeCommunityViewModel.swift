@@ -94,6 +94,16 @@ struct WMFCommunityFeedStrings {
         WMFLocalizedString("home-community-disclaimer", languageCode: languageCode, value: "Content and resources selected by and about the Wikimedia community.", comment: "Note at the top of the Home tab's Community feed, explaining who chose the content below it.")
     }
 
+    /// Spoken after an In the news story, which is a button. The hint replaces VoiceOver's own
+    /// button hint, so it says what the button does first. With more than one story, it then
+    /// gives the gesture that changes the story: a three-finger swipe moves the carousel.
+    static func newsStoryHint(storyCount: Int) -> String {
+        guard storyCount > 1 else {
+            return WMFLocalizedString("home-community-news-story-hint", value: "Opens the story with its articles.", comment: "VoiceOver hint on an In the news story in the Home tab's Community feed, when the day has only one story. Tapping the story opens it with the articles it links to.")
+        }
+        return WMFLocalizedString("home-community-news-story-carousel-hint", value: "Opens the story with its articles. Swipe left or right with three fingers to go to the other stories.", comment: "VoiceOver hint on an In the news story in the Home tab's Community feed, when the day has more than one story. Tapping the story opens it with the articles it links to. The stories are in a carousel, and a VoiceOver three-finger swipe to the left or the right moves to the next or the previous story.")
+    }
+
     /// Spoken after "Picture of the day" on its image, which is a button.
     static var pictureOfTheDayHint: String {
         WMFLocalizedString("home-community-picture-of-the-day-hint", value: "Opens the picture in full screen, with its description and license.", comment: "VoiceOver hint on the Picture of the day image in the Home tab's Community feed. Tapping the image opens it in the image viewer.")
@@ -131,6 +141,10 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     // MARK: - Nested display types
 
     public struct NewsItem {
+        /// The position in the day's list and the story text. The position keeps two stories with
+        /// the same text, or with no text, apart. The text keeps the ID of a story stable when a
+        /// refresh of the same day brings the same list.
+        public let id: String
         public let story: String
         /// The story as the feed sent it, with all its linked articles. A tap opens it in the
         /// news story screen, like Android and the legacy Explore feed.
@@ -142,6 +156,8 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     public struct OnThisDayItem {
         public let year: Int
+        /// The year in the wiki's language: "1984", or "44 BC" for a year before year 1.
+        public let yearText: String
         public let yearsAgo: String
         public let text: String
         public let pages: [WMFCommunityArticle]
@@ -154,7 +170,9 @@ public struct WMFHomeCommunityViewModel: Identifiable {
 
     /// The day and the wiki of this page. Two pages of one feed never share it.
     public let id: String
-    /// The day this page is for. Picture of the day opens its gallery for this date.
+    /// The day this page is for.
+    public let day: WMFFeedDay
+    /// The day this page is for, as a date. Picture of the day opens its gallery for this date.
     public let feedDate: Date
     /// The header above this day's modules, in the app language as on Android: "Today - Mar 23, 2026"
     /// for today, the date alone for an earlier day.
@@ -198,6 +216,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         let currentYear = Calendar.current.component(.year, from: now)
 
         self.project = project
+        self.day = response.day
         self.feedDate = response.date
         self.strings = WMFCommunityFeedStrings(languageCode: project.languageCode)
 
@@ -205,7 +224,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         keyDateFormatter.locale = Locale(identifier: "en_US_POSIX")
         keyDateFormatter.dateFormat = "yyyy-MM-dd"
         let dateKey = keyDateFormatter.string(from: response.date)
-        self.id = "\(projectID)_\(dateKey)"
+        self.id = "\(projectID)_\(response.day)"
         self.featuredArticleHideKey = response.feedResponse.todaysFeaturedArticle?.title.map { "featured_article_\($0)" }
         self.topReadHideKey = "top_read_\(dateKey)_\(projectID)"
         self.inTheNewsHideKey = "in_the_news_\(dateKey)_\(projectID)"
@@ -216,7 +235,7 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         self.pictureOfDayHideKey = pictureOfDayID.map { "picture_of_day_\($0)" }
 
         let formattedDate = DateFormatter.wmfShortMonthDayYearDateFormatter.string(from: response.date)
-        let isToday = Calendar.current.isDate(response.date, inSameDayAs: now)
+        let isToday = response.day == WMFFeedDay.today(now: now)
         self.isToday = isToday
         self.date = isToday ? WMFCommunityFeedStrings.todayDateHeader(formattedDate) : formattedDate
         self.featuredArticle = response.feedResponse.todaysFeaturedArticle
@@ -227,10 +246,11 @@ public struct WMFHomeCommunityViewModel: Identifiable {
         self.allTopReadTitles = mostRead.map(\.title)
 
         self.newsItems = (response.feedResponse.news ?? [])
-            .map { item in
+            .enumerated()
+            .map { index, item in
                 let story = (try? HtmlUtils.stringFromHTML(item.story ?? "")) ?? item.story ?? ""
                 let featured = item.featuredArticle(picturedText: picturedText)
-                return NewsItem(story: story, newsItem: item, imageURLString: featured?.thumbnail?.source)
+                return NewsItem(id: "\(index)|\(story)", story: story, newsItem: item, imageURLString: featured?.thumbnail?.source)
             }
 
         // Like Android, the module shows the first two events the wiki's editors picked for the day.
@@ -244,9 +264,10 @@ public struct WMFHomeCommunityViewModel: Identifiable {
             self.onThisDayItems = events.prefix(2).map { event in
                 OnThisDayItem(
                     year: event.year,
-                    yearsAgo: Self.yearsAgo(currentYear - event.year, languageCode: project.languageCode),
+                    yearText: DateFormatter.wmfEventYearString(event.year, languageCode: project.languageCode),
+                    yearsAgo: Self.yearsAgo(Self.yearsBetween(event.year, and: currentYear), languageCode: project.languageCode),
                     text: event.text,
-                    pages: event.pages.map(WMFCommunityArticle.init(onThisDayPage:))
+                    pages: Self.uniqueByTitle(event.pages.map(WMFCommunityArticle.init(onThisDayPage:)))
                 )
             }
         }
@@ -271,8 +292,21 @@ public struct WMFHomeCommunityViewModel: Identifiable {
     /// string, formatted with the wiki's locale so its plural rules apply, the way the legacy On
     /// this day card does.
     static func yearsAgo(_ years: Int, languageCode: String?) -> String {
-        let locale = languageCode.map { Locale(identifier: $0) } ?? .current
+        let locale = Locale.formatting(forWikipediaLanguageCode: languageCode)
         return String(format: CommonStrings.yearsAgo(languageCode: languageCode), locale: locale, years)
+    }
+
+    /// Years from an event to `currentYear`. The feed counts years before year 1 as negative
+    /// numbers and has no year 0, so 44 BC (-44) to 2026 is 2069 years, not 2070.
+    static func yearsBetween(_ eventYear: Int, and currentYear: Int) -> Int {
+        eventYear < 0 ? currentYear - eventYear - 1 : currentYear - eventYear
+    }
+
+    /// The articles in their order, without a second row for a title that an event lists again.
+    /// The rows use the title as their SwiftUI ID.
+    static func uniqueByTitle(_ articles: [WMFCommunityArticle]) -> [WMFCommunityArticle] {
+        var seen: Set<String> = []
+        return articles.filter { seen.insert($0.title).inserted }
     }
 
     /// The position in the day's full On this day list of an event tapped on the card. The card
