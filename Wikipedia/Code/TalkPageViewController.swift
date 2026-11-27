@@ -1199,14 +1199,16 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
                     }
                 }
             case .failure(let error):
-                if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error,
-                   self.shouldPresentHCaptchaChallenge(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, serverForceShowCaptcha: serverForceShowCaptcha) {
-                    self.presentHCaptchaChallenge(on: self, siteKey: siteKey, onSuccess: { [weak self] token in
-                        self?.publishReply(text: text, commentViewModel: commentViewModel, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
-                    }, onError: { [weak self] in
-                        self?.replyComposeController.isLoading = false
-                    })
-                    return
+                if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error {
+                    let requirement = WMFHCaptchaRequirement(siteKey: siteKey, forceShowCaptcha: serverForceShowCaptcha)
+                    if HCaptchaEditChallengePresenter.shouldPresent(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, requirement: requirement) {
+                        HCaptchaEditChallengePresenter.present(on: self, theme: self.theme, requirement: requirement, onSuccess: { [weak self] token in
+                            self?.publishReply(text: text, commentViewModel: commentViewModel, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
+                        }, onCancel: { [weak self] in
+                            self?.replyComposeController.isLoading = false
+                        })
+                        return
+                    }
                 }
 
                 DDLogError("Failure publishing reply: \(error)")
@@ -1236,47 +1238,6 @@ extension TalkPageViewController: TalkPageReplyComposeDelegate {
         let action = UIAlertAction(title: CommonStrings.okTitle, style: .default)
         alert.addAction(action)
         viewController.present(alert, animated: true)
-    }
-
-    /// Present the challenge on the first attempt, or when the server escalates a retry to a visible challenge. Other re-challenges fall through to the generic error path, so the user does not loop.
-    fileprivate func shouldPresentHCaptchaChallenge(sentToken: String?, sentForceShowCaptcha: Bool, serverForceShowCaptcha: Bool) -> Bool {
-        if sentToken == nil {
-            return true
-        }
-        return serverForceShowCaptcha && !sentForceShowCaptcha
-    }
-
-    /// Presents an hCaptcha challenge, reporting the token via `onSuccess` (to retry) or `onError`.
-    fileprivate func presentHCaptchaChallenge(on presenter: UIViewController, siteKey: String?, onSuccess: @escaping (String) -> Void, onError: @escaping () -> Void) {
-        let hcaptchaVC = WMFHCaptchaViewController()
-        hcaptchaVC.theme = theme
-        let editApiKey = WMFDeveloperSettingsDataController.shared.loadFeatureConfig()?.ios.hCaptcha?.editApiKey
-        hcaptchaVC.siteKey = siteKey ?? (editApiKey?.isEmpty == false ? editApiKey : nil)
-        hcaptchaVC.modalTransitionStyle = .crossDissolve
-        hcaptchaVC.modalPresentationStyle = .overFullScreen
-
-        hcaptchaVC.successAction = { [weak hcaptchaVC] token in
-            guard let hcaptchaVC else { return }
-            hcaptchaVC.dismiss(animated: true) {
-                onSuccess(token)
-            }
-        }
-
-        hcaptchaVC.errorAction = { [weak hcaptchaVC] error in
-            guard let hcaptchaVC else { return }
-            hcaptchaVC.dismiss(animated: true) {
-                if case WMFHCaptchaViewController.CustomError.hCaptchaClosed = error {
-                    onError()
-                    return
-                }
-                WMFToastManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousToasts: true)
-                onError()
-            }
-        }
-
-        presenter.present(hcaptchaVC, animated: true) {
-            hcaptchaVC.validate()
-        }
     }
 
 }
@@ -1340,14 +1301,16 @@ extension TalkPageViewController: TalkPageTopicComposeViewControllerDelegate {
                     }
                 }
             case .failure(let error):
-                if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error,
-                   self.shouldPresentHCaptchaChallenge(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, serverForceShowCaptcha: serverForceShowCaptcha) {
-                    self.presentHCaptchaChallenge(on: composeViewController, siteKey: siteKey, onSuccess: { [weak self] token in
-                        self?.publishTopic(topicTitle: topicTitle, topicBody: topicBody, composeViewController: composeViewController, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
-                    }, onError: {
-                        composeViewController.setupNavigationBar(isPublishing: false)
-                    })
-                    return
+                if case TalkPageDataController.TalkPageError.hCaptchaRequired(let siteKey, let serverForceShowCaptcha) = error {
+                    let requirement = WMFHCaptchaRequirement(siteKey: siteKey, forceShowCaptcha: serverForceShowCaptcha)
+                    if HCaptchaEditChallengePresenter.shouldPresent(sentToken: hCaptchaToken, sentForceShowCaptcha: forceShowCaptcha, requirement: requirement) {
+                        HCaptchaEditChallengePresenter.present(on: composeViewController, theme: self.theme, requirement: requirement, onSuccess: { [weak self] token in
+                            self?.publishTopic(topicTitle: topicTitle, topicBody: topicBody, composeViewController: composeViewController, hCaptchaToken: token, forceShowCaptcha: serverForceShowCaptcha)
+                        }, onCancel: {
+                            composeViewController.setupNavigationBar(isPublishing: false)
+                        })
+                        return
+                    }
                 }
 
                 DDLogError("Failure publishing topic: \(error)")

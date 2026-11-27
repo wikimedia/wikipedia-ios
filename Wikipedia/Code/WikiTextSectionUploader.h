@@ -10,11 +10,14 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrorType) {
     WikiTextSectionUploaderErrorTypeAbuseFilterOther = 5,
     WikiTextSectionUploaderErrorTypeBlocked = 6,
     WikiTextSectionUploaderErrorTypeProtectedPage = 7,
+    WikiTextSectionUploaderErrorTypeNeedsHCaptcha = 8,
 };
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const NSErrorUserInfoDisplayError;
+// The raw `edit.captcha` dictionary of a WikiTextSectionUploaderErrorTypeNeedsHCaptcha error.
+extern NSString *const WikiTextSectionUploaderErrorUserInfoCaptchaKey;
 
 @interface WikiTextSectionUploader : WMFLegacyFetcher
 // Note: "section" parameter needs to be a string because the
@@ -28,6 +31,8 @@ extern NSString *const NSErrorUserInfoDisplayError;
              baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
+         hCaptchaToken:(nullable NSString *)hCaptchaToken
+      forceShowCaptcha:(BOOL)forceShowCaptcha
               editTags:(nullable NSArray<NSString *> *)editTags
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 
@@ -48,6 +53,8 @@ extern NSString *const NSErrorUserInfoDisplayError;
             isMinorEdit:(BOOL)isMinorEdit
                baseRevID:(nullable NSNumber *)baseRevID
              editTags:(nullable NSArray<NSString *> *)editTags
+           hCaptchaToken:(nullable NSString *)hCaptchaToken
+        forceShowCaptcha:(BOOL)forceShowCaptcha
               completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
 

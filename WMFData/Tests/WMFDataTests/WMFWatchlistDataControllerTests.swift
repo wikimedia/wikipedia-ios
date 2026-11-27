@@ -260,6 +260,31 @@ final class WMFWatchlistDataControllerTests {
         }
     }
 
+    @Test
+    func postUndoArticleRequiresHCaptcha() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = WMFWatchlistDataController()
+
+            do {
+                _ = try await controller.undo(title: "hCaptcha", revisionID: 1155871225, summary: "Testing", username: "Amigao", project: enProject)
+                Issue.record("Expected an hCaptcha error")
+            } catch WMFDataControllerError.hCaptchaRequired(let requirement) {
+                #expect(requirement == WMFHCaptchaRequirement(siteKey: "5d0c670e-a5f4-4258-ad16-1f42792c9c62", forceShowCaptcha: false))
+            }
+        }
+    }
+
+    @Test
+    func postUndoArticleWithHCaptchaToken() async throws {
+        try await fixture.withConfiguredEnvironment(configure: configureEnvironment) {
+            let controller = WMFWatchlistDataController()
+
+            let result = try await controller.undo(title: "hCaptcha", revisionID: 1155871225, summary: "Testing", username: "Amigao", project: enProject, hCaptchaToken: "token")
+
+            #expect(result.newRevisionID == 573989)
+        }
+    }
+
     private func configureEnvironment() async {
         WMFDataEnvironment.current.appData = WMFAppData(appLanguages: [
             WMFLanguage(languageCode: "en", languageVariantCode: nil),
@@ -317,9 +342,9 @@ private extension WMFWatchlistDataController {
         }
     }
 
-    func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject) async throws -> WMFUndoOrRollbackResult {
+    func undo(title: String, revisionID: UInt, summary: String, username: String, project: WMFProject, hCaptchaToken: String? = nil) async throws -> WMFUndoOrRollbackResult {
         try await withCheckedThrowingContinuation { continuation in
-            undo(title: title, revisionID: revisionID, summary: summary, username: username, project: project) { result in
+            undo(title: title, revisionID: revisionID, summary: summary, username: username, project: project, hCaptchaToken: hCaptchaToken) { result in
                 continuation.resume(with: result)
             }
         }

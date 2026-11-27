@@ -24,7 +24,7 @@ protocol ArticleDescriptionControlling {
     var articleLanguageCode: String { get }
     /// URL that identifies the edited page for edit analytics. Return nil to use the article URL.
     var loggingPageURL: URL? { get }
-    func publishDescription(_ description: String, editType: ArticleDescriptionEditType, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void)
+    func publishDescription(_ description: String, editType: ArticleDescriptionEditType, hCaptchaToken: String?, forceShowCaptcha: Bool, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void)
     func currentDescription(completion: @escaping (String?, MediaWikiAPIDisplayError?) -> Void)
     func learnMoreViewControllerWithTheme(_ theme: Theme) -> UIViewController?
     func warningTypesForDescription(_ description: String?) -> ArticleDescriptionWarningTypes

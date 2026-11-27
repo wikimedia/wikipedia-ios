@@ -12,6 +12,7 @@ public enum WMFDataControllerError: LocalizedError {
     case mediaWikiResponseError(WMFMediaWikiError)
     case paymentsWikiResponseError(String?)
     case unsupportedProject
+    case hCaptchaRequired(WMFHCaptchaRequirement)
 }
 
 public enum WMFServiceError: Error, Equatable {
