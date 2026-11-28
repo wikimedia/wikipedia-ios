@@ -135,15 +135,11 @@ final class WatchlistFlowCoordinator: NSObject {
 
         let localizedStringsEmptyView = WMFEmptyViewModel.LocalizedStrings(title: CommonStrings.watchlistEmptyViewTitle, subtitle: CommonStrings.watchlistEmptyViewSubtitle, titleFilter: CommonStrings.watchlistEmptyViewFilterTitle, buttonTitle: CommonStrings.watchlistEmptyViewButtonTitle, attributedFilterString: attributedFilterString)
 
-        let reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { (reachable, _) in
+        let reachabilityNotifier = ReachabilityNotifier { reachable in
             if reachable {
-                Task { @MainActor in
-                    WMFToastManager.sharedInstance.dismissCurrentToast()
-                }
+                WMFToastManager.sharedInstance.dismissCurrentToast()
             } else {
-                Task { @MainActor in
-                    WMFToastManager.sharedInstance.showToast(CommonStrings.noInternetConnection, sticky: true, dismissPreviousToasts: true)
-                }
+                WMFToastManager.sharedInstance.showToast(CommonStrings.noInternetConnection, sticky: true, dismissPreviousToasts: true)
             }
         }
 

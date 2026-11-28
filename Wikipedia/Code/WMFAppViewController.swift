@@ -2,7 +2,6 @@ import UIKit
 import WMF
 import WMFData
 import WMFComponents
-import SystemConfiguration
 import UserNotifications
 import CocoaLumberjackSwift
 import SwiftUI
@@ -483,6 +482,9 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         updatePrimaryWikiHasTempAccountsStatusIfNecessary()
         periodicWorkerController?.start()
         savedArticlesFetcher?.start()
+        // Paired with the `stop()` in `pauseApp()`, so monitoring resumes on every
+        // foreground and not only on a launch from a terminated state.
+        reachabilityNotifier?.start()
         assignMoreDynamicTabsV2ExperimentIfNeeded()
         AppIconUtility.shared.checkAndRevertIfExpired()
     }
@@ -1066,13 +1068,11 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         dataStore.authenticationManager.attemptLogin { [self] in
             self.checkRemoteAppConfigIfNecessary()
             if self.reachabilityNotifier == nil {
-                self.reachabilityNotifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] isReachable, _ in
-                    DispatchQueue.main.async {
-                        if isReachable {
-                            self?.savedArticlesFetcher?.start()
-                        } else {
-                            self?.savedArticlesFetcher?.stop()
-                        }
+                self.reachabilityNotifier = ReachabilityNotifier { [weak self] isReachable in
+                    if isReachable {
+                        self?.savedArticlesFetcher?.start()
+                    } else {
+                        self?.savedArticlesFetcher?.stop()
                     }
                 }
             }

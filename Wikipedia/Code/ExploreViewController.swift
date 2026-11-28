@@ -467,16 +467,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     lazy var reachabilityNotifier: ReachabilityNotifier = {
-        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
+        let notifier = ReachabilityNotifier { [weak self] reachable in
             if reachable {
-                DispatchQueue.main.async {
-                    self?.updateFeedSources(userInitiated: false)
-                }
+                self?.updateFeedSources(userInitiated: false)
             } else {
-                DispatchQueue.main.async {
-                    self?.showOfflineEmptyViewIfNeeded()
-
-                }
+                self?.showOfflineEmptyViewIfNeeded()
             }
         }
         return notifier
