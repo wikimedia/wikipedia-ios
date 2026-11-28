@@ -87,27 +87,41 @@ extension HomeRobot {
 // MARK: - Content
 
 extension HomeRobot {
-    /// The Community segment title per test language, from `home-community-tab-title`. Hebrew has
-    /// no translation yet and shows the English title.
-    private static let communitySegmentTitles: [String: String] = [
-        "en": "Community",
-        "de": "Gemeinschaft",
-        "he": "Community",
-        "vi": "Cộng đồng"
+    /// The segment titles per test language, from `home-community-tab-title` and
+    /// `home-for-you-tab-title`. Hebrew has no translation yet and shows the English titles.
+    private static let segmentTitles: [HomeSegment: [String: String]] = [
+        .community: [
+            "en": "Community",
+            "de": "Gemeinschaft",
+            "he": "Community",
+            "vi": "Cộng đồng"
+        ],
+        .forYou: [
+            "en": "For You",
+            "de": "Für dich",
+            "he": "For You",
+            "vi": "Dành cho bạn"
+        ]
     ]
 
-    /// The Community segment, found by its title. The segment order follows the layout direction,
-    /// so an index would pick "For You" in right-to-left languages; the first segment is only a
-    /// fallback for a title this table does not know.
-    private var communitySegment: XCUIElement {
+    /// A segment, found by its title. The segment order follows the layout direction, so an
+    /// index would pick the wrong segment in right-to-left languages; the visual position is only a
+    /// fallback for a title this table does not know. Community is the leading segment.
+    private func segment(_ segment: HomeSegment) -> XCUIElement {
         let segments = base.app.segmentedControls.buttons
-        if let title = Self.communitySegmentTitles[configuration.languageCode] {
+        if let title = Self.segmentTitles[segment]?[configuration.languageCode] {
             let titledSegment = segments.matching(NSPredicate(format: "label == %@", title)).firstMatch
             if titledSegment.waitForExistence(timeout: 15) {
                 return titledSegment
             }
         }
-        return segments.element(boundBy: 0)
+        let isLeading = segment == .community
+        let index = isLeading != configuration.isRightToLeft ? 0 : 1
+        return segments.element(boundBy: index)
+    }
+
+    private var communitySegment: XCUIElement {
+        segment(.community)
     }
 
     @discardableResult
@@ -189,6 +203,118 @@ extension HomeRobot {
         }
 
         return self
+    }
+}
+
+// MARK: - Feed segments
+
+/// The two segments of the Home tab.
+enum HomeSegment {
+    case community
+    case forYou
+}
+
+extension HomeRobot {
+    @discardableResult
+    func selectSegment(_ homeSegment: HomeSegment, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        dismissYearInReviewAnnouncementIfPresent()
+        let element = segment(homeSegment)
+        base.assertExists(element, timeout: 30, description: "\(homeSegment) segment", file: file, line: line)
+        // A selected segment needs no tap. Over some screens returning to Home it also does not
+        // report itself hittable, although it is on screen.
+        guard !element.isSelected else {
+            return self
+        }
+        base.assertVisible(element, timeout: 30, description: "\(homeSegment) segment", file: file, line: line)
+        element.tap()
+        tapAgainIfNotSelected(element, timeout: 5, file: file, line: line)
+        base.assertSelected(element, timeout: 10, description: "\(homeSegment) segment", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertSegmentSelected(_ homeSegment: HomeSegment, file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertSelected(segment(homeSegment), timeout: 15, description: "\(homeSegment) segment", file: file, line: line)
+        return self
+    }
+
+    /// Opens the For You segment. The feed itself loads after this; `ForYouFeedRobot` waits for it.
+    @discardableResult
+    func openForYou(file: StaticString = #filePath, line: UInt = #line) -> ForYouFeedRobot {
+        selectSegment(.forYou, file: file, line: line)
+        return ForYouFeedRobot(base: base, configuration: configuration)
+    }
+
+    /// Opens the Community segment with Home phase 2 on: the native Community feed.
+    @discardableResult
+    func openCommunity(file: StaticString = #filePath, line: UInt = #line) -> CommunityFeedRobot {
+        selectSegment(.community, file: file, line: line)
+        return CommunityFeedRobot(base: base, configuration: configuration)
+    }
+
+    /// With Home phase 2 off, the Community segment hosts the legacy Explore feed.
+    @discardableResult
+    func assertEmbeddedExploreFeedVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertExists(
+            base.app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.Explore.view).firstMatch,
+            timeout: 30,
+            description: "embedded Explore feed",
+            file: file,
+            line: line
+        )
+        let articleCells = base.app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.Explore.articleCell)
+        base.assertExists(articleCells.firstMatch, timeout: 60, description: "Explore feed article cell", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func assertNativeCommunityFeedAbsent(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        let feed = base.app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.Community.feed).firstMatch
+        XCTAssertFalse(feed.waitForExistence(timeout: 3), "Expected the native Community feed to be absent.", file: file, line: line)
+        return self
+    }
+}
+
+// MARK: - Language picker
+
+extension HomeRobot {
+    private var languagePickerButton: XCUIElement {
+        base.app.descendants(matching: .any).matching(identifier: AccessibilityIdentifiers.Home.languagePickerButton).firstMatch
+    }
+
+    @discardableResult
+    func assertLanguagePickerVisible(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        base.assertVisible(languagePickerButton, timeout: 15, description: "Home language picker", file: file, line: line)
+        return self
+    }
+
+    /// The embedded Explore feed manages its languages in its own settings, so Home hides the picker.
+    @discardableResult
+    func assertLanguagePickerAbsent(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        XCTAssertFalse(languagePickerButton.waitForExistence(timeout: 3), "Expected the Home language picker to be absent.", file: file, line: line)
+        return self
+    }
+
+    /// Opens the language menu and checks that it lists the app language and "Manage languages".
+    @discardableResult
+    func openLanguagePicker(file: StaticString = #filePath, line: UInt = #line) -> Self {
+        assertLanguagePickerVisible(file: file, line: line)
+        languagePickerButton.tap()
+        let languageItem = base.app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.Home.languageMenuItem(configuration.languageCode))
+            .firstMatch
+        base.assertExists(languageItem, timeout: 10, description: "language menu item for '\(configuration.languageCode)'", file: file, line: line)
+        return self
+    }
+
+    @discardableResult
+    func tapManageLanguages(file: StaticString = #filePath, line: UInt = #line) -> PreferredLanguagesRobot {
+        let manageItem = base.app.descendants(matching: .any)
+            .matching(identifier: AccessibilityIdentifiers.Home.manageLanguagesButton)
+            .firstMatch
+        base.assertVisible(manageItem, timeout: 10, description: "Manage languages menu item", file: file, line: line)
+        manageItem.tap()
+        return PreferredLanguagesRobot(base: base).assertVisible(file: file, line: line)
     }
 }
 

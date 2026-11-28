@@ -48,5 +48,758 @@
     "extract": "Chó, là một loài động vật thuộc chi Chó (Canis), tạo nên một phần tiến hóa của sói, đồng thời là loài động vật ăn thịt trên cạn có số lượng lớn nhất. Chó và sói xám thuộc nhóm chị em, giống như những loài sói hiện đại đều không có họ hàng gần đến những loài sói được thuần hóa đầu tiên, đồng nghĩa với tổ tiên gốc của chó đã bị tuyệt chủng.",
     "extract_html": "<p><b>Chó</b>, là một loài động vật thuộc chi Chó (<i>Canis</i>), tạo nên một phần tiến hóa của sói, đồng thời là loài động vật ăn thịt trên cạn có số lượng lớn nhất. Chó và sói xám thuộc nhóm chị em, giống như những loài sói hiện đại đều không có họ hàng gần đến những loài sói được thuần hóa đầu tiên, đồng nghĩa với tổ tiên gốc của chó đã bị tuyệt chủng.</p>",
     "normalizedtitle": "Chó"
-  }
+  },
+  "mostread": {
+    "date": "2026-11-26Z",
+    "articles": [
+      {
+        "type": "standard",
+        "title": "Chó",
+        "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Chó</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q144",
+        "titles": {
+          "canonical": "Chó",
+          "normalized": "Chó",
+          "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Chó</span></span>"
+        },
+        "pageid": 30817,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/330px-Collage_of_Nine_Dogs.jpg",
+          "width": 330,
+          "height": 290
+        },
+        "originalimage": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg",
+          "width": 1665,
+          "height": 1463
+        },
+        "lang": "vi",
+        "dir": "ltr",
+        "revision": "75053411",
+        "tid": "b4afb07e-4ad8-11f1-90e5-44a24f8cf53f",
+        "timestamp": "2026-05-08T12:23:23Z",
+        "description": "động vật nuôi trong nhà để làm các nhiệm vụ khác nhau",
+        "description_source": "central",
+        "content_urls": {
+          "desktop": {
+            "page": "https://vi.wikipedia.org/wiki/Ch%C3%B3",
+            "revisions": "https://vi.wikipedia.org/wiki/Ch%C3%B3?action=history",
+            "edit": "https://vi.wikipedia.org/wiki/Ch%C3%B3?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Ch%C3%B3"
+          },
+          "mobile": {
+            "page": "https://vi.wikipedia.org/wiki/Ch%C3%B3",
+            "revisions": "https://vi.wikipedia.org/wiki/Special:History/Ch%C3%B3",
+            "edit": "https://vi.wikipedia.org/wiki/Ch%C3%B3?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Ch%C3%B3"
+          }
+        },
+        "extract": "Chó, là một loài động vật thuộc chi Chó (Canis), tạo nên một phần tiến hóa của sói, đồng thời là loài động vật ăn thịt trên cạn có số lượng lớn nhất. Chó và sói xám thuộc nhóm chị em, giống như những loài sói hiện đại đều không có họ hàng gần đến những loài sói được thuần hóa đầu tiên, đồng nghĩa với tổ tiên gốc của chó đã bị tuyệt chủng.",
+        "extract_html": "<p><b>Chó</b>, là một loài động vật thuộc chi Chó (<i>Canis</i>), tạo nên một phần tiến hóa của sói, đồng thời là loài động vật ăn thịt trên cạn có số lượng lớn nhất. Chó và sói xám thuộc nhóm chị em, giống như những loài sói hiện đại đều không có họ hàng gần đến những loài sói được thuần hóa đầu tiên, đồng nghĩa với tổ tiên gốc của chó đã bị tuyệt chủng.</p>",
+        "normalizedtitle": "Chó",
+        "views": 20558,
+        "rank": 2,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 32083
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 31964
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 22815
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 22917
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 20558
+          }
+        ]
+      },
+      {
+        "views": 9015,
+        "rank": 4,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 237
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 1012
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 2386
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 1623
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 9015
+          }
+        ],
+        "type": "standard",
+        "title": "Mali",
+        "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mali</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q912",
+        "titles": {
+          "canonical": "Mali",
+          "normalized": "Mali",
+          "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mali</span></span>"
+        },
+        "pageid": 29921,
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Mali.svg/langvi-330px-Flag_of_Mali.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 220
+        },
+        "originalimage": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Mali.svg/langvi-960px-Flag_of_Mali.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 900,
+          "height": 600
+        },
+        "lang": "vi",
+        "dir": "ltr",
+        "revision": "75750481",
+        "tid": "86c015f7-e4d8-11f1-a706-af2cfe63734b",
+        "timestamp": "2026-11-20T11:50:05Z",
+        "description": "quốc gia ở Tây Phi",
+        "description_source": "central",
+        "content_urls": {
+          "desktop": {
+            "page": "https://vi.wikipedia.org/wiki/Mali",
+            "revisions": "https://vi.wikipedia.org/wiki/Mali?action=history",
+            "edit": "https://vi.wikipedia.org/wiki/Mali?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Mali"
+          },
+          "mobile": {
+            "page": "https://vi.wikipedia.org/wiki/Mali",
+            "revisions": "https://vi.wikipedia.org/wiki/Special:History/Mali",
+            "edit": "https://vi.wikipedia.org/wiki/Mali?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Mali"
+          }
+        },
+        "extract": "Mali, quốc hiệu là Cộng hòa Mali, là một quốc gia nội lục của Tây Phi. Mali là đất nước có diện tích lớn thứ tám châu Phi, và có chung đường biên giới Algérie về phía bắc, Niger về phía đông, Burkina Faso và Côte d'Ivoire về phía nam, Guinée về phía tây nam, Sénégal và Mauritanie về phía tây. Diện tích của Mali vào khoảng 1.240.000 km² và dân số khoảng hơn 14 triệu người. Thủ đô của Mali là Bamako.",
+        "extract_html": "<p><b>Mali</b>, quốc hiệu là <b>Cộng hòa Mali</b>, là một quốc gia nội lục của Tây Phi. Mali là đất nước có diện tích lớn thứ tám châu Phi, và có chung đường biên giới Algérie về phía bắc, Niger về phía đông, Burkina Faso và Côte d'Ivoire về phía nam, Guinée về phía tây nam, Sénégal và Mauritanie về phía tây. Diện tích của Mali vào khoảng 1.240.000 km² và dân số khoảng hơn 14 triệu người. Thủ đô của Mali là Bamako.</p>",
+        "normalizedtitle": "Mali"
+      },
+      {
+        "views": 7966,
+        "rank": 5,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 7833
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 7158
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 6735
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 8471
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 7966
+          }
+        ],
+        "type": "standard",
+        "title": "Đài_Truyền_hình_Kỹ_thuật_số_VTC",
+        "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Đài Truyền hình Kỹ thuật số VTC</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q10828467",
+        "titles": {
+          "canonical": "Đài_Truyền_hình_Kỹ_thuật_số_VTC",
+          "normalized": "Đài Truyền hình Kỹ thuật số VTC",
+          "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Đài Truyền hình Kỹ thuật số VTC</span></span>"
+        },
+        "pageid": 248844,
+        "lang": "vi",
+        "dir": "ltr",
+        "revision": "75807568",
+        "tid": "1b3d9c64-e6ca-11f1-b85e-304829b1ef81",
+        "timestamp": "2026-11-22T23:11:54Z",
+        "description": "đài truyền hình quốc gia của Việt Nam",
+        "description_source": "central",
+        "content_urls": {
+          "desktop": {
+            "page": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC",
+            "revisions": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC?action=history",
+            "edit": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC"
+          },
+          "mobile": {
+            "page": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC",
+            "revisions": "https://vi.wikipedia.org/wiki/Special:History/%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC",
+            "edit": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:%C4%90%C3%A0i_Truy%E1%BB%81n_h%C3%ACnh_K%E1%BB%B9_thu%E1%BA%ADt_s%E1%BB%91_VTC"
+          }
+        },
+        "extract": "Đài Truyền hình Kỹ thuật số VTC là một đài truyền hình tại Việt Nam do Tổng công ty Truyền thông Đa phương tiện VTC thành lập nhưng đã ngừng hoạt động từ đầu năm 2025 theo chỉ tạo của Chính phủ. Từ năm 2015 đến 2025, đài được quản lý bởi Đài Tiếng nói Việt Nam.",
+        "extract_html": "<p><b>Đài Truyền hình Kỹ thuật số VTC</b> là một đài truyền hình tại Việt Nam do Tổng công ty Truyền thông Đa phương tiện VTC thành lập nhưng đã ngừng hoạt động từ đầu năm 2025 theo chỉ tạo của Chính phủ. Từ năm 2015 đến 2025, đài được quản lý bởi Đài Tiếng nói Việt Nam.</p>",
+        "normalizedtitle": "Đài Truyền hình Kỹ thuật số VTC"
+      },
+      {
+        "views": 4569,
+        "rank": 7,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 2099
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 4326
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 1929
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 5043
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 4569
+          }
+        ],
+        "type": "standard",
+        "title": "Việt_Nam",
+        "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Việt Nam</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q881",
+        "titles": {
+          "canonical": "Việt_Nam",
+          "normalized": "Việt Nam",
+          "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Việt Nam</span></span>"
+        },
+        "pageid": 151863,
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/langvi-330px-Flag_of_Vietnam.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 220
+        },
+        "originalimage": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/langvi-960px-Flag_of_Vietnam.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 900,
+          "height": 600
+        },
+        "lang": "vi",
+        "dir": "ltr",
+        "revision": "75786193",
+        "tid": "ccebb482-e64f-11f1-adbf-edbaf449e4c0",
+        "timestamp": "2026-11-22T08:36:24Z",
+        "description": "quốc gia ở Đông Nam Á",
+        "description_source": "central",
+        "content_urls": {
+          "desktop": {
+            "page": "https://vi.wikipedia.org/wiki/Vi%E1%BB%87t_Nam",
+            "revisions": "https://vi.wikipedia.org/wiki/Vi%E1%BB%87t_Nam?action=history",
+            "edit": "https://vi.wikipedia.org/wiki/Vi%E1%BB%87t_Nam?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Vi%E1%BB%87t_Nam"
+          },
+          "mobile": {
+            "page": "https://vi.wikipedia.org/wiki/Vi%E1%BB%87t_Nam",
+            "revisions": "https://vi.wikipedia.org/wiki/Special:History/Vi%E1%BB%87t_Nam",
+            "edit": "https://vi.wikipedia.org/wiki/Vi%E1%BB%87t_Nam?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Vi%E1%BB%87t_Nam"
+          }
+        },
+        "extract": "Việt Nam, quốc hiệu là Cộng hòa xã hội chủ nghĩa Việt Nam, là một quốc gia nằm ở cực Đông của bán đảo Đông Dương thuộc khu vực Đông Nam Á, giáp với Lào, Campuchia, Trung Quốc, biển Đông và vịnh Thái Lan. Quốc gia này có diện tích là 331.344 km² với dân số năm 2025 khoảng 102.300.000 người, Việt Nam là quốc gia đông dân thứ 16 thế giới. Thủ đô của Việt Nam là Hà Nội và thành phố lớn nhất là Thành phố Hồ Chí Minh.",
+        "extract_html": "<p><b>Việt Nam</b>, quốc hiệu là <b>Cộng hòa xã hội chủ nghĩa Việt Nam</b>, là một quốc gia nằm ở cực Đông của bán đảo Đông Dương thuộc khu vực Đông Nam Á, giáp với Lào, Campuchia, Trung Quốc, biển Đông và vịnh Thái Lan. Quốc gia này có diện tích là 331.344 km² với dân số năm 2025 khoảng 102.300.000 người, Việt Nam là quốc gia đông dân thứ 16 thế giới. Thủ đô của Việt Nam là Hà Nội và thành phố lớn nhất là Thành phố Hồ Chí Minh.</p>",
+        "normalizedtitle": "Việt Nam"
+      },
+      {
+        "views": 4137,
+        "rank": 8,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 1231
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 3001
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 3118
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 2156
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 4137
+          }
+        ],
+        "type": "standard",
+        "title": "Giải_vô_địch_bóng_đá_U-17_thế_giới_2026",
+        "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Giải vô địch bóng đá U-17 thế giới 2026</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q136449696",
+        "titles": {
+          "canonical": "Giải_vô_địch_bóng_đá_U-17_thế_giới_2026",
+          "normalized": "Giải vô địch bóng đá U-17 thế giới 2026",
+          "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Giải vô địch bóng đá U-17 thế giới 2026</span></span>"
+        },
+        "pageid": 20002372,
+        "lang": "vi",
+        "dir": "ltr",
+        "revision": "75834115",
+        "tid": "71308a67-ea9c-11f1-9374-4d37b2e3506d",
+        "timestamp": "2026-11-27T19:55:06Z",
+        "description": "Giải vô địch bóng đá U-17 thế giới lần thứ 21",
+        "description_source": "central",
+        "content_urls": {
+          "desktop": {
+            "page": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026",
+            "revisions": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026?action=history",
+            "edit": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026"
+          },
+          "mobile": {
+            "page": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026",
+            "revisions": "https://vi.wikipedia.org/wiki/Special:History/Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026",
+            "edit": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026?action=edit",
+            "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Gi%E1%BA%A3i_v%C3%B4_%C4%91%E1%BB%8Bch_b%C3%B3ng_%C4%91%C3%A1_U-17_th%E1%BA%BF_gi%E1%BB%9Bi_2026"
+          }
+        },
+        "extract": "Giải vô địch bóng đá U-17 thế giới 2026 sẽ là giải đấu lần thứ 21 của Giải vô địch bóng đá U-17 thế giới, giải bóng đá trẻ nam quốc tế thường niên dành cho các đội tuyển quốc gia U-17 của các hiệp hội thành viên FIFA. Giải dự kiến được tổ chức tại Qatar vào tháng 11. Trước đây giải đấu được tổ chức hai năm một lần, nhưng kể từ năm 2025 thì tổ chức hàng năm và đồng thời tăng số đội tham dự từ 24 lên 48 đội, đây là kỳ thứ hai trong chu kỳ thường niên được FIFA áp dụng cho Giải vô địch bóng đá U-17 thế giới, đồng thời là kỳ thứ hai thi đấu theo thể thức 48 đội. Là một phần của những thay đổi này, FIFA cũng trao cho Qatar quyền đăng cai giải đấu trong giai đoạn năm năm từ 2025 đến 2029.",
+        "extract_html": "<p><b>Giải vô địch bóng đá U-17 thế giới 2026</b> sẽ là giải đấu lần thứ 21 của Giải vô địch bóng đá U-17 thế giới, giải bóng đá trẻ nam quốc tế thường niên dành cho các đội tuyển quốc gia U-17 của các hiệp hội thành viên FIFA. Giải dự kiến được tổ chức tại Qatar vào tháng 11. Trước đây giải đấu được tổ chức hai năm một lần, nhưng kể từ năm 2025 thì tổ chức hàng năm và đồng thời tăng số đội tham dự từ 24 lên 48 đội, đây là kỳ thứ hai trong chu kỳ thường niên được FIFA áp dụng cho Giải vô địch bóng đá U-17 thế giới, đồng thời là kỳ thứ hai thi đấu theo thể thức 48 đội. Là một phần của những thay đổi này, FIFA cũng trao cho Qatar quyền đăng cai giải đấu trong giai đoạn năm năm từ 2025 đến 2029.</p>",
+        "normalizedtitle": "Giải vô địch bóng đá U-17 thế giới 2026"
+      }
+    ]
+  },
+  "image": {
+    "title": "File:Liquid Crystal Phase Transition.jpg",
+    "thumbnail": {
+      "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Liquid_Crystal_Phase_Transition.jpg/960px-Liquid_Crystal_Phase_Transition.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "width": 640,
+      "height": 427
+    },
+    "image": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Liquid_Crystal_Phase_Transition.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 1920,
+      "height": 1281
+    },
+    "file_page": "https://commons.wikimedia.org/wiki/File:Liquid_Crystal_Phase_Transition.jpg",
+    "artist": {
+      "html": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:KarlGaff&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:KarlGaff (page does not exist)\">KarlGaff</a>",
+      "text": "KarlGaff"
+    },
+    "credit": {
+      "html": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "text": "Own work"
+    },
+    "license": {
+      "type": "CC BY 4.0",
+      "code": "cc-by-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0"
+    },
+    "description": {
+      "html": "Magnified 100 times, a drop of liquid crystal was dispensed onto a glass plate and a cover slip placed on top. The liquid crystal spreads out into a uniform film under the weight of the cover slip. The image was captured using a microscope configured for crossed polarised light. The colours come about because liquid crystal is birefringent - it changes the polarisation state of the plane-polarised light passing through it. Now, the sort of labyrinthine pattern is caused by a phase transition. The liquid crystal sample is placed on a heat stage and at a particular temperature called the phase transition temperature, the liquid crystal changes from an opaque state to a transparent state, this is the transition front. The image width is about 2mm.",
+      "text": "Magnified 100 times, a drop of liquid crystal was dispensed onto a glass plate and a cover slip placed on top. The liquid crystal spreads out into a uniform film under the weight of the cover slip. The image was captured using a microscope configured for crossed polarised light. The colours come about because liquid crystal is birefringent - it changes the polarisation state of the plane-polarised light passing through it. Now, the sort of labyrinthine pattern is caused by a phase transition. The liquid crystal sample is placed on a heat stage and at a particular temperature called the phase transition temperature, the liquid crystal changes from an opaque state to a transparent state, this is the transition front. The image width is about 2mm.",
+      "lang": "en"
+    },
+    "wb_entity_id": "M177874340",
+    "structured": {
+      "captions": {
+        "en": "Thermally induced phase transition of a liquid crystal from a transparent state to birefringent state.",
+        "zh-hant": "顯微鏡下放大100倍，將一滴液晶滴在玻璃板上蓋上蓋玻片，觀察從透明態向雙折射態的熱致相變",
+        "fr": "Transition de phase d'un cristal liquide induite thermiquement."
+      }
+    }
+  },
+  "news": [
+    {
+      "links": [
+        {
+          "type": "standard",
+          "title": "Emma_Raducanu",
+          "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Emma Raducanu</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q64849968",
+          "titles": {
+            "canonical": "Emma_Raducanu",
+            "normalized": "Emma Raducanu",
+            "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Emma Raducanu</span></span>"
+          },
+          "pageid": 19641475,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Raducanu_WMQ18_%2816%29_%2842834286534%29.jpg/330px-Raducanu_WMQ18_%2816%29_%2842834286534%29.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 492
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Raducanu_WMQ18_%2816%29_%2842834286534%29.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 2141,
+            "height": 3192
+          },
+          "lang": "vi",
+          "dir": "ltr",
+          "revision": "75768513",
+          "tid": "04d9f883-e585-11f1-8b70-4faeeeab2e9e",
+          "timestamp": "2026-11-21T08:24:50Z",
+          "description": "nữ vận động viên quần vợt người Anh",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://vi.wikipedia.org/wiki/Emma_Raducanu",
+              "revisions": "https://vi.wikipedia.org/wiki/Emma_Raducanu?action=history",
+              "edit": "https://vi.wikipedia.org/wiki/Emma_Raducanu?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Emma_Raducanu"
+            },
+            "mobile": {
+              "page": "https://vi.wikipedia.org/wiki/Emma_Raducanu",
+              "revisions": "https://vi.wikipedia.org/wiki/Special:History/Emma_Raducanu",
+              "edit": "https://vi.wikipedia.org/wiki/Emma_Raducanu?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Emma_Raducanu"
+            }
+          },
+          "extract": "Emma Raducanu là một nữ vận động viên quần vợt chuyên nghiệp người Anh Quốc. Cô hiện là đương kim vô địch Mỹ Mở rộng 2021 có thứ hạng đơn cao nhất trong sự nghiệp là số 23 thế giới, đạt được vào ngày 12 tháng 9 năm 2021 và hiện là tay vợt nữ số 1 của nước Anh.",
+          "extract_html": "<p><b>Emma Raducanu</b> là một nữ vận động viên quần vợt chuyên nghiệp người Anh Quốc. Cô hiện là đương kim vô địch Mỹ Mở rộng 2021 có thứ hạng đơn cao nhất trong sự nghiệp là số 23 thế giới, đạt được vào ngày 12 tháng 9 năm 2021 và hiện là tay vợt nữ số 1 của nước Anh.</p>",
+          "normalizedtitle": "Emma Raducanu"
+        },
+        {
+          "type": "standard",
+          "title": "Giải_quần_vợt_Mỹ_Mở_rộng_2021_-_Đơn_nữ",
+          "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Giải quần vợt Mỹ Mở rộng 2021 - Đơn nữ</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q98811676",
+          "titles": {
+            "canonical": "Giải_quần_vợt_Mỹ_Mở_rộng_2021_-_Đơn_nữ",
+            "normalized": "Giải quần vợt Mỹ Mở rộng 2021 - Đơn nữ",
+            "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Giải quần vợt Mỹ Mở rộng 2021 - Đơn nữ</span></span>"
+          },
+          "pageid": 19637997,
+          "lang": "vi",
+          "dir": "ltr",
+          "revision": "75029014",
+          "tid": "41a4d418-46a7-11f1-84a4-e59c2d54080c",
+          "timestamp": "2026-05-03T04:19:20Z",
+          "content_urls": {
+            "desktop": {
+              "page": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF",
+              "revisions": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF?action=history",
+              "edit": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF"
+            },
+            "mobile": {
+              "page": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF",
+              "revisions": "https://vi.wikipedia.org/wiki/Special:History/Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF",
+              "edit": "https://vi.wikipedia.org/wiki/Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Gi%E1%BA%A3i_qu%E1%BA%A7n_v%E1%BB%A3t_M%E1%BB%B9_M%E1%BB%9F_r%E1%BB%99ng_2021_-_%C4%90%C6%A1n_n%E1%BB%AF"
+            }
+          },
+          "extract": "Emma Raducanu là nhà vô địch, đánh bại Leylah Fernandez trong trận chung kết, 6–4, 6–3. Cô trở thành tay vợt vượt qua vòng loại đầu tiên, nam hoặc nữ, giành một danh hiệu giải đấu lớn, và là tay vợt vượt qua vòng loại vào vòng bán kết tại Giải quần vợt Mỹ Mở rộng. Cô trở thành nữ tay vợt Anh Quốc đầu tiên giành một danh hiệu đơn giải đấu lớn sau Virginia Wade tại Giải quần vợt Wimbledon 1977. Với thứ hạng 150 thế giới, Raducanu trở thành tay vợt xếp hạng thấp nhất vô địch giải đấu lớn sau Kim Clijsters tại Giải quần vợt Mỹ Mở rộng 2009. Raducanu cũng là tay vợt trẻ nhất vô địch giải đấu lớn sau Maria Sharapova tại Giải quần vợt Wimbledon 2004. Đây cũng là trận chung kết toàn thanh thiếu niên đầu tiên sau Serena Williams đánh bại Martina Hingis tại Giải quần vợt 1999 và là trận chung kết đơn nữ giải đấu lớn đầu tiên trong Kỷ nguyên Mở giữa hai tay vợt không xếp hạt giống.",
+          "extract_html": "<p>Emma Raducanu là nhà vô địch, đánh bại Leylah Fernandez trong trận chung kết, 6–4, 6–3. Cô trở thành tay vợt vượt qua vòng loại đầu tiên, nam hoặc nữ, giành một danh hiệu giải đấu lớn, và là tay vợt vượt qua vòng loại vào vòng bán kết tại Giải quần vợt Mỹ Mở rộng. Cô trở thành nữ tay vợt Anh Quốc đầu tiên giành một danh hiệu đơn giải đấu lớn sau Virginia Wade tại Giải quần vợt Wimbledon 1977. Với thứ hạng 150 thế giới, Raducanu trở thành tay vợt xếp hạng thấp nhất vô địch giải đấu lớn sau Kim Clijsters tại Giải quần vợt Mỹ Mở rộng 2009. Raducanu cũng là tay vợt trẻ nhất vô địch giải đấu lớn sau Maria Sharapova tại Giải quần vợt Wimbledon 2004. Đây cũng là trận chung kết toàn thanh thiếu niên đầu tiên sau Serena Williams đánh bại Martina Hingis tại Giải quần vợt 1999 và là trận chung kết đơn nữ giải đấu lớn đầu tiên trong Kỷ nguyên Mở giữa hai tay vợt không xếp hạt giống.</p>",
+          "normalizedtitle": "Giải quần vợt Mỹ Mở rộng 2021 - Đơn nữ"
+        },
+        {
+          "type": "standard",
+          "title": "Quần_vợt",
+          "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Quần vợt</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q847",
+          "titles": {
+            "canonical": "Quần_vợt",
+            "normalized": "Quần vợt",
+            "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Quần vợt</span></span>"
+          },
+          "pageid": 50879,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Pictograms-nps-land-tennis-2.svg/langvi-330px-Pictograms-nps-land-tennis-2.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 330
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Pictograms-nps-land-tennis-2.svg/langvi-250px-Pictograms-nps-land-tennis-2.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 124,
+            "height": 124
+          },
+          "lang": "vi",
+          "dir": "ltr",
+          "revision": "75157930",
+          "tid": "0e6bce16-619a-11f1-b2e5-32de2dadc070",
+          "timestamp": "2026-06-06T11:22:52Z",
+          "description": "môn thể thao đánh bóng nỉ qua lưới",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_v%E1%BB%A3t",
+              "revisions": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_v%E1%BB%A3t?action=history",
+              "edit": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_v%E1%BB%A3t?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Qu%E1%BA%A7n_v%E1%BB%A3t"
+            },
+            "mobile": {
+              "page": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_v%E1%BB%A3t",
+              "revisions": "https://vi.wikipedia.org/wiki/Special:History/Qu%E1%BA%A7n_v%E1%BB%A3t",
+              "edit": "https://vi.wikipedia.org/wiki/Qu%E1%BA%A7n_v%E1%BB%A3t?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Qu%E1%BA%A7n_v%E1%BB%A3t"
+            }
+          },
+          "extract": "Quần vợt là môn thể thao chơi giữa hai người hay hai đội trong đó mỗi đội hai người. Người chơi sử dụng vợt lưới để đánh một quả bóng làm bằng cao su bọc nỉ rỗng gọi là bóng quần vợt về phía sân đối phương. Quần vợt hiện nay là một môn thể thao rất phổ biến ở nhiều nước và được thi đấu tại các kỳ Thế vận hội. Trên thế giới có hàng triệu người chơi quần vợt và hàng triệu người hâm mộ. Hàng năm có rất nhiều giải quần vợt chuyên nghiệp được tổ chức khắp nơi trên thế giới, trong đó có 4 giải đấu lớn và danh giá nhất bao gồm giải Úc Mở rộng, Pháp Mở rộng, Wimbledon và Mỹ Mở rộng.",
+          "extract_html": "<p><b>Quần vợt</b> là môn thể thao chơi giữa hai người hay hai đội trong đó mỗi đội hai người. Người chơi sử dụng vợt lưới để đánh một quả bóng làm bằng cao su bọc nỉ rỗng gọi là bóng quần vợt về phía sân đối phương. Quần vợt hiện nay là một môn thể thao rất phổ biến ở nhiều nước và được thi đấu tại các kỳ Thế vận hội. Trên thế giới có hàng triệu người chơi quần vợt và hàng triệu người hâm mộ. Hàng năm có rất nhiều giải quần vợt chuyên nghiệp được tổ chức khắp nơi trên thế giới, trong đó có 4 giải đấu lớn và danh giá nhất bao gồm giải Úc Mở rộng, Pháp Mở rộng, Wimbledon và Mỹ Mở rộng.</p>",
+          "normalizedtitle": "Quần vợt"
+        },
+        {
+          "type": "standard",
+          "title": "Grand_Slam_(quần_vợt)",
+          "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Grand Slam (quần vợt)</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q102113",
+          "titles": {
+            "canonical": "Grand_Slam_(quần_vợt)",
+            "normalized": "Grand Slam (quần vợt)",
+            "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Grand Slam (quần vợt)</span></span>"
+          },
+          "pageid": 10347,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Tennis_Racket_and_Balls.jpg/330px-Tennis_Racket_and_Balls.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 248
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Tennis_Racket_and_Balls.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 3072,
+            "height": 2304
+          },
+          "lang": "vi",
+          "dir": "ltr",
+          "revision": "74878775",
+          "tid": "eb2c8d9e-2650-11f1-8cb2-ba741c5137a2",
+          "timestamp": "2026-03-23T00:40:41Z",
+          "description": "giải thưởng trong môn quần vợt",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://vi.wikipedia.org/wiki/Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)",
+              "revisions": "https://vi.wikipedia.org/wiki/Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)?action=history",
+              "edit": "https://vi.wikipedia.org/wiki/Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)"
+            },
+            "mobile": {
+              "page": "https://vi.wikipedia.org/wiki/Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)",
+              "revisions": "https://vi.wikipedia.org/wiki/Special:History/Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)",
+              "edit": "https://vi.wikipedia.org/wiki/Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Grand_Slam_(qu%E1%BA%A7n_v%E1%BB%A3t)"
+            }
+          },
+          "extract": "Trong quần vợt, Grand Slam là thành tích đạt được bằng cách đoạt chức vô địch cả bốn giải đấu lớn trong cùng một nội dung thi đấu, trong cùng một năm dương lịch. Bốn giải đấu ấy bao gồm:",
+          "extract_html": "<p>Trong quần vợt, Grand Slam là thành tích đạt được bằng cách đoạt chức vô địch cả bốn giải đấu lớn trong cùng một nội dung thi đấu, trong cùng một năm dương lịch. Bốn giải đấu ấy bao gồm:</p>",
+          "normalizedtitle": "Grand Slam (quần vợt)"
+        }
+      ],
+      "story": "<!-- 12 tháng 9 --><b id=\"mwCg\"><a rel=\"mw:WikiLink\" href=\"./Emma_Raducanu\" title=\"Emma Raducanu\" id=\"mwCw\">Emma Raducanu</a></b> (<i id=\"mwDA\">hình</i>) đạt được giải vô địch <a rel=\"mw:WikiLink\" href=\"./Giải_quần_vợt_Mỹ_Mở_rộng_2021_-_Đơn_nữ\" title=\"Giải quần vợt Mỹ Mở rộng 2021 - Đơn nữ\" id=\"mwDQ\">Mỹ Mở rộng 2021</a>, trở thành vận động viên <a rel=\"mw:WikiLink\" href=\"./Quần_vợt\" title=\"Quần vợt\" id=\"mwDg\">quần vợt</a> đầu tiên vượt qua vòng loại để giành được một giải <i id=\"mwDw\"><a rel=\"mw:WikiLink\" href=\"./Grand_Slam_(quần_vợt)\" title=\"Grand Slam (quần vợt)\" id=\"mwEA\">Grand Slam</a></i>."
+    },
+    {
+      "links": [
+        {
+          "type": "standard",
+          "title": "Vụ_sập_tòa_nhà_chung_cư_ở_Surfside",
+          "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Vụ sập tòa nhà chung cư ở Surfside</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q107337981",
+          "titles": {
+            "canonical": "Vụ_sập_tòa_nhà_chung_cư_ở_Surfside",
+            "normalized": "Vụ sập tòa nhà chung cư ở Surfside",
+            "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Vụ sập tòa nhà chung cư ở Surfside</span></span>"
+          },
+          "pageid": 19611087,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Surfside_condominium_collapse_photo_from_Miami-Dade_Fire_Rescue_1.jpg/330px-Surfside_condominium_collapse_photo_from_Miami-Dade_Fire_Rescue_1.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 248
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Surfside_condominium_collapse_photo_from_Miami-Dade_Fire_Rescue_1.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 1024,
+            "height": 768
+          },
+          "lang": "vi",
+          "dir": "ltr",
+          "revision": "75213310",
+          "tid": "061aa400-6d01-11f1-b424-72ff0ba3a8ca",
+          "timestamp": "2026-06-20T23:37:39Z",
+          "description": "Vụ sập tòa nhà năm 2021 tại Surfside, Florida, Hoa Kỳ",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 25.87305556,
+            "lon": -80.12083333
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://vi.wikipedia.org/wiki/V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside",
+              "revisions": "https://vi.wikipedia.org/wiki/V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside?action=history",
+              "edit": "https://vi.wikipedia.org/wiki/V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside"
+            },
+            "mobile": {
+              "page": "https://vi.wikipedia.org/wiki/V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside",
+              "revisions": "https://vi.wikipedia.org/wiki/Special:History/V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside",
+              "edit": "https://vi.wikipedia.org/wiki/V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:V%E1%BB%A5_s%E1%BA%ADp_t%C3%B2a_nh%C3%A0_chung_c%C6%B0_%E1%BB%9F_Surfside"
+            }
+          },
+          "extract": "Vào khoảng 1:30 sáng múi giờ miền Đông xảy ra vào ngày 24 tháng 6 năm 2021, Champlain Towers South, một tòa nhà chung cư 12 tầng nhìn ra bờ biển ở ngoại ô Miami thuộc thị trấn Surfside, Florida, Hoa Kỳ, đã bị đổ sập một phần. Ít nhất 4 người thiệt mạng và 11 người khác bị thương do vụ sập nhà này. Ít nhất 35 người bị mắc kẹt trong tòa nhà đã được giải cứu, trong khi đó, 159 người vẫn còn mất tích trong lúc các hoạt động cứu hộ đang được tiến hành.",
+          "extract_html": "<p>Vào khoảng 1:30 sáng múi giờ miền Đông xảy ra vào ngày 24 tháng 6 năm 2021, <b>Champlain Towers South</b>, một tòa nhà chung cư 12 tầng nhìn ra bờ biển ở ngoại ô Miami thuộc thị trấn Surfside, Florida, Hoa Kỳ, đã bị đổ sập một phần. Ít nhất 4 người thiệt mạng và 11 người khác bị thương do vụ sập nhà này. Ít nhất 35 người bị mắc kẹt trong tòa nhà đã được giải cứu, trong khi đó, 159 người vẫn còn mất tích trong lúc các hoạt động cứu hộ đang được tiến hành.</p>",
+          "normalizedtitle": "Vụ sập tòa nhà chung cư ở Surfside"
+        },
+        {
+          "type": "standard",
+          "title": "Hoa_Kỳ",
+          "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Hoa Kỳ</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q30",
+          "titles": {
+            "canonical": "Hoa_Kỳ",
+            "normalized": "Hoa Kỳ",
+            "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Hoa Kỳ</span></span>"
+          },
+          "pageid": 57,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/langvi-330px-Flag_of_the_United_States.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 174
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/langvi-1280px-Flag_of_the_United_States.svg.png?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 1235,
+            "height": 650
+          },
+          "lang": "vi",
+          "dir": "ltr",
+          "revision": "75816667",
+          "tid": "d18c984b-e739-11f1-a210-5b7d7a4d1145",
+          "timestamp": "2026-11-23T12:31:34Z",
+          "description": "quốc gia ở Bắc Mỹ",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://vi.wikipedia.org/wiki/Hoa_K%E1%BB%B3",
+              "revisions": "https://vi.wikipedia.org/wiki/Hoa_K%E1%BB%B3?action=history",
+              "edit": "https://vi.wikipedia.org/wiki/Hoa_K%E1%BB%B3?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Hoa_K%E1%BB%B3"
+            },
+            "mobile": {
+              "page": "https://vi.wikipedia.org/wiki/Hoa_K%E1%BB%B3",
+              "revisions": "https://vi.wikipedia.org/wiki/Special:History/Hoa_K%E1%BB%B3",
+              "edit": "https://vi.wikipedia.org/wiki/Hoa_K%E1%BB%B3?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Hoa_K%E1%BB%B3"
+            }
+          },
+          "extract": "Hợp chúng quốc Hoa Kỳ, gọi tắt là Hoa Kỳ hay Mỹ, là một quốc gia ở châu Mỹ, nằm tại Tây Bán cầu. Lãnh thổ của Hoa Kỳ bao gồm 50 tiểu bang và một đặc khu liên bang. Hoa Kỳ lục địa nằm ở giữa Bắc Mỹ giáp với Thái Bình Dương ở phía tây, Đại Tây Dương ở phía đông, Canada ở phía bắc và Mexico ở phía nam. Tiểu bang Alaska nằm trong vùng tây bắc của lục địa Bắc Mỹ, giáp với Bắc Băng Dương ở phía Bắc, Thái Bình Dương ở phía Nam, Canada ở phía đông và Nga ở phía tây qua eo biển Bering. Tiểu bang Hawaii nằm giữa Thái Bình Dương. Hoa Kỳ có 14 vùng lãnh thổ trực thuộc nằm rải rác trong vùng biển Caribe cùng 326 Biệt khu thổ dân châu Mỹ.",
+          "extract_html": "<p><b>Hợp chúng quốc Hoa Kỳ</b>, gọi tắt là <b>Hoa Kỳ</b> hay <b>Mỹ</b>, là một quốc gia ở châu Mỹ, nằm tại Tây Bán cầu. Lãnh thổ của Hoa Kỳ bao gồm 50 tiểu bang và một đặc khu liên bang. Hoa Kỳ lục địa nằm ở giữa Bắc Mỹ giáp với Thái Bình Dương ở phía tây, Đại Tây Dương ở phía đông, Canada ở phía bắc và Mexico ở phía nam. Tiểu bang Alaska nằm trong vùng tây bắc của lục địa Bắc Mỹ, giáp với Bắc Băng Dương ở phía Bắc, Thái Bình Dương ở phía Nam, Canada ở phía đông và Nga ở phía tây qua eo biển Bering. Tiểu bang Hawaii nằm giữa Thái Bình Dương. Hoa Kỳ có 14 vùng lãnh thổ trực thuộc nằm rải rác trong vùng biển Caribe cùng 326 Biệt khu thổ dân châu Mỹ.</p>",
+          "normalizedtitle": "Hoa Kỳ"
+        },
+        {
+          "type": "standard",
+          "title": "Miami",
+          "displaytitle": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Miami</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q8652",
+          "titles": {
+            "canonical": "Miami",
+            "normalized": "Miami",
+            "display": "<span lang=\"vi\" dir=\"ltr\"><span class=\"mw-page-title-main\">Miami</span></span>"
+          },
+          "pageid": 92634,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Villa_Vizcaya_20110228.jpg/330px-Villa_Vizcaya_20110228.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 183
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/2/25/Villa_Vizcaya_20110228.jpg?utm_source=vi.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 3310,
+            "height": 1838
+          },
+          "lang": "vi",
+          "dir": "ltr",
+          "revision": "75360478",
+          "tid": "5ad8adce-88af-11f1-9cdc-1ee17cfe9aa1",
+          "timestamp": "2026-07-26T05:03:35Z",
+          "description": "thành phố tại tiểu bang Florida, Hoa Kỳ",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 25.77416667,
+            "lon": -80.19361111
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://vi.wikipedia.org/wiki/Miami",
+              "revisions": "https://vi.wikipedia.org/wiki/Miami?action=history",
+              "edit": "https://vi.wikipedia.org/wiki/Miami?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Miami"
+            },
+            "mobile": {
+              "page": "https://vi.wikipedia.org/wiki/Miami",
+              "revisions": "https://vi.wikipedia.org/wiki/Special:History/Miami",
+              "edit": "https://vi.wikipedia.org/wiki/Miami?action=edit",
+              "talk": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_lu%E1%BA%ADn:Miami"
+            }
+          },
+          "extract": "Miami là một thành phố ở tiểu bang Florida, Hoa Kỳ. Về địa giới hành chính, Miami thuộc quận Miami-Dade, và là thành phố lớn nhất vùng đô thị phía Nam Florida. Miami là quận lỵ của Quận Miami-Dade, và là thành phố lớn nhất của một vùng đô thị ở phía Nam Florida. Tên gọi của thành phố có nguồn gốc từ bộ tộc Miami, một bộ tộc bản địa từng có địa bàn rộng lớn ở miền Đông Hoa Kỳ nay đã không còn tồn tại. Miami ngày nay là nơi cư trú dành cho những người Mỹ gốc Cuba tị nạn.",
+          "extract_html": "<p><b>Miami</b> là một thành phố ở tiểu bang Florida, Hoa Kỳ. Về địa giới hành chính, Miami thuộc quận Miami-Dade, và là thành phố lớn nhất vùng đô thị phía Nam Florida. Miami là quận lỵ của Quận Miami-Dade, và là thành phố lớn nhất của một vùng đô thị ở phía Nam Florida. Tên gọi của thành phố có nguồn gốc từ bộ tộc Miami, một bộ tộc bản địa từng có địa bàn rộng lớn ở miền Đông Hoa Kỳ nay đã không còn tồn tại. Miami ngày nay là nơi cư trú dành cho những người Mỹ gốc Cuba tị nạn.</p>",
+          "normalizedtitle": "Miami"
+        }
+      ],
+      "story": "<!-- 24 tháng 6 -->Tại <a rel=\"mw:WikiLink\" href=\"./Hoa_Kỳ\" title=\"Hoa Kỳ\" id=\"mwEg\">Hoa Kỳ</a>, một tòa nhà chung cư gần <a rel=\"mw:WikiLink\" href=\"./Miami\" title=\"Miami\" id=\"mwEw\">Miami</a> <b id=\"mwFA\"><a rel=\"mw:WikiLink\" href=\"./Tòa_nhà_chung_cư_ở_Surfside_đổ_sập\" title=\"Tòa nhà chung cư ở Surfside đổ sập\" class=\"mw-redirect\" id=\"mwFQ\">đổ sập</a></b>, làm ít nhất 4 người chết và 195 người mất tích."
+    }
+  ]
 }

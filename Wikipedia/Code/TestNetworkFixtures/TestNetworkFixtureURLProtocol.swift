@@ -41,6 +41,11 @@ final class TestNetworkFixtureURLProtocol: URLProtocol {
     /// callbacks, keeping `Session` behavior consistent with real URLSession
     /// loads from the caller's point of view.
     override func startLoading() {
+        if TestNetworkFixtureOfflineRules.shared.consumeFailure(for: request) {
+            client?.urlProtocol(self, didFailWithError: URLError(.notConnectedToInternet))
+            return
+        }
+
         guard let profileValue = URLProtocol.property(forKey: Self.profilePropertyKey, in: request) as? String,
               TestHTTPClientProfile(rawValue: profileValue) == .fixtureStrict,
               let fixtureResponse = TestNetworkFixtureHTTPClient.fixtureResponse(for: request),
@@ -55,4 +60,58 @@ final class TestNetworkFixtureURLProtocol: URLProtocol {
     }
 
     override func stopLoading() {}
+}
+
+/// Requests that a UI test wants to fail as if the device were offline. The UI-test target sends the
+/// rules as base64 JSON through the `-WMFUITestOfflineRequests` launch argument. Each rule uses the
+/// matchers of a fixture manifest row, plus `count`: the number of matching requests that fail
+/// before the fixture answers again. Without `count`, every matching request fails.
+final class TestNetworkFixtureOfflineRules: @unchecked Sendable {
+    static let launchArgumentKey = "WMFUITestOfflineRequests"
+    static let shared = TestNetworkFixtureOfflineRules(userDefaults: .standard)
+
+    private struct Rule: Decodable {
+        let matcher: TestNetworkFixture
+        var remainingFailures: Int?
+
+        private enum CodingKeys: String, CodingKey {
+            case count
+        }
+
+        init(from decoder: Decoder) throws {
+            matcher = try TestNetworkFixture(from: decoder)
+            remainingFailures = try decoder.container(keyedBy: CodingKeys.self).decodeIfPresent(Int.self, forKey: .count)
+        }
+    }
+
+    /// URLProtocol instances start on URLSession worker queues.
+    private let lock = NSLock()
+    private var rules: [Rule]
+
+    init(userDefaults: UserDefaults) {
+        guard let base64 = userDefaults.string(forKey: Self.launchArgumentKey),
+              let data = Data(base64Encoded: base64),
+              let rules = try? JSONDecoder().decode([Rule].self, from: data) else {
+            self.rules = []
+            return
+        }
+        self.rules = rules
+    }
+
+    /// True when the request must fail. A rule with a count spends one failure on each match.
+    func consumeFailure(for request: URLRequest) -> Bool {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+
+        guard let index = rules.firstIndex(where: { $0.matcher.matches(request) && ($0.remainingFailures ?? 1) > 0 }) else {
+            return false
+        }
+
+        if let remainingFailures = rules[index].remainingFailures {
+            rules[index].remainingFailures = remainingFailures - 1
+        }
+        return true
+    }
 }

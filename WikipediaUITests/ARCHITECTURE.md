@@ -67,7 +67,10 @@ The test plan chooses language, region, theme, and HTTP profile. `UITestConfigur
 - onboarding state;
 - suppressing first-run or campaign surfaces;
 - hiding TipKit tips;
-- HTTP client profile.
+- HTTP client profile;
+- the Home phase (`-WMFUITestHomePhase2`, always passed, because the developer setting persists): phase 1 hosts the legacy Explore feed in the Community segment, phase 2 shows the native Community feed;
+- the Home feed state (`-WMFUITestHomeFeedState`): the For You interest topics and the segment Home opens on. It also clears hidden cards, module settings, stored feeds, reading history and page interests that earlier tests left behind;
+- offline requests (`-WMFUITestOfflineRequests`, fixture-backed runs only): requests that fail as if the device were offline, a set number of times, so a test can show an error state and then retry.
 
 Do not set language, locale, text direction, theme, simulator appearance, onboarding, or HTTP profile ad hoc in individual tests.
 

@@ -1,0 +1,942 @@
+{
+  "events": [
+    {
+      "text": "The 2022 FIFA World Cup begins in Qatar. This is the first time the tournament was held in the Middle East.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "2022_FIFA_World_Cup",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2022 FIFA World Cup</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q284163",
+          "titles": {
+            "canonical": "2022_FIFA_World_Cup",
+            "normalized": "2022 FIFA World Cup",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2022 FIFA World Cup</span></span>"
+          },
+          "pageid": 17742072,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/en/thumb/e/e3/2022_FIFA_World_Cup.svg/330px-2022_FIFA_World_Cup.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 410
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/en/thumb/e/e3/2022_FIFA_World_Cup.svg/330px-2022_FIFA_World_Cup.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 289,
+            "height": 359
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387980553",
+          "tid": "0a0eb99d-e962-11f1-8155-a5777b754e43",
+          "timestamp": "2026-11-26T06:24:31Z",
+          "description": "Association football tournament in Qatar",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup",
+              "revisions": "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup?action=history",
+              "edit": "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2022_FIFA_World_Cup"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/2022_FIFA_World_Cup",
+              "edit": "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2022_FIFA_World_Cup"
+            }
+          },
+          "extract": "The 2022 FIFA World Cup was the 22nd FIFA World Cup, the quadrennial world championship for national football teams organised by FIFA. It took place in Qatar from 20 November to 18 December 2022, after the country was awarded the hosting rights in 2010. It was the first World Cup to be held in the Middle East and the Arabian Peninsula, and the second in an Asian country after the 2002 tournament in South Korea and Japan.",
+          "extract_html": "<p>The <b>2022 FIFA World Cup</b> was the 22nd FIFA World Cup, the quadrennial world championship for national football teams organised by FIFA. It took place in Qatar from 20 November to 18 December 2022, after the country was awarded the hosting rights in 2010. It was the first World Cup to be held in the Middle East and the Arabian Peninsula, and the second in an Asian country after the 2002 tournament in South Korea and Japan.</p>",
+          "normalizedtitle": "2022 FIFA World Cup"
+        },
+        {
+          "type": "standard",
+          "title": "Qatar",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Qatar</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q846",
+          "titles": {
+            "canonical": "Qatar",
+            "normalized": "Qatar",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Qatar</span></span>"
+          },
+          "pageid": 8238258,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Qatar.svg/330px-Flag_of_Qatar.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 130
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Qatar.svg/1920px-Flag_of_Qatar.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 1400,
+            "height": 550
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387163233",
+          "tid": "9e56f67b-e6ba-11f1-af5a-07bbd02edbeb",
+          "timestamp": "2026-11-22T21:21:02Z",
+          "description": "Country in West Asia",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 25.5,
+            "lon": 51.25
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Qatar",
+              "revisions": "https://en.wikipedia.org/wiki/Qatar?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Qatar?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Qatar"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Qatar",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Qatar",
+              "edit": "https://en.wikipedia.org/wiki/Qatar?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Qatar"
+            }
+          },
+          "extract": "Qatar, officially the State of Qatar, is a country in West Asia. It occupies the Qatar Peninsula on the northeastern coast of the Arabian Peninsula in the Middle East; it shares its sole land border with Saudi Arabia to the south, with the rest of its territory surrounded by the Persian Gulf. The Gulf of Bahrain, an inlet of the Persian Gulf, separates Qatar from nearby Bahrain. The capital is Doha, home to over 80% of the country's inhabitants. Most of the land area is made up of flat, low-lying desert.",
+          "extract_html": "<p><b>Qatar</b>, officially the <b>State of Qatar</b>, is a country in West Asia. It occupies the Qatar Peninsula on the northeastern coast of the Arabian Peninsula in the Middle East; it shares its sole land border with Saudi Arabia to the south, with the rest of its territory surrounded by the Persian Gulf. The Gulf of Bahrain, an inlet of the Persian Gulf, separates Qatar from nearby Bahrain. The capital is Doha, home to over 80% of the country's inhabitants. Most of the land area is made up of flat, low-lying desert.</p>",
+          "normalizedtitle": "Qatar"
+        },
+        {
+          "type": "standard",
+          "title": "Middle_East",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Middle East</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q7204",
+          "titles": {
+            "canonical": "Middle_East",
+            "normalized": "Middle East",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Middle East</span></span>"
+          },
+          "pageid": 19323,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Middle_East_%28orthographic_projection%29.svg/330px-Middle_East_%28orthographic_projection%29.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 330
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Middle_East_%28orthographic_projection%29.svg/960px-Middle_East_%28orthographic_projection%29.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 553,
+            "height": 553
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1386680572",
+          "tid": "96a31107-e46e-11f1-a508-5738ed6dfe59",
+          "timestamp": "2026-11-19T23:11:45Z",
+          "description": "Transcontinental geopolitical region",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 29,
+            "lon": 41
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Middle_East",
+              "revisions": "https://en.wikipedia.org/wiki/Middle_East?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Middle_East?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Middle_East"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Middle_East",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Middle_East",
+              "edit": "https://en.wikipedia.org/wiki/Middle_East?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Middle_East"
+            }
+          },
+          "extract": "The Middle East is a geo-political region that is generally defined as encompassing all of Egypt and all of West Asia except for the Caucasus. It roughly corresponds with what was historically referred to in Western Europe as the Near East, which was juxtaposed with the Far East. Unlike West Asia's adherence to continental boundaries, the Middle East is demarcated by following political borders and consequently includes East Thrace in Southeast Europe because it is a part of Turkey. Since the early 20th century, the term \"Middle East\" has grown increasingly prominent in international discourse, although it is often prone to causing confusion or disagreement on account of vague and changing definitions of what countries and regions it spans. The related terms \"Middle East and North Africa\" and \"Greater Middle East\" denote other existing concepts of the region that involve extending the \"Middle East\" to incorporate most Muslim-majority countries.",
+          "extract_html": "<p>The <b>Middle East</b> is a geo-political region that is generally defined as encompassing all of Egypt and all of West Asia except for the Caucasus. It roughly corresponds with what was historically referred to in Western Europe as the Near East, which was juxtaposed with the Far East. Unlike West Asia's adherence to continental boundaries, the Middle East is demarcated by following political borders and consequently includes East Thrace in Southeast Europe because it is a part of Turkey. Since the early 20th century, the term \"Middle East\" has grown increasingly prominent in international discourse, although it is often prone to causing confusion or disagreement on account of vague and changing definitions of what countries and regions it spans. The related terms \"Middle East and North Africa\" and \"Greater Middle East\" denote other existing concepts of the region that involve extending the \"Middle East\" to incorporate most Muslim-majority countries.</p>",
+          "normalizedtitle": "Middle East"
+        }
+      ],
+      "year": 2022
+    },
+    {
+      "text": "Jimmie Johnson wins his seventh NASCAR Cup Series championship to tie Richard Petty and Dale Earnhardt for the most all-time.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Jimmie_Johnson",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jimmie Johnson</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q217238",
+          "titles": {
+            "canonical": "Jimmie_Johnson",
+            "normalized": "Jimmie Johnson",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jimmie Johnson</span></span>"
+          },
+          "pageid": 1102404,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Jimmie_Johnson_Sonoma_2026.jpg/330px-Jimmie_Johnson_Sonoma_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 450
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Jimmie_Johnson_Sonoma_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 926,
+            "height": 1264
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387898846",
+          "tid": "6356f93b-e922-11f1-8e6d-211643a5354b",
+          "timestamp": "2026-11-25T22:48:53Z",
+          "description": "American racing driver (born 1975)",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Jimmie_Johnson",
+              "revisions": "https://en.wikipedia.org/wiki/Jimmie_Johnson?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Jimmie_Johnson?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Jimmie_Johnson"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Jimmie_Johnson",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Jimmie_Johnson",
+              "edit": "https://en.wikipedia.org/wiki/Jimmie_Johnson?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Jimmie_Johnson"
+            }
+          },
+          "extract": "Jimmie Kenneth Johnson is an American professional stock car racing driver and team owner. He competes part-time in the NASCAR Cup Series, driving the No. 48 Toyota Camry XSE for Legacy Motor Club. Johnson has won seven Cup championships, including five consecutive titles, tying him with Richard Petty and Dale Earnhardt for the most all-time. He is widely considered one of the greatest drivers in NASCAR history.",
+          "extract_html": "<p><b>Jimmie Kenneth Johnson</b> is an American professional stock car racing driver and team owner. He competes part-time in the NASCAR Cup Series, driving the No. 48 Toyota Camry XSE for Legacy Motor Club. Johnson has won seven Cup championships, including five consecutive titles, tying him with Richard Petty and Dale Earnhardt for the most all-time. He is widely considered one of the greatest drivers in NASCAR history.</p>",
+          "normalizedtitle": "Jimmie Johnson"
+        },
+        {
+          "type": "standard",
+          "title": "NASCAR_Cup_Series",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">NASCAR Cup Series</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q2707177",
+          "titles": {
+            "canonical": "NASCAR_Cup_Series",
+            "normalized": "NASCAR Cup Series",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">NASCAR Cup Series</span></span>"
+          },
+          "pageid": 56571945,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/NASCAR_Cup_Series_logo.svg/330px-NASCAR_Cup_Series_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 165
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/NASCAR_Cup_Series_logo.svg/60px-NASCAR_Cup_Series_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 54,
+            "height": 27
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387121835",
+          "tid": "2bd61ba2-e69a-11f1-b371-6d3a50e247a1",
+          "timestamp": "2026-11-22T17:28:46Z",
+          "description": "Top national division auto racing division within NASCAR",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/NASCAR_Cup_Series",
+              "revisions": "https://en.wikipedia.org/wiki/NASCAR_Cup_Series?action=history",
+              "edit": "https://en.wikipedia.org/wiki/NASCAR_Cup_Series?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:NASCAR_Cup_Series"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/NASCAR_Cup_Series",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/NASCAR_Cup_Series",
+              "edit": "https://en.wikipedia.org/wiki/NASCAR_Cup_Series?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:NASCAR_Cup_Series"
+            }
+          },
+          "extract": "The NASCAR Cup Series is the top racing series of the National Association for Stock Car Auto Racing (NASCAR), the most prestigious stock car racing series in the United States.",
+          "extract_html": "<p>The <b>NASCAR Cup Series</b> is the top racing series of the National Association for Stock Car Auto Racing (NASCAR), the most prestigious stock car racing series in the United States.</p>",
+          "normalizedtitle": "NASCAR Cup Series"
+        },
+        {
+          "type": "standard",
+          "title": "Richard_Petty",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Richard Petty</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q355130",
+          "titles": {
+            "canonical": "Richard_Petty",
+            "normalized": "Richard Petty",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Richard Petty</span></span>"
+          },
+          "pageid": 25480,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Richard_Petty_Las_Vegas_Fall_2024.jpg/330px-Richard_Petty_Las_Vegas_Fall_2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 414
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Richard_Petty_Las_Vegas_Fall_2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 2531,
+            "height": 3176
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1386905545",
+          "tid": "9ac54f7f-e58c-11f1-bf44-9f8cea8974f6",
+          "timestamp": "2026-11-21T09:19:08Z",
+          "description": "American racing driver (born 1937)",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Richard_Petty",
+              "revisions": "https://en.wikipedia.org/wiki/Richard_Petty?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Richard_Petty?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Richard_Petty"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Richard_Petty",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Richard_Petty",
+              "edit": "https://en.wikipedia.org/wiki/Richard_Petty?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Richard_Petty"
+            }
+          },
+          "extract": "Richard Lee Petty, nicknamed \"the King\", is an American former stock car racing driver who competed from 1958 to 1992 in the former NASCAR Grand National and Winston Cup Series, most notably driving the No. 43 Plymouth/Pontiac for Petty Enterprises. He is one of the members of the Petty racing family. He was the first driver to win the Cup Series championship seven times, while also winning a record 200 races during his career. This included winning the Daytona 500 a record seven times and winning a record 27 races in one season (1967). Petty is widely regarded as one of the greatest drivers in NASCAR history.",
+          "extract_html": "<p><b>Richard Lee Petty</b>, nicknamed \"<b>the King</b>\", is an American former stock car racing driver who competed from 1958 to 1992 in the former NASCAR Grand National and Winston Cup Series, most notably driving the No. 43 Plymouth/Pontiac for Petty Enterprises. He is one of the members of the Petty racing family. He was the first driver to win the Cup Series championship seven times, while also winning a record 200 races during his career. This included winning the Daytona 500 a record seven times and winning a record 27 races in one season (1967). Petty is widely regarded as one of the greatest drivers in NASCAR history.</p>",
+          "normalizedtitle": "Richard Petty"
+        },
+        {
+          "type": "standard",
+          "title": "Dale_Earnhardt",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Dale Earnhardt</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q355420",
+          "titles": {
+            "canonical": "Dale_Earnhardt",
+            "normalized": "Dale Earnhardt",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Dale Earnhardt</span></span>"
+          },
+          "pageid": 7893,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Dale_Earnhardt_visits_Langley_AFB.jpg/330px-Dale_Earnhardt_visits_Langley_AFB.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 495
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Dale_Earnhardt_visits_Langley_AFB.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 1152,
+            "height": 1728
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388150877",
+          "tid": "d885052b-e9d8-11f1-8ed3-d1d0e953032e",
+          "timestamp": "2026-11-26T20:34:58Z",
+          "description": "American racing driver (1951–2001)",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Dale_Earnhardt",
+              "revisions": "https://en.wikipedia.org/wiki/Dale_Earnhardt?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Dale_Earnhardt?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Dale_Earnhardt"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Dale_Earnhardt",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Dale_Earnhardt",
+              "edit": "https://en.wikipedia.org/wiki/Dale_Earnhardt?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Dale_Earnhardt"
+            }
+          },
+          "extract": "Ralph Dale Earnhardt was an American professional stock car driver and racing team owner, who raced from 1975 to 2001 in the former NASCAR Winston Cup Series, most notably driving the No. 3 Chevrolet for Richard Childress Racing. His aggressive driving style earned him the nicknames \"the Intimidator\", \"the Man in Black\" and \"Ironhead\"; after his son Dale Earnhardt Jr. joined the Cup Series circuit in 1999, Earnhardt was generally known by the retronyms Dale Earnhardt Sr. and Dale Sr. He is widely regarded as one of the greatest drivers in NASCAR history and was named as one of the NASCAR's 50 Greatest Drivers class in 1998.",
+          "extract_html": "<p><b>Ralph Dale Earnhardt</b> was an American professional stock car driver and racing team owner, who raced from 1975 to 2001 in the former NASCAR Winston Cup Series, most notably driving the No.<span class=\"nowrap\"> </span>3 Chevrolet for Richard Childress Racing. His aggressive driving style earned him the nicknames \"<b>the Intimidator</b>\", \"<b>the Man in Black</b>\" and \"<b>Ironhead</b>\"; after his son Dale Earnhardt Jr. joined the Cup Series circuit in 1999, Earnhardt was generally known by the retronyms <b>Dale Earnhardt Sr.</b> and <b>Dale Sr.</b> He is widely regarded as one of the greatest drivers in NASCAR history and was named as one of the NASCAR's 50 Greatest Drivers class in 1998.</p>",
+          "normalizedtitle": "Dale Earnhardt"
+        }
+      ],
+      "year": 2016
+    },
+    {
+      "text": "Following a hostage siege, at least 19 people are killed in Bamako, Mali.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Radisson_Blu_Bamako_attack",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Radisson Blu Bamako attack</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q21516923",
+          "titles": {
+            "canonical": "Radisson_Blu_Bamako_attack",
+            "normalized": "Radisson Blu Bamako attack",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Radisson Blu Bamako attack</span></span>"
+          },
+          "pageid": 48603826,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Attentat_Radisson_Blu_de_Bamako2015%281%29.JPG/330px-Attentat_Radisson_Blu_de_Bamako2015%281%29.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 185
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/8/82/Attentat_Radisson_Blu_de_Bamako2015%281%29.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 1177,
+            "height": 659
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1383084599",
+          "tid": "6c9ab4db-d57a-11f1-bd4a-2374f1e55d43",
+          "timestamp": "2026-10-31T22:28:41Z",
+          "description": "2015 terrorist attack in Radisson Blu, Bamako",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 12.6352,
+            "lon": -8.0308
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Radisson_Blu_Bamako_attack",
+              "revisions": "https://en.wikipedia.org/wiki/Radisson_Blu_Bamako_attack?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Radisson_Blu_Bamako_attack?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Radisson_Blu_Bamako_attack"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Radisson_Blu_Bamako_attack",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Radisson_Blu_Bamako_attack",
+              "edit": "https://en.wikipedia.org/wiki/Radisson_Blu_Bamako_attack?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Radisson_Blu_Bamako_attack"
+            }
+          },
+          "extract": "On 20 November 2015, Islamist militants took 170 hostages and killed 20 of them in a mass shooting at the Radisson Blu hotel in Bamako, the capital city of Mali. The siege was ended when Malian special forces, backed by U.S. and French personnel, launched an assault on the hotel to recover the surviving hostages. Al-Mourabitoun claimed that it carried out the attack \"in cooperation with\" al-Qaeda in the Islamic Maghreb; an al Qaeda member confirmed that the two groups cooperated in the attack.",
+          "extract_html": "<p>On 20 November 2015, Islamist militants took 170 hostages and killed 20 of them in a mass shooting at the Radisson Blu hotel in Bamako, the capital city of Mali. The siege was ended when Malian special forces, backed by U.S. and French personnel, launched an assault on the hotel to recover the surviving hostages. Al-Mourabitoun claimed that it carried out the attack \"in cooperation with\" al-Qaeda in the Islamic Maghreb; an al Qaeda member confirmed that the two groups cooperated in the attack.</p>",
+          "normalizedtitle": "Radisson Blu Bamako attack"
+        }
+      ],
+      "year": 2015
+    },
+    {
+      "text": "After the November 15 bombings, a second day of the 2003 Istanbul bombings occurs in Istanbul, Turkey, destroying the Turkish head office of HSBC Bank AS and the British consulate.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "November_15",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">November 15</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q2982",
+          "titles": {
+            "canonical": "November_15",
+            "normalized": "November 15",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">November 15</span></span>"
+          },
+          "pageid": 21763,
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1386343495",
+          "tid": "d347ffda-e2ee-11f1-8363-f781f630a51c",
+          "timestamp": "2026-11-18T01:24:40Z",
+          "description": "Day of the year",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/November_15",
+              "revisions": "https://en.wikipedia.org/wiki/November_15?action=history",
+              "edit": "https://en.wikipedia.org/wiki/November_15?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:November_15"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/November_15",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/November_15",
+              "edit": "https://en.wikipedia.org/wiki/November_15?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:November_15"
+            }
+          },
+          "extract": "November 15 is the 319th day of the year in the Gregorian calendar; 46 days remain until the end of the year.",
+          "extract_html": "<p><b>November 15</b> is the 319th day of the year in the Gregorian calendar; 46 days remain until the end of the year.</p>",
+          "normalizedtitle": "November 15"
+        },
+        {
+          "type": "standard",
+          "title": "2003_Istanbul_bombings",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2003 Istanbul bombings</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q1254917",
+          "titles": {
+            "canonical": "2003_Istanbul_bombings",
+            "normalized": "2003 Istanbul bombings",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2003 Istanbul bombings</span></span>"
+          },
+          "pageid": 23573909,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Location_map_Beyoglu-Besiktas-15-and-20-November-2003-bombings-Sisli.svg/330px-Location_map_Beyoglu-Besiktas-15-and-20-November-2003-bombings-Sisli.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 289
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Location_map_Beyoglu-Besiktas-15-and-20-November-2003-bombings-Sisli.svg/3840px-Location_map_Beyoglu-Besiktas-15-and-20-November-2003-bombings-Sisli.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 2092,
+            "height": 1831
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1386889670",
+          "tid": "a5beb6b3-e571-11f1-b7d5-9e04b720ec2d",
+          "timestamp": "2026-11-21T06:06:10Z",
+          "description": "Al-Qaeda suicide bombings in Istanbul, Turkey",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/2003_Istanbul_bombings",
+              "revisions": "https://en.wikipedia.org/wiki/2003_Istanbul_bombings?action=history",
+              "edit": "https://en.wikipedia.org/wiki/2003_Istanbul_bombings?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2003_Istanbul_bombings"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/2003_Istanbul_bombings",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/2003_Istanbul_bombings",
+              "edit": "https://en.wikipedia.org/wiki/2003_Istanbul_bombings?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2003_Istanbul_bombings"
+            }
+          },
+          "extract": "The 2003 Istanbul bombings were a series of suicide attacks carried out with trucks fitted with bombs detonated at four locations in Istanbul, Turkey, on 15 and 20 November 2003.",
+          "extract_html": "<p>The <b>2003 Istanbul bombings</b> were a series of suicide attacks carried out with trucks fitted with bombs detonated at four locations in Istanbul, Turkey, on 15 and 20 November 2003.</p>",
+          "normalizedtitle": "2003 Istanbul bombings"
+        },
+        {
+          "type": "standard",
+          "title": "Istanbul",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Istanbul</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q406",
+          "titles": {
+            "canonical": "Istanbul",
+            "normalized": "Istanbul",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Istanbul</span></span>"
+          },
+          "pageid": 3391396,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Historical_peninsula_and_modern_skyline_of_Istanbul.jpg/330px-Historical_peninsula_and_modern_skyline_of_Istanbul.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 159
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Historical_peninsula_and_modern_skyline_of_Istanbul.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 3301,
+            "height": 1595
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1385549367",
+          "tid": "8d1d3210-dfae-11f1-8d1c-9584928eeff8",
+          "timestamp": "2026-11-13T22:07:01Z",
+          "description": "Largest city in Turkey",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 41.01361111,
+            "lon": 28.955
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Istanbul",
+              "revisions": "https://en.wikipedia.org/wiki/Istanbul?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Istanbul?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Istanbul"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Istanbul",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Istanbul",
+              "edit": "https://en.wikipedia.org/wiki/Istanbul?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Istanbul"
+            }
+          },
+          "extract": "Istanbul, historically known as Constantinople, is the largest city in Turkey, a megacity, constituting the country's economic, cultural, and historical center. With a population of over 15 million, it is home to 18% of the population of Turkey. Istanbul is among the largest cities in Europe and in the world by population. It is a city on two continents; about two-thirds of its population live in Europe and the rest in Asia. Istanbul straddles the Bosphorus – one of the world's busiest waterways – in northwestern Turkey, between the Sea of Marmara and the Black Sea. Its area of 5,461 square kilometers (2,109 mi2) is coterminous with Istanbul Province.",
+          "extract_html": "<p><b>Istanbul</b>, historically known as <b>Constantinople</b>, is the largest city in Turkey, a megacity, constituting the country's economic, cultural, and historical center. With a population of over 15 million, it is home to 18% of the population of Turkey. Istanbul is among the largest cities in Europe and in the world by population. It is a city on two continents; about two-thirds of its population live in Europe and the rest in Asia. Istanbul straddles the Bosphorus – one of the world's busiest waterways – in northwestern Turkey, between the Sea of Marmara and the Black Sea. Its area of 5,461 square kilometers (2,109 mi<sup>2</sup>) is coterminous with Istanbul Province.</p>",
+          "normalizedtitle": "Istanbul"
+        },
+        {
+          "type": "standard",
+          "title": "HSBC_Bank_Turkey",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">HSBC Bank Turkey</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q1565906",
+          "titles": {
+            "canonical": "HSBC_Bank_Turkey",
+            "normalized": "HSBC Bank Turkey",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">HSBC Bank Turkey</span></span>"
+          },
+          "pageid": 3072085,
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1359520837",
+          "tid": "1cce8ff7-68ee-11f1-a301-36cb29c106d2",
+          "timestamp": "2026-06-15T19:12:12Z",
+          "description": "Turkish bank",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/HSBC_Bank_Turkey",
+              "revisions": "https://en.wikipedia.org/wiki/HSBC_Bank_Turkey?action=history",
+              "edit": "https://en.wikipedia.org/wiki/HSBC_Bank_Turkey?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:HSBC_Bank_Turkey"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/HSBC_Bank_Turkey",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/HSBC_Bank_Turkey",
+              "edit": "https://en.wikipedia.org/wiki/HSBC_Bank_Turkey?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:HSBC_Bank_Turkey"
+            }
+          },
+          "extract": "HSBC Bank A.Ş., the Turkey subsidiary of the HSBC Group, is a bank with its head office in Istanbul.",
+          "extract_html": "<p><b>HSBC Bank A.Ş.</b>, the Turkey subsidiary of the HSBC Group, is a bank with its head office in Istanbul.</p>",
+          "normalizedtitle": "HSBC Bank Turkey"
+        }
+      ],
+      "year": 2003
+    },
+    {
+      "text": "A court in Taliban-controlled Afghanistan declares accused terrorist Osama bin Laden \"a man without a sin\" in regard to the 1998 U.S. embassy bombings in Kenya and Tanzania.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Taliban",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Taliban</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q42418",
+          "titles": {
+            "canonical": "Taliban",
+            "normalized": "Taliban",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Taliban</span></span>"
+          },
+          "pageid": 30635,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/330px-Flag_of_the_Taliban.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 165
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/1280px-Flag_of_the_Taliban.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 1000,
+            "height": 500
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387452186",
+          "tid": "f830e95b-e79e-11f1-992b-97865307067d",
+          "timestamp": "2026-11-24T00:35:38Z",
+          "description": "Afghan Islamist militant organization",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Taliban",
+              "revisions": "https://en.wikipedia.org/wiki/Taliban?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Taliban?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Taliban"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Taliban",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Taliban",
+              "edit": "https://en.wikipedia.org/wiki/Taliban?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Taliban"
+            }
+          },
+          "extract": "The Taliban is a Sunni Islamist political and militant organization which has governed Afghanistan since 2021. Having previously ruled the country from 1996 to 2001, the group was overthrown following the United States invasion of Afghanistan and fought a twenty-year war which ended in their return to power.",
+          "extract_html": "<p>The <b>Taliban</b> is a Sunni Islamist political and militant organization which has governed Afghanistan since 2021. Having previously ruled the country from 1996 to 2001, the group was overthrown following the United States invasion of Afghanistan and fought a twenty-year war which ended in their return to power.</p>",
+          "normalizedtitle": "Taliban"
+        },
+        {
+          "type": "standard",
+          "title": "Afghanistan",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Afghanistan</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q889",
+          "titles": {
+            "canonical": "Afghanistan",
+            "normalized": "Afghanistan",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Afghanistan</span></span>"
+          },
+          "pageid": 737,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/330px-Flag_of_the_Taliban.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 165
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/1280px-Flag_of_the_Taliban.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 1000,
+            "height": 500
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388114512",
+          "tid": "1e819f21-e9c0-11f1-a687-aa89616deba9",
+          "timestamp": "2026-11-26T17:37:58Z",
+          "description": "Country in Central and South Asia",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 34.51666667,
+            "lon": 69.18333333
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Afghanistan",
+              "revisions": "https://en.wikipedia.org/wiki/Afghanistan?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Afghanistan?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Afghanistan"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Afghanistan",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Afghanistan",
+              "edit": "https://en.wikipedia.org/wiki/Afghanistan?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Afghanistan"
+            }
+          },
+          "extract": "Afghanistan, officially the Islamic Emirate of Afghanistan, is a landlocked country located at the crossroads of Central and South Asia. It is bordered by Pakistan to the east and south, Iran to the west, Turkmenistan to the northwest, Uzbekistan to the north, Tajikistan to the northeast, and China to the northeast and east. Occupying 652,864 square kilometers (252,072 sq mi) of land, the country is predominantly mountainous with plains in the north and the southwest, which are separated by the Hindu Kush mountain range. Kabul is the country's capital and largest city. Afghanistan's population is estimated to be between 35 and 50 million.",
+          "extract_html": "<p><b>Afghanistan</b>, officially the <b>Islamic Emirate of Afghanistan</b>, is a landlocked country located at the crossroads of Central and South Asia. It is bordered by Pakistan to the east and south, Iran to the west, Turkmenistan to the northwest, Uzbekistan to the north, Tajikistan to the northeast, and China to the northeast and east. Occupying 652,864 square kilometers (252,072 sq mi) of land, the country is predominantly mountainous with plains in the north and the southwest, which are separated by the Hindu Kush mountain range. Kabul is the country's capital and largest city. Afghanistan's population is estimated to be between 35 and 50 million.</p>",
+          "normalizedtitle": "Afghanistan"
+        },
+        {
+          "type": "standard",
+          "title": "Osama_bin_Laden",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Osama bin Laden</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q1317",
+          "titles": {
+            "canonical": "Osama_bin_Laden",
+            "normalized": "Osama bin Laden",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Osama bin Laden</span></span>"
+          },
+          "pageid": 22468,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Osama_bin_Laden_portrait.jpg/330px-Osama_bin_Laden_portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 399
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Osama_bin_Laden_portrait.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 400,
+            "height": 484
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388157183",
+          "tid": "09673e93-e9dd-11f1-8c84-83361fff55c8",
+          "timestamp": "2026-11-26T21:04:58Z",
+          "description": "Founder of al-Qaeda (1957–2011)",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Osama_bin_Laden",
+              "revisions": "https://en.wikipedia.org/wiki/Osama_bin_Laden?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Osama_bin_Laden?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Osama_bin_Laden"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Osama_bin_Laden",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Osama_bin_Laden",
+              "edit": "https://en.wikipedia.org/wiki/Osama_bin_Laden?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Osama_bin_Laden"
+            }
+          },
+          "extract": "Osama bin Laden was a Saudi-born militant who is the founder and first general emir of al-Qaeda from 1988 until his killing in 2011. He helped orchestrate al-Qaeda's terrorist attacks against the United States on 11 September 2001, which directly killed 2,977 victims and caused the U.S.-led global war on terror. Bin Laden also led al-Qaeda and its allies in the Second Afghan Civil War, Bosnian War, and Algerian Civil War, the latter of which he helped instigate.",
+          "extract_html": "<p><b>Osama bin Laden</b> was a Saudi-born militant who is the founder and first general emir of al-Qaeda from 1988 until his killing in 2011. He helped orchestrate al-Qaeda's terrorist attacks against the United States on 11 September 2001, which directly killed 2,977 victims and caused the U.S.-led global war on terror. Bin Laden also led al-Qaeda and its allies in the Second Afghan Civil War, Bosnian War, and Algerian Civil War, the latter of which he helped instigate.</p>",
+          "normalizedtitle": "Osama bin Laden"
+        },
+        {
+          "type": "standard",
+          "title": "1998_United_States_embassy_bombings",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">1998 United States embassy bombings</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q876206",
+          "titles": {
+            "canonical": "1998_United_States_embassy_bombings",
+            "normalized": "1998 United States embassy bombings",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">1998 United States embassy bombings</span></span>"
+          },
+          "pageid": 10078354,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/1998_United_States_embassy_in_Nairobi_bombings_IDF_relief_VII.jpg/330px-1998_United_States_embassy_in_Nairobi_bombings_IDF_relief_VII.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 220
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/8/8f/1998_United_States_embassy_in_Nairobi_bombings_IDF_relief_VII.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 3072,
+            "height": 2048
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1383085428",
+          "tid": "4924394b-d57b-11f1-9259-4ffc71e1e13a",
+          "timestamp": "2026-10-31T22:34:51Z",
+          "description": "Attacks on US embassies in Africa",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/1998_United_States_embassy_bombings",
+              "revisions": "https://en.wikipedia.org/wiki/1998_United_States_embassy_bombings?action=history",
+              "edit": "https://en.wikipedia.org/wiki/1998_United_States_embassy_bombings?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:1998_United_States_embassy_bombings"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/1998_United_States_embassy_bombings",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/1998_United_States_embassy_bombings",
+              "edit": "https://en.wikipedia.org/wiki/1998_United_States_embassy_bombings?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:1998_United_States_embassy_bombings"
+            }
+          },
+          "extract": "The 1998 United States embassy bombings were a series of terrorist attacks that occurred on August 7, 1998. More than 220 people were killed in two nearly simultaneous truck bomb explosions in two East African capital cities, one at the United States embassy in Dar es Salaam, Tanzania, and the other at the United States embassy in Nairobi, Kenya.",
+          "extract_html": "<p>The <b>1998 United States embassy bombings</b> were a series of terrorist attacks that occurred on August 7, 1998. More than 220 people were killed in two nearly simultaneous truck bomb explosions in two East African capital cities, one at the United States embassy in Dar es Salaam, Tanzania, and the other at the United States embassy in Nairobi, Kenya.</p>",
+          "normalizedtitle": "1998 United States embassy bombings"
+        },
+        {
+          "type": "standard",
+          "title": "Kenya",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Kenya</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q114",
+          "titles": {
+            "canonical": "Kenya",
+            "normalized": "Kenya",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Kenya</span></span>"
+          },
+          "pageid": 188171,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/330px-Flag_of_Kenya.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 220
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/960px-Flag_of_Kenya.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 900,
+            "height": 600
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1386733570",
+          "tid": "7050949c-e4ad-11f1-88f2-a53eed6e49ad",
+          "timestamp": "2026-11-20T06:41:39Z",
+          "description": "Country in East Africa",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 1,
+            "lon": 38
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Kenya",
+              "revisions": "https://en.wikipedia.org/wiki/Kenya?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Kenya?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Kenya"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Kenya",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Kenya",
+              "edit": "https://en.wikipedia.org/wiki/Kenya?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Kenya"
+            }
+          },
+          "extract": "Kenya, officially the Republic of Kenya, is a country located in East Africa. With an estimated population of more than 54.2 million as of mid-2026, it is the 26th-most populous country in the world and the seventh-most populous in Africa. Kenya's capital and largest city is Nairobi. The second-largest and oldest city is Mombasa, a port city located on Mombasa Island. Other major cities within the country include Kisumu, Nakuru and Eldoret. Going clockwise, Kenya is bordered by South Sudan to the northwest, Ethiopia to the north, Somalia to the east, the Indian Ocean to the southeast, Tanzania to the southwest, and Lake Victoria and Uganda to the west. Its geography, climate and population vary. In western Rift Valley counties, the landscape includes cold, snow-capped mountaintops with surrounding forests, wildlife, and fertile agricultural regions in temperate climates. In other areas there are dry, arid, and semi-arid climates, as well as absolute deserts.",
+          "extract_html": "<p><b>Kenya</b>, officially the <b>Republic of Kenya</b>, is a country located in East Africa. With an estimated population of more than 54.2 million as of mid-2026, it is the 26th-most populous country in the world and the seventh-most populous in Africa. Kenya's capital and largest city is Nairobi. The second-largest and oldest city is Mombasa, a port city located on Mombasa Island. Other major cities within the country include Kisumu, Nakuru and Eldoret. Going clockwise, Kenya is bordered by South Sudan to the northwest, Ethiopia to the north, Somalia to the east, the Indian Ocean to the southeast, Tanzania to the southwest, and Lake Victoria and Uganda to the west. Its geography, climate and population vary. In western Rift Valley counties, the landscape includes cold, snow-capped mountaintops with surrounding forests, wildlife, and fertile agricultural regions in temperate climates. In other areas there are dry, arid, and semi-arid climates, as well as absolute deserts.</p>",
+          "normalizedtitle": "Kenya"
+        },
+        {
+          "type": "standard",
+          "title": "Tanzania",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Tanzania</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q924",
+          "titles": {
+            "canonical": "Tanzania",
+            "normalized": "Tanzania",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Tanzania</span></span>"
+          },
+          "pageid": 30118,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Flag_of_Tanzania.svg/330px-Flag_of_Tanzania.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 220
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Flag_of_Tanzania.svg/960px-Flag_of_Tanzania.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 900,
+            "height": 600
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388215674",
+          "tid": "0c2e5345-ea0e-11f1-bbd0-c781708e007f",
+          "timestamp": "2026-11-27T02:55:48Z",
+          "description": "Country in East Africa",
+          "description_source": "local",
+          "coordinates": {
+            "lat": -6,
+            "lon": 35
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Tanzania",
+              "revisions": "https://en.wikipedia.org/wiki/Tanzania?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Tanzania?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Tanzania"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Tanzania",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Tanzania",
+              "edit": "https://en.wikipedia.org/wiki/Tanzania?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Tanzania"
+            }
+          },
+          "extract": "Tanzania, officially the United Republic of Tanzania, is a country in East Africa within the African Great Lakes region. It is bordered by Uganda to the northwest, Kenya to the northeast, the Indian Ocean to the east, Mozambique and Malawi to the south, Zambia to the southwest, and Rwanda, Burundi, and the Democratic Republic of the Congo to the west. According to a 2024 estimate, Tanzania has a population of around 67.5 million, making it the most populous country located entirely south of the equator.",
+          "extract_html": "<p><b>Tanzania</b>, officially the <b>United Republic of Tanzania</b>, is a country in East Africa within the African Great Lakes region. It is bordered by Uganda to the northwest, Kenya to the northeast, the Indian Ocean to the east, Mozambique and Malawi to the south, Zambia to the southwest, and Rwanda, Burundi, and the Democratic Republic of the Congo to the west. According to a 2024 estimate, Tanzania has a population of around 67.5 million, making it the most populous country located entirely south of the equator.</p>",
+          "normalizedtitle": "Tanzania"
+        }
+      ],
+      "year": 1998
+    }
+  ]
+}

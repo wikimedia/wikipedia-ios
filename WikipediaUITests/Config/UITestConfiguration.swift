@@ -27,6 +27,9 @@ struct UITestConfiguration {
     let languageCode: String
     let readingListsSeed: UITestReadingListsSeed?
     let discoverState: DiscoverState
+    let homePhase: HomePhase
+    let homeFeedState: UITestHomeFeedState?
+    let offlineRequests: [UITestOfflineRequest]
 
     var isRightToLeft: Bool {
         NSLocale.characterDirection(forLanguage: languageCode) == .rightToLeft
@@ -40,9 +43,15 @@ struct UITestConfiguration {
         suppressesHomeOnboarding: Bool = true,
         readingListsSeed: UITestReadingListsSeed? = nil,
         centralAuthUsername: String? = nil,
-        discoverState: DiscoverState = .off
+        discoverState: DiscoverState = .off,
+        homePhase: HomePhase = .phase1,
+        homeFeedState: UITestHomeFeedState? = nil,
+        offlineRequests: [UITestOfflineRequest] = []
     ) {
         self.onboardingState = onboardingState
+        self.homePhase = homePhase
+        self.homeFeedState = homeFeedState
+        self.offlineRequests = offlineRequests
         self.readingListsSeed = readingListsSeed
         self.discoverState = discoverState
         self.httpClientProfile = ProcessInfo.processInfo.value(for: .httpClientProfile) ?? defaultHTTPClientProfile
@@ -97,7 +106,26 @@ struct UITestConfiguration {
             argumentValues.append(UITestLaunchArgumentValue(.discoverState, value: discoverState.rawValue))
         }
 
+        // Always passed explicitly: the developer setting persists across launches.
+        argumentValues.append(UITestLaunchArgumentValue(.homePhase2, value: homePhase == .phase2 ? "YES" : "NO"))
+
+        if let homeFeedState {
+            argumentValues.append(UITestLaunchArgumentValue(.homeFeedState, value: homeFeedState.launchArgumentValue))
+        }
+
+        if !offlineRequests.isEmpty {
+            argumentValues.append(UITestLaunchArgumentValue(.offlineRequests, value: UITestOfflineRequest.launchArgumentValue(for: offlineRequests)))
+        }
+
         return argumentValues
+    }
+
+    /// Which Community feed the Home tab shows. The "Enable Home Phase 2" developer setting picks it.
+    enum HomePhase {
+        /// The Community segment hosts the legacy Explore feed, the production default.
+        case phase1
+        /// The Community segment shows the native Community feed.
+        case phase2
     }
 
     /// What the launch does with the Discover flags, which persist across launches.

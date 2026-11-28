@@ -50,7 +50,7 @@
     "extract_html": "<p>The <b>dog</b> is a member of the genus <i>Canis</i>, which forms part of the wolf-like canids, and is the most widely abundant terrestrial carnivore.</p>"
   },
   "mostread": {
-    "date": "2020-04-17Z",
+    "date": "2026-11-26Z",
     "articles": [
       {
         "views": 1000,
@@ -102,8 +102,1073 @@
         },
         "extract": "The dog is a member of the genus Canis, which forms part of the wolf-like canids, and is the most widely abundant terrestrial carnivore.",
         "extract_html": "<p>The <b>dog</b> is a member of the genus <i>Canis</i>, which forms part of the wolf-like canids, and is the most widely abundant terrestrial carnivore.</p>"
+      },
+      {
+        "views": 318400,
+        "rank": 4,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 487
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 456
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 486
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 135665
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 318400
+          }
+        ],
+        "type": "standard",
+        "title": "Andy_Taylor_(guitarist)",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Andy Taylor (guitarist)</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q527834",
+        "titles": {
+          "canonical": "Andy_Taylor_(guitarist)",
+          "normalized": "Andy Taylor (guitarist)",
+          "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Andy Taylor (guitarist)</span></span>"
+        },
+        "pageid": 618480,
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Andy_Taylor_-_Duran_Duran_1983.jpg/330px-Andy_Taylor_-_Duran_Duran_1983.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 436
+        },
+        "originalimage": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/8/87/Andy_Taylor_-_Duran_Duran_1983.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+          "width": 404,
+          "height": 534
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "revision": "1388342646",
+        "tid": "902b1e2c-ea94-11f1-956b-36755b0858c0",
+        "timestamp": "2026-11-27T18:58:42Z",
+        "description": "English guitarist (1961–2026)",
+        "description_source": "local",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Andy_Taylor_(guitarist)",
+            "revisions": "https://en.wikipedia.org/wiki/Andy_Taylor_(guitarist)?action=history",
+            "edit": "https://en.wikipedia.org/wiki/Andy_Taylor_(guitarist)?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Andy_Taylor_(guitarist)"
+          },
+          "mobile": {
+            "page": "https://en.wikipedia.org/wiki/Andy_Taylor_(guitarist)",
+            "revisions": "https://en.wikipedia.org/wiki/Special:History/Andy_Taylor_(guitarist)",
+            "edit": "https://en.wikipedia.org/wiki/Andy_Taylor_(guitarist)?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Andy_Taylor_(guitarist)"
+          }
+        },
+        "extract": "Andrew James Taylor was an English guitarist, best known as a member of Duran Duran and the Power Station. He also recorded and performed as a solo artist, and served as a guitarist, songwriter, and record producer for artists including Robert Palmer, Rod Stewart, the Almighty, Love and Money, Mark Shaw, Then Jerico and Belinda Carlisle.",
+        "extract_html": "<p><b>Andrew James Taylor</b> was an English guitarist, best known as a member of Duran Duran and the Power Station. He also recorded and performed as a solo artist, and served as a guitarist, songwriter, and record producer for artists including Robert Palmer, Rod Stewart, the Almighty, Love and Money, Mark Shaw, Then Jerico and Belinda Carlisle.</p>",
+        "normalizedtitle": "Andy Taylor (guitarist)"
+      },
+      {
+        "views": 256714,
+        "rank": 5,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 384249
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 365685
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 305811
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 268083
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 256714
+          }
+        ],
+        "type": "standard",
+        "title": "Ramayana:_Part_1",
+        "displaytitle": "<i>Ramayana: Part 1</i>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q135196186",
+        "titles": {
+          "canonical": "Ramayana:_Part_1",
+          "normalized": "Ramayana: Part 1",
+          "display": "<i>Ramayana: Part 1</i>"
+        },
+        "pageid": 78318715,
+        "thumbnail": {
+          "source": "https://upload.wikimedia.org/wikipedia/en/4/48/Ramayana_Part_1_%28poster%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+          "width": 283,
+          "height": 354
+        },
+        "originalimage": {
+          "source": "https://upload.wikimedia.org/wikipedia/en/4/48/Ramayana_Part_1_%28poster%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+          "width": 283,
+          "height": 354
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "revision": "1388348118",
+        "tid": "d9ca37d6-ea99-11f1-8e5c-54870a82adb4",
+        "timestamp": "2026-11-27T19:36:33Z",
+        "description": "2026 Indian film by Nitesh Tiwari",
+        "description_source": "local",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Ramayana%3A_Part_1",
+            "revisions": "https://en.wikipedia.org/wiki/Ramayana%3A_Part_1?action=history",
+            "edit": "https://en.wikipedia.org/wiki/Ramayana%3A_Part_1?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Ramayana%3A_Part_1"
+          },
+          "mobile": {
+            "page": "https://en.wikipedia.org/wiki/Ramayana%3A_Part_1",
+            "revisions": "https://en.wikipedia.org/wiki/Special:History/Ramayana%3A_Part_1",
+            "edit": "https://en.wikipedia.org/wiki/Ramayana%3A_Part_1?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Ramayana%3A_Part_1"
+          }
+        },
+        "extract": "Ramayana: Part 1 is a 2026 Indian Hindi-language epic mythological film directed by Nitesh Tiwari, who co-wrote the screenplay with Shridhar Raghavan. Produced by Namit Malhotra and Yash, the film is based on the Hindu epic Ramayana by Valmiki. It is the first instalment of a two-part film series, with Part 1 being based on the first three kāṇḍa (chapters) of Ramayana, which chronicle the life of Prince Rama from childhood up to his adventurous 14-year exile. The first part features an ensemble cast that includes Ranbir Kapoor, Yash, Sai Pallavi, Ravi Dubey, Anupam Kher, Lara Dutta, Shobana, Kajal Aggarwal, Rakul Preet Singh, Vivek Oberoi, Kunal Kapoor, Arun Govil, Adinath Kothare.",
+        "extract_html": "<p><i><b>Ramayana: Part 1</b></i> is a 2026 Indian Hindi-language epic mythological film directed by Nitesh Tiwari, who co-wrote the screenplay with Shridhar Raghavan. Produced by Namit Malhotra and Yash, the film is based on the Hindu epic <i>Ramayana</i> by Valmiki. It is the first instalment of a two-part film series, with <i>Part 1</i> being based on the first three <i>kāṇḍa</i> (chapters) of <i>Ramayana</i>, which chronicle the life of Prince Rama from childhood up to his adventurous 14-year exile. The first part features an ensemble cast that includes Ranbir Kapoor, Yash, Sai Pallavi, Ravi Dubey, Anupam Kher, Lara Dutta, Shobana, Kajal Aggarwal, Rakul Preet Singh, Vivek Oberoi, Kunal Kapoor, Arun Govil, Adinath Kothare.</p>",
+        "normalizedtitle": "Ramayana: Part 1"
+      },
+      {
+        "views": 183037,
+        "rank": 6,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 16866
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 7055
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 4358
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 120910
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 183037
+          }
+        ],
+        "type": "standard",
+        "title": "Aaron_Rodgers",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Aaron Rodgers</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q302581",
+        "titles": {
+          "canonical": "Aaron_Rodgers",
+          "normalized": "Aaron Rodgers",
+          "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Aaron Rodgers</span></span>"
+        },
+        "pageid": 1284267,
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Aaron_Rodgers_OCT2022_%28cropped%29.jpg/330px-Aaron_Rodgers_OCT2022_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 495
+        },
+        "originalimage": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Aaron_Rodgers_OCT2022_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+          "width": 2557,
+          "height": 3832
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "revision": "1388343889",
+        "tid": "011f04be-ea96-11f1-92d3-7292dd3d9415",
+        "timestamp": "2026-11-27T19:09:01Z",
+        "description": "American football player (born 1983)",
+        "description_source": "local",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Aaron_Rodgers",
+            "revisions": "https://en.wikipedia.org/wiki/Aaron_Rodgers?action=history",
+            "edit": "https://en.wikipedia.org/wiki/Aaron_Rodgers?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Aaron_Rodgers"
+          },
+          "mobile": {
+            "page": "https://en.wikipedia.org/wiki/Aaron_Rodgers",
+            "revisions": "https://en.wikipedia.org/wiki/Special:History/Aaron_Rodgers",
+            "edit": "https://en.wikipedia.org/wiki/Aaron_Rodgers?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Aaron_Rodgers"
+          }
+        },
+        "extract": "Aaron Charles Rodgers is an American professional football quarterback. He played college football for the California Golden Bears, setting the school's record for lowest single-season and career interception rates before being selected by the Green Bay Packers in the first round of the 2005 NFL draft. After backing up Brett Favre for the first three years of his NFL career, Rodgers became the Packers' starting quarterback in 2008. In the 2010 season, he led them to a victory in Super Bowl XLV, earning the Super Bowl MVP. He was named Associated Press Athlete of the Year in 2011, was voted league MVP by the Associated Press for the 2011, 2014, 2020, and 2021 NFL seasons and is a four-time winner of the Best NFL Player ESPY Award. Rodgers is regarded as one of the greatest and most talented quarterbacks of all time.",
+        "extract_html": "<p><b>Aaron Charles Rodgers</b> is an American professional football quarterback. He played college football for the California Golden Bears, setting the school's record for lowest single-season and career interception rates before being selected by the Green Bay Packers in the first round of the 2005 NFL draft. After backing up Brett Favre for the first three years of his NFL career, Rodgers became the Packers' starting quarterback in 2008. In the 2010 season, he led them to a victory in Super Bowl XLV, earning the Super Bowl MVP. He was named Associated Press Athlete of the Year in 2011, was voted league MVP by the Associated Press for the 2011, 2014, 2020, and 2021 NFL seasons and is a four-time winner of the Best NFL Player ESPY Award. Rodgers is regarded as one of the greatest and most talented quarterbacks of all time.</p>",
+        "normalizedtitle": "Aaron Rodgers"
+      },
+      {
+        "views": 178864,
+        "rank": 7,
+        "view_history": [
+          {
+            "date": "2026-11-22Z",
+            "views": 2734
+          },
+          {
+            "date": "2026-11-23Z",
+            "views": 1347
+          },
+          {
+            "date": "2026-11-24Z",
+            "views": 672
+          },
+          {
+            "date": "2026-11-25Z",
+            "views": 128019
+          },
+          {
+            "date": "2026-11-26Z",
+            "views": 178864
+          }
+        ],
+        "type": "standard",
+        "title": "Mike_McCarthy",
+        "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mike McCarthy</span></span>",
+        "namespace": {
+          "id": 0,
+          "text": ""
+        },
+        "wikibase_item": "Q506866",
+        "titles": {
+          "canonical": "Mike_McCarthy",
+          "normalized": "Mike McCarthy",
+          "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mike McCarthy</span></span>"
+        },
+        "pageid": 306651,
+        "thumbnail": {
+          "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Mike_McCarthy_%28cropped%29.jpg/330px-Mike_McCarthy_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+          "width": 330,
+          "height": 488
+        },
+        "originalimage": {
+          "source": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Mike_McCarthy_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+          "width": 1259,
+          "height": 1862
+        },
+        "lang": "en",
+        "dir": "ltr",
+        "revision": "1388319932",
+        "tid": "7250bf64-ea7a-11f1-a020-84b4cfc06969",
+        "timestamp": "2026-11-27T15:51:45Z",
+        "description": "American football coach (born 1963)",
+        "description_source": "local",
+        "content_urls": {
+          "desktop": {
+            "page": "https://en.wikipedia.org/wiki/Mike_McCarthy",
+            "revisions": "https://en.wikipedia.org/wiki/Mike_McCarthy?action=history",
+            "edit": "https://en.wikipedia.org/wiki/Mike_McCarthy?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Mike_McCarthy"
+          },
+          "mobile": {
+            "page": "https://en.wikipedia.org/wiki/Mike_McCarthy",
+            "revisions": "https://en.wikipedia.org/wiki/Special:History/Mike_McCarthy",
+            "edit": "https://en.wikipedia.org/wiki/Mike_McCarthy?action=edit",
+            "talk": "https://en.wikipedia.org/wiki/Talk:Mike_McCarthy"
+          }
+        },
+        "extract": "Michael John McCarthy is an American professional football coach who is the head coach for the Pittsburgh Steelers of the National Football League (NFL). Previously, he served as the head coach of the Dallas Cowboys and Green Bay Packers. In 2011, McCarthy led the Packers to a win in Super Bowl XLV over his hometown Steelers. McCarthy was also the offensive coordinator for the San Francisco 49ers and New Orleans Saints.",
+        "extract_html": "<p><b>Michael John McCarthy</b> is an American professional football coach who is the head coach for the Pittsburgh Steelers of the National Football League (NFL). Previously, he served as the head coach of the Dallas Cowboys and Green Bay Packers. In 2011, McCarthy led the Packers to a win in Super Bowl XLV over his hometown Steelers. McCarthy was also the offensive coordinator for the San Francisco 49ers and New Orleans Saints.</p>",
+        "normalizedtitle": "Mike McCarthy"
       }
     ]
   },
-  "news": []
+  "image": {
+    "title": "File:Liquid Crystal Phase Transition.jpg",
+    "thumbnail": {
+      "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Liquid_Crystal_Phase_Transition.jpg/960px-Liquid_Crystal_Phase_Transition.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "width": 640,
+      "height": 427
+    },
+    "image": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Liquid_Crystal_Phase_Transition.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 1920,
+      "height": 1281
+    },
+    "file_page": "https://commons.wikimedia.org/wiki/File:Liquid_Crystal_Phase_Transition.jpg",
+    "artist": {
+      "html": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:KarlGaff&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:KarlGaff (page does not exist)\">KarlGaff</a>",
+      "text": "KarlGaff"
+    },
+    "credit": {
+      "html": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "text": "Own work"
+    },
+    "license": {
+      "type": "CC BY 4.0",
+      "code": "cc-by-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0"
+    },
+    "description": {
+      "html": "Magnified 100 times, a drop of liquid crystal was dispensed onto a glass plate and a cover slip placed on top. The liquid crystal spreads out into a uniform film under the weight of the cover slip. The image was captured using a microscope configured for crossed polarised light. The colours come about because liquid crystal is birefringent - it changes the polarisation state of the plane-polarised light passing through it. Now, the sort of labyrinthine pattern is caused by a phase transition. The liquid crystal sample is placed on a heat stage and at a particular temperature called the phase transition temperature, the liquid crystal changes from an opaque state to a transparent state, this is the transition front. The image width is about 2mm.",
+      "text": "Magnified 100 times, a drop of liquid crystal was dispensed onto a glass plate and a cover slip placed on top. The liquid crystal spreads out into a uniform film under the weight of the cover slip. The image was captured using a microscope configured for crossed polarised light. The colours come about because liquid crystal is birefringent - it changes the polarisation state of the plane-polarised light passing through it. Now, the sort of labyrinthine pattern is caused by a phase transition. The liquid crystal sample is placed on a heat stage and at a particular temperature called the phase transition temperature, the liquid crystal changes from an opaque state to a transparent state, this is the transition front. The image width is about 2mm.",
+      "lang": "en"
+    },
+    "wb_entity_id": "M177874340",
+    "structured": {
+      "captions": {
+        "en": "Thermally induced phase transition of a liquid crystal from a transparent state to birefringent state.",
+        "zh-hant": "顯微鏡下放大100倍，將一滴液晶滴在玻璃板上蓋上蓋玻片，觀察從透明態向雙折射態的熱致相變",
+        "fr": "Transition de phase d'un cristal liquide induite thermiquement."
+      }
+    }
+  },
+  "news": [
+    {
+      "links": [
+        {
+          "type": "standard",
+          "title": "2025_Africa_Cup_of_Nations_final",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2025 Africa Cup of Nations final</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q131589098",
+          "titles": {
+            "canonical": "2025_Africa_Cup_of_Nations_final",
+            "normalized": "2025 Africa Cup of Nations final",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2025 Africa Cup of Nations final</span></span>"
+          },
+          "pageid": 81129500,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Moulay_Abdellah_Stadium.jpg/330px-Moulay_Abdellah_Stadium.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 220
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Moulay_Abdellah_Stadium.jpg/3840px-Moulay_Abdellah_Stadium.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 5568,
+            "height": 3712
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388321632",
+          "tid": "7382ec1e-ea7c-11f1-8fa7-2cf2a5224c1f",
+          "timestamp": "2026-11-27T16:06:06Z",
+          "description": "",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/2025_Africa_Cup_of_Nations_final",
+              "revisions": "https://en.wikipedia.org/wiki/2025_Africa_Cup_of_Nations_final?action=history",
+              "edit": "https://en.wikipedia.org/wiki/2025_Africa_Cup_of_Nations_final?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2025_Africa_Cup_of_Nations_final"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/2025_Africa_Cup_of_Nations_final",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/2025_Africa_Cup_of_Nations_final",
+              "edit": "https://en.wikipedia.org/wiki/2025_Africa_Cup_of_Nations_final?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2025_Africa_Cup_of_Nations_final"
+            }
+          },
+          "extract": "The 2025 Africa Cup of Nations final was a football match played on 18 January 2026 at the Prince Moulay Abdellah Stadium in Rabat, Morocco. It determined the winners of the 2025 Africa Cup of Nations (AFCON), the 35th edition of the biennial African tournament organised by the Confederation of African Football (CAF), and was contested between Senegal and hosts Morocco.",
+          "extract_html": "<p>The <b>2025 Africa Cup of Nations final</b> was a football match played on 18 January 2026 at the Prince Moulay Abdellah Stadium in Rabat, Morocco. It determined the winners of the 2025 Africa Cup of Nations (AFCON), the 35th edition of the biennial African tournament organised by the Confederation of African Football (CAF), and was contested between Senegal and hosts Morocco.</p>",
+          "normalizedtitle": "2025 Africa Cup of Nations final"
+        },
+        {
+          "type": "standard",
+          "title": "Court_of_Arbitration_for_Sport",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Court of Arbitration for Sport</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q659499",
+          "titles": {
+            "canonical": "Court_of_Arbitration_for_Sport",
+            "normalized": "Court of Arbitration for Sport",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Court of Arbitration for Sport</span></span>"
+          },
+          "pageid": 930608,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Court_of_Arbitration_for_Sport_-_Lausanne.jpg/330px-Court_of_Arbitration_for_Sport_-_Lausanne.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 220
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Court_of_Arbitration_for_Sport_-_Lausanne.jpg/3840px-Court_of_Arbitration_for_Sport_-_Lausanne.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 5540,
+            "height": 3693
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387933137",
+          "tid": "6e1f8897-e93e-11f1-8b6b-c1731d6b9ee2",
+          "timestamp": "2026-11-26T02:09:37Z",
+          "description": "International arbitral body for sports disputes",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Court_of_Arbitration_for_Sport",
+              "revisions": "https://en.wikipedia.org/wiki/Court_of_Arbitration_for_Sport?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Court_of_Arbitration_for_Sport?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Court_of_Arbitration_for_Sport"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Court_of_Arbitration_for_Sport",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Court_of_Arbitration_for_Sport",
+              "edit": "https://en.wikipedia.org/wiki/Court_of_Arbitration_for_Sport?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Court_of_Arbitration_for_Sport"
+            }
+          },
+          "extract": "The Court of Arbitration for Sport is an international body established in 1984 by the International Olympic Committee to settle disputes related to sport through arbitration. Its headquarters are in Lausanne, Switzerland, and its courts are located in New York City, Sydney, and Lausanne. Temporary courts are established in current Olympic host cities.",
+          "extract_html": "<p>The <b>Court of Arbitration for Sport</b> is an international body established in 1984 by the International Olympic Committee to settle disputes related to sport through arbitration. Its headquarters are in Lausanne, Switzerland, and its courts are located in New York City, Sydney, and Lausanne. Temporary courts are established in current Olympic host cities.</p>",
+          "normalizedtitle": "Court of Arbitration for Sport"
+        },
+        {
+          "type": "standard",
+          "title": "Senegal_national_football_team",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Senegal national football team</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q207441",
+          "titles": {
+            "canonical": "Senegal_national_football_team",
+            "normalized": "Senegal national football team",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Senegal national football team</span></span>"
+          },
+          "pageid": 1017436,
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388288044",
+          "tid": "b71a2e7c-ea5d-11f1-b52f-e3e005d06467",
+          "timestamp": "2026-11-27T12:26:05Z",
+          "description": "Men's association football team",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Senegal_national_football_team",
+              "revisions": "https://en.wikipedia.org/wiki/Senegal_national_football_team?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Senegal_national_football_team?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Senegal_national_football_team"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Senegal_national_football_team",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Senegal_national_football_team",
+              "edit": "https://en.wikipedia.org/wiki/Senegal_national_football_team?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Senegal_national_football_team"
+            }
+          },
+          "extract": "The Senegal national football team, nicknamed the Lions of Teranga, represents Senegal in men's international association football and is operated by the Senegalese Football Federation.",
+          "extract_html": "<p>The <b>Senegal national football team</b>, nicknamed the <b>Lions of Teranga</b>, represents Senegal in men's international association football and is operated by the Senegalese Football Federation.</p>",
+          "normalizedtitle": "Senegal national football team"
+        },
+        {
+          "type": "standard",
+          "title": "Confederation_of_African_Football",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Confederation of African Football</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q168360",
+          "titles": {
+            "canonical": "Confederation_of_African_Football",
+            "normalized": "Confederation of African Football",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Confederation of African Football</span></span>"
+          },
+          "pageid": 715265,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/en/thumb/7/72/Confederation_of_African_Football_logo.svg/330px-Confederation_of_African_Football_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 307
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/en/thumb/7/72/Confederation_of_African_Football_logo.svg/330px-Confederation_of_African_Football_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 328,
+            "height": 305
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387754376",
+          "tid": "cc9b28e0-e8aa-11f1-9bd9-ae811c9cc4b4",
+          "timestamp": "2026-11-25T08:32:50Z",
+          "description": "International governing body of association football in Africa",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 29.99416667,
+            "lon": 30.96333333
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Confederation_of_African_Football",
+              "revisions": "https://en.wikipedia.org/wiki/Confederation_of_African_Football?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Confederation_of_African_Football?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Confederation_of_African_Football"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Confederation_of_African_Football",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Confederation_of_African_Football",
+              "edit": "https://en.wikipedia.org/wiki/Confederation_of_African_Football?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Confederation_of_African_Football"
+            }
+          },
+          "extract": "The Confederation of African Football (CAF) is the governing body for association football, beach soccer, and futsal in Africa. It was officially established on 8 February 1957 at the Grand Hotel in Khartoum, Sudan and today comprises 54 member associations. The foundation followed a decision made at the 1954 FIFA Congress in Bern, Switzerland, where Africa was formally recognised as a football confederation.",
+          "extract_html": "<p>The <b>Confederation of African Football</b> (<b>CAF</b>) is the governing body for association football, beach soccer, and futsal in Africa. It was officially established on 8 February 1957 at the Grand Hotel in Khartoum, Sudan and today comprises 54 member associations. The foundation followed a decision made at the 1954 FIFA Congress in Bern, Switzerland, where Africa was formally recognised as a football confederation.</p>",
+          "normalizedtitle": "Confederation of African Football"
+        },
+        {
+          "type": "standard",
+          "title": "Morocco_national_football_team",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Morocco national football team</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q207337",
+          "titles": {
+            "canonical": "Morocco_national_football_team",
+            "normalized": "Morocco national football team",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Morocco national football team</span></span>"
+          },
+          "pageid": 1024865,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/en/thumb/d/d0/Royal_Moroccan_Football_Federation_logo.svg/330px-Royal_Moroccan_Football_Federation_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 449
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/en/thumb/d/d0/Royal_Moroccan_Football_Federation_logo.svg/330px-Royal_Moroccan_Football_Federation_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 271,
+            "height": 369
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388301815",
+          "tid": "acfe2d78-ea69-11f1-9330-17f60d3e8520",
+          "timestamp": "2026-11-27T13:51:42Z",
+          "description": "Men's association football team",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Morocco_national_football_team",
+              "revisions": "https://en.wikipedia.org/wiki/Morocco_national_football_team?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Morocco_national_football_team?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Morocco_national_football_team"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Morocco_national_football_team",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Morocco_national_football_team",
+              "edit": "https://en.wikipedia.org/wiki/Morocco_national_football_team?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Morocco_national_football_team"
+            }
+          },
+          "extract": "The Morocco national football team represents Morocco in men's international football. It is controlled by the Royal Moroccan Football Federation (FRMF), the governing body for football in Morocco. It has been affiliated with FIFA since 1960, with the Confederation of African Football since 1959, and with the Union of North African Football since 2005. The team, which is known as the Atlas Lions, plays home matches at the Prince Moulay Abdellah Stadium in Rabat, and trains at the Mohammed VI Football Complex in Salé.",
+          "extract_html": "<p>The <b>Morocco national football team</b> represents Morocco in men's international football. It is controlled by the Royal Moroccan Football Federation (FRMF), the governing body for football in Morocco. It has been affiliated with FIFA since 1960, with the Confederation of African Football since 1959, and with the Union of North African Football since 2005. The team, which is known as the <b>Atlas Lions</b>, plays home matches at the Prince Moulay Abdellah Stadium in Rabat, and trains at the Mohammed VI Football Complex in Salé.</p>",
+          "normalizedtitle": "Morocco national football team"
+        }
+      ],
+      "story": "<!--Nov 24-->In association football, the <a rel=\"mw:WikiLink\" href=\"./Court_of_Arbitration_for_Sport\" title=\"Court of Arbitration for Sport\" id=\"mwBg\">Court of Arbitration for Sport</a> restores <a rel=\"mw:WikiLink\" href=\"./Senegal_national_football_team\" title=\"Senegal national football team\" id=\"mwBw\">Senegal</a> as the winner of the <b id=\"mwCA\"><a rel=\"mw:WikiLink\" href=\"./2025_Africa_Cup_of_Nations_final\" title=\"2025 Africa Cup of Nations final\" id=\"mwCQ\">2025 Africa Cup of Nations final</a></b>, overturning the <a rel=\"mw:WikiLink\" href=\"./Confederation_of_African_Football\" title=\"Confederation of African Football\" id=\"mwCg\">Confederation of African Football</a>'s decision to declare <a rel=\"mw:WikiLink\" href=\"./Morocco_national_football_team\" title=\"Morocco national football team\" id=\"mwCw\">Morocco</a> as the winner of the tournament."
+    },
+    {
+      "links": [
+        {
+          "type": "standard",
+          "title": "Jensen_Huang",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jensen Huang</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q305177",
+          "titles": {
+            "canonical": "Jensen_Huang",
+            "normalized": "Jensen Huang",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jensen Huang</span></span>"
+          },
+          "pageid": 2116495,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Jensen_Huang_Stanford_2026-04-30_010_%28cropped%29.jpg/330px-Jensen_Huang_Stanford_2026-04-30_010_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 439
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Jensen_Huang_Stanford_2026-04-30_010_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 1745,
+            "height": 2324
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388232868",
+          "tid": "1147ce3c-ea1f-11f1-86a5-d594826a4323",
+          "timestamp": "2026-11-27T04:57:38Z",
+          "description": "Taiwanese-American business executive (born 1963)",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Jensen_Huang",
+              "revisions": "https://en.wikipedia.org/wiki/Jensen_Huang?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Jensen_Huang?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Jensen_Huang"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Jensen_Huang",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Jensen_Huang",
+              "edit": "https://en.wikipedia.org/wiki/Jensen_Huang?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Jensen_Huang"
+            }
+          },
+          "extract": "Jen-Hsun \"Jensen\" Huang is a Taiwanese and American electrical engineer and business executive who is the co-founder, president, and chief executive officer (CEO) of Nvidia, one of the world's most valuable companies. As of November 2026, Forbes estimates his net worth at US$143.4 billion, making him the 13th-wealthiest person in the world.",
+          "extract_html": "<p><b>Jen-Hsun </b>\"<b>Jensen</b>\"<b> Huang</b> is a Taiwanese and American electrical engineer and business executive who is the co-founder, president, and chief executive officer (CEO) of Nvidia, one of the world's most valuable companies. As of November 2026, <i>Forbes</i> estimates his net worth at US$143.4 billion, making him the 13th-wealthiest person in the world.</p>",
+          "normalizedtitle": "Jensen Huang"
+        },
+        {
+          "type": "standard",
+          "title": "Nvidia",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Nvidia</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q182477",
+          "titles": {
+            "canonical": "Nvidia",
+            "normalized": "Nvidia",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Nvidia</span></span>"
+          },
+          "pageid": 39120,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/330px-2788-2888_San_Tomas_Expwy.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 222
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/3840px-2788-2888_San_Tomas_Expwy.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 4914,
+            "height": 3306
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388338397",
+          "tid": "ce720dcf-ea8f-11f1-a3d6-414ec3933dfe",
+          "timestamp": "2026-11-27T18:24:39Z",
+          "description": "American multinational technology company",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Nvidia",
+              "revisions": "https://en.wikipedia.org/wiki/Nvidia?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Nvidia?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Nvidia"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Nvidia",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Nvidia",
+              "edit": "https://en.wikipedia.org/wiki/Nvidia?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Nvidia"
+            }
+          },
+          "extract": "Nvidia Corporation is an American multinational technology company headquartered in Santa Clara, California. The company develops graphics processing units (GPUs), systems on chips (SoCs), and application programming interfaces (APIs) for gaming, data science, high-performance computing, artificial intelligence (AI) hardware, and mobile and automotive applications. Founded in 1993 by Jensen Huang, Chris Malachowsky, and Curtis Priem, Nvidia is among the largest companies by market capitalization.",
+          "extract_html": "<p><b>Nvidia Corporation</b> is an American multinational technology company headquartered in Santa Clara, California. The company develops graphics processing units (GPUs), systems on chips (SoCs), and application programming interfaces (APIs) for gaming, data science, high-performance computing, artificial intelligence (AI) hardware, and mobile and automotive applications. Founded in 1993 by Jensen Huang, Chris Malachowsky, and Curtis Priem, Nvidia is among the largest companies by market capitalization.</p>",
+          "normalizedtitle": "Nvidia"
+        },
+        {
+          "type": "standard",
+          "title": "Jensen_Huang_scandal",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jensen Huang scandal</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q142096391",
+          "titles": {
+            "canonical": "Jensen_Huang_scandal",
+            "normalized": "Jensen Huang scandal",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Jensen Huang scandal</span></span>"
+          },
+          "pageid": 84741457,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Jensen_huang_stanford_2026-04-30_010_%28cropped%29.jpg/330px-Jensen_huang_stanford_2026-04-30_010_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 459
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Jensen_huang_stanford_2026-04-30_010_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 1698,
+            "height": 2362
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388348680",
+          "tid": "5e1cba11-ea9a-11f1-b7e4-b1fc789cf6ef",
+          "timestamp": "2026-11-27T19:40:15Z",
+          "description": "2026 alleged spy plot targeting Nvidia CEO",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Jensen_Huang_scandal",
+              "revisions": "https://en.wikipedia.org/wiki/Jensen_Huang_scandal?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Jensen_Huang_scandal?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Jensen_Huang_scandal"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Jensen_Huang_scandal",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Jensen_Huang_scandal",
+              "edit": "https://en.wikipedia.org/wiki/Jensen_Huang_scandal?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Jensen_Huang_scandal"
+            }
+          },
+          "extract": "On October 29, 2026, The New York Times reported that Jensen Huang, the co-founder and CEO of Nvidia, had been the target of a spy plot involving the government of China, citing people briefed on U.S. intelligence surveillance who spoke on condition of anonymity. Huang had an extramarital affair with Alice Huang, a Chinese national who was an executive of Megaspeed, a Singaporean company. U.S. officials reportedly suspected that she had been recruited by China's Ministry of State Security as a spy. On November 11, The New York Times reported, citing five Nvidia employees, that Jensen Huang had also had an extramarital relationship with Kimberly Powell, an executive who reported to him. That same day, Nvidia's board met to discuss his ouster and accepted his resignation, which the company announced the following day.",
+          "extract_html": "<p>On October 29, 2026, <i>The New York Times</i> reported that Jensen Huang, the co-founder and CEO of Nvidia, had been the target of a spy plot involving the government of China, citing people briefed on U.S. intelligence surveillance who spoke on condition of anonymity. Huang had an extramarital affair with Alice Huang, a Chinese national who was an executive of Megaspeed, a Singaporean company. U.S. officials reportedly suspected that she had been recruited by China's Ministry of State Security as a spy. On November 11, <i>The New York Times</i> reported, citing five Nvidia employees, that Jensen Huang had also had an extramarital relationship with Kimberly Powell, an executive who reported to him. That same day, Nvidia's board met to discuss his ouster and accepted his resignation, which the company announced the following day.</p>",
+          "normalizedtitle": "Jensen Huang scandal"
+        }
+      ],
+      "story": "<!--Nov 23--><a rel=\"mw:WikiLink\" href=\"./Nvidia\" title=\"Nvidia\" id=\"mwDQ\">Nvidia</a> reinstates <b id=\"mwDg\"><a rel=\"mw:WikiLink\" href=\"./Jensen_Huang\" title=\"Jensen Huang\" id=\"mwDw\">Jensen Huang</a></b> <i id=\"mwEA\"></i> as CEO after <b id=\"mwEQ\"><a rel=\"mw:WikiLink\" href=\"./Jensen_Huang_scandal\" title=\"Jensen Huang scandal\" id=\"mwEg\">a scandal</a></b> in which he was allegedly targeted by a Chinese spy and had extramarital affairs."
+    }
+  ],
+  "onthisday": [
+    {
+      "text": "Nuclear physicist Mohsen Fakhrizadeh, regarded as the chief of Iran's nuclear program, was assassinated, allegedly by Mossad.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Mohsen_Fakhrizadeh",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mohsen Fakhrizadeh</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q2895606",
+          "titles": {
+            "canonical": "Mohsen_Fakhrizadeh",
+            "normalized": "Mohsen Fakhrizadeh",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mohsen Fakhrizadeh</span></span>"
+          },
+          "pageid": 16524276,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Mohsen_Fakhrizadeh_7.jpg/330px-Mohsen_Fakhrizadeh_7.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 475
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/5/51/Mohsen_Fakhrizadeh_7.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 533,
+            "height": 767
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388034033",
+          "tid": "0abb4995-e98a-11f1-9288-b222952a7cc1",
+          "timestamp": "2026-11-26T11:10:52Z",
+          "description": "Iranian nuclear physicist (1961–2020)",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Mohsen_Fakhrizadeh",
+              "revisions": "https://en.wikipedia.org/wiki/Mohsen_Fakhrizadeh?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Mohsen_Fakhrizadeh?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Mohsen_Fakhrizadeh"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Mohsen_Fakhrizadeh",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Mohsen_Fakhrizadeh",
+              "edit": "https://en.wikipedia.org/wiki/Mohsen_Fakhrizadeh?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Mohsen_Fakhrizadeh"
+            }
+          },
+          "extract": "Mohsen Fakhrizadeh Mahabadi was an Iranian nuclear physicist and scientist. He was regarded as the chief of Iran's nuclear program.",
+          "extract_html": "<p><b>Mohsen Fakhrizadeh Mahabadi</b> was an Iranian nuclear physicist and scientist. He was regarded as the chief of Iran's nuclear program.</p>",
+          "normalizedtitle": "Mohsen Fakhrizadeh"
+        },
+        {
+          "type": "standard",
+          "title": "Nuclear_program_of_Iran",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Nuclear program of Iran</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q329891",
+          "titles": {
+            "canonical": "Nuclear_program_of_Iran",
+            "normalized": "Nuclear program of Iran",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Nuclear program of Iran</span></span>"
+          },
+          "pageid": 721807,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/IranSites.png/330px-IranSites.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 400
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/f/f6/IranSites.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 2091,
+            "height": 2532
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1377879315",
+          "tid": "9b7c0834-bdc5-11f1-945b-4da3d848f1b1",
+          "timestamp": "2026-10-01T18:26:24Z",
+          "description": "",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Nuclear_program_of_Iran",
+              "revisions": "https://en.wikipedia.org/wiki/Nuclear_program_of_Iran?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Nuclear_program_of_Iran?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Nuclear_program_of_Iran"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Nuclear_program_of_Iran",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Nuclear_program_of_Iran",
+              "edit": "https://en.wikipedia.org/wiki/Nuclear_program_of_Iran?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Nuclear_program_of_Iran"
+            }
+          },
+          "extract": "The nuclear program of Iran consists of an extensive infrastructure of research sites, uranium mines, research reactors, uranium processing facilities, enrichment sites, the Bushehr Nuclear Power Plant, and the developing Darkhovin Nuclear Power Plant in Khuzestan. The program’s research capabilities are anchored by several facilities, most notably the Tehran Research Reactor and the heavy water reactor at Khondab. Iran's uranium processing infrastructure is centered in Isfahan, which serves as a hub for conversion and fuel fabrication, while primary enrichment activities are conducted at Natanz, Fordow, and within the Isfahan complex.",
+          "extract_html": "<p>The <b>nuclear program of Iran</b> consists of an extensive infrastructure of research sites, uranium mines, research reactors, uranium processing facilities, enrichment sites, the Bushehr Nuclear Power Plant, and the developing Darkhovin Nuclear Power Plant in Khuzestan. The program’s research capabilities are anchored by several facilities, most notably the Tehran Research Reactor and the heavy water reactor at Khondab. Iran's uranium processing infrastructure is centered in Isfahan, which serves as a hub for conversion and fuel fabrication, while primary enrichment activities are conducted at Natanz, Fordow, and within the Isfahan complex.</p>",
+          "normalizedtitle": "Nuclear program of Iran"
+        },
+        {
+          "type": "standard",
+          "title": "Mossad",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mossad</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q34216",
+          "titles": {
+            "canonical": "Mossad",
+            "normalized": "Mossad",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Mossad</span></span>"
+          },
+          "pageid": 27619007,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Mossad_seal.svg/330px-Mossad_seal.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 330
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Mossad_seal.svg/1280px-Mossad_seal.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 991,
+            "height": 991
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387699879",
+          "tid": "ddd23d67-e886-11f1-9ee1-acd14cc890a7",
+          "timestamp": "2026-11-25T04:15:37Z",
+          "description": "National intelligence agency of Israel",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Mossad",
+              "revisions": "https://en.wikipedia.org/wiki/Mossad?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Mossad?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Mossad"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Mossad",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Mossad",
+              "edit": "https://en.wikipedia.org/wiki/Mossad?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Mossad"
+            }
+          },
+          "extract": "The Institute for Intelligence and Special Operations, popularly known as Mossad, is the national intelligence agency of the State of Israel. It is one of the main organizations in the Israeli intelligence community, along with Aman and Shin Bet.",
+          "extract_html": "<p>The <b>Institute for Intelligence and Special Operations</b>, popularly known as <b>Mossad</b>, is the national intelligence agency of the State of Israel. It is one of the main organizations in the Israeli intelligence community, along with Aman and Shin Bet.</p>",
+          "normalizedtitle": "Mossad"
+        }
+      ],
+      "year": 2020
+    },
+    {
+      "text": "A bomb exploded under, and derailed, a Russian high-speed train travelling between Moscow and Saint Petersburg, killing 28 passengers.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "2009_Nevsky_Express_bombing",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2009 Nevsky Express bombing</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q1081409",
+          "titles": {
+            "canonical": "2009_Nevsky_Express_bombing",
+            "normalized": "2009 Nevsky Express bombing",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">2009 Nevsky Express bombing</span></span>"
+          },
+          "pageid": 25227011,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Ru-nrg-okulovsky_loc.svg/330px-Ru-nrg-okulovsky_loc.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 233
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Ru-nrg-okulovsky_loc.svg/1280px-Ru-nrg-okulovsky_loc.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 1052,
+            "height": 744
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1388250751",
+          "tid": "a6ee5b2b-ea35-11f1-bbc6-f3fbfaf0cc40",
+          "timestamp": "2026-11-27T07:39:18Z",
+          "description": "Bombing of a high speed train travelling between Moscow and Saint Petersburg",
+          "description_source": "local",
+          "coordinates": {
+            "lat": 58.12583333,
+            "lon": 33.67361111
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/2009_Nevsky_Express_bombing",
+              "revisions": "https://en.wikipedia.org/wiki/2009_Nevsky_Express_bombing?action=history",
+              "edit": "https://en.wikipedia.org/wiki/2009_Nevsky_Express_bombing?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2009_Nevsky_Express_bombing"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/2009_Nevsky_Express_bombing",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/2009_Nevsky_Express_bombing",
+              "edit": "https://en.wikipedia.org/wiki/2009_Nevsky_Express_bombing?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:2009_Nevsky_Express_bombing"
+            }
+          },
+          "extract": "The 2009 Nevsky Express bombing occurred on 27 November 2009, when an explosive was detonated below the undercarriage of a high speed train travelling between the Russian cities of Moscow and Saint Petersburg. The bombing caused derailment near the town of Bologoye, Tver Oblast, on the Moscow–Saint Petersburg Railway. The derailment occurred at 21:34 local time. Russian officials initially stated that 39 people were killed and 95 were injured, but they later retracted that estimate. 27 deaths were reported by 2 December. A second bomb exploded at the scene of the investigation the following day, injuring one person. It was reported to have been triggered by a remote mobile phone.",
+          "extract_html": "<p>The <b>2009 Nevsky Express bombing</b> occurred on 27 November 2009, when an explosive was detonated below the undercarriage of a high speed train travelling between the Russian cities of Moscow and Saint Petersburg. The bombing caused derailment near the town of Bologoye, Tver Oblast, on the Moscow–Saint Petersburg Railway. The derailment occurred at 21:34 local time. Russian officials initially stated that 39 people were killed and 95 were injured, but they later retracted that estimate. 27 deaths were reported by 2 December. A second bomb exploded at the scene of the investigation the following day, injuring one person. It was reported to have been triggered by a remote mobile phone.</p>",
+          "normalizedtitle": "2009 Nevsky Express bombing"
+        }
+      ],
+      "year": 2009
+    },
+    {
+      "text": "Lady Gaga performed the first concert of The Monster Ball Tour, which became the highest-grossing tour in history for a debut headlining artist.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Lady_Gaga",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lady Gaga</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q19848",
+          "titles": {
+            "canonical": "Lady_Gaga",
+            "normalized": "Lady Gaga",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">Lady Gaga</span></span>"
+          },
+          "pageid": 17782843,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Lady_Gaga_at_Joe_Biden%27s_inauguration_%28cropped_5%29.jpg/330px-Lady_Gaga_at_Joe_Biden%27s_inauguration_%28cropped_5%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 484
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Lady_Gaga_at_Joe_Biden%27s_inauguration_%28cropped_5%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 2454,
+            "height": 3600
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387997005",
+          "tid": "7b079ecb-e96d-11f1-850e-b9ad3dbec411",
+          "timestamp": "2026-11-26T07:46:25Z",
+          "description": "American singer, songwriter and actress (born 1986)",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/Lady_Gaga",
+              "revisions": "https://en.wikipedia.org/wiki/Lady_Gaga?action=history",
+              "edit": "https://en.wikipedia.org/wiki/Lady_Gaga?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Lady_Gaga"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/Lady_Gaga",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/Lady_Gaga",
+              "edit": "https://en.wikipedia.org/wiki/Lady_Gaga?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:Lady_Gaga"
+            }
+          },
+          "extract": "Stefani Joanne Angelina Germanotta, known professionally as Lady Gaga, is an American singer, songwriter, and actress. An influential figure in popular music, she is known for her image reinventions, flamboyant fashion, and versatility across the entertainment industry. With estimated sales of 124 million records, she is one of the best-selling music artists of all time.",
+          "extract_html": "<p><b>Stefani Joanne Angelina Germanotta</b>, known professionally as <b>Lady Gaga</b>, is an American singer, songwriter, and actress. An influential figure in popular music, she is known for her image reinventions, flamboyant fashion, and versatility across the entertainment industry. With estimated sales of 124<span class=\"nowrap\"> </span>million records, she is one of the best-selling music artists of all time.</p>",
+          "normalizedtitle": "Lady Gaga"
+        },
+        {
+          "type": "standard",
+          "title": "The_Monster_Ball_Tour",
+          "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">The Monster Ball Tour</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q473206",
+          "titles": {
+            "canonical": "The_Monster_Ball_Tour",
+            "normalized": "The Monster Ball Tour",
+            "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">The Monster Ball Tour</span></span>"
+          },
+          "pageid": 24226281,
+          "thumbnail": {
+            "source": "https://upload.wikimedia.org/wikipedia/en/b/b0/Monsterballtourgaga.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 277,
+            "height": 360
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/en/b/b0/Monsterballtourgaga.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 277,
+            "height": 360
+          },
+          "lang": "en",
+          "dir": "ltr",
+          "revision": "1387960780",
+          "tid": "6cf9555f-e954-11f1-865e-7996717dfc13",
+          "timestamp": "2026-11-26T04:47:04Z",
+          "description": "2009–11 concert tour by Lady Gaga",
+          "description_source": "local",
+          "content_urls": {
+            "desktop": {
+              "page": "https://en.wikipedia.org/wiki/The_Monster_Ball_Tour",
+              "revisions": "https://en.wikipedia.org/wiki/The_Monster_Ball_Tour?action=history",
+              "edit": "https://en.wikipedia.org/wiki/The_Monster_Ball_Tour?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:The_Monster_Ball_Tour"
+            },
+            "mobile": {
+              "page": "https://en.wikipedia.org/wiki/The_Monster_Ball_Tour",
+              "revisions": "https://en.wikipedia.org/wiki/Special:History/The_Monster_Ball_Tour",
+              "edit": "https://en.wikipedia.org/wiki/The_Monster_Ball_Tour?action=edit",
+              "talk": "https://en.wikipedia.org/wiki/Talk:The_Monster_Ball_Tour"
+            }
+          },
+          "extract": "The Monster Ball Tour was the second worldwide concert tour by American singer-songwriter Lady Gaga. Staged in support of her third EP, The Fame Monster (2009), the concert largely comprised songs from that recording as well as Gaga's debut album, The Fame (2008). The tour visited various arenas and stadiums, performing over 200 shows between November 2009 and May 2011. With the tour separated into three respective North American and European legs, as well as visiting Australia, New Zealand and Japan, the Monster Ball is the highest-grossing tour for a debut headlining artist in history.",
+          "extract_html": "<p><b>The Monster Ball Tour</b> was the second worldwide concert tour by American singer-songwriter Lady Gaga. Staged in support of her third EP, <i>The Fame Monster</i> (2009), the concert largely comprised songs from that recording as well as Gaga's debut album, <i>The Fame</i> (2008). The tour visited various arenas and stadiums, performing over 200 shows between November 2009 and May 2011. With the tour separated into three respective North American and European legs, as well as visiting Australia, New Zealand and Japan, the Monster Ball is the highest-grossing tour for a debut headlining artist in history.</p>",
+          "normalizedtitle": "The Monster Ball Tour"
+        }
+      ],
+      "year": 2009
+    }
+  ]
 }

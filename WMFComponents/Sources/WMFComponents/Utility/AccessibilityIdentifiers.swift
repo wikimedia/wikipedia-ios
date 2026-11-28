@@ -78,7 +78,66 @@ public enum AccessibilityIdentifiers {
 
     public enum Home {
         public static let languagePickerButton = "Home Language Picker Button"
+        public static let manageLanguagesButton = "Home Manage Languages Button"
         public static let view = "Home View"
+
+        public static func languageMenuItem(_ languageCode: String) -> String {
+            "Home Language Menu Item \(languageCode)"
+        }
+    }
+
+    /// The screens that the Community feed cards open. The legacy Explore feed opens them too.
+    public enum FeedDetail {
+        public static let communityFeedSettingsView = "Feed Detail Community Feed Settings View"
+        public static let newsView = "Feed Detail News View"
+        public static let onThisDayView = "Feed Detail On This Day View"
+        public static let topReadListView = "Feed Detail Top Read List View"
+    }
+
+    public enum ForYou {
+        public static let card = "For You Card"
+        public static let cardMenuButton = "For You Card Menu Button"
+        public static let emptyStateCustomizeButton = "For You Empty State Customize Button"
+        public static let endOfFeedCard = "For You End Of Feed Card"
+        public static let endOfFeedCommunityButton = "For You End Of Feed Community Button"
+        public static let errorRetryButton = "For You Error Retry Button"
+        public static let feed = "For You Feed"
+        public static let loadingIndicator = "For You Loading Indicator"
+        public static let menuCustomizeInterestsItem = "For You Menu Customize Interests Item"
+        public static let menuHideCardItem = "For You Menu Hide Card Item"
+        public static let menuHideModuleItem = "For You Menu Hide Module Item"
+        public static let menuSaveItem = "For You Menu Save Item"
+        public static let menuShareItem = "For You Menu Share Item"
+        public static let menuUnsaveItem = "For You Menu Unsave Item"
+    }
+
+    public enum Community {
+        public static let dateHeader = "Community Date Header"
+        public static let emptyStateCustomizeButton = "Community Empty State Customize Button"
+        public static let errorRetryButton = "Community Error Retry Button"
+        public static let todayErrorRetryButton = "Community Today Error Retry Button"
+        public static let featuredArticle = "Community Featured Article"
+        public static let feed = "Community Feed"
+        public static let menuCustomizeItem = "Community Menu Customize Item"
+        public static let menuHideCardItem = "Community Menu Hide Card Item"
+        public static let menuHideModuleItem = "Community Menu Hide Module Item"
+        public static let moreOnThisDayButton = "Community More On This Day Button"
+        public static let moreTopReadButton = "Community More Top Read Button"
+        public static let newsStory = "Community News Story"
+        public static let onThisDayEvent = "Community On This Day Event"
+        public static let pictureOfTheDay = "Community Picture Of The Day"
+        public static let saveForLaterButton = "Community Save For Later Button"
+        public static let seePastContentButton = "Community See Past Content Button"
+        public static let topReadRow = "Community Top Read Row"
+
+        /// One identifier per module, from the module's logging ID, such as "featured_article".
+        public static func module(_ moduleID: String) -> String {
+            "Community Module \(moduleID)"
+        }
+
+        public static func moduleMenuButton(_ moduleID: String) -> String {
+            "Community Module Menu Button \(moduleID)"
+        }
     }
 
     public enum Saved {

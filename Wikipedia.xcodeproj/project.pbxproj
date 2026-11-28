@@ -455,6 +455,9 @@
 		6741245227E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */; };
 		6742052E2FBFD50100A1C0DE /* ArticleControlsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6742052D2FBFD50100A1C0DE /* ArticleControlsUITests.swift */; };
 		674205312F9A556100BBA0CA /* HomeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674205302F9A556100BBA0CA /* HomeUITests.swift */; };
+		A3E759737C09481D39A483B0 /* HomeFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FCCE4DC25174C9287EEC82 /* HomeFeedUITests.swift */; };
+		7D7884F09815566437C043F4 /* HomeForYouUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8684C011B06A9B436321C /* HomeForYouUITests.swift */; };
+		70C01E90CAB0C87E748E6341 /* HomeCommunityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C666D49D6B604C79AAA0B36E /* HomeCommunityUITests.swift */; };
 		67467E9E2F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */; };
 		67467E9F2F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */; };
 		67467EA02F4F5AD40023532D /* SearchBarIPadCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */; };
@@ -3131,6 +3134,9 @@
 		6741244F27E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+ActionExtensions.swift"; sourceTree = "<group>"; };
 		6742052D2FBFD50100A1C0DE /* ArticleControlsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleControlsUITests.swift; sourceTree = "<group>"; };
 		674205302F9A556100BBA0CA /* HomeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUITests.swift; sourceTree = "<group>"; };
+		B8FCCE4DC25174C9287EEC82 /* HomeFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedUITests.swift; sourceTree = "<group>"; };
+		01A8684C011B06A9B436321C /* HomeForYouUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeForYouUITests.swift; sourceTree = "<group>"; };
+		C666D49D6B604C79AAA0B36E /* HomeCommunityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityUITests.swift; sourceTree = "<group>"; };
 		67467E9D2F4F5AD40023532D /* SearchBarIPadCustomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarIPadCustomizer.swift; sourceTree = "<group>"; };
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
 		674C176B2AAA86B5007DC6CC /* Wikipedia.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wikipedia.xctestplan; sourceTree = "<group>"; };
@@ -5550,6 +5556,9 @@
 				6742052D2FBFD50100A1C0DE /* ArticleControlsUITests.swift */,
 				67A417DF2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift */,
 				674205302F9A556100BBA0CA /* HomeUITests.swift */,
+				B8FCCE4DC25174C9287EEC82 /* HomeFeedUITests.swift */,
+				01A8684C011B06A9B436321C /* HomeForYouUITests.swift */,
+				C666D49D6B604C79AAA0B36E /* HomeCommunityUITests.swift */,
 				7A4414420000000000000004 /* SavedUITests.swift */,
 				7A4414430000000000000004 /* InterestsUITests.swift */,
 				E7430460A0000000000000A3 /* ProfileTemporaryAccountUITests.swift */,
@@ -9144,6 +9153,9 @@
 				6742052E2FBFD50100A1C0DE /* ArticleControlsUITests.swift in Sources */,
 				67A417DE2FBFD9E100C0DE01 /* ArticleImageGalleryUITests.swift in Sources */,
 				674205312F9A556100BBA0CA /* HomeUITests.swift in Sources */,
+				A3E759737C09481D39A483B0 /* HomeFeedUITests.swift in Sources */,
+				7D7884F09815566437C043F4 /* HomeForYouUITests.swift in Sources */,
+				70C01E90CAB0C87E748E6341 /* HomeCommunityUITests.swift in Sources */,
 				7A4414420000000000000005 /* SavedUITests.swift in Sources */,
 				7A4414430000000000000005 /* InterestsUITests.swift in Sources */,
 				E7430460A0000000000000A4 /* ProfileTemporaryAccountUITests.swift in Sources */,

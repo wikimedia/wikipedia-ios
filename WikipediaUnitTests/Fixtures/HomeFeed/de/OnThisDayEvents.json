@@ -1,0 +1,592 @@
+{
+  "events": [
+    {
+      "text": "In Fulda wird die Partei Bündnis Deutschland gegründet.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Bündnis_Deutschland",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Bündnis Deutschland</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q115801973",
+          "titles": {
+            "canonical": "Bündnis_Deutschland",
+            "normalized": "Bündnis Deutschland",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Bündnis Deutschland</span></span>"
+          },
+          "pageid": 12454628,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Randy_Witte.png/330px-Randy_Witte.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 377
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Randy_Witte.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 413,
+            "height": 472
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "272383665",
+          "tid": "33e08ddd-e697-11f1-96c3-35014521040b",
+          "timestamp": "2026-11-22T17:07:31Z",
+          "description": "politische Partei in Deutschland",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/B%C3%BCndnis_Deutschland",
+              "revisions": "https://de.wikipedia.org/wiki/B%C3%BCndnis_Deutschland?action=history",
+              "edit": "https://de.wikipedia.org/wiki/B%C3%BCndnis_Deutschland?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:B%C3%BCndnis_Deutschland"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/B%C3%BCndnis_Deutschland",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/B%C3%BCndnis_Deutschland",
+              "edit": "https://de.wikipedia.org/wiki/B%C3%BCndnis_Deutschland?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:B%C3%BCndnis_Deutschland"
+            }
+          },
+          "extract": "Bündnis Deutschland ist eine rechtskonservative und wirtschaftsliberale deutsche Kleinpartei, die im November 2022 gegründet wurde.",
+          "extract_html": "<p><b>Bündnis Deutschland</b> ist eine rechtskonservative und wirtschaftsliberale deutsche Kleinpartei, die im November 2022 gegründet wurde.</p>",
+          "normalizedtitle": "Bündnis Deutschland"
+        }
+      ],
+      "year": 2022
+    },
+    {
+      "text": "Bei einem Eisenbahnunglück nahe Kanpur im indischen Bundesstaat Uttar Pradesh sterben mindestens 142 Menschen.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Eisenbahnunfall_von_Kanpur",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Eisenbahnunfall von Kanpur</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q27890661",
+          "titles": {
+            "canonical": "Eisenbahnunfall_von_Kanpur",
+            "normalized": "Eisenbahnunfall von Kanpur",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Eisenbahnunfall von Kanpur</span></span>"
+          },
+          "pageid": 9667402,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Pukhrayan_accident.jpg/330px-Pukhrayan_accident.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 399
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/0/09/Pukhrayan_accident.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 913,
+            "height": 1104
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "261746006",
+          "tid": "b2b78884-c718-11f0-a9e5-d755675a2a5c",
+          "timestamp": "2025-11-21T20:28:54Z",
+          "description": "Eisenbahnunglück in Indien",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 26.231019,
+            "lon": 79.848681
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Eisenbahnunfall_von_Kanpur",
+              "revisions": "https://de.wikipedia.org/wiki/Eisenbahnunfall_von_Kanpur?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Eisenbahnunfall_von_Kanpur?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Eisenbahnunfall_von_Kanpur"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Eisenbahnunfall_von_Kanpur",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Eisenbahnunfall_von_Kanpur",
+              "edit": "https://de.wikipedia.org/wiki/Eisenbahnunfall_von_Kanpur?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Eisenbahnunfall_von_Kanpur"
+            }
+          },
+          "extract": "Bei dem Eisenbahnunfall von Kanpur entgleiste am 20. November 2016 bei Pukhrayan, 65 Kilometer südwestlich von Kanpur im Bundesstaat Uttar Pradesh in Indien, der Indore–Patna-Express. Mindestens 150 Menschen kamen ums Leben.",
+          "extract_html": "<p>Bei dem <b>Eisenbahnunfall von Kanpur</b> entgleiste am 20. November 2016 bei Pukhrayan, 65 Kilometer südwestlich von Kanpur im Bundesstaat Uttar Pradesh in Indien, der <i>Indore–Patna-Express</i>. Mindestens 150 Menschen kamen ums Leben.</p>",
+          "normalizedtitle": "Eisenbahnunfall von Kanpur"
+        },
+        {
+          "type": "standard",
+          "title": "Kanpur",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Kanpur</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q66568",
+          "titles": {
+            "canonical": "Kanpur",
+            "normalized": "Kanpur",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Kanpur</span></span>"
+          },
+          "pageid": 421196,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/UMHmallroad.jpg/330px-UMHmallroad.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 248
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/9/91/UMHmallroad.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 1024,
+            "height": 768
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "271155305",
+          "tid": "4a799158-c340-11f1-be24-54a437d73693",
+          "timestamp": "2026-10-08T17:47:12Z",
+          "description": "Stadt im Bundesstaat Uttar Pradesh in Indien",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 26.4725,
+            "lon": 80.33111111
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Kanpur",
+              "revisions": "https://de.wikipedia.org/wiki/Kanpur?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Kanpur?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Kanpur"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Kanpur",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Kanpur",
+              "edit": "https://de.wikipedia.org/wiki/Kanpur?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Kanpur"
+            }
+          },
+          "extract": "Kanpur ist eine Stadt im Bundesstaat Uttar Pradesh in Indien am Ganges südwestlich von Lakhnau gelegen.",
+          "extract_html": "<p><b>Kanpur</b> ist eine Stadt im Bundesstaat Uttar Pradesh in Indien am Ganges südwestlich von Lakhnau gelegen.</p>",
+          "normalizedtitle": "Kanpur"
+        },
+        {
+          "type": "standard",
+          "title": "Uttar_Pradesh",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Uttar Pradesh</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q1498",
+          "titles": {
+            "canonical": "Uttar_Pradesh",
+            "normalized": "Uttar Pradesh",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Uttar Pradesh</span></span>"
+          },
+          "pageid": 26673,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Seal_of_Uttar_Pradesh.svg/langde-330px-Seal_of_Uttar_Pradesh.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 330
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Seal_of_Uttar_Pradesh.svg/langde-500px-Seal_of_Uttar_Pradesh.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 478,
+            "height": 478
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "271756486",
+          "tid": "463d21bf-d471-11f1-a55f-f7e8296a9695",
+          "timestamp": "2026-10-30T14:50:40Z",
+          "description": "indischer Bundesstaat",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 27,
+            "lon": 81
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Uttar_Pradesh",
+              "revisions": "https://de.wikipedia.org/wiki/Uttar_Pradesh?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Uttar_Pradesh?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Uttar_Pradesh"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Uttar_Pradesh",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Uttar_Pradesh",
+              "edit": "https://de.wikipedia.org/wiki/Uttar_Pradesh?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Uttar_Pradesh"
+            }
+          },
+          "extract": "Uttar Pradesh ist ein indischer Bundesstaat mit einer Fläche von 240.928 Quadratkilometern. Mit knapp 200 Millionen Einwohnern ist Uttar Pradesh Indiens bevölkerungsreichster Bundesstaat und die bevölkerungsreichste subnationale Entität der Welt. Die Hauptstadt Uttar Pradeshs ist Lucknow (Lakhnau), die am meisten gesprochene Sprache ist Hindi.",
+          "extract_html": "<p><b>Uttar Pradesh</b> ist ein indischer Bundesstaat mit einer Fläche von 240.928 Quadratkilometern. Mit knapp 200 Millionen Einwohnern ist Uttar Pradesh Indiens bevölkerungsreichster Bundesstaat und die bevölkerungsreichste subnationale Entität der Welt. Die Hauptstadt Uttar Pradeshs ist Lucknow (Lakhnau), die am meisten gesprochene Sprache ist Hindi.</p>",
+          "normalizedtitle": "Uttar Pradesh"
+        }
+      ],
+      "year": 2016
+    },
+    {
+      "text": "Ein 18-jähriger ehemaliger Schüler der Geschwister-Scholl-Realschule in Emsdetten verletzt bei einem Amoklauf in seiner früheren Schule 37 Menschen. Anschließend tötet er sich selbst.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Geschwister-Scholl-Schule_Emsdetten",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Geschwister-Scholl-Schule Emsdetten</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q1518072",
+          "titles": {
+            "canonical": "Geschwister-Scholl-Schule_Emsdetten",
+            "normalized": "Geschwister-Scholl-Schule Emsdetten",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Geschwister-Scholl-Schule Emsdetten</span></span>"
+          },
+          "pageid": 1985091,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Geschwister_Scholl_Realschule_Emsdetten.jpg/330px-Geschwister_Scholl_Realschule_Emsdetten.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 247
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/a/af/Geschwister_Scholl_Realschule_Emsdetten.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 2580,
+            "height": 1932
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "262700518",
+          "tid": "03305646-e0ca-11f0-b96f-3629d3f010f3",
+          "timestamp": "2025-12-24T13:11:09Z",
+          "description": "Realschule in Emsdetten, Deutschland",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 52.16583333,
+            "lon": 7.53027778
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Geschwister-Scholl-Schule_Emsdetten",
+              "revisions": "https://de.wikipedia.org/wiki/Geschwister-Scholl-Schule_Emsdetten?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Geschwister-Scholl-Schule_Emsdetten?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Geschwister-Scholl-Schule_Emsdetten"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Geschwister-Scholl-Schule_Emsdetten",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Geschwister-Scholl-Schule_Emsdetten",
+              "edit": "https://de.wikipedia.org/wiki/Geschwister-Scholl-Schule_Emsdetten?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Geschwister-Scholl-Schule_Emsdetten"
+            }
+          },
+          "extract": "Die Geschwister-Scholl-Schule ist eine Realschule in Emsdetten, Kreis Steinfurt. An der Schule werden 283 Schüler in Koedukation unterrichtet.",
+          "extract_html": "<p>Die <b>Geschwister-Scholl-Schule</b> ist eine Realschule in Emsdetten, Kreis Steinfurt. An der Schule werden 283 Schüler in Koedukation unterrichtet.</p>",
+          "normalizedtitle": "Geschwister-Scholl-Schule Emsdetten"
+        },
+        {
+          "type": "standard",
+          "title": "Emsdetten",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Emsdetten</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q14936",
+          "titles": {
+            "canonical": "Emsdetten",
+            "normalized": "Emsdetten",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Emsdetten</span></span>"
+          },
+          "pageid": 2256637,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/DEU_Emsdetten_COA.svg/langde-330px-DEU_Emsdetten_COA.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 442
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/DEU_Emsdetten_COA.svg/langde-500px-DEU_Emsdetten_COA.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 412,
+            "height": 552
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "270821860",
+          "tid": "cde6db67-ba4a-11f1-be9d-6821d165c0bb",
+          "timestamp": "2026-09-27T08:09:47Z",
+          "description": "Stadt im Kreis Steinfurt (Nordrhein-Westfalen)",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 52.17348,
+            "lon": 7.5296
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Emsdetten",
+              "revisions": "https://de.wikipedia.org/wiki/Emsdetten?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Emsdetten?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Emsdetten"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Emsdetten",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Emsdetten",
+              "edit": "https://de.wikipedia.org/wiki/Emsdetten?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Emsdetten"
+            }
+          },
+          "extract": "Emsdetten ist eine Stadt in Westfalen und liegt an der Ems im nördlichen Teil des Münsterlandes. Der Name der Stadt wird auf der zweiten Silbe betont.",
+          "extract_html": "<p><b>Emsdetten</b> ist eine Stadt in Westfalen und liegt an der Ems im nördlichen Teil des Münsterlandes. Der Name der Stadt wird auf der zweiten Silbe betont.</p>",
+          "normalizedtitle": "Emsdetten"
+        },
+        {
+          "type": "standard",
+          "title": "Amoklauf_von_Emsdetten",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Amoklauf von Emsdetten</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q473874",
+          "titles": {
+            "canonical": "Amoklauf_von_Emsdetten",
+            "normalized": "Amoklauf von Emsdetten",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Amoklauf von Emsdetten</span></span>"
+          },
+          "pageid": 2247506,
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "269037207",
+          "tid": "cc8ce009-869c-11f1-9959-7cad36267a48",
+          "timestamp": "2026-07-23T13:45:43Z",
+          "description": "Amoklauf in Emsdetten 2006",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Amoklauf_von_Emsdetten",
+              "revisions": "https://de.wikipedia.org/wiki/Amoklauf_von_Emsdetten?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Amoklauf_von_Emsdetten?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Amoklauf_von_Emsdetten"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Amoklauf_von_Emsdetten",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Amoklauf_von_Emsdetten",
+              "edit": "https://de.wikipedia.org/wiki/Amoklauf_von_Emsdetten?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Amoklauf_von_Emsdetten"
+            }
+          },
+          "extract": "Der Amoklauf von Emsdetten ereignete sich am 20. November 2006 an der Geschwister-Scholl-Realschule in Emsdetten (Nordrhein-Westfalen). Der 18-jährige Sebastian Bosse, der im Internet meist unter dem Pseudonym ResistantX sowie gelegentlich als R_fuckin'_X auftrat, betrat etwa gegen 9:25 Uhr maskiert das Gelände seiner ehemaligen Schule, schoss auf Menschen und zündete Rohr-, Rauch- und Brandbomben. Anschließend tötete er sich selbst. Mindestens sechs Personen wurden durch Geschosse, eine Person durch den Wurf einer Rauchgranate verletzt, weitere 30 mussten wegen eines Schocks oder einer Rauchgasvergiftung behandelt werden. Auch die Eltern des Täters erlitten einen Schock.",
+          "extract_html": "<p>Der <b>Amoklauf von Emsdetten</b> ereignete sich am 20. November 2006 an der Geschwister-Scholl-Realschule in Emsdetten (Nordrhein-Westfalen). Der 18-jährige Sebastian Bosse, der im Internet meist unter dem Pseudonym <i>ResistantX</i> sowie gelegentlich als <i>R_fuckin'_X</i> auftrat, betrat etwa gegen 9:25 Uhr maskiert das Gelände seiner ehemaligen Schule, schoss auf Menschen und zündete Rohr-, Rauch- und Brandbomben. Anschließend tötete er sich selbst. Mindestens sechs Personen wurden durch Geschosse, eine Person durch den Wurf einer Rauchgranate verletzt, weitere 30 mussten wegen eines Schocks oder einer Rauchgasvergiftung behandelt werden. Auch die Eltern des Täters erlitten einen Schock.</p>",
+          "normalizedtitle": "Amoklauf von Emsdetten"
+        }
+      ],
+      "year": 2006
+    },
+    {
+      "text": "Bei zwei Anschlägen auf britische Einrichtungen in Istanbul werden mindestens 27 Menschen getötet.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Terroranschläge_in_Istanbul_2003",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Terroranschläge in Istanbul 2003</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q1254917",
+          "titles": {
+            "canonical": "Terroranschläge_in_Istanbul_2003",
+            "normalized": "Terroranschläge in Istanbul 2003",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Terroranschläge in Istanbul 2003</span></span>"
+          },
+          "pageid": 2270543,
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "266315418",
+          "tid": "9f4b07ba-3b72-11f1-a2a5-8fe046f19e5a",
+          "timestamp": "2026-04-18T22:04:51Z",
+          "description": "Reihe von Terroranschlägen in Istanbul",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 41.02666667,
+            "lon": 28.9725
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Terroranschl%C3%A4ge_in_Istanbul_2003",
+              "revisions": "https://de.wikipedia.org/wiki/Terroranschl%C3%A4ge_in_Istanbul_2003?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Terroranschl%C3%A4ge_in_Istanbul_2003?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Terroranschl%C3%A4ge_in_Istanbul_2003"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Terroranschl%C3%A4ge_in_Istanbul_2003",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Terroranschl%C3%A4ge_in_Istanbul_2003",
+              "edit": "https://de.wikipedia.org/wiki/Terroranschl%C3%A4ge_in_Istanbul_2003?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Terroranschl%C3%A4ge_in_Istanbul_2003"
+            }
+          },
+          "extract": "Ende 2003 wurde Istanbul Ziel einer Serie verheerender Terroranschläge am 15. und 20. November 2003. Am Samstag, dem 15. November, explodierte jeweils eine Autobombe vor Istanbuls größter Synagoge Neve Shalom sowie der fünf Kilometer davon entfernten Beth-Israel-Synagoge. 24 Menschen starben und mehr als 240 Personen wurden zum Teil schwer verletzt.",
+          "extract_html": "<p>Ende 2003 wurde <b>Istanbul</b> Ziel einer Serie verheerender <b>Terroranschläge am 15. und 20. November 2003</b>. Am Samstag, dem 15. November, explodierte jeweils eine Autobombe vor Istanbuls größter Synagoge Neve Shalom sowie der fünf Kilometer davon entfernten <i>Beth-Israel-Synagoge</i>. 24 Menschen starben und mehr als 240 Personen wurden zum Teil schwer verletzt.</p>",
+          "normalizedtitle": "Terroranschläge in Istanbul 2003"
+        },
+        {
+          "type": "standard",
+          "title": "Istanbul",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Istanbul</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q406",
+          "titles": {
+            "canonical": "Istanbul",
+            "normalized": "Istanbul",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Istanbul</span></span>"
+          },
+          "pageid": 2358,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Coat_of_arms_%C4%B0stanbul.svg/langde-330px-Coat_of_arms_%C4%B0stanbul.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 454
+          },
+          "originalimage": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Coat_of_arms_%C4%B0stanbul.svg/langde-500px-Coat_of_arms_%C4%B0stanbul.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 480,
+            "height": 661
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "271939728",
+          "tid": "da2d610c-da0e-11f1-832d-e42406ceb3c2",
+          "timestamp": "2026-11-06T18:21:15Z",
+          "description": "bevölkerungsreichste Stadt der Türkei",
+          "description_source": "central",
+          "coordinates": {
+            "lat": 41.01,
+            "lon": 28.96027778
+          },
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Istanbul",
+              "revisions": "https://de.wikipedia.org/wiki/Istanbul?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Istanbul?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Istanbul"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Istanbul",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Istanbul",
+              "edit": "https://de.wikipedia.org/wiki/Istanbul?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Istanbul"
+            }
+          },
+          "extract": "Istanbul, früher Byzantion (Byzanz) und Konstantinopel, ist die bevölkerungsreichste Stadt der Türkei und deren Zentrum für Kultur, Handel, Finanzen und Medien. Mit rund 15,3 Millionen Einwohnern nahm die Metropolregion 2021 den 22. Platz unter den größten Metropolregionen der Welt ein. Mit jährlich über 14 Millionen Touristen aus dem Ausland ist Istanbul überdies die Stadt mit der achtgrößten Besucherzahl der Welt.",
+          "extract_html": "<p><b>Istanbul</b>, früher Byzantion (Byzanz) und Konstantinopel, ist die bevölkerungsreichste Stadt der Türkei und deren Zentrum für Kultur, Handel, Finanzen und Medien. Mit rund 15,3 Millionen Einwohnern nahm die Metropolregion 2021 den 22. Platz unter den größten Metropolregionen der Welt ein. Mit jährlich über 14 Millionen Touristen aus dem Ausland ist Istanbul überdies die Stadt mit der achtgrößten Besucherzahl der Welt.</p>",
+          "normalizedtitle": "Istanbul"
+        }
+      ],
+      "year": 2003
+    },
+    {
+      "text": "Honda stellt den humanoiden Roboter ASIMO der Öffentlichkeit vor.",
+      "pages": [
+        {
+          "type": "standard",
+          "title": "Honda",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Honda</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q9584",
+          "titles": {
+            "canonical": "Honda",
+            "normalized": "Honda",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">Honda</span></span>"
+          },
+          "pageid": 119421,
+          "thumbnail": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/2/27/Honda_car_logo_%282024%29.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 200,
+            "height": 142
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/2/27/Honda_car_logo_%282024%29.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 200,
+            "height": 142
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "270515629",
+          "tid": "8c952889-b13a-11f1-abf2-b87684008962",
+          "timestamp": "2026-09-15T19:20:45Z",
+          "description": "japanischer Konzern",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/Honda",
+              "revisions": "https://de.wikipedia.org/wiki/Honda?action=history",
+              "edit": "https://de.wikipedia.org/wiki/Honda?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Honda"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/Honda",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/Honda",
+              "edit": "https://de.wikipedia.org/wiki/Honda?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:Honda"
+            }
+          },
+          "extract": "Honda, gelistet im Nikkei 225, ist ein japanischer Konzern, der Automobile, Motorräder, Außenbordmotoren, Mikro-Kraft-Wärme-Kopplungs-Anlagen und Motorgeräte für den Weltmarkt entwickelt, fertigt und vermarktet. Die Tochterfirma Honda Aircraft Company baut außerdem auch ein Geschäftsreiseflugzeug.",
+          "extract_html": "<p><b>Honda</b>, gelistet im Nikkei 225, ist ein japanischer Konzern, der Automobile, Motorräder, Außenbordmotoren, Mikro-Kraft-Wärme-Kopplungs-Anlagen und Motorgeräte für den Weltmarkt entwickelt, fertigt und vermarktet. Die Tochterfirma Honda Aircraft Company baut außerdem auch ein Geschäftsreiseflugzeug.</p>",
+          "normalizedtitle": "Honda"
+        },
+        {
+          "type": "standard",
+          "title": "ASIMO",
+          "displaytitle": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">ASIMO</span></span>",
+          "namespace": {
+            "id": 0,
+            "text": ""
+          },
+          "wikibase_item": "Q297769",
+          "titles": {
+            "canonical": "ASIMO",
+            "normalized": "ASIMO",
+            "display": "<span lang=\"de\" dir=\"ltr\"><span class=\"mw-page-title-main\">ASIMO</span></span>"
+          },
+          "pageid": 203063,
+          "thumbnail": {
+            "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/HONDA_ASIMO.jpg/330px-HONDA_ASIMO.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+            "width": 330,
+            "height": 440
+          },
+          "originalimage": {
+            "source": "https://upload.wikimedia.org/wikipedia/commons/0/05/HONDA_ASIMO.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+            "width": 960,
+            "height": 1280
+          },
+          "lang": "de",
+          "dir": "ltr",
+          "revision": "269210240",
+          "tid": "af9564ae-8bde-11f1-9ed9-9ed1c46aa6fa",
+          "timestamp": "2026-07-30T06:19:57Z",
+          "description": "humanoider Roboter entwickelt von Honda",
+          "description_source": "central",
+          "content_urls": {
+            "desktop": {
+              "page": "https://de.wikipedia.org/wiki/ASIMO",
+              "revisions": "https://de.wikipedia.org/wiki/ASIMO?action=history",
+              "edit": "https://de.wikipedia.org/wiki/ASIMO?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:ASIMO"
+            },
+            "mobile": {
+              "page": "https://de.wikipedia.org/wiki/ASIMO",
+              "revisions": "https://de.wikipedia.org/wiki/Special:History/ASIMO",
+              "edit": "https://de.wikipedia.org/wiki/ASIMO?action=edit",
+              "talk": "https://de.wikipedia.org/wiki/Diskussion:ASIMO"
+            }
+          },
+          "extract": "ASIMO ist ein von Honda entwickelter humanoider Roboter. Er ist ein Robotertyp, der sich auf zwei Beinen (bipedal) fortbewegen kann und dabei eine Bewegung ausführt, die dem menschlichen Gang ähnlich ist.",
+          "extract_html": "<p><b>ASIMO</b> ist ein von Honda entwickelter humanoider Roboter. Er ist ein Robotertyp, der sich auf zwei Beinen (bipedal) fortbewegen kann und dabei eine Bewegung ausführt, die dem menschlichen Gang ähnlich ist.</p>",
+          "normalizedtitle": "ASIMO"
+        }
+      ],
+      "year": 2000
+    }
+  ]
+}

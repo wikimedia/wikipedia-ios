@@ -32,6 +32,9 @@ public struct WMFEmptyView: View {
     /// designed around.
     var usesCompactButton: Bool = false
 
+    /// The accessibility identifier of the action button, for UI tests.
+    var buttonAccessibilityIdentifier: String? = nil
+
     private var resolvedTheme: WMFTheme {
         theme ?? appEnvironment.theme
     }
@@ -116,10 +119,12 @@ public struct WMFEmptyView: View {
                     WMFSmallButton(configuration: .init(style: .primary), title: buttonTitle, action: buttonAction)
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
                         .minimumScaleFactor(0.5)
+                        .optionalAccessibilityIdentifier(buttonAccessibilityIdentifier)
                 } else {
                     WMFLargeButton(style: .primary, title: buttonTitle, action: buttonAction)
                         .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
                         .minimumScaleFactor(0.5)
+                        .optionalAccessibilityIdentifier(buttonAccessibilityIdentifier)
                 }
             }
             Spacer()
@@ -156,5 +161,16 @@ struct WMFEmptyViewFilterView: View {
                     delegate?.emptyViewDidTapFilters()
                     return .handled
                 })
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func optionalAccessibilityIdentifier(_ identifier: String?) -> some View {
+        if let identifier {
+            accessibilityIdentifier(identifier)
+        } else {
+            self
+        }
     }
 }

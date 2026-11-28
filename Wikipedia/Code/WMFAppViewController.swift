@@ -30,6 +30,8 @@ private let wmfTempAccountConfigCheckAbsoluteTimeKey = "WMFTempAccountConfigChec
 private let wmfResetPreferredLanguages = "WMFResetPreferredLanguages"
 #if UITEST
 private let wmfUITestCentralAuthUsername = "WMFUITestCentralAuthUsername"
+private let wmfUITestHomePhase2 = "WMFUITestHomePhase2"
+private let wmfUITestHomeFeedState = "WMFUITestHomeFeedState"
 #endif
 private let wmfLegacyDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 private let wmfLegacyDefaultTabTypeSettingsValue = 1 // the old `WMFAppDefaultTabType.settings`
@@ -962,7 +964,85 @@ final class WMFAppViewController: UITabBarController, AppTabBarDelegate {
         if UserDefaults.standard.bool(forKey: wmfSuppressHomeOnboardingForTesting) {
             WMFHomeDataController.shared.setHasSeenOneTimeOnboarding(true)
         }
+
+        #if UITEST
+        applyUITestHomeOverridesIfNeeded()
+        #endif
     }
+
+    #if UITEST
+    /// The Home feed settings persist across launches, so each launch states the Home state it needs.
+    /// This runs before the Home tab is made, which reads the phase 2 flag when its view loads.
+    private func applyUITestHomeOverridesIfNeeded() {
+        if let phase2 = UserDefaults.standard.string(forKey: wmfUITestHomePhase2) {
+            WMFDeveloperSettingsDataController.shared.enableHomePhase2 = phase2 == "YES"
+        }
+
+        guard let base64 = UserDefaults.standard.string(forKey: wmfUITestHomeFeedState),
+              let data = Data(base64Encoded: base64),
+              let state = try? JSONDecoder().decode(UITestHomeFeedState.self, from: data) else {
+            return
+        }
+
+        let keysToReset: [WMFUserDefaultsKey] = [
+            .homeFeedCommunityFeaturedArticleIsOn,
+            .homeFeedCommunityTopReadIsOn,
+            .homeFeedCommunityInTheNewsIsOn,
+            .homeFeedCommunityOnThisDayIsOn,
+            .homeFeedCommunityPictureOfTheDayIsOn,
+            .homeFeedForYouBasedOnInterestsIsOn,
+            .homeFeedForYouBecauseYouReadIsOn,
+            .homeFeedForYouContinueReadingIsOn,
+            .homeSelectedLanguage,
+            .homeFeedHiddenCardKeys,
+            .homeFeedSeenArticles
+        ]
+        for key in keysToReset {
+            try? WMFDataEnvironment.current.userDefaultsStore?.remove(key: key.rawValue)
+        }
+
+        let homeDataController = WMFHomeDataController.shared
+        homeDataController.setInterestTopics(state.interestTopics.compactMap { WMFArticleTopic(rawValue: $0) })
+        homeDataController.setSeeFirstContent(WMFHomeFeedSeeFirst(rawValue: state.seeFirst) ?? .community)
+        // The swipe-up hint covers the first module for two seconds and takes the first touch.
+        homeDataController.setHasSeenForYouSwipeOnboarding(true)
+
+        let projects = dataStore.languageLinkController.preferredLanguages.map {
+            WMFProject.wikipedia(WMFLanguage(languageCode: $0.languageCode, languageVariantCode: $0.languageVariantCode))
+        }
+        for project in projects {
+            homeDataController.removeStoredFeeds(project: project)
+        }
+
+        // Reading history and page interests from earlier tests add For You modules whose requests
+        // have no fixtures. The WMFData store opens after this method, so the removal waits for it.
+        let opensOnForYou = state.seeFirst == WMFHomeFeedSeeFirst.personalized.rawValue
+        Task {
+            while WMFDataEnvironment.current.coreDataStore == nil {
+                try? await Task.sleep(for: .milliseconds(100))
+            }
+            await Self.removeUITestReadingHistory()
+            // Home that opens on For You loads it as soon as the store opens, which can be before the
+            // removal ends. Reload it, the way a change of interests does.
+            if opensOnForYou {
+                for project in projects {
+                    homeDataController.removeStoredFeeds(project: project)
+                }
+                NotificationCenter.default.post(name: WMFNSNotification.forYouInterestsDidChange, object: nil)
+            }
+        }
+    }
+
+    private static func removeUITestReadingHistory() async {
+        try? await WMFPageViewsDataController().deleteAllPageViewsCategoriesAndTopics()
+        guard let pageInterestDataController = try? WMFPageInterestDataController(),
+              let interests = try? await pageInterestDataController.fetchAllPageInterests() else { return }
+        for interest in interests {
+            guard let project = interest.project else { continue }
+            try? await pageInterestDataController.removePageInterest(title: interest.title, project: project)
+        }
+    }
+    #endif
 
     // MARK: - Start/Pause/Resume App
 
@@ -3129,3 +3209,12 @@ private extension UITab {
         badgeValue = shouldShow ? wmfYearInReviewTabBadgeGlyph : nil
     }
 }
+
+#if UITEST
+/// The Home feed state a UI test wants on device before launch. The UI-test target sends it as
+/// base64 JSON through the `-WMFUITestHomeFeedState` launch argument.
+private struct UITestHomeFeedState: Decodable {
+    let interestTopics: [String]
+    let seeFirst: String
+}
+#endif

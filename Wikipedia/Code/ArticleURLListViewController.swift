@@ -54,6 +54,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, WMFNavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.FeedDetail.topReadListView
         collectionView.reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }

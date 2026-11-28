@@ -824,8 +824,16 @@ import Foundation
 
     // MARK: - Private
 
-    private func forYouCacheKey(for project: WMFProject) -> String {
+    private nonisolated func forYouCacheKey(for project: WMFProject) -> String {
         "home.forYou.\(project.id)"
+    }
+
+    /// Removes the For You feed and the Community first page that are stored on disk for this
+    /// project. The next load of each feed then fetches again.
+    public nonisolated func removeStoredFeeds(project: WMFProject) {
+        guard let store = WMFDataEnvironment.current.sharedCacheStore else { return }
+        try? store.remove(key: forYouCacheKey(for: project))
+        try? store.remove(key: Self.communityCacheKey(for: project))
     }
 
     /// Internal for tests, which store an earlier day to open the feed with.

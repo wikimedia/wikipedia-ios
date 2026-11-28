@@ -15,6 +15,8 @@ struct WMFHomeEmptyStateView: View {
     let theme: WMFTheme
     /// The Community feed passes its wiki language, the way Android does. Nil is the app language.
     var languageCode: String? = nil
+    /// The accessibility identifier of the button, for UI tests.
+    var buttonAccessibilityIdentifier: String? = nil
     let action: () -> Void
 
     private let uiImage = UIImage(named: "empty_feed", in: Bundle.module, compatibleWith: nil)
@@ -43,7 +45,8 @@ struct WMFHomeEmptyStateView: View {
             isScrollable: false,
             theme: theme,
             mainAction: action,
-            usesCompactButton: true
+            usesCompactButton: true,
+            buttonAccessibilityIdentifier: buttonAccessibilityIdentifier
         )
         .padding(.horizontal, 24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -92,6 +92,7 @@ struct WMFForYouEndOfFeedCardView: View {
                     }
                     .minimumScaleFactor(0.25)
                     .accessibilityElement(children: .combine)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.endOfFeedCard)
 
                     linkRow(
                         symbol: .sliderHorizontal3,
@@ -107,6 +108,7 @@ struct WMFForYouEndOfFeedCardView: View {
                         action: { viewModel.onTapCommunity?() }
                     )
                     .minimumScaleFactor(0.3)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.endOfFeedCommunityButton)
                 }
                 // Two lines for every one of them: the title, the three sentences and both link
                 // rows. Applied to the stack so it reaches each `Text` inside it.

@@ -111,6 +111,7 @@ struct WMFCommunityFeedView: View {
                 // stack, and every module runs past the trailing edge of the screen.
                 .containerRelativeFrame(.horizontal)
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.Community.feed)
             .contentMargins(.top, topContentInset, for: .scrollContent)
             .contentMargins(.top, topContentInset, for: .scrollIndicators)
             .refreshable {
@@ -149,6 +150,7 @@ struct WMFCommunityFeedView: View {
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Community.todayErrorRetryButton)
             }
         }
         .padding(.horizontal, Self.horizontalPadding)
@@ -238,6 +240,7 @@ struct WMFCommunityFeedView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, Self.horizontalPadding)
             .accessibilityAddTraits(.isHeader)
+            .accessibilityIdentifier(AccessibilityIdentifiers.Community.dateHeader)
     }
 
     private func moduleColumn(_ modules: [WMFCommunityModule], page: WMFHomeCommunityViewModel) -> some View {
@@ -273,6 +276,7 @@ struct WMFCommunityFeedView: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Community.featuredArticle)
                     .articleContextMenu(item, page: page, module: .featuredArticle, isSaved: isArticleSaved(item.title, page.project), onAction: onArticleAction)
                     saveButton(item, page: page, module: .featuredArticle)
                 }
@@ -283,7 +287,7 @@ struct WMFCommunityFeedView: View {
                 ForEach(page.topReadItems, id: \.title) { item in
                     articleRow(item, page: page, module: .topRead)
                 }
-                moreLink(strings.moreTopRead) {
+                moreLink(strings.moreTopRead, accessibilityIdentifier: AccessibilityIdentifiers.Community.moreTopReadButton) {
                     onTapMoreTopRead(page)
                 }
             }
@@ -301,6 +305,7 @@ struct WMFCommunityFeedView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityHint(newsStoryHint)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Community.newsStory)
                 }
             }
             .tabViewStyle(.page)
@@ -312,7 +317,7 @@ struct WMFCommunityFeedView: View {
                 ForEach(page.onThisDayItems ?? [], id: \.id) { item in
                     onThisDayEvent(item, page: page)
                 }
-                moreLink(strings.moreOnThisDay) {
+                moreLink(strings.moreOnThisDay, accessibilityIdentifier: AccessibilityIdentifiers.Community.moreOnThisDayButton) {
                     onTapOnThisDay(page, nil)
                 }
             }
@@ -330,6 +335,7 @@ struct WMFCommunityFeedView: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel(page.pictureOfDayCaption ?? module.title(languageCode: page.strings.languageCode))
                 .accessibilityHint(WMFCommunityFeedStrings.pictureOfTheDayHint)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Community.pictureOfTheDay)
                 .padding(.horizontal, isRegularWidth ? Self.horizontalPadding : 0)
             }
         }
@@ -358,6 +364,7 @@ struct WMFCommunityFeedView: View {
             }
             .buttonStyle(.plain)
             .accessibilityElement(children: .combine)
+            .accessibilityIdentifier(AccessibilityIdentifiers.Community.onThisDayEvent)
             if !item.pages.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .top, spacing: 12) {
@@ -386,6 +393,7 @@ struct WMFCommunityFeedView: View {
         // The button is the one VoiceOver element of the row, so VoiceOver reads the plain title
         // and the description once, with one "button" trait.
         .accessibilityLabel([article.plainTitle, article.description].compactMap { $0 }.joined(separator: ", "))
+        .optionalAccessibilityIdentifier(module == .topRead ? AccessibilityIdentifiers.Community.topReadRow : nil)
         .articleContextMenu(article, page: page, module: module, isSaved: isArticleSaved(article.title, page.project), onAction: onArticleAction)
     }
 
@@ -408,12 +416,13 @@ struct WMFCommunityFeedView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Community.saveForLaterButton)
         // No separate accessibility label: the visible "Save for later" or "Saved for later" is
         // the label, so VoiceOver reads both states in the feed's language.
     }
 
     /// A trailing link with a chevron under a module, such as "More top read".
-    private func moreLink(_ title: String, action: @escaping () -> Void) -> some View {
+    private func moreLink(_ title: String, accessibilityIdentifier: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack(spacing: 4) {
                 Text(title)
@@ -428,6 +437,7 @@ struct WMFCommunityFeedView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier(accessibilityIdentifier)
         .frame(maxWidth: .infinity, alignment: .trailing)
     }
 
@@ -442,6 +452,7 @@ struct WMFCommunityFeedView: View {
                 .font(Font(WMFFont.for(.boldTitle3)))
                 .foregroundStyle(Color(uiColor: theme.text))
                 .accessibilityAddTraits(.isHeader)
+                .accessibilityIdentifier(AccessibilityIdentifiers.Community.module(module.accessibilityID))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
                 // Room for the button, which is an overlay so that its 44 pt touch target does
@@ -473,6 +484,7 @@ struct WMFCommunityFeedView: View {
                 }
             }
             .disabled(hideKey == nil)
+            .accessibilityIdentifier(AccessibilityIdentifiers.Community.menuHideCardItem)
             Button(role: .destructive) {
                 onHideModule(module)
             } label: {
@@ -482,6 +494,7 @@ struct WMFCommunityFeedView: View {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
                 }
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.Community.menuHideModuleItem)
             if let onCustomize {
                 Divider()
                 Button(action: onCustomize) {
@@ -491,6 +504,7 @@ struct WMFCommunityFeedView: View {
                         Image(uiImage: WMFSFSymbolIcon.for(symbol: .gear) ?? UIImage())
                     }
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Community.menuCustomizeItem)
             }
         } label: {
             Image(uiImage: WMFSFSymbolIcon.for(symbol: .ellipsis) ?? UIImage())
@@ -499,6 +513,7 @@ struct WMFCommunityFeedView: View {
                 .contentShape(Rectangle())
         }
         .accessibilityLabel(WMFHomeLocalizedStrings.moreOptions)
+        .accessibilityIdentifier(AccessibilityIdentifiers.Community.moduleMenuButton(module.accessibilityID))
     }
 
     // MARK: - Footer
@@ -536,6 +551,7 @@ struct WMFCommunityFeedView: View {
                     .padding(.vertical, 12)
                     .background(Capsule().fill(Color(uiColor: theme.link)))
                 }
+                .accessibilityIdentifier(AccessibilityIdentifiers.Community.seePastContentButton)
                 .frame(maxWidth: .infinity)
             }
         }
@@ -928,6 +944,30 @@ private struct WMFCommunityColumnsLayout: Layout {
         }
         if subviews.indices.contains(2) {
             subviews[2].place(at: CGPoint(x: bounds.minX + metrics.columnWidth, y: bounds.minY + metrics.footerY), anchor: .topLeading, proposal: column)
+        }
+    }
+}
+
+private extension WMFCommunityModule {
+    /// The module's part of its UI-test accessibility identifiers.
+    var accessibilityID: String {
+        switch self {
+        case .featuredArticle: return "featured_article"
+        case .topRead: return "top_read"
+        case .inTheNews: return "in_the_news"
+        case .onThisDay: return "on_this_day"
+        case .pictureOfDay: return "picture_of_the_day"
+        }
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func optionalAccessibilityIdentifier(_ identifier: String?) -> some View {
+        if let identifier {
+            accessibilityIdentifier(identifier)
+        } else {
+            self
         }
     }
 }

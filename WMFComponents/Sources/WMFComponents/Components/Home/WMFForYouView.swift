@@ -387,6 +387,7 @@ public struct WMFForYouView: View {
             }
             .scrollTargetLayout()
         }
+        .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.feed)
         .scrollPosition(id: $currentModuleID)
         .onAppear {
             restoreModulePosition()
@@ -824,6 +825,7 @@ private struct WMFForYouArticleCardView: View {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: viewModel.isSaved ? .bookmarkFill : .bookmark) ?? UIImage())
                 }
             }
+            .accessibilityIdentifier(viewModel.isSaved ? AccessibilityIdentifiers.ForYou.menuUnsaveItem : AccessibilityIdentifiers.ForYou.menuSaveItem)
             Button { onShareCard() } label: {
                 Label {
                     Text(viewModel.shareTitle)
@@ -831,6 +833,7 @@ private struct WMFForYouArticleCardView: View {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .squareAndArrowUp) ?? UIImage())
                 }
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.menuShareItem)
             Button(role: .destructive, action: onHideCard) {
                 Label {
                     Text(viewModel.hideCardTitle)
@@ -838,6 +841,7 @@ private struct WMFForYouArticleCardView: View {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .eyeSlash) ?? UIImage())
                 }
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.menuHideCardItem)
             Button(role: .destructive, action: onHideModule) {
                 Label {
                     Text(viewModel.hideModuleTitle)
@@ -845,6 +849,7 @@ private struct WMFForYouArticleCardView: View {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .xmarkCircle) ?? UIImage())
                 }
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.menuHideModuleItem)
             Button(action: onCustomizeInterests) {
                 Label {
                     Text(viewModel.customizeInterestsTitle)
@@ -852,10 +857,12 @@ private struct WMFForYouArticleCardView: View {
                     Image(uiImage: WMFSFSymbolIcon.for(symbol: .sliderHorizontal3) ?? UIImage())
                 }
             }
+            .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.menuCustomizeInterestsItem)
         } label: {
             label()
         }
         .accessibilityLabel(WMFHomeLocalizedStrings.moreOptions)
+        .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.cardMenuButton)
     }
 
     private var floatingMenu: some View {
@@ -989,6 +996,7 @@ private struct WMFForYouArticleCardView: View {
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(.isButton)
             .accessibilityLabel(viewModel.accessibilityLabel)
+            .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.card)
             .accessibilityAction { onTapCard() }
             .accessibilityAction(named: Text(viewModel.isSaved ? viewModel.unsaveTitle : viewModel.saveTitle)) {
                 viewModel.toggleSaved()

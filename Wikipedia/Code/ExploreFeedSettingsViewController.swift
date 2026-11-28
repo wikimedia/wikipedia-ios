@@ -183,6 +183,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.accessibilityIdentifier = AccessibilityIdentifiers.FeedDetail.communityFeedSettingsView
         assert(!preferredLanguages.isEmpty)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }

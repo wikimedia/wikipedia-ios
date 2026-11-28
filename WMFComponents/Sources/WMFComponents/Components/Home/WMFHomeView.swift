@@ -185,6 +185,7 @@ public struct WMFHomeView: View {
             WMFHomeEmptyStateView(
                 subtitle: forYouViewModel.emptySubtitle,
                 theme: .forYou,
+                buttonAccessibilityIdentifier: AccessibilityIdentifiers.ForYou.emptyStateCustomizeButton,
                 action: { forYouViewModel.onCustomizeInterests?(.emptyFeed) }
             )
             .onAppear {
@@ -274,6 +275,7 @@ public struct WMFHomeView: View {
                             }
                         }
                         .tint(.primary)
+                        .accessibilityIdentifier(AccessibilityIdentifiers.Home.languageMenuItem(language.languageCode))
                     }
                     Divider()
                     Button {
@@ -282,6 +284,7 @@ public struct WMFHomeView: View {
                         Text(viewModel.manageLanguagesTitle)
                     }
                     .tint(.primary)
+                    .accessibilityIdentifier(AccessibilityIdentifiers.Home.manageLanguagesButton)
                 } label: {
                     HStack {
                         Text(viewModel.languageButtonTitle)
@@ -321,6 +324,7 @@ public struct WMFHomeView: View {
         } else if viewModel.isLoadingForYou {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .accessibilityIdentifier(AccessibilityIdentifiers.ForYou.loadingIndicator)
         } else if viewModel.forYouFeedError != nil {
             let errorViewModel = WMFEmptyViewModel(
                 localizedStrings: WMFEmptyViewModel.LocalizedStrings(
@@ -341,7 +345,8 @@ public struct WMFHomeView: View {
                 isScrollable: false,
                 theme: .forYou,
                 mainAction: { viewModel.loadForYouFeedIfNeeded() },
-                usesCompactButton: true
+                usesCompactButton: true,
+                buttonAccessibilityIdentifier: AccessibilityIdentifiers.ForYou.errorRetryButton
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: WMFTheme.forYou.paperBackground))
@@ -368,6 +373,7 @@ public struct WMFHomeView: View {
                 subtitle: viewModel.communityEmptyFeedSubtitle,
                 theme: theme,
                 languageCode: viewModel.feedLanguageCode,
+                buttonAccessibilityIdentifier: AccessibilityIdentifiers.Community.emptyStateCustomizeButton,
                 action: { viewModel.didTapCustomizeHomeFeed?() }
             )
         } else if !viewModel.communityPages.isEmpty {
@@ -429,7 +435,8 @@ public struct WMFHomeView: View {
             isScrollable: false,
             theme: theme,
             mainAction: { viewModel.loadCommunityFeedIfNeeded() },
-            usesCompactButton: true
+            usesCompactButton: true,
+            buttonAccessibilityIdentifier: AccessibilityIdentifiers.Community.errorRetryButton
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -442,6 +449,7 @@ public struct WMFHomeView: View {
         WMFHomeEmptyStateView(
             subtitle: viewModel.communityEmptyFeedSubtitle,
             theme: theme,
+            buttonAccessibilityIdentifier: AccessibilityIdentifiers.Community.emptyStateCustomizeButton,
             action: { viewModel.didTapCustomizeCommunityFeed?() }
         )
     }

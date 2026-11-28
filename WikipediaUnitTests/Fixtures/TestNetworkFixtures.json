@@ -2101,5 +2101,40 @@
       "Content-Type": "application/json"
     },
     "bodyResource": "FeatureConfig/AppsFeatureConfig.json"
+  },
+  {
+    "method": "GET",
+    "host": "en.wikipedia.org",
+    "pathPrefix": "/api/rest_v1/feed/onthisday/events/",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "HomeFeed/en/OnThisDayEvents.json"
+  },
+  {
+    "method": "GET",
+    "host": "de.wikipedia.org",
+    "pathPrefix": "/api/rest_v1/feed/onthisday/events/",
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "HomeFeed/de/OnThisDayEvents.json"
+  },
+  {
+    "method": "GET",
+    "host": "commons.wikimedia.org",
+    "path": "/w/api.php",
+    "queryItems": {
+      "action": "query",
+      "generator": "images",
+      "prop": "imageinfo"
+    },
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyResource": "HomeFeed/PictureOfTheDayImageInfo.json"
   }
 ]
