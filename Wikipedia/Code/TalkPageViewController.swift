@@ -942,15 +942,11 @@ class TalkPageViewController: ThemeableViewController, WMFNavigationBarConfiguri
     // MARK: Reachability notifier - internet connection monitoring
 
     lazy var reachabilityNotifier: ReachabilityNotifier = {
-        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, _) in
+        let notifier = ReachabilityNotifier { [weak self] reachable in
             if reachable {
-                DispatchQueue.main.async {
-                    self?.hideOfflineAlertIfNeeded()
-                }
+                self?.hideOfflineAlertIfNeeded()
             } else {
-                DispatchQueue.main.async {
-                    self?.showOfflineAlertIfNeeded()
-                }
+                self?.showOfflineAlertIfNeeded()
             }
         }
         return notifier
